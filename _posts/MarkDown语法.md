@@ -1,3 +1,15 @@
+---
+layout: post
+title:  "MarkDown基本语法"
+date:   2018-12-29 15:23:57
+categories: 小知识
+tag: markdown
+---
+
+* content
+{:toc}
+
+
 # MarkDown基本语法
 
 所有使用Markdown语法标记的符号后要加一个空格`Space`

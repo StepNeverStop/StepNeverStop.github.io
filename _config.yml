@@ -2,14 +2,14 @@
 name: Keavnn'Blog
 email: 271668153@qq.com
 author: Keavnn
-url: http://www.hifreud.com
-resume_site: http://www.hifreud.com/Resume.io/
-github: https://github.com/luoyan35714/
+url: https://github.com/StepNeverStop/
+resume_site: http://www.baidu.com/
+github: https://github.com/StepNeverStop/
 baseurl: ""
 description: Actually, less is more!
-meta_description: 康志华;个人博客;学而不思则罔;思而不学则殆;生命不止;折腾不休
-motto: It's our wits that make us men.
-banner: 学而不思则罔，思而不学则殆。
+meta_description: Keavnn
+motto: If it is to be, it is up to me.
+banner: Keep try, find the way to know。
 
 #permalink: /:categories/:year/:month/:day/:title/
 permalink: /:year/:month/:day/:title/

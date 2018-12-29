@@ -1,3 +1,15 @@
+---
+layout: post
+title:  "Windows下右键新建.md文件教程"
+date:   2018年12月29日15:22:45
+categories: 小知识
+tag: markdown
+---
+
+* content
+{:toc}
+
+
 # Windows下右键新建.md文件教程
 
 ## 环境
