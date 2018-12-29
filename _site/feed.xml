@@ -3,313 +3,446 @@
   <channel>
     <title></title>
     <description>Actually, less is more!</description>
-    <link>http://localhost:4000/LessOrMore/</link>
-    <atom:link href="http://localhost:4000/LessOrMore/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 29 Dec 2018 15:02:27 +0800</pubDate>
-    <lastBuildDate>Sat, 29 Dec 2018 15:02:27 +0800</lastBuildDate>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sat, 29 Dec 2018 16:11:37 +0800</pubDate>
+    <lastBuildDate>Sat, 29 Dec 2018 16:11:37 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
-        <title>永久放弃评论功能</title>
+        <title>Git命令学习记录</title>
         <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#yungentie&quot; id=&quot;markdown-toc-yungentie&quot;&gt;云跟帖&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#back-to-begin&quot; id=&quot;markdown-toc-back-to-begin&quot;&gt;选择 - 回归&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#git命令学习记录&quot; id=&quot;markdown-toc-git命令学习记录&quot;&gt;Git命令学习记录&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h1 id=&quot;yungentie&quot;&gt;云跟帖&lt;/h1&gt;
+&lt;h1 id=&quot;git命令学习记录&quot;&gt;Git命令学习记录&lt;/h1&gt;
 
-&lt;p&gt;看了下历史记录，在6月8号切换的云跟帖，未到一个月，7月6号，云跟帖也宣告结束了。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/LessOrMore/styles/images/abandon-comments/yungentie-abandon.png&quot; alt=&quot;/styles/images/abandon-comments/yungentie-abandon.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;撇开第三方评论系统的盈利与否不谈，我好像发现了什么不得了的事情，就是我用什么，就死什么。&lt;/p&gt;
-
-&lt;p&gt;我用Disqus，被墙了；用多说，关停了；用云跟帖，挂了。&lt;/p&gt;
-
-&lt;h1 id=&quot;back-to-begin&quot;&gt;选择 - 回归&lt;/h1&gt;
-
-&lt;p&gt;当看到云跟帖要关停的消息的时候，首先想的是还有什么替代方案。&lt;/p&gt;
-
-&lt;p&gt;考虑了好久，觉得对现在的第三方评论系统都没什么信任感，基于我用什么死什么，我也不想再祸害一个新的好项目了。并且细细想来，我写这个博客的初衷是记录一些我在工作或者学习中遇到或者学到的知识，随着年岁的增长，记忆力直线下降，所以只是拿博客当作一个在线的技术日记记录工具，供我能够随时方便地找到那些我已经遗忘细节的知识点，并没有想过什么著书立传之类的事情。&lt;/p&gt;
-
-&lt;p&gt;能帮到别人固然是好的，不过归根结底是给自己一个方便查阅的平台。&lt;/p&gt;
-
-&lt;p&gt;所以最后的决定是彻底放弃评论功能。如果有人在看我的博客的时候有什么问题，依然可以到github开issue来提问。由于去github开issue相对还是有点技术含量(全球最大的同性交友平台还是技术人员的主场)，这样还屏蔽掉了大部分的灌水或者垃圾评论。&lt;/p&gt;
-
-&lt;p&gt;所以，别了，评论功能！&lt;/p&gt;
-</description>
-        <pubDate>Mon, 24 Jul 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/LessOrMore/2017/07/24/abandon-the-comment-feature/</link>
-        <guid isPermaLink="true">http://localhost:4000/LessOrMore/2017/07/24/abandon-the-comment-feature/</guid>
-        
-        <category>教程</category>
-        
-        
-        <category>document</category>
-        
-      </item>
-    
-      <item>
-        <title>更换评论系统之从多说到云跟帖</title>
-        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#say-goodbyte&quot; id=&quot;markdown-toc-say-goodbyte&quot;&gt;挥别&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#choose&quot; id=&quot;markdown-toc-choose&quot;&gt;选择&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#yungentie&quot; id=&quot;markdown-toc-yungentie&quot;&gt;网易云跟帖&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#login-yungentie&quot; id=&quot;markdown-toc-login-yungentie&quot;&gt;登录云跟帖&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#init-yungentie&quot; id=&quot;markdown-toc-init-yungentie&quot;&gt;初始化&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#import-yungentie&quot; id=&quot;markdown-toc-import-yungentie&quot;&gt;复制引入代码&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#change-template-code&quot; id=&quot;markdown-toc-change-template-code&quot;&gt;修改模板代码&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;say-goodbyte&quot;&gt;挥别&lt;/h1&gt;
-
-&lt;p&gt;从14年博客搭建起来，一直使用的是多说，期间很多人给我留言，有通过我的博客学到技术的，也有看到我博客模板然后拿去使用的，总之也积累了一定的评论量。期间想换Disqus，那时候还没有被墙，不过由于Disqus是国外产品，本地化做的不是很好。所以一直以来仰仗着多说来支撑着博客的评论。不过好景不长。也就大约17年的三月份左右，查看博客的时候，看到评论框上面有一个小链接，点击之后才知道6月1日，多说要永久的关闭了。前前后后使用了不到三年吧。还真的有那么点感情了，所以刚看到这个消息的时候还是很震惊的。不过也可以理解，一个无法成功商业化的项目，最后的结局也无非就是这样。但是由于心里的一些不舍，也就一直没有将多说替换下去，一直等到6月1号上班的那天早上10点多，我上线博客查看的时候还是正常可运行的。不过到6月2号，多说的域名就彻底无法访问了。这才知道，多说是真的走了！感谢这三年来的一路相伴，感谢多说团队曾经做过的努力。&lt;/p&gt;
-
-&lt;h1 id=&quot;choose&quot;&gt;选择&lt;/h1&gt;
-
-&lt;p&gt;这几天就一直在寻找一个新的第三方品论，可供考虑的也无非就是畅言，友言，Disqus，云跟帖。&lt;/p&gt;
-
-&lt;p&gt;畅言要求必须有备案，这个不太好搞，所以就放弃了。&lt;/p&gt;
-
-&lt;p&gt;友言貌似也不稳定，今天查看他的服务的时候502了。&lt;/p&gt;
-
-&lt;p&gt;Disqus被墙，而我又极少翻墙。所以也不再考虑之列，最后也就只能选择云跟帖了。&lt;/p&gt;
-
-&lt;h1 id=&quot;yungentie&quot;&gt;网易云跟帖&lt;/h1&gt;
-
-&lt;p&gt;由于云跟帖跟多说有一些小区别。对多说来说，安装完成之后，注册站点跟实际使用域名并没有硬性的要求必须一致，所以写完之后无论在什么地方都可以执行，而网易的这个云跟帖不同的是，会在每次页面加载的时候先获取当前访问的域名，然后跟你注册云跟帖时候的域名做检查，一致的话会放行并正确显示评论系统，不一致就会直接返回错误码，并且在页面不会显示任何内容。&lt;/p&gt;
-
-&lt;p&gt;所以，以后想要使用本Jekyll模板的小盆友们，&lt;code class=&quot;highlighter-rouge&quot;&gt;一定要记得修改自己的云跟帖导入代码&lt;/code&gt;，才能让自己博客的评论系统生效。具体步骤如下：&lt;/p&gt;
-
-&lt;h2 id=&quot;login-yungentie&quot;&gt;登录云跟帖&lt;/h2&gt;
-
-&lt;p&gt;使用自己的账号登录&lt;a href=&quot;https://gentie.163.com/&quot;&gt;https://gentie.163.com/&lt;/a&gt;，然后点击右上角的&lt;code class=&quot;highlighter-rouge&quot;&gt;后台管理&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/LessOrMore/styles/images/yungentie/01.png&quot; alt=&quot;/styles/images/yungentie/01.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;init-yungentie&quot;&gt;初始化&lt;/h2&gt;
-
-&lt;p&gt;如果是第一次登录云跟帖会提示完善站点基本信息。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/LessOrMore/styles/images/yungentie/02.png&quot; alt=&quot;/styles/images/yungentie/01.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;完成之后点击&lt;code class=&quot;highlighter-rouge&quot;&gt;获取代码&lt;/code&gt;，选择合适的皮肤进行设置，本博客是蓝色，固定位置。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/LessOrMore/styles/images/yungentie/03.png&quot; alt=&quot;/styles/images/yungentie/01.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;import-yungentie&quot;&gt;复制引入代码&lt;/h2&gt;
-
-&lt;p&gt;点击&lt;code class=&quot;highlighter-rouge&quot;&gt;WEB代码&lt;/code&gt;, 在右侧的&lt;code class=&quot;highlighter-rouge&quot;&gt;跟贴完整模块代码(Web单独版)&lt;/code&gt;中复制展示框中的代码&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/LessOrMore/styles/images/yungentie/04.png&quot; alt=&quot;/styles/images/yungentie/01.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;change-template-code&quot;&gt;修改模板代码&lt;/h2&gt;
-
-&lt;p&gt;修改&lt;code class=&quot;highlighter-rouge&quot;&gt;_includes/LessOrMore/comments-providers/yungentie&lt;/code&gt;文件中的内容，将文件中的代码全部删除，并粘贴刚刚从云跟帖网站复制的代码。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/LessOrMore/styles/images/yungentie/05.png&quot; alt=&quot;/styles/images/yungentie/01.png&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Thu, 08 Jun 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/LessOrMore/2017/06/08/change-the-comment-provider-to-yuntentie/</link>
-        <guid isPermaLink="true">http://localhost:4000/LessOrMore/2017/06/08/change-the-comment-provider-to-yuntentie/</guid>
-        
-        <category>教程</category>
-        
-        
-        <category>document</category>
-        
-      </item>
-    
-      <item>
-        <title>如何使用LessOrMore这个Jekyll模版</title>
-        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#Thanks&quot; id=&quot;markdown-toc-Thanks&quot;&gt;致谢&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#How-to-use&quot; id=&quot;markdown-toc-How-to-use&quot;&gt;使用&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#Download&quot; id=&quot;markdown-toc-Download&quot;&gt;下载&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#Configuration&quot; id=&quot;markdown-toc-Configuration&quot;&gt;配置&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#How-to-write-document&quot; id=&quot;markdown-toc-How-to-write-document&quot;&gt;如何写文章&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#execute&quot; id=&quot;markdown-toc-execute&quot;&gt;执行&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#result&quot; id=&quot;markdown-toc-result&quot;&gt;效果&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#why&quot; id=&quot;markdown-toc-why&quot;&gt;为什么重复造轮子&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#about-author&quot; id=&quot;markdown-toc-about-author&quot;&gt;关于作者&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;Thanks&quot;&gt;致谢&lt;/h1&gt;
 &lt;ul&gt;
-  &lt;li&gt;感谢&lt;a href=&quot;http://lesscss.cn/&quot;&gt;Less官网&lt;/a&gt;的样式，本Jekyll框架的样式都是基于Less官网的样式直接拷贝过来的。只是重构了JS，并且加入了Jekyll语法而已。&lt;/li&gt;
-  &lt;li&gt;感谢&lt;a href=&quot;https://github.com/&quot;&gt;Github&lt;/a&gt;提供的代码维护和发布平台&lt;/li&gt;
-  &lt;li&gt;感谢&lt;a href=&quot;https://jekyllrb.com/&quot;&gt;Jekyll&lt;/a&gt;团队做出如此优秀的产品&lt;/li&gt;
-  &lt;li&gt;感谢&lt;a href=&quot;https://github.com/mattvh/solar-theme-jekyll&quot;&gt;Solar&lt;/a&gt;的原作者&lt;a href=&quot;http://www.webmaster-source.com/&quot;&gt;Matt Harzewski&lt;/a&gt;，在&lt;code class=&quot;highlighter-rouge&quot;&gt;2014.11&lt;/code&gt;-&lt;code class=&quot;highlighter-rouge&quot;&gt;2016.09&lt;/code&gt;的两年间，我的博客选用了此样式模版&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;删除远程仓库的文件,保留本地的文件&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git rm -r /path/to/filename
+git commit -m &quot;msg&quot;
+git push
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;删除远程仓库的文件,同时删除本地文件&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git rm /path/to/filename
+git commit -m &quot;msg&quot;
+git push
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h1 id=&quot;How-to-use&quot;&gt;使用&lt;/h1&gt;
+</description>
+        <pubDate>Sat, 29 Dec 2018 15:48:51 +0800</pubDate>
+        <link>http://localhost:4000/2018/12/29/Git-learn/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/12/29/Git-learn/</guid>
+        
+        <category>Git</category>
+        
+        
+        <category>小知识</category>
+        
+      </item>
+    
+      <item>
+        <title>MarkDown基本语法</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#markdown基本语法&quot; id=&quot;markdown-toc-markdown基本语法&quot;&gt;MarkDown基本语法&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#一-标题-&quot; id=&quot;markdown-toc-一-标题-&quot;&gt;一、 标题	{#…}&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#一级标题&quot; id=&quot;markdown-toc-一级标题&quot;&gt;一级标题&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#二级标题&quot; id=&quot;markdown-toc-二级标题&quot;&gt;二级标题&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#三级标题&quot; id=&quot;markdown-toc-三级标题&quot;&gt;三级标题&lt;/a&gt;            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#四级标题&quot; id=&quot;markdown-toc-四级标题&quot;&gt;四级标题&lt;/a&gt;                &lt;ul&gt;
+                  &lt;li&gt;&lt;a href=&quot;#五级标题&quot; id=&quot;markdown-toc-五级标题&quot;&gt;五级标题&lt;/a&gt;                    &lt;ul&gt;
+                      &lt;li&gt;&lt;a href=&quot;#六级标题&quot; id=&quot;markdown-toc-六级标题&quot;&gt;六级标题&lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                  &lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#二-列表&quot; id=&quot;markdown-toc-二-列表&quot;&gt;二、 列表&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#1-无序列表&quot; id=&quot;markdown-toc-1-无序列表&quot;&gt;1. 无序列表&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#2-有序列表&quot; id=&quot;markdown-toc-2-有序列表&quot;&gt;2. 有序列表&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#三-字体&quot; id=&quot;markdown-toc-三-字体&quot;&gt;三、 字体&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#四-引用&quot; id=&quot;markdown-toc-四-引用&quot;&gt;四、 引用&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#五-分割线&quot; id=&quot;markdown-toc-五-分割线&quot;&gt;五、 分割线&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#六-图片&quot; id=&quot;markdown-toc-六-图片&quot;&gt;六、 图片&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#七-超链接&quot; id=&quot;markdown-toc-七-超链接&quot;&gt;七、 超链接&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#八-代码&quot; id=&quot;markdown-toc-八-代码&quot;&gt;八、 代码&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#1-单行&quot; id=&quot;markdown-toc-1-单行&quot;&gt;1. 单行&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#2多行代码块&quot; id=&quot;markdown-toc-2多行代码块&quot;&gt;2.多行,代码块&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#九-表格&quot; id=&quot;markdown-toc-九-表格&quot;&gt;九、 表格&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#十-流程图&quot; id=&quot;markdown-toc-十-流程图&quot;&gt;十、 流程图&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;h2 id=&quot;Download&quot;&gt;下载&lt;/h2&gt;
+&lt;h1 id=&quot;markdown基本语法&quot;&gt;MarkDown基本语法&lt;/h1&gt;
 
-&lt;p&gt;使用git从&lt;a href=&quot;https://github.com/luoyan35714/LessOrMore.git&quot;&gt;LessOrMore&lt;/a&gt;主页下载项目&lt;/p&gt;
+&lt;p&gt;所有使用Markdown语法标记的符号后要加一个空格&lt;code class=&quot;highlighter-rouge&quot;&gt;Space&lt;/code&gt;&lt;/p&gt;
 
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/luoyan35714/LessOrMore.git
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h2 id=&quot;一-标题-&quot;&gt;一、 标题	{#…}&lt;/h2&gt;
 
-&lt;h2 id=&quot;Configuration&quot;&gt;配置&lt;/h2&gt;
+&lt;p&gt;使用&lt;code class=&quot;highlighter-rouge&quot;&gt;#&lt;/code&gt;来设置标题级数,一个&lt;code class=&quot;highlighter-rouge&quot;&gt;#&lt;/code&gt;则代表一级标题,字体大小最大&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;LessOrMore&lt;/code&gt;项目需要配置的只有一个文件&lt;code class=&quot;highlighter-rouge&quot;&gt;_config.yml&lt;/code&gt;，打开之后按照如下进行配置。&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;#&lt;/code&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;一级标题&quot;&gt;一级标题&lt;/h1&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;##&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;二级标题&quot;&gt;二级标题&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;###&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;三级标题&quot;&gt;三级标题&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;####&lt;/code&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;四级标题&quot;&gt;四级标题&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;#####&lt;/code&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;五级标题&quot;&gt;五级标题&lt;/h5&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;######&lt;/code&gt;&lt;/p&gt;
+
+&lt;h6 id=&quot;六级标题&quot;&gt;六级标题&lt;/h6&gt;
+
+&lt;h2 id=&quot;二-列表&quot;&gt;二、 列表&lt;/h2&gt;
+
+&lt;h3 id=&quot;1-无序列表&quot;&gt;1. 无序列表&lt;/h3&gt;
+&lt;p&gt;使用&lt;code class=&quot;highlighter-rouge&quot;&gt;-&lt;/code&gt;、&lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt;、&lt;code class=&quot;highlighter-rouge&quot;&gt;*&lt;/code&gt;三个符号都可以&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;使用&lt;code class=&quot;highlighter-rouge&quot;&gt;-&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;使用&lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;使用&lt;code class=&quot;highlighter-rouge&quot;&gt;*&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;如果在列表中想取消下一行的列表性质,需要按下退格&lt;code class=&quot;highlighter-rouge&quot;&gt;Backspace&lt;/code&gt;删除列表前的圆点后,然后按&lt;code class=&quot;highlighter-rouge&quot;&gt;Shift&lt;/code&gt;+&lt;code class=&quot;highlighter-rouge&quot;&gt;Tab&lt;/code&gt;组合键来退回首位.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;一级列表
+    &lt;ul&gt;
+      &lt;li&gt;二级列表
+        &lt;ul&gt;
+          &lt;li&gt;三级列表
+            &lt;ul&gt;
+              &lt;li&gt;四级列表&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;共有三级标题&lt;/p&gt;
+
+&lt;h3 id=&quot;2-有序列表&quot;&gt;2. 有序列表&lt;/h3&gt;
+
+&lt;p&gt;数字加点加空格,如&lt;code class=&quot;highlighter-rouge&quot;&gt;1.[Space]&lt;/code&gt;、&lt;code class=&quot;highlighter-rouge&quot;&gt;2.[Space]&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;需要往前挪动请按&lt;code class=&quot;highlighter-rouge&quot;&gt;Tab&lt;/code&gt;键,往后挪动请按&lt;code class=&quot;highlighter-rouge&quot;&gt;Shift&lt;/code&gt;+&lt;code class=&quot;highlighter-rouge&quot;&gt;Tab&lt;/code&gt;组合键&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;第一级&lt;/li&gt;
+  &lt;li&gt;第二级
+    &lt;ol&gt;
+      &lt;li&gt;第二级第一小节&lt;/li&gt;
+      &lt;li&gt;第二级第二小节
+        &lt;ol&gt;
+          &lt;li&gt;第二级第二小节第一小小节&lt;/li&gt;
+          &lt;li&gt;第二级第二小节第二小小节&lt;/li&gt;
+        &lt;/ol&gt;
+      &lt;/li&gt;
+      &lt;li&gt;第二级第三小节&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;第三级&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;三-字体&quot;&gt;三、 字体&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;斜体&lt;/em&gt;&lt;/p&gt;
+
+    &lt;p&gt;用法:&lt;code class=&quot;highlighter-rouge&quot;&gt;*[内容]*&lt;/code&gt;或&lt;code class=&quot;highlighter-rouge&quot;&gt;_[内容]_&lt;/code&gt;,包含在两个&lt;code class=&quot;highlighter-rouge&quot;&gt;*&lt;/code&gt;星号或两个&lt;code class=&quot;highlighter-rouge&quot;&gt;_&lt;/code&gt;下划线中间的内容会倾斜&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;*Hello World*&lt;/code&gt;:&lt;em&gt;Hello World&lt;/em&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;_Hello World_&lt;/code&gt;:&lt;em&gt;Hello World&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;加粗&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;用法:&lt;code class=&quot;highlighter-rouge&quot;&gt;**[内容]**&lt;/code&gt;,包含在四个&lt;code class=&quot;highlighter-rouge&quot;&gt;*&lt;/code&gt;星号中间的内容会加粗&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;**Hello World**&lt;/code&gt;:&lt;strong&gt;Hello World&lt;/strong&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;&lt;em&gt;斜体加粗&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;用法:&lt;code class=&quot;highlighter-rouge&quot;&gt;***[内容]***&lt;/code&gt;,包含在六个&lt;code class=&quot;highlighter-rouge&quot;&gt;*&lt;/code&gt;星号中间的内容会加粗并斜体&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;***Hello World***&lt;/code&gt;:&lt;strong&gt;&lt;em&gt;Hello World&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;del&gt;删除线&lt;/del&gt;&lt;/p&gt;
+
+    &lt;p&gt;用法:&lt;code class=&quot;highlighter-rouge&quot;&gt;~~[内容]~~&lt;/code&gt;,包含在四个&lt;code class=&quot;highlighter-rouge&quot;&gt;~&lt;/code&gt;波浪号中间的内容会添加删除线&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;~~Hello World~~&lt;/code&gt;:&lt;del&gt;Hello World&lt;/del&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;四-引用&quot;&gt;四、 引用&lt;/h1&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;gt;&lt;/code&gt;表示引用,与&lt;code class=&quot;highlighter-rouge&quot;&gt;#&lt;/code&gt;用法相同&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;gt;&lt;/code&gt;&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;特别注意&lt;code class=&quot;highlighter-rouge&quot;&gt;baseurl&lt;/code&gt;的配置。如果是&lt;code class=&quot;highlighter-rouge&quot;&gt;***.github.io&lt;/code&gt;项目，不修改为空’‘的话，会导致JS,CSS等静态资源无法找到的错误&lt;/p&gt;
+  &lt;p&gt;一级引用&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;name: 博客名称
-email: 邮箱地址
-author: 作者名
-url: 个人网站
-&lt;span class=&quot;c&quot;&gt;### baseurl修改为项目名，如果项目是'***.github.io'，则设置为空''&lt;/span&gt;
-baseurl: &lt;span class=&quot;s2&quot;&gt;&quot;/LessOrMore&quot;&lt;/span&gt;
-resume_site: 个人简历网站
-github: github地址
-github_username: github用户名称
-FB:
-  comments :
-    provider : duoshuo
-    duoshuo:
-        short_name : 多说账户
-    disqus :
-        short_name : Disqus账户
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;gt;&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;blockquote&gt;
+    &lt;p&gt;二级引用&lt;/p&gt;
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;blockquote&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;三级引用&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;退格使用&lt;code class=&quot;highlighter-rouge&quot;&gt;Shift&lt;/code&gt;+&lt;code class=&quot;highlighter-rouge&quot;&gt;Tab&lt;/code&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;五-分割线&quot;&gt;五、 分割线&lt;/h1&gt;
+
+&lt;p&gt;大于等于三个的&lt;code class=&quot;highlighter-rouge&quot;&gt;-&lt;/code&gt;或&lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt;或&lt;code class=&quot;highlighter-rouge&quot;&gt;*&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;---&lt;/code&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;+++&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;+++&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;***&lt;/code&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;六-图片&quot;&gt;六、 图片&lt;/h1&gt;
+
+&lt;p&gt;语法:&lt;code class=&quot;highlighter-rouge&quot;&gt;![图片文字](图片地址 &quot;鼠标放置时显示的信息&quot;)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;例子:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;![大桥](https://timgsa.baidu.com/timg?image&amp;amp;quality=80&amp;amp;size=b9999_10000&amp;amp;sec=1546072097132&amp;amp;di=8669a22f7be9af8266cb1580d15c155d&amp;amp;imgtype=0&amp;amp;src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F63d9f2d3572c11dfea8f528e6e2762d0f603c2c5.jpg &quot;美丽的桥梁&quot;)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://timgsa.baidu.com/timg?image&amp;amp;quality=80&amp;amp;size=b9999_10000&amp;amp;sec=1546072097132&amp;amp;di=8669a22f7be9af8266cb1580d15c155d&amp;amp;imgtype=0&amp;amp;src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F63d9f2d3572c11dfea8f528e6e2762d0f603c2c5.jpg&quot; alt=&quot;大桥&quot; title=&quot;美丽的桥梁&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;七-超链接&quot;&gt;七、 超链接&lt;/h1&gt;
+
+&lt;p&gt;语法:&lt;code class=&quot;highlighter-rouge&quot;&gt;[超链接名](超链接地址 &quot;鼠标放置时显示的信息&quot;)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;例子:&lt;code class=&quot;highlighter-rouge&quot;&gt;[百度一下,你就知道](www.baidu.com &quot;我就是百度&quot;)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;www.baidu.com&quot; title=&quot;我就是百度&quot;&gt;百度一下,你就知道&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;八-代码&quot;&gt;八、 代码&lt;/h1&gt;
+
+&lt;h2 id=&quot;1-单行&quot;&gt;1. 单行&lt;/h2&gt;
+
+&lt;p&gt;使用`` `反引号包裹&lt;/p&gt;
+
+&lt;h2 id=&quot;2多行代码块&quot;&gt;2.多行,代码块&lt;/h2&gt;
+
+&lt;p&gt;使用三个反引号包裹&lt;code class=&quot;highlighter-rouge&quot;&gt;(&lt;/code&gt;``)`,去掉括号&lt;/p&gt;
+
+&lt;p&gt;使用```+编程语言可以打开代码编辑器&lt;/p&gt;
+
+&lt;p&gt;如 ```+python&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sys&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;这是一个&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;python&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;语法的编译器&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;How-to-write-document&quot;&gt;如何写文章&lt;/h2&gt;
+&lt;h1 id=&quot;九-表格&quot;&gt;九、 表格&lt;/h1&gt;
 
-&lt;p&gt;在&lt;code class=&quot;highlighter-rouge&quot;&gt;LessOrMore/_posts&lt;/code&gt;目录下新建一个文件，可以创建文件夹并在文件夹中添加文件，方便维护。在新建文件中粘贴如下信息，并修改以下的&lt;code class=&quot;highlighter-rouge&quot;&gt;titile&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;date&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;categories&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;tag&lt;/code&gt;的相关信息，添加&lt;code class=&quot;highlighter-rouge&quot;&gt;* content {:toc}&lt;/code&gt;为目录相关信息，在进行正文书写前需要在目录和正文之间输入至少2行空行。然后按照正常的Markdown语法书写正文。&lt;/p&gt;
+&lt;p&gt;每一行都使用&lt;code class=&quot;highlighter-rouge&quot;&gt;|&lt;/code&gt;隔开&lt;/p&gt;
 
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;
-layout: post
-&lt;span class=&quot;c&quot;&gt;#标题配置&lt;/span&gt;
-title:  标题
-&lt;span class=&quot;c&quot;&gt;#时间配置&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt;:   2016-08-27 01:08:00 +0800
-&lt;span class=&quot;c&quot;&gt;#大类配置&lt;/span&gt;
-categories: document
-&lt;span class=&quot;c&quot;&gt;#小类配置&lt;/span&gt;
-tag: 教程
-&lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;
+&lt;p&gt;第二行使用&lt;code class=&quot;highlighter-rouge&quot;&gt;:&lt;/code&gt;设置对齐,两边都加表示文字居中,加在左边表示居左&lt;/p&gt;
 
-&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; content
-&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;:toc&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-
-我是正文。我是正文。我是正文。我是正文。我是正文。我是正文。
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;|标题1|标题2|标题3|
+|-|:-:|:-|
+|1|2|3|
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;execute&quot;&gt;执行&lt;/h2&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;标题1&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;标题2&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;标题3&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
 
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jekyll server
+&lt;h1 id=&quot;十-流程图&quot;&gt;十、 流程图&lt;/h1&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;​```flow
+st=&amp;gt;start: 开始
+op=&amp;gt;operation: My Operation
+cond=&amp;gt;condition: Yes or No?
+e=&amp;gt;end
+st-&amp;gt;op-&amp;gt;cond
+cond(yes)-&amp;gt;e
+cond(no)-&amp;gt;op
+​```
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;result&quot;&gt;效果&lt;/h2&gt;
-&lt;p&gt;打开浏览器并输入URL&lt;code class=&quot;highlighter-rouge&quot;&gt;http://localhost:4000/&lt;/code&gt;,回车。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-flow&quot;&gt;st=&amp;gt;start: 开始
+op=&amp;gt;operation: My Operation
+cond=&amp;gt;condition: Yes or No?
+e=&amp;gt;end
+st-&amp;gt;op-&amp;gt;cond
+cond(yes)-&amp;gt;e
+cond(no)-&amp;gt;op
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;h1 id=&quot;why&quot;&gt;为什么重复造轮子&lt;/h1&gt;
-
-&lt;p&gt;很明显，我在重复造轮子。在13年接触到GIT，14年末接触到Jekyll，然后搭建了自己的博客，当时是选用了&lt;a href=&quot;http://jekyllthemes.org/&quot;&gt;JekyllThemes&lt;/a&gt;上的&lt;a href=&quot;https://github.com/mattvh/solar-theme-jekyll&quot;&gt;Solar&lt;/a&gt;主题，一直到现在。不过中间一直感觉页面风格还是偏暗，阅读不方便。并且有一些小的细节做的不是很好。在页面的跨平台浏览上有一些瑕疵。并且不区分一级标题和二级标题，导致没有重点强调。诸如此类，用了2年，用的越多，越发吃力，中间就一直在寻找新的能够让我一眼认定的主题。&lt;/p&gt;
-
-&lt;p&gt;虽然设计好看的主题很多。但是真正适合拿来做博客的却不多。中间一直没有找到合适的主题。直到有一天看到Less官网的主题之后，豁然觉得这就是我的博客想要的样子。简单而又不平凡。所以就决定了要把博客迁移到这个主题，然后拿了两天晚上来把这个主题做出来。&lt;/p&gt;
-
-&lt;p&gt;重复造了轮子，但是这个是迄今为止自己觉得最适合我的博客的轮子，所以是值得的！&lt;/p&gt;
-
-&lt;h1 id=&quot;about-author&quot;&gt;关于作者&lt;/h1&gt;
-
-&lt;p&gt;热爱开源，热爱折腾的Java程序猿。更多个人信息和联系方式可以参照&lt;a href=&quot;http://www.hifreud.com/Resume.io/&quot;&gt;我的简介&lt;/a&gt;。&lt;/p&gt;
 </description>
-        <pubDate>Sat, 27 Aug 2016 01:08:00 +0800</pubDate>
-        <link>http://localhost:4000/LessOrMore/2016/08/27/how-to-use-this-jekyll-theme/</link>
-        <guid isPermaLink="true">http://localhost:4000/LessOrMore/2016/08/27/how-to-use-this-jekyll-theme/</guid>
+        <pubDate>Sat, 29 Dec 2018 15:23:57 +0800</pubDate>
+        <link>http://localhost:4000/2018/12/29/MarkDown%E8%AF%AD%E6%B3%95/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/12/29/MarkDown%E8%AF%AD%E6%B3%95/</guid>
         
-        <category>教程</category>
+        <category>markdown</category>
         
         
-        <category>document</category>
+        <category>小知识</category>
         
       </item>
     
       <item>
-        <title>我面试过的上百个候选者中成功的人总会做的事情</title>
+        <title>Windows下右键新建.md文件教程</title>
         <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#prepare&quot; id=&quot;markdown-toc-prepare&quot;&gt;充分的准备，知道哪些事情是想要让面试官知道的。&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#learn&quot; id=&quot;markdown-toc-learn&quot;&gt;了解你的听众，组织你的回答语言。&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#keep-calm&quot; id=&quot;markdown-toc-keep-calm&quot;&gt;保持冷静，记住这次面试是双向的。&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#windows下右键新建md文件教程&quot; id=&quot;markdown-toc-windows下右键新建md文件教程&quot;&gt;Windows下右键新建.md文件教程&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#环境&quot; id=&quot;markdown-toc-环境&quot;&gt;环境&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#效果图&quot; id=&quot;markdown-toc-效果图&quot;&gt;效果图&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#步骤&quot; id=&quot;markdown-toc-步骤&quot;&gt;步骤&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#1-打开注册表&quot; id=&quot;markdown-toc-1-打开注册表&quot;&gt;1. 打开注册表&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#2-修改注册表&quot; id=&quot;markdown-toc-2-修改注册表&quot;&gt;2. 修改注册表&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#3-编辑新建图标非必须&quot; id=&quot;markdown-toc-3-编辑新建图标非必须&quot;&gt;3. 编辑新建图标(非必须)&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;本文翻译自&lt;a href=&quot;https://www.linkedin.com/&quot;&gt;Linked In&lt;/a&gt;，作者Minal Mehta&lt;/p&gt;
+&lt;h1 id=&quot;windows下右键新建md文件教程&quot;&gt;Windows下右键新建.md文件教程&lt;/h1&gt;
 
-&lt;p&gt;原文地址 &lt;a href=&quot;http://www.linkedin.com/pulse/20141002164029-1473578-how-to-win-an-interview-before-it-starts?midToken=AQH6jyhMOpWb0g&amp;amp;trk=eml-b2_content_ecosystem_digest-recommended_articles-74-null&amp;amp;fromEmail=fromEmail&amp;amp;ut=3Sa86TzhqLj6s1&quot;&gt;I’ve Interviewed 100s of Candidates and the Ones I Hire Always Do This&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;环境&quot;&gt;环境&lt;/h2&gt;
 
-&lt;p&gt;面试是很有压力的一件事，通常，你只有不到一个小时的时间来使面试官相信你是所有候选者中最合适那一个。这个面试官很有可能还会在当天面试其他的候选者并且还有其他的事情要做。那你如何才能够脱颖而出呢。&lt;/p&gt;
+&lt;p&gt;windows10操作系统
+Typora编辑器&lt;/p&gt;
 
-&lt;h1 id=&quot;prepare&quot;&gt;充分的准备，知道哪些事情是想要让面试官知道的。&lt;/h1&gt;
+&lt;h2 id=&quot;效果图&quot;&gt;效果图&lt;/h2&gt;
 
-&lt;p&gt;通过上百个我做组织的面试者们，我发现最合适的那些面试者永远都是表达最清晰的。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/myimage/win-right-click-md/1546050455.jpg&quot; alt=&quot;右键有Markdown文件类型&quot; title=&quot;效果图&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;所有人都知道充足的准备是必要的，但是如何准备是极其重要的，许多人会准备一份面试题和答案的合集，这导致一部分人在遇到合集以外的问题的时候会恐慌（我见过许多人恐慌或者说“这是一个好问题”，当我面试别人或者帮助那些学生准备面试的时候）&lt;/p&gt;
+&lt;h2 id=&quot;步骤&quot;&gt;步骤&lt;/h2&gt;
 
-&lt;p&gt;以下是我的建议：以最近的记忆最清晰的工作流程开始。通过阅读他们的信息或者询问那些你知道的在这工作的朋友来调查面试的公司和职位，了解他们正在寻找一个拥有什么样能力和文化的人&lt;/p&gt;
+&lt;h3 id=&quot;1-打开注册表&quot;&gt;1. 打开注册表&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;CMD+R&lt;/code&gt;，打开运行对话框&lt;/li&gt;
+  &lt;li&gt;输入&lt;code class=&quot;highlighter-rouge&quot;&gt;regedit&lt;/code&gt;，打开注册表编辑器&lt;/li&gt;
+&lt;/ol&gt;
 
-&lt;p&gt;了解自己，你自己最擅长什么？怎么让你自身如何与公司正在找的人相匹配？这个过程会让你有一个清晰的定位，知道这个公司的职位是不是真的适合你。假设是的，你的自身能力跟这个职位相匹配，你同样知道自己的不足在哪。&lt;/p&gt;
+&lt;h3 id=&quot;2-修改注册表&quot;&gt;2. 修改注册表&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;在&lt;code class=&quot;highlighter-rouge&quot;&gt;计算机&amp;gt;HKEY_CLASSES_ROOT&lt;/code&gt;右键查找，输入&lt;code class=&quot;highlighter-rouge&quot;&gt;Typora&lt;/code&gt;，勾选项，取消勾选值和数据
+&lt;img src=&quot;/myimage/win-right-click-md/20181229103503.png&quot; alt=&quot;右键查找typora运行程序&quot; /&gt;&lt;/li&gt;
+  &lt;li&gt;确认运行的程序名字，我的电脑如图所示，运行文件是&lt;code class=&quot;highlighter-rouge&quot;&gt;Typora.exe&lt;/code&gt;
+&lt;img src=&quot;C:/myimage/win-right-click-md/20181229103752.png&quot; alt=&quot;查看运行md文件的程序名称&quot; /&gt;
+如果使用的是markdownpad或者其他编辑器，同理&lt;/li&gt;
+  &lt;li&gt;在磁盘任意位置新建一个文件，后缀为&lt;code class=&quot;highlighter-rouge&quot;&gt;.reg&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;打开编辑刚刚创建好的注册表文件，写入一下内容：
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Windows Registry Editor Version 5.00
+[HKEY_CLASSES_ROOT\.md]
+@=&quot;Typora.exe&quot;
+[HKEY_CLASSES_ROOT\.md\ShellNew]
+&quot;NullFile&quot;=&quot;&quot;
+[HKEY_CLASSES_ROOT\Typora.exe]
+@=&quot;Markdown&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
 
-&lt;p&gt;从你过往工作经历中找出你突出的贡献，那些你已经确定了你的能力和工作要求相交集的部分。并且，找出一些事情来证明你可以改善你不足的方面。通常，你想出来的这几件事件可以重新组装利用来彰显不同方面的能力。&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@=&quot;Typora.exe&quot;&lt;/code&gt; 代表的是指定.md文件的运行程序
+&lt;code class=&quot;highlighter-rouge&quot;&gt;@=&quot;Markdown&quot;&lt;/code&gt; 代表的是右键时默认的文件名字，这样写新建为&lt;code class=&quot;highlighter-rouge&quot;&gt;新建Markdown.md&lt;/code&gt;文件，而且右键菜单中显示&lt;code class=&quot;highlighter-rouge&quot;&gt;MarkDown&lt;/code&gt;&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;编辑好之后,另存为,设置如图所示:
+&lt;img src=&quot;/myimage/win-right-click-md/20181229105408.png&quot; alt=&quot;保存配置文件&quot; /&gt;
+文件名可以随便设置，但是后缀必须是&lt;code class=&quot;highlighter-rouge&quot;&gt;.reg&lt;/code&gt;文件,保存类型一定要是&lt;code class=&quot;highlighter-rouge&quot;&gt;文本文档(*.txt)&lt;/code&gt;,编码选择&lt;code class=&quot;highlighter-rouge&quot;&gt;Unicode&lt;/code&gt;,非常重要!!!!!&lt;/li&gt;
+  &lt;li&gt;保存文件后,双击运行,修改注册表即可,现在右键即可达到预期效果,如果不行,请重启一下.&lt;/li&gt;
+&lt;/ol&gt;
 
-&lt;h1 id=&quot;learn&quot;&gt;了解你的听众，组织你的回答语言。&lt;/h1&gt;
+&lt;h3 id=&quot;3-编辑新建图标非必须&quot;&gt;3. 编辑新建图标(非必须)&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;以&lt;code class=&quot;highlighter-rouge&quot;&gt;Typora&lt;/code&gt;为例,在注册表&lt;code class=&quot;highlighter-rouge&quot;&gt;Typora.exe&lt;/code&gt;下点击项&lt;code class=&quot;highlighter-rouge&quot;&gt;DefaultIcon&lt;/code&gt;,右键修改&lt;/li&gt;
+  &lt;li&gt;将属性修改为想要设置的Markdown文件图标&lt;/li&gt;
+&lt;/ol&gt;
 
-&lt;p&gt;我推荐使用排序的组织来确保你的面试官可以理解你的表述。我是STAR方法的忠实粉丝：Situation处境（场景再现），Task任务（必须要做到的），Action行动（你实际做的），Result结果（发生了什么）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/myimage/win-right-click-md/20181229105300.png&quot; alt=&quot;修改Markdown文件图标&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;场景再现是最重要的，虽然你很清楚发生了什么，但是面试官不知道，花些时间来确保他们可以设身处地的知道当时的情况。如果你不这么做，剩下的故事将是对牛弹琴。&lt;/p&gt;
-
-&lt;p&gt;我个人也一直将同样的方法用在各种面试中。“如果你处在一个特定的情境下，你会怎么做？” 花点时间去建立一个共享的空间，让面试官了解情况，然后你们才能一起来聊需要做什么。&lt;/p&gt;
-
-&lt;h1 id=&quot;keep-calm&quot;&gt;保持冷静，记住这次面试是双向的。&lt;/h1&gt;
-
-&lt;p&gt;深呼吸然后记住这只是一次谈话，面试官给你一个评价是很重要的，但是同样重要的是你也要给面试官一个评价，并且确认这是你想要工作的地方。&lt;/p&gt;
+&lt;p&gt;文档有错或转载请联系邮箱&lt;code class=&quot;highlighter-rouge&quot;&gt;stepneverstop@qq.com&lt;/code&gt;&lt;/p&gt;
 </description>
-        <pubDate>Sat, 20 Dec 2014 20:05:00 +0800</pubDate>
-        <link>http://localhost:4000/LessOrMore/2014/12/20/I-ve-Interviewed-100s-of-Candidates-and-the-Ones-I-Hire-Always-Do-This/</link>
-        <guid isPermaLink="true">http://localhost:4000/LessOrMore/2014/12/20/I-ve-Interviewed-100s-of-Candidates-and-the-Ones-I-Hire-Always-Do-This/</guid>
+        <pubDate>Sat, 29 Dec 2018 08:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2018/12/29/windows%E4%B8%8B%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/12/29/windows%E4%B8%8B%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/</guid>
         
-        <category>interview</category>
-        
-        
-        <category>翻译文章</category>
-        
-      </item>
-    
-      <item>
-        <title>Welcome to Jekyll!</title>
-        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#zhugeliang&quot; id=&quot;markdown-toc-zhugeliang&quot;&gt;诫子书&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;First POST build by Jekyll.&lt;/p&gt;
-
-&lt;h2 id=&quot;zhugeliang&quot;&gt;诫子书&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;/LessOrMore/styles/images/jiezishu.jpg&quot; alt=&quot;诫子书&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot;&gt;诸葛亮&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;夫君子之行，静以修身，俭以养德。非淡泊(澹泊)无以明志，非宁静无以致远。夫学须静也，才须学也。非学无以广才，非志无以成学。淫慢则不能励精，险躁则不能冶性。
-年与时驰，意与日去，遂成枯落，多不接世，悲守穷庐，将复何及！&lt;/p&gt;
-
-</description>
-        <pubDate>Mon, 17 Nov 2014 13:31:01 +0800</pubDate>
-        <link>http://localhost:4000/LessOrMore/2014/11/17/welcome-to-jekyll/</link>
-        <guid isPermaLink="true">http://localhost:4000/LessOrMore/2014/11/17/welcome-to-jekyll/</guid>
-        
-        <category>jekyll</category>
+        <category>markdown</category>
         
         
-        <category>jekyll</category>
+        <category>小知识</category>
         
       </item>
     
