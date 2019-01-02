@@ -1,14 +1,8 @@
 ---
-layout: post
 title:  "Windows下右键新建.md文件教程"
 date:   2018-12-29 00:00:00
-categories: 小知识
-tag: markdown
+tags: markdown
 ---
-
-* content
-{:toc}
-
 
 # Windows下右键新建.md文件教程
 

@@ -1,20 +1,14 @@
 ---
-layout: post
 title:  "MarkDown基本语法"
-date:   2018-12-29 15:23:57 +0800
-categories: 小知识
-tag: markdown
+date:   2018-12-29 15:23:57
+tags: markdown
 ---
-
-* content
-{:toc}
-
 
 # MarkDown基本语法
 
 所有使用Markdown语法标记的符号后要加一个空格`Space`
 
-## 一、 标题	{#...}
+## 一、 标题	{{ '{#' }}...}
 
 使用`#`来设置标题级数,一个`#`则代表一级标题,字体大小最大
 
@@ -161,19 +155,17 @@ tag: markdown
 
 ## 1. 单行
 
-使用`` `反引号包裹
+使用<code>&#96;</code>反引号包裹
 
 ## 2.多行,代码块
 
 使用三个反引号包裹
 
-```
-​```
-```
+<code>&#96;&#96;&#96;</code>
 
-使用```+编程语言可以打开代码编辑器
+使用<code>&#96;&#96;&#96;</code>+编程语言可以打开代码编辑器
 
-如 ```+python
+如 <code>&#96;&#96;&#96;</code>+python
 
 ```python
 import sys

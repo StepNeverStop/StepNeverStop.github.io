@@ -4,11 +4,11 @@
 
 # Site
 title: Keavnn'Blog
-subtitle:
-description:
-keywords:
+subtitle: If it is to be, it is up to me.
+description: If it is to be, it is up to me.
+keywords: keywords
 author: Keavnn
-language:
+language: zh-Hans
 timezone:
 
 # URL
@@ -78,4 +78,6 @@ theme: next
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: git
+  repository: https://github.com:StepNeverStop/StepNeverStop.github.io.git
+  branch: master

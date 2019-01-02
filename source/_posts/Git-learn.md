@@ -1,14 +1,8 @@
 ---
-layout: post
 title: "Git命令学习记录"
-date: 2018-12-29 15:48:51 +0800
-categories: 小知识
-tag: Git
+date: 2018-12-29 15:48:51
+tags: Git
 ---
-
-* content
-{:toc}
-
 
 # Git命令学习记录
 
@@ -63,3 +57,21 @@ tag: Git
   git push -f origin master
   更新master分支
   ```
+  
+- 如果在本地git仓库下有另外一个clone过来的git仓库，那么当使用`git add .`，然后再`git commit ...`时会报错。并且上传到仓库的文件夹是空的，解决方案如下：
+  1. `cd`到`clone`的仓库目录下，执行`rd /s/q .git`命令，删除`clone`的仓库目录下的`.git`文件夹
+  2. 回到仓库根目录删除仓库中的空文件夹
+
+     2.1 `git rm -r --cached "themes/[branchname]"`
+     
+     2.2 `git commit -m "remove empty folder"`
+     
+     2.3 `git push origin master`
+     
+  3. 在仓库根目录重新提交代码
+
+     3.1 `git add .`
+     
+     3.2 `git commit -m "repush"`
+     
+     3.3 `git push origin master`
