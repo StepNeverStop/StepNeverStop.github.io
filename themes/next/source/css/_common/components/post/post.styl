@@ -58,3 +58,17 @@
 @import "post-copyright" if hexo-config('post_copyright.enable');
 @import "post-widgets" if (hexo-config('facebook_sdk.enable') and hexo-config('facebook_sdk.like_button')) or (hexo-config('vkontakte_api.enable') and hexo-config('vkontakte_api.like')) or hexo-config('rating.enable') or (hexo-config('needmoreshare2.enable') and hexo-config('needmoreshare2.postbottom.enable'));
 @import "post-rtl";
+
+// 文章内链接文本样式
+.post-body p a{
+  color: #0593d3; //原始链接颜色
+  border-bottom: none;
+  border-bottom: 1px solid #0593d3; //底部分割线颜色
+  &:hover {
+    color: #fc6423; //鼠标经过颜色
+    border-bottom: none;
+    border-bottom: 1px solid #fc6423; //底部分割线颜色
+  }
+}
+
+@import "my-post-copyright"
