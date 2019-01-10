@@ -16,7 +16,7 @@ tags:
 # 创建ML-Agents的Docker镜像
 
 ## 前言
-  
+
   如果需要在镜像中使用GPU训练,可以将Nvidia的官方镜像作为基础镜像,`Dockerfile`如下:
 ```
 FROM nvidia/cuda:9.0-base-ubuntu16.04
@@ -308,3 +308,9 @@ ENTRYPOINT ["/usr/sbin/sshd","-D"]
   - 执行`mlagents-learn trainer_config.yaml --docker-target-name=data/unity-volume --env=3dball --train --run-id=test --save-freq=5000 | tee /data/unity-volume/log.txt`,如果不想在屏幕输出,可以在后边加上`>/dev/null`
   ![](/2019/01/04/创建ML-Agents的Docker镜像/Snipaste_2019-01-04_15-16-44.png)
   ![](/2019/01/04/创建ML-Agents的Docker镜像/Snipaste_2019-01-04_15-18-40.png)
+  
+---
+
+## 安装Miniconda
+
+`apt-get update && apt-get install bzip2 -y && cd /data && bash Miniconda3-latest-Linux-x86_64.sh`
