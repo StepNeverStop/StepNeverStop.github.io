@@ -126,6 +126,7 @@ deb-src http://mirrors.163.com/ubuntu/ xenial-backports main restricted universe
 
 此时为了避免诸如使用`ping [IP]`有效,但是`ping [HOST]`无效的情况,需要使用`nano /etc/resolv.conf`修改配置文件
 将`namespace`后的IP地址更改为`8.8.8.8`或者`4.4.4.4`
+*或者使用`echo "nameserver 114.114.114.114 > /etc/resolv.conf"`也可以*
 退出保存即可
 
 *有可能上述修改DNS的方式并不成功,原因是在云上运行容器时,配置文件自动修改,如果发生这种情况,请每次在新开一个容器时,手动修改配置文件的DNS服务器,使其可以使用网络服务*
