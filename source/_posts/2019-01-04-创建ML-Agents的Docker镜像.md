@@ -353,3 +353,9 @@ ENV PATH /usr/miniconda3/bin:$PATH
 
 `RUN ln -s /usr/miniconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh`
 
+查了一下相关资料,发现在4.5版本的conda是无解的
+[https://github.com/ContinuumIO/docker-images/issues/89](https://github.com/ContinuumIO/docker-images/issues/89)
+
+![]((/2019/01/04/创建ML-Agents的Docker镜像/Snipaste_2019-01-11_22-38-42.png)
+
+希望4.6版本可以解决吧
