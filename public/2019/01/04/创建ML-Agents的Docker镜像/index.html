@@ -117,7 +117,11 @@ daovoice('update');
 <meta property="og:image" content="http://stepneverstop.github.io/2019/01/04/创建ML-Agents的Docker镜像/Snipaste_2019-01-04_13-31-52.png">
 <meta property="og:image" content="http://stepneverstop.github.io/2019/01/04/创建ML-Agents的Docker镜像/Snipaste_2019-01-04_15-16-44.png">
 <meta property="og:image" content="http://stepneverstop.github.io/2019/01/04/创建ML-Agents的Docker镜像/Snipaste_2019-01-04_15-18-40.png">
-<meta property="og:updated_time" content="2019-01-09T14:22:29.559Z">
+<meta property="og:image" content="http://stepneverstop.github.io/2019/01/04/创建ML-Agents的Docker镜像/Snipaste_2019-01-11_13-25-17.png">
+<meta property="og:image" content="http://stepneverstop.github.io/2019/01/04/创建ML-Agents的Docker镜像/Snipaste_2019-01-11_13-35-56.png">
+<meta property="og:image" content="http://stepneverstop.github.io/2019/01/04/创建ML-Agents的Docker镜像/Snipaste_2019-01-11_13-39-26.png">
+<meta property="og:image" content="http://stepneverstop.github.io/2019/01/04/创建ML-Agents的Docker镜像/Snipaste_2019-01-11_15-02-16.png">
+<meta property="og:updated_time" content="2019-01-11T07:04:45.723Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="创建ML-Agents的Docker镜像">
 <meta name="twitter:description" content="创建ML-Agents的Docker镜像前言  如果需要在镜像中使用GPU训练,可以将Nvidia的官方镜像作为基础镜像,Dockerfile如下:1234567891011121314151617181920212223242526FROM nvidia/cuda:9.0-base-ubuntu16.04LABEL maintainer &amp;quot;NVIDIA CORPORATION &amp;lt;">
@@ -361,8 +365,8 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-09T22:22:29+08:00">
-                2019-01-09
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-11T15:04:45+08:00">
+                2019-01-11
               </time>
             
           </span>
@@ -422,7 +426,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.6k
+                  2.1k
                 </span>
               
 
@@ -438,7 +442,7 @@ daovoice('update');
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  9
+                  10
                 </span>
               
             </div>
@@ -509,7 +513,24 @@ daovoice('update');
 </li>
 </ul>
 <hr>
-<h2 id="安装Miniconda"><a href="#安装Miniconda" class="headerlink" title="安装Miniconda"></a>安装Miniconda</h2><p><code>apt-get update &amp;&amp; apt-get install bzip2 -y &amp;&amp; cd /data &amp;&amp; bash Miniconda3-latest-Linux-x86_64.sh</code></p>
+<h2 id="安装Miniconda"><a href="#安装Miniconda" class="headerlink" title="安装Miniconda"></a>安装Miniconda</h2><p>确保你的安装包放在了data文件夹下<br><code>apt-get update &amp;&amp; apt-get install bzip2 -y &amp;&amp; cd /data &amp;&amp; bash Miniconda3-latest-Linux-x86_64.sh</code></p>
+<p>一路按回车、yes等等就成功了.如果需要安装到指定目录,在安装过程中会有提示告诉你让你指定安装路径</p>
+<p><em>注意</em></p>
+<p>在<a href="http://10.0.4.228/" target="_blank" rel="noopener">学校机器学习平台</a>上使用时,如果是使用容器的方式,那么新开的容器就可以使用<code>conda</code>命令,不存在<code>conda:command not found</code>的错误信息.</p>
+<p>但是,如果在平台上以<strong>提交任务</strong>的形式来使用带conda的镜像所产生的容器时,就算是在镜像中配置了<code>echo &#39;export PATH=&quot;~/anaconda3/bin:$PATH&quot;&#39; &gt;&gt; ~/.bashrc</code>,当提交任务时环境变量中仍然没有<code>~/anaconda3/bin</code>,这个问题目前没有找到比较方便的解决办法,目前所采用的方式是:</p>
+<p>在提交任务时, 首先加上命令<code>export PATH=&quot;~/anaconda3/bin:$PATH&quot; &amp;&amp;</code></p>
+<p><img src="/2019/01/04/创建ML-Agents的Docker镜像/Snipaste_2019-01-11_13-25-17.png" alt=""></p>
+<p>接着又实验了一下<code>echo &#39;export PATH=&quot;~/anaconda3/bin:$PATH&quot;&#39; &gt;&gt; /etc/profile</code>, 正常来说, 如果在容器中这样设置环境变量, 等待下次从镜像创建容器时, 这个环境变量一般并不会生效, 但是不知道这样设置对于提交任务方式来说有没有效, 索性试了一下</p>
+<p><img src="/2019/01/04/创建ML-Agents的Docker镜像/Snipaste_2019-01-11_13-35-56.png" alt=""></p>
+<p>根据输出日志来看, 这种方式也并没有奏效</p>
+<p><img src="/2019/01/04/创建ML-Agents的Docker镜像/Snipaste_2019-01-11_13-39-26.png" alt=""></p>
+<p>当然, 如果觉得上述配置比较麻烦的话,可以使用<code>Dockerfile</code>的<code>ENV</code>命令来设置环境变量, 这样设置99%是不会有问题的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">FROM hub.hoc.ccshu.net/wjs/mlunityv060:v1.4.5</span><br><span class="line">ENV PATH /usr/miniconda3/bin:$PATH</span><br></pre></td></tr></table></figure>
+<p>实验了一下,<br>结果如下:</p>
+<p><img src="/2019/01/04/创建ML-Agents的Docker镜像/Snipaste_2019-01-11_15-02-16.png" alt=""></p>
+<p>表示可以使用<code>conda</code>命令, 但是不能使用<code>conda activate</code>命令激活环境</p>
+<p>根据错误信息, 在<code>Dockerfile</code>中写入以下代码也不可行:</p>
+<p><code>RUN ln -s /usr/miniconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh</code></p>
 
       
     </div>
@@ -539,7 +560,7 @@ daovoice('update');
   <p><span>本文标题:</span><a href="/2019/01/04/创建ML-Agents的Docker镜像/">创建ML-Agents的Docker镜像</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Keavnn 的个人博客">Keavnn</a></p>
   <p><span>发布时间:</span>2019年01月04日 - 10:01</p>
-  <p><span>最后更新:</span>2019年01月09日 - 22:01</p>
+  <p><span>最后更新:</span>2019年01月11日 - 15:01</p>
   <p><span>原始链接:</span><a href="/2019/01/04/创建ML-Agents的Docker镜像/" title="创建ML-Agents的Docker镜像">http://StepNeverStop.github.io/2019/01/04/创建ML-Agents的Docker镜像/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://StepNeverStop.github.io/2019/01/04/创建ML-Agents的Docker镜像/" aria-label="复制成功！"></i></span>
   </p>
@@ -850,7 +871,7 @@ daovoice('update');
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">6.5k</span>
+    <span title="Site words total count">7k</span>
   
 </div>
 
@@ -870,7 +891,7 @@ daovoice('update');
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共6.5k字</span>
+  <span class="post-count">博客全站共7k字</span>
 </div> -->
         
 

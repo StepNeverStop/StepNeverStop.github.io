@@ -313,4 +313,43 @@ ENTRYPOINT ["/usr/sbin/sshd","-D"]
 
 ## 安装Miniconda
 
+确保你的安装包放在了data文件夹下
 `apt-get update && apt-get install bzip2 -y && cd /data && bash Miniconda3-latest-Linux-x86_64.sh`
+
+一路按回车、yes等等就成功了.如果需要安装到指定目录,在安装过程中会有提示告诉你让你指定安装路径
+
+*注意*
+
+在[学校机器学习平台](http://10.0.4.228/)上使用时,如果是使用容器的方式,那么新开的容器就可以使用`conda`命令,不存在`conda:command not found`的错误信息.
+
+但是,如果在平台上以**提交任务**的形式来使用带conda的镜像所产生的容器时,就算是在镜像中配置了`echo 'export PATH="~/anaconda3/bin:$PATH"' >> ~/.bashrc`,当提交任务时环境变量中仍然没有`~/anaconda3/bin`,这个问题目前没有找到比较方便的解决办法,目前所采用的方式是:
+
+在提交任务时, 首先加上命令`export PATH="~/anaconda3/bin:$PATH" && `
+
+![](/2019/01/04/创建ML-Agents的Docker镜像/Snipaste_2019-01-11_13-25-17.png)
+
+接着又实验了一下`echo 'export PATH="~/anaconda3/bin:$PATH"' >> /etc/profile`, 正常来说, 如果在容器中这样设置环境变量, 等待下次从镜像创建容器时, 这个环境变量一般并不会生效, 但是不知道这样设置对于提交任务方式来说有没有效, 索性试了一下
+
+![](/2019/01/04/创建ML-Agents的Docker镜像/Snipaste_2019-01-11_13-35-56.png)
+
+根据输出日志来看, 这种方式也并没有奏效
+
+![](/2019/01/04/创建ML-Agents的Docker镜像/Snipaste_2019-01-11_13-39-26.png)
+
+当然, 如果觉得上述配置比较麻烦的话,可以使用`Dockerfile`的`ENV`命令来设置环境变量, 这样设置99%是不会有问题的
+
+```
+FROM hub.hoc.ccshu.net/wjs/mlunityv060:v1.4.5
+ENV PATH /usr/miniconda3/bin:$PATH
+```
+实验了一下,
+结果如下:
+
+![](/2019/01/04/创建ML-Agents的Docker镜像/Snipaste_2019-01-11_15-02-16.png)
+
+表示可以使用`conda`命令, 但是不能使用`conda activate`命令激活环境
+
+根据错误信息, 在`Dockerfile`中写入以下代码也不可行:
+
+`RUN ln -s /usr/miniconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh`
+
