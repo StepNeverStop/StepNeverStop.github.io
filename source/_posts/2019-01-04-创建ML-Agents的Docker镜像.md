@@ -359,3 +359,23 @@ ENV PATH /usr/miniconda3/bin:$PATH
 ![](/2019/01/04/创建ML-Agents的Docker镜像/Snipaste_2019-01-11_22-38-42.png)
 
 希望4.6版本可以解决吧
+
+**更新2019年1月14日14:26:01**
+**已解决**
+
+4.6版本的确可以解决以提交任务模式运行时的问题, 需要使用命令`conda run -n [环境名字] [要执行的命令]`, 而不是使用`conda activate [环境名字]`先激活一个环境.
+
+不过, 更新至4.6版本需要相关配置
+```
+conda config --add channels conda-canary
+conda update conda
+```
+
+我使用Dockerfile来生成镜像, 代码如下:
+```
+FROM hub.hoc.ccshu.net/wjs/mlunityv060:v1.4.6
+
+ENV PATH /usr/miniconda3/bin:$PATH
+RUN conda config --add channels conda-canary && conda update conda -y
+```
+原因是, 使用Dockerfile比较容易设置环境变量, 减少出错

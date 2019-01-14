@@ -122,7 +122,7 @@ daovoice('update');
 <meta property="og:image" content="http://stepneverstop.github.io/2019/01/04/创建ML-Agents的Docker镜像/Snipaste_2019-01-11_13-39-26.png">
 <meta property="og:image" content="http://stepneverstop.github.io/2019/01/04/创建ML-Agents的Docker镜像/Snipaste_2019-01-11_15-02-16.png">
 <meta property="og:image" content="http://stepneverstop.github.io/2019/01/04/创建ML-Agents的Docker镜像/Snipaste_2019-01-11_22-38-42.png">
-<meta property="og:updated_time" content="2019-01-11T14:44:30.629Z">
+<meta property="og:updated_time" content="2019-01-14T06:32:36.466Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="创建ML-Agents的Docker镜像">
 <meta name="twitter:description" content="创建ML-Agents的Docker镜像前言  如果需要在镜像中使用GPU训练,可以将Nvidia的官方镜像作为基础镜像,Dockerfile如下:1234567891011121314151617181920212223242526FROM nvidia/cuda:9.0-base-ubuntu16.04LABEL maintainer &amp;quot;NVIDIA CORPORATION &amp;lt;">
@@ -366,8 +366,8 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-11T22:44:30+08:00">
-                2019-01-11
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-14T14:32:36+08:00">
+                2019-01-14
               </time>
             
           </span>
@@ -427,7 +427,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.1k
+                  2.3k
                 </span>
               
 
@@ -535,6 +535,11 @@ daovoice('update');
 <p>查了一下相关资料,发现在4.5版本的conda是无解的<br><a href="https://github.com/ContinuumIO/docker-images/issues/89" target="_blank" rel="noopener">https://github.com/ContinuumIO/docker-images/issues/89</a></p>
 <p><img src="/2019/01/04/创建ML-Agents的Docker镜像/Snipaste_2019-01-11_22-38-42.png" alt=""></p>
 <p>希望4.6版本可以解决吧</p>
+<p><strong>更新2019年1月14日14:26:01</strong><br><strong>已解决</strong></p>
+<p>4.6版本的确可以解决以提交任务模式运行时的问题, 需要使用命令<code>conda run -n [环境名字] [要执行的命令]</code>, 而不是使用<code>conda activate [环境名字]</code>先激活一个环境.</p>
+<p>不过, 更新至4.6版本需要相关配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda config --add channels conda-canary</span><br><span class="line">conda update conda</span><br></pre></td></tr></table></figure></p>
+<p>我使用Dockerfile来生成镜像, 代码如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FROM hub.hoc.ccshu.net/wjs/mlunityv060:v1.4.6</span><br><span class="line"></span><br><span class="line">ENV PATH /usr/miniconda3/bin:$PATH</span><br><span class="line">RUN conda config --add channels conda-canary &amp;&amp; conda update conda -y</span><br></pre></td></tr></table></figure></p>
+<p>原因是, 使用Dockerfile比较容易设置环境变量, 减少出错</p>
 
       
     </div>
@@ -564,7 +569,7 @@ daovoice('update');
   <p><span>本文标题:</span><a href="/2019/01/04/创建ML-Agents的Docker镜像/">创建ML-Agents的Docker镜像</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Keavnn 的个人博客">Keavnn</a></p>
   <p><span>发布时间:</span>2019年01月04日 - 10:01</p>
-  <p><span>最后更新:</span>2019年01月11日 - 22:01</p>
+  <p><span>最后更新:</span>2019年01月14日 - 14:01</p>
   <p><span>原始链接:</span><a href="/2019/01/04/创建ML-Agents的Docker镜像/" title="创建ML-Agents的Docker镜像">http://StepNeverStop.github.io/2019/01/04/创建ML-Agents的Docker镜像/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://StepNeverStop.github.io/2019/01/04/创建ML-Agents的Docker镜像/" aria-label="复制成功！"></i></span>
   </p>
@@ -875,7 +880,7 @@ daovoice('update');
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">7k</span>
+    <span title="Site words total count">7.2k</span>
   
 </div>
 
@@ -895,7 +900,7 @@ daovoice('update');
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共7k字</span>
+  <span class="post-count">博客全站共7.2k字</span>
 </div> -->
         
 
