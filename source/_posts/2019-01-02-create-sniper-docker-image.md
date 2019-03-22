@@ -185,7 +185,7 @@ deb-src http://mirrors.163.com/ubuntu/ xenial-backports main restricted universe
 算了，还是安装一下cudnn吧
 
 ### 安装 cudnn7.0
-- [https://developer.nvidia.com/rdp/cudnn-archive](https://developer.nvidia.com/rdp/cudnn-archive) 下载cuDNN Linux for Linux,不要下载 Power 8
+- [https://developer.nvidia.com/rdp/cudnn-archive](https://developer.nvidia.com/rdp/cudnn-archive) 下载cuDNN Libraries for Linux,不要下载 Power 8
 - 把下载好的包上传到FTP服务器
 - `cd`到包位置
 - `cp cudnn-9.0-linux-x64-v7.solitairetheme8 cudnn-9.0-linux-x64-v7.tgz`

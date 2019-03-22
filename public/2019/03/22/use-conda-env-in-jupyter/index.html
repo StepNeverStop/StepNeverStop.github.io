@@ -85,7 +85,7 @@ daovoice('update');
 
 
 
-  <meta name="keywords" content="If it is to be, it is up to me.">
+  <meta name="keywords" content="conda,jupyter notebook,">
 
 
 
@@ -98,17 +98,23 @@ daovoice('update');
 
 
 
-<meta name="description" content="Keavnn">
-<meta name="keywords" content="Keavnn,Reinfocement Learning,Docker">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Keavnn&#39;Blog">
-<meta property="og:url" content="http://StepNeverStop.github.io/archives/2018/12/index.html">
+<meta name="description" content="在Jupyter Notebook中使用本机的conda环境Jupyter下conda多环境管理1. 手撸命令 在base环境下安装内核管理工具pip install ipykernel 将环境内核添加到jupyter kernel中python -m ipykernel install --user --name [env_name] --display-name &amp;quot;[show nam">
+<meta name="keywords" content="conda,jupyter notebook">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在Jupyter Notebook中使用本机的conda环境">
+<meta property="og:url" content="http://StepNeverStop.github.io/2019/03/22/use-conda-env-in-jupyter/index.html">
 <meta property="og:site_name" content="Keavnn&#39;Blog">
-<meta property="og:description" content="Keavnn">
+<meta property="og:description" content="在Jupyter Notebook中使用本机的conda环境Jupyter下conda多环境管理1. 手撸命令 在base环境下安装内核管理工具pip install ipykernel 将环境内核添加到jupyter kernel中python -m ipykernel install --user --name [env_name] --display-name &amp;quot;[show nam">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://stepneverstop.github.io/2019/03/22/use-conda-env-in-jupyter/1.png">
+<meta property="og:image" content="http://stepneverstop.github.io/2019/03/22/use-conda-env-in-jupyter/2.png">
+<meta property="og:image" content="http://stepneverstop.github.io/2019/03/22/use-conda-env-in-jupyter/3.png">
+<meta property="og:image" content="http://stepneverstop.github.io/2019/03/22/use-conda-env-in-jupyter/4.png">
+<meta property="og:updated_time" content="2019-03-22T05:37:04.373Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Keavnn&#39;Blog">
-<meta name="twitter:description" content="Keavnn">
+<meta name="twitter:title" content="在Jupyter Notebook中使用本机的conda环境">
+<meta name="twitter:description" content="在Jupyter Notebook中使用本机的conda环境Jupyter下conda多环境管理1. 手撸命令 在base环境下安装内核管理工具pip install ipykernel 将环境内核添加到jupyter kernel中python -m ipykernel install --user --name [env_name] --display-name &amp;quot;[show nam">
+<meta name="twitter:image" content="http://stepneverstop.github.io/2019/03/22/use-conda-env-in-jupyter/1.png">
 
 
 
@@ -138,13 +144,13 @@ daovoice('update');
 
 
 
-  <link rel="canonical" href="http://StepNeverStop.github.io/archives/2018/12/">
+  <link rel="canonical" href="http://StepNeverStop.github.io/2019/03/22/use-conda-env-in-jupyter/">
 
 
 
 
 
-  <title>归档 | Keavnn'Blog</title>
+  <title>在Jupyter Notebook中使用本机的conda环境 | Keavnn'Blog</title>
   
 
 
@@ -163,7 +169,7 @@ daovoice('update');
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
     <a href="https://github.com/StepNeverStop" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -289,142 +295,295 @@ daovoice('update');
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://StepNeverStop.github.io/2019/03/22/use-conda-env-in-jupyter/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Keavnn">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/Kicon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Keavnn'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">在Jupyter Notebook中使用本机的conda环境</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T13:16:02+08:00">
+                2019-03-22
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-22T13:37:04+08:00">
+                2019-03-22
+              </time>
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 8 篇日志。 继续努力。
-      </span>
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Conda/" itemprop="url" rel="index">
+                    <span itemprop="name">Conda</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
 
-        
+          
+            
+          
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/12/29/Git-learn/" itemprop="url">
+          
+
+          
+            <div class="post-wordcount">
               
-                <span itemprop="name">Git命令学习记录</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  137
+                </span>
               
-            </a>
-        
-      </h2>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-29T15:48:51+08:00" content="2018-12-29">
-          12-29
-        </time>
-      </div>
+              
+                <span class="post-meta-divider">|</span>
+              
 
-    </header>
-  </article>
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
 
+          
 
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/12/29/MarkDown-Grammar/" itemprop="url">
-              
-                <span itemprop="name">MarkDown基本语法</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-29T15:23:57+08:00" content="2018-12-29">
-          12-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/12/29/win-rightclick-create-md/" itemprop="url">
-              
-                <span itemprop="name">Windows下右键新建.md文件教程</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-29T00:00:00+08:00" content="2018-12-29">
-          12-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <h1 id="在Jupyter-Notebook中使用本机的conda环境"><a href="#在Jupyter-Notebook中使用本机的conda环境" class="headerlink" title="在Jupyter Notebook中使用本机的conda环境"></a>在Jupyter Notebook中使用本机的conda环境</h1><h2 id="Jupyter下conda多环境管理"><a href="#Jupyter下conda多环境管理" class="headerlink" title="Jupyter下conda多环境管理"></a>Jupyter下conda多环境管理</h2><h3 id="1-手撸命令"><a href="#1-手撸命令" class="headerlink" title="1. 手撸命令"></a>1. 手撸命令</h3><ol>
+<li>在<code>base</code>环境下安装内核管理工具<br><code>pip install ipykernel</code></li>
+<li>将环境内核添加到<code>jupyter kernel</code>中<br><code>python -m ipykernel install --user --name [env_name] --display-name &quot;[show name in jupyter]&quot;</code></li>
+<li>查看已在<code>jupyter</code>中创建的虚拟环境内核<br><code>jupyter kernelspec list</code></li>
+<li>删除内核<br><code>jupyter kernelspec uninstall [env_name]</code></li>
+</ol>
+<h3 id="2-使用插件"><a href="#2-使用插件" class="headerlink" title="2. 使用插件"></a>2. 使用插件</h3><p>简单粗暴, 在<code>base</code>环境下使用命令<br><code>conda install nb_conda</code><br><img src="/2019/03/22/use-conda-env-in-jupyter/1.png" alt=""><br><img src="/2019/03/22/use-conda-env-in-jupyter/2.png" alt=""><br>接下来, 看看jupyter中能不能显示<code>conda</code>环境<br><code>jupyter notebook</code><br><img src="/2019/03/22/use-conda-env-in-jupyter/3.png" alt=""><br>在文件内部也可以很方便的切换环境<br><img src="/2019/03/22/use-conda-env-in-jupyter/4.png" alt=""></p>
 
       
-
     </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-heart"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/03/22/use-conda-env-in-jupyter/">在Jupyter Notebook中使用本机的conda环境</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Keavnn 的个人博客">Keavnn</a></p>
+  <p><span>发布时间:</span>2019年03月22日 - 13:03</p>
+  <p><span>最后更新:</span>2019年03月22日 - 13:03</p>
+  <p><span>原始链接:</span><a href="/2019/03/22/use-conda-env-in-jupyter/" title="在Jupyter Notebook中使用本机的conda环境">http://StepNeverStop.github.io/2019/03/22/use-conda-env-in-jupyter/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://StepNeverStop.github.io/2019/03/22/use-conda-env-in-jupyter/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-相同方式共享 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果您获得了帮助，也可以资助一下小的啦~</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Keavnn 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Keavnn 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/conda/" rel="tag"> <i class="fa fa-tag"></i> conda</a>
+          
+            <a href="/tags/jupyter-notebook/" rel="tag"> <i class="fa fa-tag"></i> jupyter notebook</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/09/为远程Ubuntu服务器安装图像界面/" rel="next" title="为远程Ubuntu服务器安装图像界面">
+                <i class="fa fa-chevron-left"></i> 为远程Ubuntu服务器安装图像界面
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -432,6 +591,15 @@ daovoice('update');
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTk0NS8xODQ5MQ=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -454,8 +622,17 @@ daovoice('update');
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -560,6 +737,22 @@ daovoice('update');
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#在Jupyter-Notebook中使用本机的conda环境"><span class="nav-number">1.</span> <span class="nav-text">在Jupyter Notebook中使用本机的conda环境</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Jupyter下conda多环境管理"><span class="nav-number">1.1.</span> <span class="nav-text">Jupyter下conda多环境管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-手撸命令"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. 手撸命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-使用插件"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 使用插件</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -709,6 +902,10 @@ daovoice('update');
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -737,6 +934,17 @@ daovoice('update');
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
@@ -1098,26 +1306,6 @@ daovoice('update');
   
 
   
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
