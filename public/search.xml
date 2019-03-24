@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[一些在Docker中比较难以安装的库(整理)]]></title>
+    <url>%2F2019%2F03%2F24%2Fsomething-hard-install-docker%2F</url>
+    <content type="text"><![CDATA[一些在Docker中比较难以安装的库(整理)前言在配置镜像时, 强烈建议将源更改为国内镜像站, 因为国外有些镜像站链接速度很慢, 更新也很慢, 很多库无法正确安装我所使用的镜像站为sources.list:1234567891011121314151617deb-src http://archive.ubuntu.com/ubuntu xenial main restricted #Added by software-propertiesdeb http://mirrors.aliyun.com/ubuntu/ xenial main restricteddeb-src http://mirrors.aliyun.com/ubuntu/ xenial main restricted multiverse universe #Added by software-propertiesdeb http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricteddeb-src http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted multiverse universe #Added by software-propertiesdeb http://mirrors.aliyun.com/ubuntu/ xenial universedeb http://mirrors.aliyun.com/ubuntu/ xenial-updates universedeb http://mirrors.aliyun.com/ubuntu/ xenial multiversedeb http://mirrors.aliyun.com/ubuntu/ xenial-updates multiversedeb http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiversedeb-src http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse #Added by software-propertiesdeb http://archive.canonical.com/ubuntu xenial partnerdeb-src http://archive.canonical.com/ubuntu xenial partnerdeb http://mirrors.aliyun.com/ubuntu/ xenial-security main restricteddeb-src http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted multiverse universe #Added by software-propertiesdeb http://mirrors.aliyun.com/ubuntu/ xenial-security universedeb http://mirrors.aliyun.com/ubuntu/ xenial-security multiverse 在Dockerfile或者在容器内使用命令12RUN cp /etc/apt/sources.list /etc/apt/sources.list.bakCOPY sources.list /etc/apt/sources.list 将源替换. CUDA 9.0 开发者版dockerfile如下:1234567891011121314FROM nvidia/cuda:9.0-runtime-ubuntu16.04LABEL maintainer &quot;Keavnn &lt;https://stepneverstop.github.io&gt;&quot;RUN apt-get update &amp;&amp; apt-get install -y --allow-unauthenticated --no-install-recommends \ cuda-libraries-dev-$CUDA_PKG_VERSION \ cuda-nvml-dev-$CUDA_PKG_VERSION \ cuda-minimal-build-$CUDA_PKG_VERSION \ cuda-command-line-tools-$CUDA_PKG_VERSION \ cuda-core-9-0=9.0.176.3-1 \ cuda-cublas-dev-9-0=9.0.176.4-1 \ libnccl-dev=$NCCL_VERSION-1+cuda9.0 &amp;&amp; \ rm -rf /var/lib/apt/lists/*ENV LIBRARY_PATH /usr/local/cuda/lib64/stubs –allow-unauthenticated 这句命令很重要, 不使用的话很有可能安装失败 cudnn 7.0.5 https://developer.nvidia.com/rdp/cudnn-archive 下载cuDNN Libraries for Linux,不要下载 Power 8 把下载好的包上传到FTP服务器, 或者传输到容器内, 或者直接在容器中下载好 cd到包位置 cp cudnn-9.0-linux-x64-v7.solitairetheme8 cudnn-9.0-linux-x64-v7.tgz tar -xvf cudnn-9.0-linux-x64-v7.tgz cp include/* /usr/local/cuda-9.0/include cp lib64/* /usr/local/cuda-9.0/lib64 chmod a+r /usr/local/cuda-9.0/include/cudnn.h /usr/local/cuda-9.0/lib64/libcudnn* 这一步如果cuda是base版本,则没有include文件夹,需要手动创建后再执行 export PATH=/usr/local/cuda-9.0/bin:$PATH cd到/usr/local/cuda-9.0/lib64 nano ~/.bashrc,关联环境变量 在最后一行加入export LD_LIBRARY_PATH=/home/cuda/lib64:$LD_LIBRARY_PATH source ~/.bashrc ldconfig -v 使用cat /usr/local/cuda-9.0/include/cudnn.h | grep CUDNN_MAJOR -A 2 查看cudnn版本 jemalloc选择安装jemalloc,这个工具可以加速编译,碎片整理,具体请自行谷歌 apt-get install autoconf apt-get install automake apt-get install libtool git clone https://github.com/jemalloc/jemalloc.git cd jemalloc git checkout 4.5.0安装4.5.0版本的jemalloc,5.x版本的有坑,深坑 ./autogen.sh make make install_bin install_include install_lib,之所以不使用make install是因为会报错,如下: Python3.6记得sudo apt-get install software-properties-common add-apt-repository ppa:jonathonf/python-3.6, 按ENTER apt-get update &amp;&amp; apt-get install python3.6 -y 修改系统默认的python版本为3.6 cd /usr/bin, 保险起见,建议分两步 rm python ln -s python3.6m python 如需更新,pip3 install --upgrade pip, 8.1.1-&gt;19.0.3 python -V]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[在Jupyter Notebook中使用本机的conda环境]]></title>
     <url>%2F2019%2F03%2F22%2Fuse-conda-env-in-jupyter%2F</url>
     <content type="text"><![CDATA[在Jupyter Notebook中使用本机的conda环境Jupyter下conda多环境管理1. 手撸命令 在base环境下安装内核管理工具pip install ipykernel 将环境内核添加到jupyter kernel中python -m ipykernel install --user --name [env_name] --display-name &quot;[show name in jupyter]&quot; 查看已在jupyter中创建的虚拟环境内核jupyter kernelspec list 删除内核jupyter kernelspec uninstall [env_name] 2. 使用插件简单粗暴, 在base环境下使用命令conda install nb_conda接下来, 看看jupyter中能不能显示conda环境jupyter notebook在文件内部也可以很方便的切换环境]]></content>
@@ -41,7 +52,7 @@
   <entry>
     <title><![CDATA[Docker命令学习]]></title>
     <url>%2F2019%2F01%2F03%2FDocker%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0%2F</url>
-    <content type="text"><![CDATA[Docker常用以及组合命令学习 停止并删除正在运行的容器docker rm $(docker stop $(docker ps -aq)) 查看容器的长IDdocker inspect -f &#39;{?{.ID}}&#39; [name]去掉命令中的?,因为双括号会转义失败 宿主机向容器内传输文件/文件夹docker cp 本地文件路径 ID全称:容器路径 容器传输文件/文件夹到宿主机docker cp ID全称:容器文件路径 本地路径]]></content>
+    <content type="text"><![CDATA[Docker常用以及组合命令学习 停止并删除正在运行的容器docker rm $(docker stop $(docker ps -aq)) 查看容器的长IDdocker inspect -f &#39;{?{.ID}}&#39; [name]去掉命令中的?,因为双括号会转义失败 宿主机向容器内传输文件/文件夹docker cp 本地文件路径 ID全称:容器路径 容器传输文件/文件夹到宿主机docker cp ID全称:容器文件路径 本地路径 修改本地已有镜像的名字docker tag [ImageID] [NewImageNmae]:[tag]]]></content>
       <categories>
         <category>Docker</category>
       </categories>
