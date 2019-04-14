@@ -53,17 +53,17 @@ counter:
   tag_cloud:
     zero: 暂无标签
     one: 目前共计 1 个标签
-    other: "目前共计 %d 个标签"
+    other: "共计 %d 个标签"
 
   categories:
     zero: 暂无分类
     one: 目前共计 1 个分类
-    other: "目前共计 %d 个分类"
+    other: "共计 %d 个分类"
 
   archive_posts:
     zero: 暂无日志。
     one: 目前共计 1 篇日志。
-    other: "目前共计 %d 篇日志。"
+    other: "共计 %d 篇日志。"
 
 state:
   posts: 日志
@@ -75,14 +75,14 @@ search:
   placeholder: 搜索...
 
 cheers:
-  um: 嗯..
-  ok: OK
-  nice: 好
-  good: 很好
-  great: 非常好
-  excellent: 太棒了
+  um: 此博客没有停止更新
+  ok: 此博客没有停止更新
+  nice: 此博客没有停止更新
+  good: 此博客没有停止更新
+  great: 此博客没有停止更新
+  excellent: 此博客没有停止更新
 
-keep_on: 继续努力。
+keep_on: 有志者,事竟成.
 
 symbol:
   comma: '， '
@@ -90,8 +90,8 @@ symbol:
   colon: '：'
 
 reward:
-  donate: 打赏
-  wechatpay: 微信支付
+  donate: 打赏零花钱
+  wechatpay: 微信
   alipay: 支付宝
   bitcoin: 比特币
 
