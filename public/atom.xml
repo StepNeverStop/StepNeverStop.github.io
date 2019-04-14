@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://StepNeverStop.github.io/"/>
-  <updated>2019-04-08T13:17:29.241Z</updated>
+  <updated>2019-04-14T08:58:51.267Z</updated>
   <id>http://StepNeverStop.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>conda环境和pip包的转移</title>
+    <link href="http://StepNeverStop.github.io/2019/04/14/conda%E7%8E%AF%E5%A2%83%E5%92%8Cpip%E5%8C%85%E7%9A%84%E8%BD%AC%E7%A7%BB/"/>
+    <id>http://StepNeverStop.github.io/2019/04/14/conda环境和pip包的转移/</id>
+    <published>2019-04-14T08:52:41.000Z</published>
+    <updated>2019-04-14T08:58:51.267Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Conda-环境导出导入和其中pip安装包的迁移"><a href="#Conda-环境导出导入和其中pip安装包的迁移" class="headerlink" title="Conda 环境导出导入和其中pip安装包的迁移"></a>Conda 环境导出导入和其中pip安装包的迁移</h1><h2 id="Conda-环境"><a href="#Conda-环境" class="headerlink" title="Conda 环境"></a>Conda 环境</h2><ol><li>激活环境<br><code>conda activate [env_name]</code></li><li>导出环境<br><code>conda env export &gt; [env_filename].yaml当前环境将被保存在定义的</code>.yaml`文件中</li><li>导入环境<br><code>conda env create -f [env_filename].yaml移植过来的conda环境只安装了原环境中使用</code>conda install<code>等命令安装的包, 使用</code>pip`命令安装的包需要重新安装</li></ol><h2 id="pip包"><a href="#pip包" class="headerlink" title="pip包"></a>pip包</h2><ol><li>导出<br><code>pip freeze &gt; requirements.txt</code></li><li>导入<br><code>pip install -r requirements.txt</code></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Conda-环境导出导入和其中pip安装包的迁移&quot;&gt;&lt;a href=&quot;#Conda-环境导出导入和其中pip安装包的迁移&quot; class=&quot;headerlink&quot; title=&quot;Conda 环境导出导入和其中pip安装包的迁移&quot;&gt;&lt;/a&gt;Conda 环境导出导入和其
+      
+    
+    </summary>
+    
+      <category term="Conda" scheme="http://StepNeverStop.github.io/categories/Conda/"/>
+    
+    
+      <category term="conda" scheme="http://StepNeverStop.github.io/tags/conda/"/>
+    
+  </entry>
   
   <entry>
     <title>强化学习基本概念</title>
