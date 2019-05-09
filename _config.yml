@@ -9,13 +9,14 @@ description: Keavnn
 keywords: Keavnn,Reinfocement Learning,Docker
 author: Keavnn
 language: zh-Hans
-timezone:
+timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://StepNeverStop.github.io/
+url: http://StepNeverStop.github.io
 root: /
-permalink: :year/:month/:day/:title/
+# permalink: :year/:month/:day/:title/
+permalink: :title.html
 permalink_defaults:
 
 # Directory
@@ -29,7 +30,8 @@ i18n_dir: :lang
 skip_render:
 
 # Writing
-new_post_name: :year-:month-:day-:title.md # File name of new posts
+# new_post_name: :year-:month-:day-:title.md # File name of new posts
+new_post_name: :title.md # File name of new posts
 default_layout: post
 titlecase: false # Transform title into titlecase
 external_link: true # Open external links in new tab
@@ -50,7 +52,7 @@ highlight:
 # order_by: Posts order. (Order by date descending by default)
 index_generator:
   path: ''
-  per_page: 5 #设置主页每页显示几篇文章
+  per_page: 20 #设置主页每页显示几篇文章
   order_by: -date
   
 # Category & Tag
@@ -91,3 +93,13 @@ search:
   field: post
   format: html
   limit: 10000
+
+sitemap: 
+  path: sitemap.xml
+baidusitemap:
+  path: baidusitemap.xml
+
+nofollow:
+  enable: true
+  exclude:
+    - http://StepNeverStop.github.io
