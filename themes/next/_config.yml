@@ -152,7 +152,7 @@ links_title: 推荐阅读
 links_layout: inline
 links:
   #Fisher Chang: https://bluefisher.github.io
-  God Writer: https://godwriter.github.io/
+  # God Writer: https://godwriter.github.io/
   #Title: http://example.com/
 
 # Sidebar Avatar
