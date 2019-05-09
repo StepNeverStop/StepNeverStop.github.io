@@ -452,23 +452,23 @@ daovoice('update');
 <li>在<code>计算机&gt;HKEY_CLASSES_ROOT</code>右键查找，输入<code>Typora</code>，勾选项，取消勾选值和数据</li>
 </ol>
 <img src="/2018/12/29/win-rightclick-create-md/20181229103503.png" title="右键查找typora运行程序">
-<ol start="2">
+<ol>
 <li>确认运行的程序名字，我的电脑如图所示，运行文件是<code>Typora.exe</code></li>
 </ol>
 <img src="/2018/12/29/win-rightclick-create-md/20181229103752.png" title="查看运行md文件的程序名称">
 <p>如果使用的是markdownpad或者其他编辑器，同理</p>
-<ol start="3">
+<ol>
 <li>在磁盘任意位置新建一个文件，后缀为<code>.reg</code></li>
 <li>打开编辑刚刚创建好的注册表文件，写入一下内容：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line">[HKEY_CLASSES_ROOT\.md]</span><br><span class="line">@=&quot;Typora.exe&quot;</span><br><span class="line">[HKEY_CLASSES_ROOT\.md\ShellNew]</span><br><span class="line">&quot;NullFile&quot;=&quot;&quot;</span><br><span class="line">[HKEY_CLASSES_ROOT\Typora.exe]</span><br><span class="line">@=&quot;Markdown&quot;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <p><code>@=&quot;Typora.exe&quot;</code> 代表的是指定.md文件的运行程序<br><code>@=&quot;Markdown&quot;</code> 代表的是右键时默认的文件名字，这样写新建为<code>新建Markdown.md</code>文件，而且右键菜单中显示<code>MarkDown</code></p>
-<ol start="5">
+<ol>
 <li>编辑好之后,另存为,设置如图所示:</li>
 </ol>
 <img src="/2018/12/29/win-rightclick-create-md/20181229105408.png" title="保存配置文件">
 <p>文件名可以随便设置，但是后缀必须是<code>.reg</code>文件,保存类型一定要是<code>文本文档(*.txt)</code>,编码选择<code>Unicode</code>,非常重要!!!!!</p>
-<ol start="6">
+<ol>
 <li>保存文件后,双击运行,修改注册表即可,现在右键即可达到预期效果,如果不行,请重启一下.</li>
 </ol>
 <h3 id="3-编辑新建图标-非必须"><a href="#3-编辑新建图标-非必须" class="headerlink" title="3. 编辑新建图标(非必须)"></a>3. 编辑新建图标(非必须)</h3><ol>
@@ -476,7 +476,7 @@ daovoice('update');
 <li>将属性修改为想要设置的Markdown文件图标</li>
 </ol>
 <img src="/2018/12/29/win-rightclick-create-md/20181229105300.png" title="修改Markdown文件图标">
-<p>文档有错或转载请联系邮箱<a href="mailto:`stepneverstop@qq.com" target="_blank" rel="noopener">`stepneverstop@qq.com</a>`</p>
+<p>文档有错或转载请联系邮箱<code>stepneverstop@qq.com</code></p>
 
       
     </div>
@@ -676,7 +676,7 @@ daovoice('update');
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -809,7 +809,7 @@ daovoice('update');
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">13.3k</span>
+    <span title="Site words total count">15k</span>
   
 </div>
 
@@ -829,7 +829,7 @@ daovoice('update');
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共13.3k字</span>
+  <span class="post-count">博客全站共15k字</span>
 </div> -->
         
 

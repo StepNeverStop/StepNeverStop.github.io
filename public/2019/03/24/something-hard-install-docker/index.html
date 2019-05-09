@@ -444,7 +444,7 @@ daovoice('update');
 <p>在<code>Dockerfile</code>或者在容器内使用命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak</span><br><span class="line">COPY sources.list /etc/apt/sources.list</span><br></pre></td></tr></table></figure></p>
 <p>将源替换.</p>
 <h2 id="CUDA-9-0-开发者版"><a href="#CUDA-9-0-开发者版" class="headerlink" title="CUDA 9.0 开发者版"></a>CUDA 9.0 开发者版</h2><p><code>dockerfile</code>如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">FROM nvidia/cuda:9.0-runtime-ubuntu16.04</span><br><span class="line">LABEL maintainer &quot;Keavnn &lt;https://stepneverstop.github.io&gt;&quot;</span><br><span class="line"></span><br><span class="line">RUN apt-get update &amp;&amp; apt-get install -y --allow-unauthenticated --no-install-recommends \</span><br><span class="line">        cuda-libraries-dev-$CUDA_PKG_VERSION \</span><br><span class="line">        cuda-nvml-dev-$CUDA_PKG_VERSION \</span><br><span class="line">        cuda-minimal-build-$CUDA_PKG_VERSION \</span><br><span class="line">        cuda-command-line-tools-$CUDA_PKG_VERSION \</span><br><span class="line">        cuda-core-9-0=9.0.176.3-1 \</span><br><span class="line">        cuda-cublas-dev-9-0=9.0.176.4-1 \</span><br><span class="line">        libnccl-dev=$NCCL_VERSION-1+cuda9.0 &amp;&amp; \</span><br><span class="line">    rm -rf /var/lib/apt/lists/*</span><br><span class="line"></span><br><span class="line">ENV LIBRARY_PATH /usr/local/cuda/lib64/stubs</span><br></pre></td></tr></table></figure></p>
-<p><strong>–allow-unauthenticated</strong> 这句命令很重要, 不使用的话很有可能安装失败</p>
+<p><strong>—allow-unauthenticated</strong> 这句命令很重要, 不使用的话很有可能安装失败</p>
 <h2 id="cudnn-7-0-5"><a href="#cudnn-7-0-5" class="headerlink" title="cudnn 7.0.5"></a>cudnn 7.0.5</h2><ul>
 <li><a href="https://developer.nvidia.com/rdp/cudnn-archive" target="_blank" rel="noopener">https://developer.nvidia.com/rdp/cudnn-archive</a> 下载cuDNN Libraries for Linux,不要下载 Power 8</li>
 <li>把下载好的包上传到FTP服务器, 或者传输到容器内, 或者直接在容器中下载好</li>
@@ -689,7 +689,7 @@ daovoice('update');
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -822,7 +822,7 @@ daovoice('update');
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">13.3k</span>
+    <span title="Site words total count">15k</span>
   
 </div>
 
@@ -842,7 +842,7 @@ daovoice('update');
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共13.3k字</span>
+  <span class="post-count">博客全站共15k字</span>
 </div> -->
         
 
