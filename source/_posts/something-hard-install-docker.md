@@ -10,9 +10,13 @@ tags:
 
 # 一些在Docker中比较难以安装的库(整理)
 
+<!--more-->
+
 ## 前言
 在配置镜像时, **强烈建议将源更改为国内镜像站**, 因为国外有些镜像站链接速度很慢, 更新也很慢, 很多库无法正确安装
+
 我所使用的镜像站为`sources.list`:
+
 ```
 deb-src http://archive.ubuntu.com/ubuntu xenial main restricted #Added by software-properties
 deb http://mirrors.aliyun.com/ubuntu/ xenial main restricted

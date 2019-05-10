@@ -109,22 +109,24 @@ daovoice('update');
     })();
 </script>
 
-<meta name="description" content="强化学习之MDP马尔科夫决策过程每每提到强化学习，最先接触的理论肯定是马尔科夫决策过程（MDP，Markov Decision Process），为什么总提到MDP呢？并不是只有我一个人有这个疑问。 百度上没有人提出这样的问题，可能是大家理解得都比较透彻吧，于是在Google查到相关提问和解释。  What is the relationship between Markov Decision P">
+<meta name="description" content="强化学习之MDP马尔科夫决策过程每每提到强化学习，最先接触的理论肯定是马尔科夫决策过程（MDP，Markov Decision Process），为什么总提到MDP呢？并不是只有我一个人有这个疑问。">
 <meta name="keywords" content="rl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="强化学习之MDP马尔科夫决策过程">
 <meta property="og:url" content="http://StepNeverStop.github.io/强化学习之MDP马尔科夫决策过程.html">
 <meta property="og:site_name" content="Keavnn&#39;Blog">
-<meta property="og:description" content="强化学习之MDP马尔科夫决策过程每每提到强化学习，最先接触的理论肯定是马尔科夫决策过程（MDP，Markov Decision Process），为什么总提到MDP呢？并不是只有我一个人有这个疑问。 百度上没有人提出这样的问题，可能是大家理解得都比较透彻吧，于是在Google查到相关提问和解释。  What is the relationship between Markov Decision P">
+<meta property="og:description" content="强化学习之MDP马尔科夫决策过程每每提到强化学习，最先接触的理论肯定是马尔科夫决策过程（MDP，Markov Decision Process），为什么总提到MDP呢？并不是只有我一个人有这个疑问。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://stepneverstop.github.io/强化学习之MDP马尔科夫决策过程/M.jpg">
+<meta property="og:image" content="http://stepneverstop.github.io/强化学习之MDP马尔科夫决策过程/MPs.jpg">
 <meta property="og:image" content="http://stepneverstop.github.io/强化学习之MDP马尔科夫决策过程/MP.jpg">
 <meta property="og:image" content="http://stepneverstop.github.io/强化学习之MDP马尔科夫决策过程/MRP.png">
+<meta property="og:image" content="http://stepneverstop.github.io/强化学习之MDP马尔科夫决策过程/agent-env.png">
 <meta property="og:image" content="http://stepneverstop.github.io/强化学习之MDP马尔科夫决策过程/MDP.jpg">
-<meta property="og:updated_time" content="2019-05-09T17:57:36.634Z">
+<meta property="og:updated_time" content="2019-05-10T05:37:53.262Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="强化学习之MDP马尔科夫决策过程">
-<meta name="twitter:description" content="强化学习之MDP马尔科夫决策过程每每提到强化学习，最先接触的理论肯定是马尔科夫决策过程（MDP，Markov Decision Process），为什么总提到MDP呢？并不是只有我一个人有这个疑问。 百度上没有人提出这样的问题，可能是大家理解得都比较透彻吧，于是在Google查到相关提问和解释。  What is the relationship between Markov Decision P">
+<meta name="twitter:description" content="强化学习之MDP马尔科夫决策过程每每提到强化学习，最先接触的理论肯定是马尔科夫决策过程（MDP，Markov Decision Process），为什么总提到MDP呢？并不是只有我一个人有这个疑问。">
 <meta name="twitter:image" content="http://stepneverstop.github.io/强化学习之MDP马尔科夫决策过程/M.jpg">
 
 
@@ -365,7 +367,7 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-10T01:57:36+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-10T13:37:53+08:00">
                 2019-05-10
               </time>
             
@@ -415,7 +417,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  4.8k
+                  5.1k
                 </span>
               
 
@@ -431,7 +433,7 @@ daovoice('update');
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  19
+                  20
                 </span>
               
             </div>
@@ -453,6 +455,7 @@ daovoice('update');
 
       
         <h1 id="强化学习之MDP马尔科夫决策过程"><a href="#强化学习之MDP马尔科夫决策过程" class="headerlink" title="强化学习之MDP马尔科夫决策过程"></a>强化学习之MDP马尔科夫决策过程</h1><p>每每提到强化学习，最先接触的理论肯定是马尔科夫决策过程（MDP，Markov Decision Process），为什么总提到MDP呢？并不是只有我一个人有这个疑问。</p>
+<a id="more"></a>
 <p>百度上没有人提出这样的问题，可能是大家理解得都比较透彻吧，于是在Google查到相关提问和解释。</p>
 <blockquote>
 <p><a href="https://datascience.stackexchange.com/a/38851" rel="external nofollow" target="_blank">What is the relationship between Markov Decision Processes and Reinforcement Learning?</a></p>
@@ -482,7 +485,9 @@ P[S_{t+1}|S_{t}]=P[S_{t+1}|S_{1},...,S_{t}]</script><p>强化学习问题中的�
 <li>P是状态转移概率矩阵</li>
 </ol>
 <p>状态与状态之间的转换过程即为马尔科夫过程。<strong><em>虽然我们可能不知道P的具体值到底是什么，但是通常我们假设P是存在的（转移概率存在，如果是确定的，无非就是概率为1），而且是稳定的（意思是从状态A到其他状态的转移虽然符合某个分布，但是其转移到某个状态的概率是确定的，不随时间变化的）。</em></strong></p>
-<p>这里说的<strong>有限</strong>二字我有自己的理解，在最开始的强化学习研究中，解决的都是表格式的问题，也就是状态的数量是有限可取的，但是后续强化学习研究的也有连续状态空间的问题，算法如DQN,PG,PPO等。状态的数量并不是有限的，但是其向量维度则是固定的、有限的，而且也同样符合马尔科夫性质，因此<strong>我认为这里定义的有限并不是说状态数量有限，而是状态维度有限</strong>。</p>
+<p>这里说的<strong>有限</strong>二字我有自己的理解，在最开始的强化学习研究中，解决的都是表格式的问题，也就是状态的数量是有限可取的，但是后续强化学习研究的也有连续状态空间的问题，算法如DQN,PG,PPO等。状态的数量并不是有限的，但是其向量维度则是固定的、有限的，而且也同样符合马尔科夫性质，因此<strong>我认为这里定义的有限并不是说状态数量有限，而是状态维度有限</strong>。因为好像没有无限马尔科夫的叫法，所以姑且这么解释一下。</p>
+<p>马尔科夫过程有如下分类：</p>
+<p><img src="./强化学习之MDP马尔科夫决策过程/MPs.jpg" alt=""></p>
 <h3 id="状态转移矩阵"><a href="#状态转移矩阵" class="headerlink" title="状态转移矩阵"></a>状态转移矩阵</h3><p>状态转移矩阵由许多状态转移概率组成，状态转移概率是指从一个马尔科夫状态$s$转移到下一个状态$s’$的概率。</p>
 <p>公示表示：</p>
 <script type="math/tex; mode=display">
@@ -554,7 +559,7 @@ sum(\mathcal{P}) = \int_{s'}\int_{s}\mathcal{P}_{ss'} = n</script><p>举一个�
 <li>当$\gamma=1$时,状态$S$的值由以当前状态为始态,运行至终态所得到的所有立即奖励加和的值表示,即<strong>未来与现在同等重要</strong></li>
 <li>当$0 \lt\gamma \lt1$时,状态$S$的值是前两个模式的<em>trade-off</em>,即<strong>对未来看重的程度由$\gamma$决定</strong></li>
 </ul>
-<p>这只是我们的直观感受,其实是为了数学便利(虽然我也没搞明白使其不等于1竟然会数学计算便利?).</p>
+<p>这只是我们的直观感受,其实是为了数学便利（虽然我也不知道具体哪里提高了数学便利，但是在有些情况下会使值函数更快迭代收敛这是真的）。</p>
 <p>将上述马尔科夫过程的例子升级为马尔科夫奖励过程如下图所示:</p>
 <p><img src="./强化学习之MDP马尔科夫决策过程/MRP.png" alt=""></p>
 <p>奖励值定义为:</p>
@@ -577,10 +582,13 @@ sum(\mathcal{P}) = \int_{s'}\int_{s}\mathcal{P}_{ss'} = n</script><p>举一个�
 <li>$R$表示奖励函数，$R(s)$描述了在状态$s$下<strong>执行某动作</strong>的期望(立即)奖励，$\mathcal{R}(s,a)=\mathbb{E}[R_{t+1}|S_{t}=s,A_{t}=a]$</li>
 <li>$\gamma$表示衰减因子,即discounted factor,$\gamma\in[0,1]$</li>
 </ol>
+<p>MDPs是一个从交互中达成目标的强化学习问题的一个直接的框架。学习者和决策者叫做Agent。Agent进行交互的其它一切Agent之外的东西都叫做环境。Agent不断的选择动作，而环境也给出相应的反应，并且向Agent表现出新的状态。环境同时也给出一个数值作为反馈。Agent的目标就是通过选择不同的Action来最大化这个反馈值。</p>
+<p><img src="./强化学习之MDP马尔科夫决策过程/agent-env.png" alt=""></p>
 <p>强化学习所研究的内容就是得到一个状态$S$到动作$A$的映射关系,因此策略Policy可以表示成</p>
 <script type="math/tex; mode=display">
 \pi(a|s)=p(A_{t}=a|S_{t}=s)</script><hr>
-<p>注意:<br>你可能会认为,在马尔科夫奖励过程(MRP)中,虽然没有定义动作,但是其实是包含动作的,因为每个状态有多个转移的下一状态,其实就是多个动作嘛!</p>
+<p>注意:<br>你可能会认为,在马尔科夫奖励过程(MRP)中没有定义动作,但是其实是包含动作的,因为每个状态有多个转移的下一状态,其实就是多个动作嘛！</p>
+<p>很多文章会将有限MDP分开来讲，有限MDP即状态、动作和奖励值都只有有限个元素，对于有限MDP最优策略有唯一解，但是现实世界中任务复杂，因此大多数深度强化学习算法并不局限于解决有限MDP问题，因此本文不将MDP分情况来讲，即默认基于MDP的最优策略<strong>至少有一个解</strong>。</p>
 <hr>
 <p>没错,的确是这样的,MRP中也包含动作,但是我们并不关心,为什么这么说呢?<strong>因为就算每个状态可以执行多个动作,但是其每个动作所能转移到的状态是确定的,不确定的只是动作的选择,而不是动作的转移,而MDP中不确定的却是动作的转移,即执行动作所转移的下一状态是有一定概率的.</strong>什么意思呢?拿之前MRP的例子来说,语文状态有两个状态可以转移,数学和玩游戏,概率分别是0.5,但是当确定一个转移方向的时候(图中的箭头),其转移结果是确定的,获得的奖励也是确定的,但是在MDP中,执行动作导致转移的结果都未必是确定的.<strong><em>需要注意的是,MRP是属于MDP的,MDP执行动作并不一定必须是随机的.</em></strong></p>
 <p>接下来,我们将MRP的例子转换至MDP, 为了方便理解而又不增加示例的复杂性,不妨将”挂科”这个状态看作是一个动作,因为这个节点正巧入度为1,姑且就认为从英语到挂科的这个箭头是英语状态所能执行的动作.如图所示:</p>
@@ -660,7 +668,7 @@ R_{英语}&=\sum_{a\in A}\pi(a|英语)R_{英语}^{a}\\
   <p><span>本文标题:</span><a href="/强化学习之MDP马尔科夫决策过程.html">强化学习之MDP马尔科夫决策过程</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Keavnn 的个人博客">Keavnn</a></p>
   <p><span>发布时间:</span>2019年05月08日 - 11:05</p>
-  <p><span>最后更新:</span>2019年05月10日 - 01:05</p>
+  <p><span>最后更新:</span>2019年05月10日 - 13:05</p>
   <p><span>原始链接:</span><a href="/强化学习之MDP马尔科夫决策过程.html" title="强化学习之MDP马尔科夫决策过程">http://StepNeverStop.github.io/强化学习之MDP马尔科夫决策过程.html</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://StepNeverStop.github.io/强化学习之MDP马尔科夫决策过程.html" aria-label="复制成功！"></i></span>
   </p>
@@ -834,7 +842,7 @@ R_{英语}&=\sum_{a\in A}\pi(a|英语)R_{英语}^{a}\\
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -902,6 +910,20 @@ R_{英语}&=\sum_{a\in A}\pi(a|英语)R_{英语}^{a}\\
 
           
           
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://bluefisher.github.io" title="Fisher Chang" target="_blank" rel="external nofollow">Fisher Chang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
 
           
 
@@ -953,7 +975,7 @@ R_{英语}&=\sum_{a\in A}\pi(a|英语)R_{英语}^{a}\\
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">20.1k</span>
+    <span title="Site words total count">22.1k</span>
   
 </div>
 
@@ -973,7 +995,7 @@ R_{英语}&=\sum_{a\in A}\pi(a|英语)R_{英语}^{a}\\
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共20.1k字</span>
+  <span class="post-count">博客全站共22.1k字</span>
 </div> -->
         
 

@@ -11,6 +11,8 @@ tags:
 
 # Docker常用以及组合命令学习
 
+<!--more-->
+
 - 停止并删除正在运行的容器
 `docker rm $(docker stop $(docker ps -aq))`
 

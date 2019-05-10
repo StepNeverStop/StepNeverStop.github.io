@@ -8,6 +8,8 @@ copyright: true
 
 # Windows下右键新建.md文件教程
 
+<!--more-->
+
 ## 环境
 
 windows10操作系统

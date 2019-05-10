@@ -151,8 +151,8 @@ links_title: 推荐阅读
 #links_layout: block
 links_layout: inline
 links:
-  #Fisher Chang: https://bluefisher.github.io
-  # God Writer: https://godwriter.github.io/
+  Fisher Chang: https://bluefisher.github.io
+  #God Writer: https://godwriter.github.io/
   #Title: http://example.com/
 
 # Sidebar Avatar
@@ -221,7 +221,7 @@ excerpt_description: true
 # Automatically Excerpt. Not recommend.
 # Please use <!-- more --> in the post to control excerpt accurately.
 auto_excerpt: #设置预览
-  enable: true
+  enable: false
   length: 300
 
 # Post meta display settings

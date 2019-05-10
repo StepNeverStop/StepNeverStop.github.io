@@ -118,7 +118,18 @@ daovoice('update');
 <meta property="og:description" content="价值与贝尔曼方程我们人在做决策的时候往往会判断做这件事的价值和后果，就像失恋了去喝不喝闷酒一样，不同的人有不同的选择，但是选择前肯定会判断这么做能给自己带来什么。 选择去喝酒的人觉得这可以缓解自己的痛苦，这就是判断喝酒这个动作的价值。因为身体原因不选择去喝酒的人觉得喝醉之后身体很不舒服，还会说胡话、闹事，这就是衡量后果、判断喝酒后状态的价值。 在乎过程的会根据动作的价值进行抉择，在乎结果的会根据状">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://stepneverstop.github.io/强化学习之MDP马尔科夫决策过程/MDP.jpg">
-<meta property="og:updated_time" content="2019-05-09T18:14:05.359Z">
+<meta property="og:image" content="http://stepneverstop.github.io/价值与贝尔曼方程/vs.jpg">
+<meta property="og:image" content="http://stepneverstop.github.io/价值与贝尔曼方程/qsa.jpg">
+<meta property="og:image" content="http://stepneverstop.github.io/价值与贝尔曼方程/v.jpg">
+<meta property="og:image" content="http://stepneverstop.github.io/价值与贝尔曼方程/q.jpg">
+<meta property="og:image" content="http://stepneverstop.github.io/价值与贝尔曼方程/vq.jpg">
+<meta property="og:image" content="http://stepneverstop.github.io/价值与贝尔曼方程/example1.png">
+<meta property="og:image" content="http://stepneverstop.github.io/价值与贝尔曼方程/example2.png">
+<meta property="og:image" content="http://stepneverstop.github.io/价值与贝尔曼方程/example3.png">
+<meta property="og:image" content="http://stepneverstop.github.io/价值与贝尔曼方程/example4.png">
+<meta property="og:image" content="http://stepneverstop.github.io/价值与贝尔曼方程/example5.png">
+<meta property="og:image" content="http://stepneverstop.github.io/价值与贝尔曼方程/example6.png">
+<meta property="og:updated_time" content="2019-05-10T07:19:10.116Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="价值与贝尔曼方程">
 <meta name="twitter:description" content="价值与贝尔曼方程我们人在做决策的时候往往会判断做这件事的价值和后果，就像失恋了去喝不喝闷酒一样，不同的人有不同的选择，但是选择前肯定会判断这么做能给自己带来什么。 选择去喝酒的人觉得这可以缓解自己的痛苦，这就是判断喝酒这个动作的价值。因为身体原因不选择去喝酒的人觉得喝醉之后身体很不舒服，还会说胡话、闹事，这就是衡量后果、判断喝酒后状态的价值。 在乎过程的会根据动作的价值进行抉择，在乎结果的会根据状">
@@ -362,7 +373,7 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-10T02:14:05+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-10T15:19:10+08:00">
                 2019-05-10
               </time>
             
@@ -412,7 +423,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.8k
+                  3.2k
                 </span>
               
 
@@ -428,7 +439,7 @@ daovoice('update');
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  7
+                  13
                 </span>
               
             </div>
@@ -454,9 +465,9 @@ daovoice('update');
 <p>在乎过程的会根据动作的价值进行抉择，在乎结果的会根据状态的价值进行抉择。总之，衡量价值，毫无疑问是我们做决策的重要评判标准。</p>
 <p>机器也一样，我们想教会机器学会自主决策，必然得让它们有一个价值导向，毕竟它可不会、也决不能像人一样”没有原因呀，就随便选择了一个而已”。</p>
 <p>本文介绍了<strong>绝大部分强化学习问题及算法</strong>中值函数与贝尔曼方程的定义。因为有一些研究探索的，如好奇心、信息熵等方向的算法对值函数的定义有稍许不同。</p>
+<a id="more"></a>
 <hr>
 <p>注：以下公式及推导过程可能与其他博客、论文、书本上有稍许不同，不过都是经过细细分析，一步步推导的，或许有些公式难以理解，但都是尽可能细化每一处细节。使读者可以更清楚地了解每一个值的来龙去脉。</p>
-<p>最不同的地方可能是在贝尔曼最优方程处，这里我尽可能的进行了展开。</p>
 <hr>
 <h2 id="值函数"><a href="#值函数" class="headerlink" title="值函数"></a>值函数</h2><p>值函数分为状态值函数与动作值函数，分别用来表示状态和状态下执行某动作的好坏程度、优劣程度。</p>
 <p>回顾一下回报：</p>
@@ -574,8 +585,10 @@ Q_{\pi}(s,a) \doteq \mathbb{E}_{\pi}[G_{t}|S_{t}=s,A_{t}=a] = \mathbb{E}_{\pi}\l
 <p>贝尔曼方程是动态规划（Dynamic Programming）这些数学最佳化方法能够达到最佳化的必要条件。此方程把“决策问题在特定时间怎么的值”以“来自初始选择的报酬比从初始选择衍生的决策问题的值”的形式表示。借此这个方式把动态最佳化问题变成简单的子问题，而这些子问题遵守从贝尔曼所提出来的“最佳化还原理”。</p>
 </blockquote>
 <p><strong>贝尔曼方程将状态值函数$V(s)$与动作值函数$Q(s,a)$、将当前的值函数与之后状态$V(s‘)$或动作的值函数$Q(s’,a‘)$联系起来。</strong></p>
-<h3 id="状态值函数-V-s-与动作值函数-Q-s-a-的关系"><a href="#状态值函数-V-s-与动作值函数-Q-s-a-的关系" class="headerlink" title="状态值函数$V(s)$与动作值函数$Q(s,a)$的关系"></a>状态值函数$V(s)$与动作值函数$Q(s,a)$的关系</h3><script type="math/tex; mode=display">
-v_{\pi}(s)=\sum_{a}\pi(a\mid s) q_{\pi}(s,a)</script><script type="math/tex; mode=display">
+<h3 id="状态值函数-V-s-与动作值函数-Q-s-a-的关系"><a href="#状态值函数-V-s-与动作值函数-Q-s-a-的关系" class="headerlink" title="状态值函数$V(s)$与动作值函数$Q(s,a)$的关系"></a>状态值函数$V(s)$与动作值函数$Q(s,a)$的关系</h3><p><img src="./价值与贝尔曼方程/vs.jpg" alt=""></p>
+<script type="math/tex; mode=display">
+v_{\pi}(s)=\sum_{a}\pi(a\mid s) q_{\pi}(s,a)</script><p><img src="./价值与贝尔曼方程/qsa.jpg" alt=""></p>
+<script type="math/tex; mode=display">
 q_{\pi}(s,a) = \sum_{s',r}p(s',r \mid s,a)\left[r+\gamma v_{\pi}(s')\right]</script><h3 id="贝尔曼期望方程"><a href="#贝尔曼期望方程" class="headerlink" title="贝尔曼期望方程"></a>贝尔曼期望方程</h3><p>状态值函数$V(s)$可以写成如下形式：</p>
 <script type="math/tex; mode=display">
 \begin{align*}
@@ -585,7 +598,8 @@ v_{\pi}(s) & \doteq \mathbb{E}_{\pi}\left [ G_{t}\mid S_{t}=s \right ]\\
 &=\sum_{a}\pi(a\mid s)\sum_{s',r}p(s',r \mid s,a)\left[r+\gamma v_{\pi}(s')\right]\\
 &=\sum_{a}\pi(a\mid s) q_{\pi}(s,a)
 \end{align*},
-for \ all \ s\in S</script><p>看到没有，此时可以将当前状态的状态值$v_{\pi}(s)$与下一个可到达状态的状态值$v_{\pi}(s’)$联系起来，这时候就可以想到，对呀，我们可以从终态倒着计算，这样循环迭代下去总比要从始态列出大量的episode可要强多了吧！</p>
+for \ all \ s\in S</script><p><img src="./价值与贝尔曼方程/v.jpg" alt=""></p>
+<p>看到没有，此时可以将当前状态的状态值$v_{\pi}(s)$与下一个可到达状态的状态值$v_{\pi}(s’)$联系起来！</p>
 <p>动作值函数$Q_{\pi}(s,a)$也可以进行类似推导：</p>
 <script type="math/tex; mode=display">
 \begin{align*}
@@ -594,19 +608,188 @@ q_{\pi}(s,a) & \doteq \mathbb{E}_{\pi}\left [ G_{t}\mid S_{t}=s,A_{t}=a \right ]
 &=\sum_{s',r}p(s',r\mid s,a)\left[r+\gamma \sum_{a'}\pi(a'\mid s') \mathbb{E}\left[G_{t+1}\mid S_{t+1}=s',A_{t+1}=a' \right]\right]\\
 &=\sum_{s',r}p(s',r \mid s,a)\left[r+\gamma \sum_{a'}\pi(a'\mid s') q_{\pi}(s',a')\right]\\
 &=\sum_{s',r}p(s',r \mid s,a)\left[r+\gamma v_{\pi}(s')\right]
-\end{align*}</script><h3 id="最优值函数"><a href="#最优值函数" class="headerlink" title="最优值函数"></a>最优值函数</h3><p>最优状态值函数：</p>
+\end{align*}</script><p><img src="./价值与贝尔曼方程/q.jpg" alt=""></p>
+<h3 id="最优值函数"><a href="#最优值函数" class="headerlink" title="最优值函数"></a>最优值函数</h3><p>解决一个强化学习问题也就是意味着找到一种选择动作的策略能够获得足够多的回报。如果执行每个动作所产生的转移都是确定的（有限MDP），那么能够定义出一个最优策略，如果一个策略$\pi’$的所有状态值函数都大于$\pi$，那么就说策略$\pi’$更好，但不一定是最好的，我们把最优策略用$\pi_{*}$表示。</p>
+<p>最优状态值函数：</p>
 <script type="math/tex; mode=display">
 v_{*}(s)=\max_{\pi} v_{\pi}(s)</script><p>最优动作值函数：</p>
 <script type="math/tex; mode=display">
 q_{*}(s,a)=\max_{\pi} q_{\pi}(s,a)</script><h3 id="贝尔曼最优方程"><a href="#贝尔曼最优方程" class="headerlink" title="贝尔曼最优方程"></a>贝尔曼最优方程</h3><script type="math/tex; mode=display">
 \begin{align*}
 v_{*}(s) &= \max_{a} q_{*}(s,a)\\
-&=\max_{a}\max_{s',r}\left[r+\gamma v_{*}(s'\mid s,a)\right]
+&=\max_{a}\mathbb{E}\left[r+\gamma v_{*}(s')\mid s,a\right]\\
+&=\max_{a}\sum_{s',r}p(s',r\mid s,a)\left[r+\gamma v_{*}(s')\right]
 \end{align*}</script><script type="math/tex; mode=display">
 \begin{align*}
-q_{*}(s,a) &= \max_{s',r}\left[r+\gamma v_{*}(s')\right]\\
-&=\max_{s',r} \left[r+\gamma \max_{a'} q_{*}(s',a')\right]
-\end{align*}</script><h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>未完待写</p>
+q_{*}(s,a) &= \mathbb{E}\left[r+\gamma v_{*}(s')\mid s,a\right]\\
+&=\mathbb{E}\left[r+\gamma \max_{a'} q_{*}(s',a')\mid s,a\right]\\
+&=\sum_{s',r}p(s',r\mid s,a)\left[r+\gamma \max_{a'}q_{*}(s',a')\right]
+\end{align*}</script><p><img src="./价值与贝尔曼方程/vq.jpg" alt=""></p>
+<p>虽然我们已经定义出了最优值函数和最优策略，而且理论上也可以直接计算出来。但是通常情况下我们没法得到这么多的计算资源。与此同时内存溢出也是一个很大的问题，因为很多问题的状态数量太多超过存储范围。对于这些情况我们就不能够使用直接存储每个状态的值函数而是必须使用一种更精简的参数型函数表示的方法。</p>
+<p>强化学习的框架迫使我们进行近似求解，而且这个框架同时也很容易进行近似，比如对于很多小概率出现的状态，选择最优解和次优解区别不大。</p>
+<h3 id="最优策略"><a href="#最优策略" class="headerlink" title="最优策略"></a>最优策略</h3><p>定义策略之间的偏序关系</p>
+<script type="math/tex; mode=display">
+\pi \geq \pi' \ if \ v_{\pi}(s) \geq v_{\pi'}(s) \ , \ \forall s</script><p>那么有如下定理成立：</p>
+<p>对任意MDP：</p>
+<ul>
+<li>存在最优策略$\pi_{\ast}$，满足$\pi_{\ast} \geq \pi,\forall \pi$</li>
+<li>所有最优策略的状态值函数都等于最优状态值函数$v_{\pi_{\ast}}(s)=v_{\ast}(s)$</li>
+<li>所有最优策略的动作值函数都等于最优动作值函数$q_{\pi_{\ast}}(s,a)=q_{\ast}(s,a)$</li>
+</ul>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>对于上述例子和表格，我们来试着计算一下$V(S)、Q(S,A)$。</p>
+<p>第一个问题，怎么计算这些值？初始化终态的状态值为0，然后从后向前递归？我们来试一下！</p>
+<h3 id="只初始化终态"><a href="#只初始化终态" class="headerlink" title="只初始化终态"></a>只初始化终态</h3><p>根据上述公式，设$\gamma =1$：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+&v(F)=r=0\\
+&q(E，)=1\times (0+v(F))=0\\
+&1表示选择这个动作转移至另一个状态的概率\\
+&v(E)=1\times q(E,)=0\\
+&q(D,0.6)=1\times (10+v(E))=10\\
+&q(D,0.4)=0.2\times(-2+v(B))+0.4\times(-2+v(C))+0.4\times(-2+v(D))=\\
+&v(D)=0.4\times q(D,0.4)+0.6\times q(D,0.6)=\\
+&q(C,0.8)=1\times (-2+v(D))=\\
+&q(C,0.2)=1\times (0+v(F))=0\\
+&v(C)=0.2\times q(C,0.2)+0.8\times q(C,0.8)=\\
+&q(B,0.5_{C})=1\times (-2+v(C))=\\
+&q(B,0.5_{A})=1\times (-1+v(A))=\\
+&v(B)=0.5\times q(B,0.5_{C})+0.5 \times q(B,0.5_{A})=\\
+&q(A,0.9)=1\times (-1+v(A))=\\
+&q(A,0.1)=1\times(-2+v(B))=\\
+&v(A)=0.1\times q(A,0.1)+0.9\times q(A,0.9)=
+\end{align*}</script><p>哎呀，卡住了，解不出来，$v(D)、v(A)、v(B)$互相依赖，解不出来，看来这样计算是行不通了。其实，很多问题中终态都很难定义，更别说使用这种方法了。</p>
+<h3 id="初始化全部状态值"><a href="#初始化全部状态值" class="headerlink" title="初始化全部状态值"></a>初始化全部状态值</h3><p>初始化所有状态的值函数为0，即</p>
+<script type="math/tex; mode=display">
+v(s)=0,\ for\ all\ s\in S</script><p>先试验一下$\gamma =0.5$，</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">V和Q，$\gamma =0.5$</th>
+<th style="text-align:center">初始化V计算Q</th>
+<th style="text-align:center">迭代→V→Q</th>
+<th>第46轮完全收敛</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">A</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">……</td>
+<td>-2.171</td>
+</tr>
+<tr>
+<td style="text-align:center">B</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">……</td>
+<td>-1.880</td>
+</tr>
+<tr>
+<td style="text-align:center">C</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">……</td>
+<td>0.651</td>
+</tr>
+<tr>
+<td style="text-align:center">D</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">……</td>
+<td>5.627</td>
+</tr>
+<tr>
+<td style="text-align:center">E</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">……</td>
+<td>0</td>
+</tr>
+<tr>
+<td style="text-align:center">F</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">……</td>
+<td>0</td>
+</tr>
+<tr>
+<td style="text-align:center">$(A,0.1)\rightarrow B$</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">……</td>
+<td>-2.940</td>
+</tr>
+<tr>
+<td style="text-align:center">$(A,0.9)\rightarrow A$</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">……</td>
+<td>-2.085</td>
+</tr>
+<tr>
+<td style="text-align:center">$(B,0.5_{A})\rightarrow A$</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">……</td>
+<td>-2.085</td>
+</tr>
+<tr>
+<td style="text-align:center">$(B,0.5_{C})\rightarrow C$</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">……</td>
+<td>-1.675</td>
+</tr>
+<tr>
+<td style="text-align:center">$(C,0.2)\rightarrow F$</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">……</td>
+<td>0</td>
+</tr>
+<tr>
+<td style="text-align:center">$(C,0.8)\rightarrow D$</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">……</td>
+<td>0.814</td>
+</tr>
+<tr>
+<td style="text-align:center">$(D,0.4)\rightarrow \begin{cases}B,0.2\\C,0.4\\D,0.4\end{cases}$</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">……</td>
+<td>-0.932</td>
+</tr>
+<tr>
+<td style="text-align:center">$(D,0.6)\rightarrow E$</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">……</td>
+<td>10</td>
+</tr>
+<tr>
+<td style="text-align:center">$(E,1.0)\rightarrow F$</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">……</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>这是代码计算的结果，接下来我使$\gamma =1$，计算结果如下，每迭代100次输出一下：</p>
+<p><img src="./价值与贝尔曼方程/example1.png" alt=""></p>
+<p>可以发现，在700至800次迭代后值函数最终收敛。</p>
+<p>如果我将$\gamma $设置为0.1呢？来看一下结果：</p>
+<p><img src="./价值与贝尔曼方程/example2.png" alt=""></p>
+<p>仅仅需要十几次就可以迭代至收敛。</p>
+<p>如果设置为0呢？会怎么样？看结果：</p>
+<p><img src="./价值与贝尔曼方程/example3.png" alt=""></p>
+<p>仅需一次迭代就可以收敛，而且就是转移状态的立即奖励值，这下可以理解$\gamma$为什么表示对未来的看重程度了吧。</p>
+<p>一般我们是不会将$\gamma$设置为0的，从这个例子的直观感受也可以得到，就拿$\gamma =0$与$\gamma =0.5来比较$：</p>
+<ul>
+<li><p>$\gamma =0$状态值最高的是$v(D)=5.2$，这很容易理解，D状态距离最大奖励值10最近，理应最好，这点与$\gamma =0.5$时相同。</p>
+</li>
+<li><p>但是对于状态C，$\gamma =0$时认为这个状态最差，$v(C)=-1.6$，$\gamma =0$时认为这个状态次优，$v(C)=0.651$，其实这就是目光短浅与目光长远的不同，$\gamma =0$并没有考虑到其附近状态的临近状态的价值，导致其主观的认为最接近我的都是负的，于是状态肯定差。</p>
+</li>
+<li><p>对于动作值也是一样，一个认为次优，一个认为最差。</p>
+</li>
+</ul>
+<p><strong>注意：并不是说$\gamma$越接近于1越好，因为在有些问题上，$\gamma=1$时其值函数永远不收敛，必须设置$0 \leq \gamma \lt 1$，值函数才能收敛。为什么呢？试着计算一下$\gamma^{n}$，看看对不同的$\gamma$值，$n$取什么值时结果接近0。</strong></p>
+<p>试着计算一下这个例子，红色代表立即奖励，蓝色代表选择动作的概率以及状态转移的概率，小写字母代表动作，大写字母代表状态。</p>
+<p><img src="./价值与贝尔曼方程/example4.png" alt=""></p>
+<p>$\gamma =1$时，迭代100W次也不收敛：</p>
+<p><img src="./价值与贝尔曼方程/example5.png" alt=""></p>
+<p>$\gamma =0.5$时，迭代50多次即可收敛：</p>
+<p><img src="./价值与贝尔曼方程/example6.png" alt=""></p>
 
       
     </div>
@@ -636,7 +819,7 @@ q_{*}(s,a) &= \max_{s',r}\left[r+\gamma v_{*}(s')\right]\\
   <p><span>本文标题:</span><a href="/价值与贝尔曼方程.html">价值与贝尔曼方程</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Keavnn 的个人博客">Keavnn</a></p>
   <p><span>发布时间:</span>2019年05月09日 - 18:05</p>
-  <p><span>最后更新:</span>2019年05月10日 - 02:05</p>
+  <p><span>最后更新:</span>2019年05月10日 - 15:05</p>
   <p><span>原始链接:</span><a href="/价值与贝尔曼方程.html" title="价值与贝尔曼方程">http://StepNeverStop.github.io/价值与贝尔曼方程.html</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://StepNeverStop.github.io/价值与贝尔曼方程.html" aria-label="复制成功！"></i></span>
   </p>
@@ -722,6 +905,10 @@ q_{*}(s,a) &= \max_{s',r}\left[r+\gamma v_{*}(s')\right]\\
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/rl-classification.html" rel="prev" title="强化学习的类别">
+                强化学习的类别 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -806,7 +993,7 @@ q_{*}(s,a) &= \max_{s',r}\left[r+\gamma v_{*}(s')\right]\\
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -874,6 +1061,20 @@ q_{*}(s,a) &= \max_{s',r}\left[r+\gamma v_{*}(s')\right]\\
 
           
           
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://bluefisher.github.io" title="Fisher Chang" target="_blank" rel="external nofollow">Fisher Chang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
 
           
 
@@ -890,7 +1091,7 @@ q_{*}(s,a) &= \max_{s',r}\left[r+\gamma v_{*}(s')\right]\\
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#价值与贝尔曼方程"><span class="nav-number">1.</span> <span class="nav-text">价值与贝尔曼方程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#值函数"><span class="nav-number">1.1.</span> <span class="nav-text">值函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#状态值函数-V-s"><span class="nav-number">1.1.1.</span> <span class="nav-text">状态值函数$V(s)$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动作值函数-Q-s-a"><span class="nav-number">1.1.2.</span> <span class="nav-text">动作值函数$Q(s,a)$</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#贝尔曼方程"><span class="nav-number">1.2.</span> <span class="nav-text">贝尔曼方程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#状态值函数-V-s-与动作值函数-Q-s-a-的关系"><span class="nav-number">1.2.1.</span> <span class="nav-text">状态值函数$V(s)$与动作值函数$Q(s,a)$的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#贝尔曼期望方程"><span class="nav-number">1.2.2.</span> <span class="nav-text">贝尔曼期望方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最优值函数"><span class="nav-number">1.2.3.</span> <span class="nav-text">最优值函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#贝尔曼最优方程"><span class="nav-number">1.2.4.</span> <span class="nav-text">贝尔曼最优方程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例子"><span class="nav-number">1.3.</span> <span class="nav-text">例子</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#价值与贝尔曼方程"><span class="nav-number">1.</span> <span class="nav-text">价值与贝尔曼方程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#值函数"><span class="nav-number">1.1.</span> <span class="nav-text">值函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#状态值函数-V-s"><span class="nav-number">1.1.1.</span> <span class="nav-text">状态值函数$V(s)$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动作值函数-Q-s-a"><span class="nav-number">1.1.2.</span> <span class="nav-text">动作值函数$Q(s,a)$</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#贝尔曼方程"><span class="nav-number">1.2.</span> <span class="nav-text">贝尔曼方程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#状态值函数-V-s-与动作值函数-Q-s-a-的关系"><span class="nav-number">1.2.1.</span> <span class="nav-text">状态值函数$V(s)$与动作值函数$Q(s,a)$的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#贝尔曼期望方程"><span class="nav-number">1.2.2.</span> <span class="nav-text">贝尔曼期望方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最优值函数"><span class="nav-number">1.2.3.</span> <span class="nav-text">最优值函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#贝尔曼最优方程"><span class="nav-number">1.2.4.</span> <span class="nav-text">贝尔曼最优方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最优策略"><span class="nav-number">1.2.5.</span> <span class="nav-text">最优策略</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例子"><span class="nav-number">1.3.</span> <span class="nav-text">例子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#只初始化终态"><span class="nav-number">1.3.1.</span> <span class="nav-text">只初始化终态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化全部状态值"><span class="nav-number">1.3.2.</span> <span class="nav-text">初始化全部状态值</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -925,7 +1126,7 @@ q_{*}(s,a) &= \max_{s',r}\left[r+\gamma v_{*}(s')\right]\\
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">20.1k</span>
+    <span title="Site words total count">22.1k</span>
   
 </div>
 
@@ -945,7 +1146,7 @@ q_{*}(s,a) &= \max_{s',r}\left[r+\gamma v_{*}(s')\right]\\
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共20.1k字</span>
+  <span class="post-count">博客全站共22.1k字</span>
 </div> -->
         
 

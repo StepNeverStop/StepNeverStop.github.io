@@ -12,6 +12,8 @@ tags:
 
 # 为远程服务器Ubuntu系统安装图形界面
 
+<!--more-->
+
 ## 资源
 
 - [X2GO](https://wiki.x2go.org/doku.php/doc:installation:x2goclient)
