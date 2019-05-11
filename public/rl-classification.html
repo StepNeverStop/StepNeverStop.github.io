@@ -117,7 +117,7 @@ daovoice('update');
 <meta property="og:site_name" content="Keavnn&#39;Blog">
 <meta property="og:description" content="本文讲述了强化学习中各种算法、问题的分类规则。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-10T09:03:17.545Z">
+<meta property="og:updated_time" content="2019-05-11T08:01:24.852Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="强化学习的类别">
 <meta name="twitter:description" content="本文讲述了强化学习中各种算法、问题的分类规则。">
@@ -360,8 +360,8 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-10T17:03:17+08:00">
-                2019-05-10
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-11T16:01:24+08:00">
+                2019-05-11
               </time>
             
           </span>
@@ -410,7 +410,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  375
+                  743
                 </span>
               
 
@@ -426,7 +426,7 @@ daovoice('update');
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  2
                 </span>
               
             </div>
@@ -449,7 +449,32 @@ daovoice('update');
       
         <p>本文讲述了强化学习中各种算法、问题的分类规则。</p>
 <a id="more"></a>
-<h1 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h1><h1 id="Policy-or-Value"><a href="#Policy-or-Value" class="headerlink" title="Policy or Value"></a>Policy or Value</h1><h1 id="MC-or-TD"><a href="#MC-or-TD" class="headerlink" title="MC or TD"></a>MC or TD</h1><h1 id="On-policy-or-Off-policy"><a href="#On-policy-or-Off-policy" class="headerlink" title="On-policy or Off-policy"></a>On-policy or Off-policy</h1><p>首先需要理解什么是行为策略与目标策略。</p>
+<h1 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h1><h1 id="Policy-or-Value"><a href="#Policy-or-Value" class="headerlink" title="Policy or Value"></a>Policy or Value</h1><h1 id="MC-or-TD"><a href="#MC-or-TD" class="headerlink" title="MC or TD"></a>MC or TD</h1><h1 id="On-policy-or-Off-policy"><a href="#On-policy-or-Off-policy" class="headerlink" title="On-policy or Off-policy"></a>On-policy or Off-policy</h1><p>在机器学习中，提到On跟Off这两个词我们最容易想到的是On-line Learning与Off-line Learning，那么强化学习与On-line、Off-line有什么关系呢？</p>
+<hr>
+<p>网上对于On-line Learning与Off-line Learning有不同的解释，按热度排序为下面三种：</p>
+<p>对于On-line Learning：</p>
+<ol>
+<li>单样本学习，样本用完即丢，样本连续不断输入，非数据集，而是数据流</li>
+<li>单样本的（SGD）</li>
+<li>单样本或批样本学习，样本连续不断输入，非数据集，而是数据流</li>
+</ol>
+<p>相应对于Off-line Learning：</p>
+<ol>
+<li>批样本或全样本学习多次，静态样本集</li>
+<li>批样本学习</li>
+<li>全样本学习，静态数据集</li>
+</ol>
+<p>对于这三种方式，强化学习可以怎样融入呢？</p>
+<ol>
+<li>对于第一种，强化学习不属于On-line Learning也不属于Off-line Learning，不属于Off-line Learning是因为样本非静态、非固定，不属于On-line Learning是因为对于Q-Learning、Sarsa、PG、PPO等算法样本用完即丢，对于DQN、TD3等算法样本重复利用。</li>
+<li>对于第二种，强化学习包括On-line Learning及On-line Learning</li>
+<li>低于第三种，强化学习属于On-line Learning</li>
+</ol>
+<hr>
+<p>On-policy、Off-policy与On-line、Off-line之间有关系吗？</p>
+<p>好像没有关系。虽然它们都是关于样本进行的划分，不过On-Off line learning针对的是样本的使用，而On-Off policy针对的是样本的生成。</p>
+<hr>
+<p>学习On-policy、Off-policy之前首先需要理解什么是行为策略与目标策略。</p>
 <p>行为策略$\mathcal{Behavior Policy}$：</p>
 <ul>
 <li>采样时间序列$S_{0},A_{0},R_{0},S_{1},A_{1},R_{2},…,S_{n},A_{n},R_{n}$的策略</li>
@@ -529,7 +554,7 @@ daovoice('update');
   <p><span>本文标题:</span><a href="/rl-classification.html">强化学习的类别</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Keavnn 的个人博客">Keavnn</a></p>
   <p><span>发布时间:</span>2019年05月10日 - 15:05</p>
-  <p><span>最后更新:</span>2019年05月10日 - 17:05</p>
+  <p><span>最后更新:</span>2019年05月11日 - 16:05</p>
   <p><span>原始链接:</span><a href="/rl-classification.html" title="强化学习的类别">http://StepNeverStop.github.io/rl-classification.html</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://StepNeverStop.github.io/rl-classification.html" aria-label="复制成功！"></i></span>
   </p>
@@ -832,7 +857,7 @@ daovoice('update');
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">22.1k</span>
+    <span title="Site words total count">22.5k</span>
   
 </div>
 
@@ -852,7 +877,7 @@ daovoice('update');
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共22.1k字</span>
+  <span class="post-count">博客全站共22.5k字</span>
 </div> -->
         
 

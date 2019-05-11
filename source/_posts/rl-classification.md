@@ -4,8 +4,8 @@ copyright: true
 top: 1
 date: 2019-05-10 15:18:23
 mathjax: true
-keywords:
-description:
+keywords: 
+description: 
 categories: ReinforcementLearning
 tags:
 - rl
@@ -29,7 +29,39 @@ tags:
 
 # On-policy or Off-policy
 
-首先需要理解什么是行为策略与目标策略。
+在机器学习中，提到On跟Off这两个词我们最容易想到的是On-line Learning与Off-line Learning，那么强化学习与On-line、Off-line有什么关系呢？
+
+---
+
+网上对于On-line Learning与Off-line Learning有不同的解释，按热度排序为下面三种：
+
+对于On-line Learning：
+
+1. 单样本学习，样本用完即丢，样本连续不断输入，非数据集，而是数据流
+2. 单样本的（SGD）
+3. 单样本或批样本学习，样本连续不断输入，非数据集，而是数据流
+
+相应对于Off-line Learning：
+
+1. 批样本或全样本学习多次，静态样本集
+2. 批样本学习
+3. 全样本学习，静态数据集
+
+对于这三种方式，强化学习可以怎样融入呢？
+
+1. 对于第一种，强化学习不属于On-line Learning也不属于Off-line Learning，不属于Off-line Learning是因为样本非静态、非固定，不属于On-line Learning是因为对于Q-Learning、Sarsa、PG、PPO等算法样本用完即丢，对于DQN、TD3等算法样本重复利用。
+2. 对于第二种，强化学习包括On-line Learning及On-line Learning
+3. 低于第三种，强化学习属于On-line Learning
+
+---
+
+On-policy、Off-policy与On-line、Off-line之间有关系吗？
+
+好像没有关系。虽然它们都是关于样本进行的划分，不过On-Off line learning针对的是样本的使用，而On-Off policy针对的是样本的生成。
+
+---
+
+学习On-policy、Off-policy之前首先需要理解什么是行为策略与目标策略。
 
 行为策略$\mathcal{Behavior Policy}$：
 
