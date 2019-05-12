@@ -15,9 +15,51 @@ tags:
 
 <!--more-->
 
-# Model
+# Stationary or not
 
+根据环境十分稳定、可以将强化学习问题分为stationary、non-stationary。
 
+如果状态转移**和**奖励函数是确定的，即选择动作$a$后执行它的结果是确定的，那么这个环境就是stationary。
+
+![](./rl-classification/stationary.png)
+
+如果状态转移**或**奖励函数是不确定的，即选择动作$a$后执行它的结果是不确定的，那么这个环境就是non-stationary。
+
+![](./rl-classification/non-stationary.png)
+
+# Model Based-or-Free
+
+一直对这个问题的认识不清晰，直到最近（2019年5月12日19:13:53）才有了清晰的认识。
+
+需要注意的是，无论是Model-Based还是Model-Free都不是对强化学习问题的分类，而是对算法的分类。之前一直理解的是状态空间$\mathcal{S}$、动作空间$\mathcal{A}$的都是离散的，转移概率矩阵$\mathcal{P}$是确定的，这样即是Model-Based，如果状态空间$\mathcal{S}$、动作空间$\mathcal{A}$或转移概率矩阵$\mathcal{P}$是不确定的，则是Model-Free，其实这只是对Model的分类，并不是Model-Based与Model-Free的真实含义，Model-Based与Model-Free是对算法求解过程的分类，理解这个可以在阅读国外文献、实验环境时更清晰，提升自己对强化学习算法的理解深度。
+
+Model-Based：
+
+- 智能体Agent在已知模型（$\mathcal{S,A,R,P}$有限且确定）或者先学习一个模型（使用有监督对状态转移、奖励函数进行学习而得到），并在这个模型中使用**planning**（预测所有状态转移可能）方法来计算解决方案
+
+> Now if we know what all those elements of an MDP are, we can just compute the solution before ever actually executing an action in the environment. In AI, we typically call computing the solution to a decision-making problem before executing an actual decision *planning*. Some classic planning algorithms for MDPs include Value Iteration, Policy Iteration, and whole lot more.
+
+Model-Free:
+
+- 智能体在模型（$\mathcal{S,A,R,P}$可能确定但没有使用planning方式解决，也可能不确定）中试错，并且使用**learning**（不预测全部可能性）方法来产生最佳策略
+
+> But the RL problem isn’t so kind to us. What makes a problem an RL problem, rather than a planning problem, is the agent does *not* know all the elements of the MDP, precluding it from being able to plan a solution. Specifically, the agent does not know how the world will change in response to its actions (the transition function TT), nor what immediate reward it will receive for doing so (the reward function RR). The agent will simply have to try taking actions in the environment, observe what happens, and somehow, find a good policy from doing so.
+
+根据Model-Based、Model-Free对算法、解决方法进行分类：
+
+Model-Based：DP、Policy Iteration、Value Iteration……
+
+Model-Free：SARSA、Q-Learning、PG……
+
+---
+
+> if you want a way to check if an RL algorithm is model-based or model-free, ask yourself this question: after learning, can the agent make predictions about what the next state and reward will be before it takes each action? If it can, then it’s a model-based RL algorithm. if it cannot, it’s a model-free algorithm.
+
+**使用算法学成策略之后，智能体可以在执行动作前判断该动作的后果，即是Model-Based，反之则是Model-Free**
+
+---
+
+>[What is the difference between model-based and model-free reinforcement learning?](https://www.quora.com/What-is-the-difference-between-model-based-and-model-free-reinforcement-learning)
 
 # Policy or Value
 

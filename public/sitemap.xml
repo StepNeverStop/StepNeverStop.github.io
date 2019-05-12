@@ -2,16 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://StepNeverStop.github.io/rl-classification.html</loc>
+    <loc>http://StepNeverStop.github.io/dynamic-programming.html</loc>
     
-    <lastmod>2019-05-11T08:01:24.852Z</lastmod>
+    <lastmod>2019-05-12T12:48:06.342Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html</loc>
     
-    <lastmod>2019-05-10T09:04:14.972Z</lastmod>
+    <lastmod>2019-05-12T12:31:44.227Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/rl-classification.html</loc>
+    
+    <lastmod>2019-05-12T12:14:18.256Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.html</loc>
+    
+    <lastmod>2019-05-12T10:38:59.847Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8BMDP%E9%A9%AC%E5%B0%94%E7%A7%91%E5%A4%AB%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B.html</loc>
+    
+    <lastmod>2019-05-12T10:36:35.797Z</lastmod>
     
   </url>
   
@@ -30,23 +51,9 @@
   </url>
   
   <url>
-    <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8BMDP%E9%A9%AC%E5%B0%94%E7%A7%91%E5%A4%AB%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B.html</loc>
-    
-    <lastmod>2019-05-10T05:37:53.262Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%9A%84%E9%87%8C%E7%A8%8B%E7%A2%91.html</loc>
     
     <lastmod>2019-05-10T01:25:19.932Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.html</loc>
-    
-    <lastmod>2019-05-10T01:25:17.271Z</lastmod>
     
   </url>
   
