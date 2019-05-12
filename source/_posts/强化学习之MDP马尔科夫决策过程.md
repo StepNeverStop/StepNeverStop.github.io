@@ -24,6 +24,8 @@ tags:
 >>Conversely, if you cannot map your problem onto a MDP, then the theory behind RL makes no guarantees of any useful result.
 
 >>One key factor that affects how well RL will work is that the states should have the Markov property - that the value of the current state is enough knowledge to fix immediate transition probabilities and immediate rewards following an action choice. Again you don't need to know in advance what those are, just that this relationship is expected to be reliable and stable. If it is not reliable, you may have a POMDP. If it is not stable, you may have a non-stationary problem. In either case, if the difference from a more strictly defined MDP is small enough, you may still get away with using RL techniques or need to adapt them slightly.
+>>
+>>**The general relationship between RL and MDP is that RL is a framework for solving problems that can be expressed as MDPs.**
 
 MDP是当前强化学习理论推导的基石，对强化学习来说，一般以马尔科夫决策过程作为形式化问题的手段。也就是说，对于目前的绝大部分强化学习算法，只有可以将问题抽象为MDP的才可以确保算法的性能（收敛性，效果等），对于违背MDP的问题并不一定确保算法有效，因为其数学公式都是基于MDP来进行推导的。
 

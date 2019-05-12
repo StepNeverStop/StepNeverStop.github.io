@@ -112,14 +112,14 @@ daovoice('update');
 <meta name="description" content="本文介绍了强化学习问题中最简单基本的算法——动态规划（Dynamic Programming），介绍了贝尔曼方程在该算法中的应用。">
 <meta name="keywords" content="rl">
 <meta property="og:type" content="article">
-<meta property="og:title" content="dynamic-programming">
+<meta property="og:title" content="动态规划">
 <meta property="og:url" content="http://StepNeverStop.github.io/dynamic-programming.html">
 <meta property="og:site_name" content="Keavnn&#39;Blog">
 <meta property="og:description" content="本文介绍了强化学习问题中最简单基本的算法——动态规划（Dynamic Programming），介绍了贝尔曼方程在该算法中的应用。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-12T12:48:06.342Z">
+<meta property="og:updated_time" content="2019-05-12T15:37:58.607Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="dynamic-programming">
+<meta name="twitter:title" content="动态规划">
 <meta name="twitter:description" content="本文介绍了强化学习问题中最简单基本的算法——动态规划（Dynamic Programming），介绍了贝尔曼方程在该算法中的应用。">
 
 
@@ -156,7 +156,7 @@ daovoice('update');
 
 
 
-  <title>dynamic-programming | Keavnn'Blog</title>
+  <title>动态规划 | Keavnn'Blog</title>
   
 
 
@@ -332,7 +332,7 @@ daovoice('update');
 
         
         
-          <h2 class="post-title" itemprop="name headline">dynamic-programming</h2>
+          <h2 class="post-title" itemprop="name headline">动态规划</h2>
         
 
         <div class="post-meta">
@@ -360,7 +360,7 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-12T20:48:06+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-12T23:37:58+08:00">
                 2019-05-12
               </time>
             
@@ -410,7 +410,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  223
+                  497
                 </span>
               
 
@@ -452,6 +452,20 @@ daovoice('update');
 <h1 id="DP的基本概念"><a href="#DP的基本概念" class="headerlink" title="DP的基本概念"></a>DP的基本概念</h1><blockquote>
 <p>动态规划(dynamic programming)是运筹学的一个分支，是求解决策过程(decision process)最优化的数学方法。20世纪50年代初美国数学家R.E.Bellman等人在研究多阶段决策过程(multistep decision process)的优化问题时，提出了著名的最优化原理(principle of optimality)，把多阶段过程转化为一系列单阶段问题，利用各阶段之间的关系，逐个求解，创立了解决这类过程优化问题的新方法——动态规划。1957年出版了他的名著《Dynamic Programming》，这是该领域的第一本著作。——<a href="[https://baike.baidu.com/item/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/529408?fr=aladdin](https://baike.baidu.com/item/动态规划/529408?fr=aladdin">百度百科</a>)</p>
 </blockquote>
+<p>动态规划-DP算法指的不是单一一个算法，而是<strong>一系列可以在给定满足MDP的完全可知环境模型中计算出最优策略的算法</strong>。</p>
+<p>DP的特点：</p>
+<ul>
+<li>Model-Based</li>
+<li>Value-Based</li>
+<li>Off-Policy(这个比较牵强，因为DP不涉及采样、预测，完全靠planning)</li>
+</ul>
+<p>DP具有很重要的理论基础作用，但是在现在的强化学习问题中，DP并不常使用，主要原因有二：</p>
+<ul>
+<li>需要完全可知的模型，状态空间、动作空间离散，状态转移、奖励函数可知且确定</li>
+<li>计算量很大(每次更新都需要完全规划所有可能性)</li>
+</ul>
+<p>在一些表格型的问题中，如完全可知的迷宫，可以使用DP，但是要解决人类现实世界极其复杂的问题、任务，DP可能就有些力不从心啦。</p>
+<p>其实，所有的强化学习算法都可以被认为是在<strong>不完全可知的环境</strong>中使用<strong>少量计算</strong>得到如DP效果一样的策略（最优策略）。</p>
 <h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><h2 id="策略迭代-Policy-Iteration"><a href="#策略迭代-Policy-Iteration" class="headerlink" title="策略迭代 Policy Iteration"></a>策略迭代 Policy Iteration</h2><h2 id="值迭代-Value-Iteration"><a href="#值迭代-Value-Iteration" class="headerlink" title="值迭代 Value Iteration"></a>值迭代 Value Iteration</h2><h2 id="PI与VI的比较"><a href="#PI与VI的比较" class="headerlink" title="PI与VI的比较"></a>PI与VI的比较</h2>
       
     </div>
@@ -478,11 +492,11 @@ daovoice('update');
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/dynamic-programming.html">dynamic-programming</a></p>
+  <p><span>本文标题:</span><a href="/dynamic-programming.html">动态规划</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Keavnn 的个人博客">Keavnn</a></p>
   <p><span>发布时间:</span>2019年05月12日 - 20:05</p>
-  <p><span>最后更新:</span>2019年05月12日 - 20:05</p>
-  <p><span>原始链接:</span><a href="/dynamic-programming.html" title="dynamic-programming">http://StepNeverStop.github.io/dynamic-programming.html</a>
+  <p><span>最后更新:</span>2019年05月12日 - 23:05</p>
+  <p><span>原始链接:</span><a href="/dynamic-programming.html" title="动态规划">http://StepNeverStop.github.io/dynamic-programming.html</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://StepNeverStop.github.io/dynamic-programming.html" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="external nofollow" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-相同方式共享 4.0 国际</a> 转载请保留原文链接及作者。</p>  
@@ -641,7 +655,7 @@ daovoice('update');
               <img class="site-author-image" itemprop="image" src="/images/Kicon.jpg" alt="Keavnn">
             
               <p class="site-author-name" itemprop="name">Keavnn</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">If it is to be, it is up to me.</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -784,7 +798,7 @@ daovoice('update');
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">23.6k</span>
+    <span title="Site words total count">24k</span>
   
 </div>
 
@@ -804,7 +818,7 @@ daovoice('update');
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共23.6k字</span>
+  <span class="post-count">博客全站共24k字</span>
 </div> -->
         
 
