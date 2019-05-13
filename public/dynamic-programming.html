@@ -117,10 +117,15 @@ daovoice('update');
 <meta property="og:site_name" content="Keavnn&#39;Blog">
 <meta property="og:description" content="本文介绍了强化学习问题中最简单基本的算法——动态规划（Dynamic Programming），介绍了贝尔曼方程在该算法中的应用。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-13T01:09:08.288Z">
+<meta property="og:image" content="http://stepneverstop.github.io/dynamic-programming/gridworld.png">
+<meta property="og:image" content="http://stepneverstop.github.io/dynamic-programming/iteration.png">
+<meta property="og:image" content="http://stepneverstop.github.io/dynamic-programming/pi.png">
+<meta property="og:image" content="http://stepneverstop.github.io/dynamic-programming/vi.png">
+<meta property="og:updated_time" content="2019-05-13T08:46:40.631Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="动态规划">
 <meta name="twitter:description" content="本文介绍了强化学习问题中最简单基本的算法——动态规划（Dynamic Programming），介绍了贝尔曼方程在该算法中的应用。">
+<meta name="twitter:image" content="http://stepneverstop.github.io/dynamic-programming/gridworld.png">
 
 
 
@@ -360,7 +365,7 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-13T09:09:08+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-13T16:46:40+08:00">
                 2019-05-13
               </time>
             
@@ -410,7 +415,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  497
+                  2k
                 </span>
               
 
@@ -426,7 +431,7 @@ daovoice('update');
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  7
                 </span>
               
             </div>
@@ -466,7 +471,49 @@ daovoice('update');
 </ul>
 <p>在一些表格型的问题中，如完全可知的迷宫，可以使用DP，但是要解决人类现实世界极其复杂的问题、任务，DP可能就有些力不从心啦。</p>
 <p>其实，所有的强化学习算法都可以被认为是在<strong>不完全可知的环境</strong>中使用<strong>少量计算</strong>得到如DP效果一样的策略（最优策略）。</p>
-<h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><h2 id="策略迭代-Policy-Iteration"><a href="#策略迭代-Policy-Iteration" class="headerlink" title="策略迭代 Policy Iteration"></a>策略迭代 Policy Iteration</h2><h2 id="值迭代-Value-Iteration"><a href="#值迭代-Value-Iteration" class="headerlink" title="值迭代 Value Iteration"></a>值迭代 Value Iteration</h2><h2 id="PI与VI的比较"><a href="#PI与VI的比较" class="headerlink" title="PI与VI的比较"></a>PI与VI的比较</h2>
+<h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><p>先回顾一下之前提到的贝尔曼方程。</p>
+<p>贝尔曼期望方程：</p>
+<script type="math/tex; mode=display">
+v_{\pi}(s) =\sum_{a}\pi(a\mid s)\sum_{s',r}p(s',r \mid s,a)\left[r+\gamma v_{\pi}(s')\right]</script><script type="math/tex; mode=display">
+q_{\pi}(s,a) =\sum_{s',r}p(s',r \mid s,a)\left[r+\gamma v_{\pi}(s')\right]</script><p>贝尔曼最优方程：</p>
+<script type="math/tex; mode=display">
+v_{*}(s) =\max_{a}\sum_{s',r}p(s',r\mid s,a)\left[r+\gamma v_{*}(s')\right]</script><script type="math/tex; mode=display">
+q_{*}(s,a) =\sum_{s',r}p(s',r\mid s,a)\left[r+\gamma v_{*}(s')\mid s,a\right]</script><p>为什么要再次提到贝尔曼方程呢？因为动态规划算法中的策略迭代、值迭代就是将贝尔曼方程给结合了起来。</p>
+<p>回顾一下在<a href="./价值与贝尔曼方程.html">价值与贝尔曼方差</a>最后的例子中迭代计算$V(S)$和$Q(S,A)$，遍历所有$Q(S,A)$以计算$V(S)$，再遍历所有$V(S)$以计算$Q(S,A)$。在一个简单的场景下循环迭代至收敛就需要很大的计算量，如果在复杂场景中(还是完全可知的)迭代计算可想有多费时费力，动态规划DP下的Policy Iteration和Value Iteration减轻了计算的负担，同时又不影响收敛性。</p>
+<p>引用《Reinfocement Learning : An Introduction》中的一个网格世界的例子：</p>
+<p><img src="./dynamic-programming/gridworld.png" alt=""></p>
+<p>在这个例子中，有1-14个非终态以及两个终态(左上角、右下角)，动作空间为上下左右四种，在边缘位置的状态，例如$S=1$，可选的动作只有左右下三种，且等概率选择每种动作，每进行一次移动，就给予-1的奖励值。智能体需要尽快的到达网格世界的出口-终态，以获得尽量少的负奖励(即累计奖励最大)。</p>
+<p>如果按照<strong>先遍历所有$Q(S,A)$以计算$V(S)$，再遍历所有$V(S)$以计算$Q(S,A)$</strong>的方式计算，值函数的表格将会如下图所示：</p>
+<p><img src="./dynamic-programming/iteration.png" alt=""></p>
+<p>左边展示的是进行$k$次迭代，使值函数表格可以收敛，右边表示在每次迭代中，取$a=argmax_{a}q(s,a)$的策略。</p>
+<p>可以发现，这样迭代$V(S)$至收敛有两个浪费算力的地方：</p>
+<ol>
+<li>选择动作的概率完全按照环境设置，导致计算状态$s$的值函数时，最差的动作$a$所带来的影响也被计算在其中，但其实真正执行的时候，永远不会执行该动作。</li>
+<li>$k=3$与$k=10$时的策略表示一样，也就意味着，不必等到$V(S)$迭代至完全收敛就有可能可以获得最优策略，那么后续迭代完全没有用处，造成了资源浪费。</li>
+</ol>
+<p>策略迭代、值迭代的思想都是贪心策略，但策略迭代针对问题1通过<strong>剪裁可选动作</strong>的方式进行了优化，值迭代针对问题2通过<strong>取最大动作值函数</strong>的方式进行了优化。</p>
+<h2 id="策略迭代-Policy-Iteration"><a href="#策略迭代-Policy-Iteration" class="headerlink" title="策略迭代 Policy Iteration"></a>策略迭代 Policy Iteration</h2><p>动作是通过策略产生的，因此势必需要对初始策略（GridWorld中的完全随机策略）进行替换，以达到更改动作选取概率的目的。</p>
+<p>既然要在不同的阶段更改动作选择的概率，那么要进行多次策略的更改，随之而来的问题就是：</p>
+<ol>
+<li>值函数迭代更新到什么情况下时，开始更新策略</li>
+<li>如何更新策略？</li>
+</ol>
+<p>针对第一个问题，我们使用<strong>策略评估Policy Evaluation</strong>的方式来解决，针对第二个问题，我们使用<strong>策略提升Policy Improvation</strong>的方式来解决，最终当新策略与旧策略相同时，终止迭代，得到最优策略。</p>
+<script type="math/tex; mode=display">
+\pi_{0} \xrightarrow{E} v_{\pi_{0}} \xrightarrow{I} \pi_{1} \xrightarrow{E} v_{\pi_{1}} \xrightarrow{I} \pi_{2} \xrightarrow{E} ... \xrightarrow{I} \pi_{\ast} \xrightarrow{E} v_{\pi_{\ast}}</script><h3 id="伪代码："><a href="#伪代码：" class="headerlink" title="伪代码："></a>伪代码：</h3><p><img src="./dynamic-programming/pi.png" alt=""></p>
+<h3 id="策略评估-Policy-Evaluation"><a href="#策略评估-Policy-Evaluation" class="headerlink" title="策略评估 Policy Evaluation"></a>策略评估 Policy Evaluation</h3><p>问题：值函数迭代更新到什么情况下时，开始更新策略</p>
+<p>答：设置更新幅度阈值$\theta$，当sweep(横扫)一遍状态空间计算$V(S)$时，与上次更新时的$V(S)$相比较，如果最大的更新幅度小于阈值$\theta$，即$\Delta \lt \theta$，则认为策略评估已经完成，开始进行策略更新</p>
+<p>特点：使用了贝尔曼期望方程-$v_{\pi}(s)$</p>
+<p><em>注：策略评估指的不是评估一个策略的好坏，而是在当前策略下评估所有的状态值，使状态值表格近似收敛。</em></p>
+<h3 id="策略提升-Policy-Improvement"><a href="#策略提升-Policy-Improvement" class="headerlink" title="策略提升 Policy Improvement"></a>策略提升 Policy Improvement</h3><p>问题：如何更新策略？</p>
+<p>答：根据策略评估步骤得到的值函数$V(S)$，计算$Q(S,A)$表格，选取每个状态下使动作值函数最大的动作作为新的动作集，每个动作的选择概率相同，接着进行策略评估。</p>
+<p>特点：使用了贝尔曼期望方程-$q_{\pi}(s,a)$</p>
+<h2 id="值迭代-Value-Iteration"><a href="#值迭代-Value-Iteration" class="headerlink" title="值迭代 Value Iteration"></a>值迭代 Value Iteration</h2><p>策略迭代的一个缺点是在得到最优策略$\pi_{\ast}$之前，需要多次更新策略，每次更新策略都会引起可选取动作的改变，这会引起在更新完策略后的前几次策略评估中值函数偏差比较大，导致在策略评估过程中需要花费大量的迭代来减小更新幅度$\Delta$，因此需要多次sweep(横扫)$V(S)$来迭代计算。</p>
+<p>值迭代的思想是：<strong>能不能通过早停的方式，在不更改策略的情况下，直接一次得到最优策略？</strong></p>
+<p>值迭代运用了策略评估、策略迭代的思想，并将它们融合在一起，即不更新策略，直接选择动作值函数$q(s,a)$最大的动作作为状态值$v(s)$，直接迭代出最优状态价值函数$V_{\ast}(S)$，使用贪心策略进而得到最优策略$\pi_{\ast}$。</p>
+<p>特点：使用了贝尔曼最优方程-$v_{\ast}(s)，q_{\ast}(s,a)$。</p>
+<h3 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h3><p><img src="./dynamic-programming/vi.png" alt=""></p>
+<h2 id="PI与VI的比较"><a href="#PI与VI的比较" class="headerlink" title="PI与VI的比较"></a>PI与VI的比较</h2>
       
     </div>
     
@@ -495,7 +542,7 @@ daovoice('update');
   <p><span>本文标题:</span><a href="/dynamic-programming.html">动态规划</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Keavnn 的个人博客">Keavnn</a></p>
   <p><span>发布时间:</span>2019年05月12日 - 20:05</p>
-  <p><span>最后更新:</span>2019年05月13日 - 09:05</p>
+  <p><span>最后更新:</span>2019年05月13日 - 16:05</p>
   <p><span>原始链接:</span><a href="/dynamic-programming.html" title="动态规划">http://StepNeverStop.github.io/dynamic-programming.html</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://StepNeverStop.github.io/dynamic-programming.html" aria-label="复制成功！"></i></span>
   </p>
@@ -763,7 +810,7 @@ daovoice('update');
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DP的基本概念"><span class="nav-number">1.</span> <span class="nav-text">DP的基本概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#算法"><span class="nav-number">2.</span> <span class="nav-text">算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#策略迭代-Policy-Iteration"><span class="nav-number">2.1.</span> <span class="nav-text">策略迭代 Policy Iteration</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#值迭代-Value-Iteration"><span class="nav-number">2.2.</span> <span class="nav-text">值迭代 Value Iteration</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PI与VI的比较"><span class="nav-number">2.3.</span> <span class="nav-text">PI与VI的比较</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DP的基本概念"><span class="nav-number">1.</span> <span class="nav-text">DP的基本概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#算法"><span class="nav-number">2.</span> <span class="nav-text">算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#策略迭代-Policy-Iteration"><span class="nav-number">2.1.</span> <span class="nav-text">策略迭代 Policy Iteration</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#伪代码："><span class="nav-number">2.1.1.</span> <span class="nav-text">伪代码：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略评估-Policy-Evaluation"><span class="nav-number">2.1.2.</span> <span class="nav-text">策略评估 Policy Evaluation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略提升-Policy-Improvement"><span class="nav-number">2.1.3.</span> <span class="nav-text">策略提升 Policy Improvement</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#值迭代-Value-Iteration"><span class="nav-number">2.2.</span> <span class="nav-text">值迭代 Value Iteration</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#伪代码"><span class="nav-number">2.2.1.</span> <span class="nav-text">伪代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PI与VI的比较"><span class="nav-number">2.3.</span> <span class="nav-text">PI与VI的比较</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -798,7 +845,7 @@ daovoice('update');
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">24k</span>
+    <span title="Site words total count">25.5k</span>
   
 </div>
 
@@ -818,7 +865,7 @@ daovoice('update');
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共24k字</span>
+  <span class="post-count">博客全站共25.5k字</span>
 </div> -->
         
 
