@@ -8,11 +8,11 @@ tags:
 - conda
 ---
 
-# Conda 环境导出导入和其中pip安装包的迁移
+本文记录了如何导出、导入自己的conda环境，对于pip安装的包如何导出、导入。
 
 <!--more-->
 
-## Conda 环境
+# Conda 环境
 
 1. 激活环境
 `conda activate [env_name]`
@@ -23,7 +23,7 @@ tags:
 `conda env create -f [env_filename].yaml`
 移植过来的conda环境只安装了原环境中使用`conda install`等命令安装的包, 使用`pip`命令安装的包需要重新安装
 
-## pip包
+# pip包
 
 1. 导出
 `pip freeze > requirements.txt`

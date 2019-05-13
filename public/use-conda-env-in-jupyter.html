@@ -109,22 +109,22 @@ daovoice('update');
     })();
 </script>
 
-<meta name="description" content="在Jupyter Notebook中使用本机的conda环境">
+<meta name="description" content="本文介绍了如何在Jupyter Notebook中使用本机的conda环境进行开发">
 <meta name="keywords" content="conda,jupyter notebook">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在Jupyter Notebook中使用本机的conda环境">
 <meta property="og:url" content="http://StepNeverStop.github.io/use-conda-env-in-jupyter.html">
 <meta property="og:site_name" content="Keavnn&#39;Blog">
-<meta property="og:description" content="在Jupyter Notebook中使用本机的conda环境">
+<meta property="og:description" content="本文介绍了如何在Jupyter Notebook中使用本机的conda环境进行开发">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://stepneverstop.github.io/use-conda-env-in-jupyter/1.png">
 <meta property="og:image" content="http://stepneverstop.github.io/use-conda-env-in-jupyter/2.png">
 <meta property="og:image" content="http://stepneverstop.github.io/use-conda-env-in-jupyter/3.png">
 <meta property="og:image" content="http://stepneverstop.github.io/use-conda-env-in-jupyter/4.png">
-<meta property="og:updated_time" content="2019-05-10T12:39:30.403Z">
+<meta property="og:updated_time" content="2019-05-13T11:52:06.850Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在Jupyter Notebook中使用本机的conda环境">
-<meta name="twitter:description" content="在Jupyter Notebook中使用本机的conda环境">
+<meta name="twitter:description" content="本文介绍了如何在Jupyter Notebook中使用本机的conda环境进行开发">
 <meta name="twitter:image" content="http://stepneverstop.github.io/use-conda-env-in-jupyter/1.png">
 
 
@@ -365,8 +365,8 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-10T20:39:30+08:00">
-                2019-05-10
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-13T19:52:06+08:00">
+                2019-05-13
               </time>
             
           </span>
@@ -415,7 +415,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  138
+                  149
                 </span>
               
 
@@ -452,14 +452,15 @@ daovoice('update');
       
 
       
-        <h1 id="在Jupyter-Notebook中使用本机的conda环境"><a href="#在Jupyter-Notebook中使用本机的conda环境" class="headerlink" title="在Jupyter Notebook中使用本机的conda环境"></a>在Jupyter Notebook中使用本机的conda环境</h1><a id="more"></a>
-<h2 id="Jupyter下conda多环境管理"><a href="#Jupyter下conda多环境管理" class="headerlink" title="Jupyter下conda多环境管理"></a>Jupyter下conda多环境管理</h2><h3 id="1-手撸命令"><a href="#1-手撸命令" class="headerlink" title="1. 手撸命令"></a>1. 手撸命令</h3><ol>
+        <p>本文介绍了如何在Jupyter Notebook中使用本机的conda环境进行开发</p>
+<a id="more"></a>
+<h1 id="Jupyter下conda多环境管理"><a href="#Jupyter下conda多环境管理" class="headerlink" title="Jupyter下conda多环境管理"></a>Jupyter下conda多环境管理</h1><h2 id="1-手撸命令"><a href="#1-手撸命令" class="headerlink" title="1. 手撸命令"></a>1. 手撸命令</h2><ol>
 <li>在<code>base</code>环境下安装内核管理工具<br><code>pip install ipykernel</code></li>
 <li>将环境内核添加到<code>jupyter kernel</code>中<br><code>python -m ipykernel install --user --name [env_name] --display-name &quot;[show name in jupyter]&quot;</code></li>
 <li>查看已在<code>jupyter</code>中创建的虚拟环境内核<br><code>jupyter kernelspec list</code></li>
 <li>删除内核<br><code>jupyter kernelspec uninstall [env_name]</code></li>
 </ol>
-<h3 id="2-使用插件"><a href="#2-使用插件" class="headerlink" title="2. 使用插件"></a>2. 使用插件</h3><p>简单粗暴, 在<code>base</code>环境下使用命令<br><code>conda install nb_conda</code><br><img src="./use-conda-env-in-jupyter/1.png" alt=""><br><img src="./use-conda-env-in-jupyter/2.png" alt=""><br>接下来, 看看jupyter中能不能显示<code>conda</code>环境<br><code>jupyter notebook</code><br><img src="./use-conda-env-in-jupyter/3.png" alt=""><br>在文件内部也可以很方便的切换环境<br><img src="./use-conda-env-in-jupyter/4.png" alt=""></p>
+<h2 id="2-使用插件"><a href="#2-使用插件" class="headerlink" title="2. 使用插件"></a>2. 使用插件</h2><p>简单粗暴, 在<code>base</code>环境下使用命令<br><code>conda install nb_conda</code><br><img src="./use-conda-env-in-jupyter/1.png" alt=""><br><img src="./use-conda-env-in-jupyter/2.png" alt=""><br>接下来, 看看jupyter中能不能显示<code>conda</code>环境<br><code>jupyter notebook</code><br><img src="./use-conda-env-in-jupyter/3.png" alt=""><br>在文件内部也可以很方便的切换环境<br><img src="./use-conda-env-in-jupyter/4.png" alt=""></p>
 
       
     </div>
@@ -489,7 +490,7 @@ daovoice('update');
   <p><span>本文标题:</span><a href="/use-conda-env-in-jupyter.html">在Jupyter Notebook中使用本机的conda环境</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Keavnn 的个人博客">Keavnn</a></p>
   <p><span>发布时间:</span>2019年03月22日 - 13:03</p>
-  <p><span>最后更新:</span>2019年05月10日 - 20:05</p>
+  <p><span>最后更新:</span>2019年05月13日 - 19:05</p>
   <p><span>原始链接:</span><a href="/use-conda-env-in-jupyter.html" title="在Jupyter Notebook中使用本机的conda环境">http://StepNeverStop.github.io/use-conda-env-in-jupyter.html</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://StepNeverStop.github.io/use-conda-env-in-jupyter.html" aria-label="复制成功！"></i></span>
   </p>
@@ -665,7 +666,7 @@ daovoice('update');
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -763,7 +764,7 @@ daovoice('update');
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#在Jupyter-Notebook中使用本机的conda环境"><span class="nav-number">1.</span> <span class="nav-text">在Jupyter Notebook中使用本机的conda环境</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Jupyter下conda多环境管理"><span class="nav-number">1.1.</span> <span class="nav-text">Jupyter下conda多环境管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-手撸命令"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. 手撸命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-使用插件"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 使用插件</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Jupyter下conda多环境管理"><span class="nav-number">1.</span> <span class="nav-text">Jupyter下conda多环境管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-手撸命令"><span class="nav-number">1.1.</span> <span class="nav-text">1. 手撸命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-使用插件"><span class="nav-number">1.2.</span> <span class="nav-text">2. 使用插件</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -798,7 +799,7 @@ daovoice('update');
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">25.5k</span>
+    <span title="Site words total count">26.4k</span>
   
 </div>
 
@@ -818,7 +819,7 @@ daovoice('update');
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共25.5k字</span>
+  <span class="post-count">博客全站共26.4k字</span>
 </div> -->
         
 

@@ -8,11 +8,11 @@ tags:
 - docker
 ---
 
-# 一些在Docker中比较难以安装的库(整理)
+本文记录了一些在Docker中比较难以安装、频繁报错的库，如cuda、cudnn。
 
 <!--more-->
 
-## 前言
+# 前言
 在配置镜像时, **强烈建议将源更改为国内镜像站**, 因为国外有些镜像站链接速度很慢, 更新也很慢, 很多库无法正确安装
 
 我所使用的镜像站为`sources.list`:
@@ -43,7 +43,7 @@ COPY sources.list /etc/apt/sources.list
 ```
 将源替换.
 
-## CUDA 9.0 开发者版
+# CUDA 9.0 开发者版
 `dockerfile`如下:
 ```
 FROM nvidia/cuda:9.0-runtime-ubuntu16.04
@@ -63,7 +63,7 @@ ENV LIBRARY_PATH /usr/local/cuda/lib64/stubs
 ```
 **--allow-unauthenticated** 这句命令很重要, 不使用的话很有可能安装失败
 
-## cudnn 7.0.5
+# cudnn 7.0.5
 - [https://developer.nvidia.com/rdp/cudnn-archive](https://developer.nvidia.com/rdp/cudnn-archive) 下载cuDNN Libraries for Linux,不要下载 Power 8
 - 把下载好的包上传到FTP服务器, 或者传输到容器内, 或者直接在容器中下载好
 - `cd`到包位置
@@ -81,7 +81,7 @@ ENV LIBRARY_PATH /usr/local/cuda/lib64/stubs
 - 使用`cat /usr/local/cuda-9.0/include/cudnn.h | grep CUDNN_MAJOR -A 2` 查看cudnn版本
 ![](./create-sniper-docker-image/Snipaste_2019-01-03_10-56-08.png)
 
-## jemalloc
+# jemalloc
 选择安装`jemalloc`,这个工具可以加速编译,碎片整理,具体请自行谷歌
 - `apt-get install autoconf`
 - `apt-get install automake`
@@ -93,7 +93,7 @@ ENV LIBRARY_PATH /usr/local/cuda/lib64/stubs
 - `make`
 - `make install_bin install_include install_lib`,之所以不使用`make install`是因为会报错,如下: ![](./create-sniper-docker-image/Snipaste_2019-01-03_09-56-41.png)
 
-## Python3.6
+# Python3.6
 记得`sudo`
 - `apt-get install software-properties-common`
 - `add-apt-repository ppa:jonathonf/python-3.6`, 按`ENTER`

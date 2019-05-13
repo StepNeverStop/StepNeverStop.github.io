@@ -59,15 +59,37 @@ Model-Free：SARSA、Q-Learning、PG……
 
 ---
 
+根据Model-Based和Model-Free可以将强化学习算法分类，图片摘自OpenAI Spinning Up，如图所示：
+
+![](./rl-classification/model-classification.png)
+
 >[What is the difference between model-based and model-free reinforcement learning?](https://www.quora.com/What-is-the-difference-between-model-based-and-model-free-reinforcement-learning)
+>
+>[OpenAI Spinning Up : A Taxonomy of RL Algorithms](https://spinningup.openai.com/en/latest/spinningup/rl_intro2.html#a-taxonomy-of-rl-algorithms)
 
 # Policy or Value
 
+强化学习的目的是找到最优策略使得累积期望回报最大化，获得最优策略的方法有直接与间接之分。直接获取策略的图示为：
 
+![](./rl-classification/policy-based.png)
 
-# MC or TD
+间接获得策略为从值函数中提取最优策略，图示为：
 
+![](./rl-classification/value-based.png)
 
+直接获取策略的方式即为Policy-Based，常见的算法有：
+
+- Policy Gradient
+- PPO
+- SAC
+- ……
+
+间接获得策略的方式即为Value-Based，常见的算法有：
+
+- SARSA
+- Q-Learning
+- DQN
+- ……
 
 # On-policy or Off-policy
 

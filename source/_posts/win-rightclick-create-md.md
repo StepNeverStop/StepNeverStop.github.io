@@ -1,33 +1,31 @@
 ---
-title:  "Windows下右键新建.md文件教程"
+title:  Windows下右键新建.md文件教程
 date:   2018-12-29 00:00:00
 categories: 小知识
 tags: markdown
 copyright: true
 ---
 
-# Windows下右键新建.md文件教程
+原本创建.md文件需要首先打开markdown文本编辑器，如Typora，或者新建.txt文件然后修改后缀名，本文介绍了如何在Windows操作系统中添加右键创建.md文件的方法。
 
 <!--more-->
 
-## 环境
+# 环境
 
 windows10操作系统
 Typora编辑器
 
-## 效果图
-
-
+# 效果图
 
 ![](./win-rightclick-create-md/1546050455.jpg)
 
-## 步骤
+# 步骤
 
-### 1. 打开注册表
+## 1. 打开注册表
 1. `CMD+R`，打开运行对话框
 2. 输入`regedit`，打开注册表编辑器
 
-### 2. 修改注册表
+## 2. 修改注册表
 1. 在`计算机>HKEY_CLASSES_ROOT`右键查找，输入`Typora`，勾选项，取消勾选值和数据
 
 ![](./win-rightclick-create-md/20181229103503.png)
@@ -58,7 +56,7 @@ Windows Registry Editor Version 5.00
 文件名可以随便设置，但是后缀必须是`.reg`文件,保存类型一定要是`文本文档(*.txt)`,编码选择`Unicode`,非常重要!!!!!
 6. 保存文件后,双击运行,修改注册表即可,现在右键即可达到预期效果,如果不行,请重启一下.
 
-### 3. 编辑新建图标(非必须)
+## 3. 编辑新建图标(非必须)
 1. 以`Typora`为例,在注册表`Typora.exe`下点击项`DefaultIcon`,右键修改
 2. 将属性修改为想要设置的Markdown文件图标
 

@@ -112,7 +112,7 @@ daovoice('update');
 <meta name="description" content="本文介绍了强化学习问题中最简单基本的算法——动态规划（Dynamic Programming），介绍了贝尔曼方程在该算法中的应用。">
 <meta name="keywords" content="rl">
 <meta property="og:type" content="article">
-<meta property="og:title" content="动态规划">
+<meta property="og:title" content="动态规划 Dynamic Programming">
 <meta property="og:url" content="http://StepNeverStop.github.io/dynamic-programming.html">
 <meta property="og:site_name" content="Keavnn&#39;Blog">
 <meta property="og:description" content="本文介绍了强化学习问题中最简单基本的算法——动态规划（Dynamic Programming），介绍了贝尔曼方程在该算法中的应用。">
@@ -121,9 +121,10 @@ daovoice('update');
 <meta property="og:image" content="http://stepneverstop.github.io/dynamic-programming/iteration.png">
 <meta property="og:image" content="http://stepneverstop.github.io/dynamic-programming/pi.png">
 <meta property="og:image" content="http://stepneverstop.github.io/dynamic-programming/vi.png">
-<meta property="og:updated_time" content="2019-05-13T08:46:40.631Z">
+<meta property="og:image" content="http://stepneverstop.github.io/dynamic-programming/pivsvi.png">
+<meta property="og:updated_time" content="2019-05-13T12:42:28.856Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="动态规划">
+<meta name="twitter:title" content="动态规划 Dynamic Programming">
 <meta name="twitter:description" content="本文介绍了强化学习问题中最简单基本的算法——动态规划（Dynamic Programming），介绍了贝尔曼方程在该算法中的应用。">
 <meta name="twitter:image" content="http://stepneverstop.github.io/dynamic-programming/gridworld.png">
 
@@ -161,7 +162,7 @@ daovoice('update');
 
 
 
-  <title>动态规划 | Keavnn'Blog</title>
+  <title>动态规划 Dynamic Programming | Keavnn'Blog</title>
   
 
 
@@ -337,7 +338,7 @@ daovoice('update');
 
         
         
-          <h2 class="post-title" itemprop="name headline">动态规划</h2>
+          <h2 class="post-title" itemprop="name headline">动态规划 Dynamic Programming</h2>
         
 
         <div class="post-meta">
@@ -365,7 +366,7 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-13T16:46:40+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-13T20:42:28+08:00">
                 2019-05-13
               </time>
             
@@ -415,7 +416,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2k
+                  2.5k
                 </span>
               
 
@@ -431,7 +432,7 @@ daovoice('update');
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  7
+                  9
                 </span>
               
             </div>
@@ -500,7 +501,7 @@ q_{*}(s,a) =\sum_{s',r}p(s',r\mid s,a)\left[r+\gamma v_{*}(s')\mid s,a\right]</s
 </ol>
 <p>针对第一个问题，我们使用<strong>策略评估Policy Evaluation</strong>的方式来解决，针对第二个问题，我们使用<strong>策略提升Policy Improvation</strong>的方式来解决，最终当新策略与旧策略相同时，终止迭代，得到最优策略。</p>
 <script type="math/tex; mode=display">
-\pi_{0} \xrightarrow{E} v_{\pi_{0}} \xrightarrow{I} \pi_{1} \xrightarrow{E} v_{\pi_{1}} \xrightarrow{I} \pi_{2} \xrightarrow{E} ... \xrightarrow{I} \pi_{\ast} \xrightarrow{E} v_{\pi_{\ast}}</script><h3 id="伪代码："><a href="#伪代码：" class="headerlink" title="伪代码："></a>伪代码：</h3><p><img src="./dynamic-programming/pi.png" alt=""></p>
+\pi_{0} \xrightarrow{E} v_{\pi_{0}} \xrightarrow{I} \pi_{1} \xrightarrow{E} v_{\pi_{1}} \xrightarrow{I} \pi_{2} \xrightarrow{E} ... \xrightarrow{I} \pi_{\ast} \xrightarrow{E} v_{\pi_{\ast}}</script><h3 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h3><p><img src="./dynamic-programming/pi.png" alt=""></p>
 <h3 id="策略评估-Policy-Evaluation"><a href="#策略评估-Policy-Evaluation" class="headerlink" title="策略评估 Policy Evaluation"></a>策略评估 Policy Evaluation</h3><p>问题：值函数迭代更新到什么情况下时，开始更新策略</p>
 <p>答：设置更新幅度阈值$\theta$，当sweep(横扫)一遍状态空间计算$V(S)$时，与上次更新时的$V(S)$相比较，如果最大的更新幅度小于阈值$\theta$，即$\Delta \lt \theta$，则认为策略评估已经完成，开始进行策略更新</p>
 <p>特点：使用了贝尔曼期望方程-$v_{\pi}(s)$</p>
@@ -510,10 +511,49 @@ q_{*}(s,a) =\sum_{s',r}p(s',r\mid s,a)\left[r+\gamma v_{*}(s')\mid s,a\right]</s
 <p>特点：使用了贝尔曼期望方程-$q_{\pi}(s,a)$</p>
 <h2 id="值迭代-Value-Iteration"><a href="#值迭代-Value-Iteration" class="headerlink" title="值迭代 Value Iteration"></a>值迭代 Value Iteration</h2><p>策略迭代的一个缺点是在得到最优策略$\pi_{\ast}$之前，需要多次更新策略，每次更新策略都会引起可选取动作的改变，这会引起在更新完策略后的前几次策略评估中值函数偏差比较大，导致在策略评估过程中需要花费大量的迭代来减小更新幅度$\Delta$，因此需要多次sweep(横扫)$V(S)$来迭代计算。</p>
 <p>值迭代的思想是：<strong>能不能通过早停的方式，在不更改策略的情况下，直接一次得到最优策略？</strong></p>
-<p>值迭代运用了策略评估、策略迭代的思想，并将它们融合在一起，即不更新策略，直接选择动作值函数$q(s,a)$最大的动作作为状态值$v(s)$，直接迭代出最优状态价值函数$V_{\ast}(S)$，使用贪心策略进而得到最优策略$\pi_{\ast}$。</p>
+<p>值迭代运用了策略评估、策略迭代的思想，并将它们融合在一起，即不更新策略，直接选择动作值函数$q(s,a)$最大的动作作为状态值$v(s)$，直接迭代出<strong>近似最优</strong>（早停，$\Delta \lt \theta$即可）状态价值函数$V_{\ast}(S)$，使用贪心策略进而得到最优策略$\pi_{\ast}$。</p>
 <p>特点：使用了贝尔曼最优方程-$v_{\ast}(s)，q_{\ast}(s,a)$。</p>
-<h3 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h3><p><img src="./dynamic-programming/vi.png" alt=""></p>
-<h2 id="PI与VI的比较"><a href="#PI与VI的比较" class="headerlink" title="PI与VI的比较"></a>PI与VI的比较</h2>
+<h3 id="伪代码-1"><a href="#伪代码-1" class="headerlink" title="伪代码"></a>伪代码</h3><p><img src="./dynamic-programming/vi.png" alt=""></p>
+<h2 id="PI与VI的比较"><a href="#PI与VI的比较" class="headerlink" title="PI与VI的比较"></a>PI与VI的比较</h2><p><img src="./dynamic-programming/pivsvi.png" alt=""></p>
+<p>相同点：</p>
+<ul>
+<li>在$0 \leq \gamma \lt 1$，有限MDPs环境中，两种方式都可以收敛到最优策略$\pi_{\ast}$</li>
+<li>都使用了贝尔曼方程进行状态值函数的迭代</li>
+</ul>
+<p>不同点：</p>
+<ol>
+<li>收敛方式<ul>
+<li>策略迭代PI包括策略评估Policy Evaluation和策略提升Policy Improvement，这两部循环迭代至策略收敛</li>
+<li>值迭代VI包括找到最优状态值函数和一步提取策略，这两步不需要循环迭代，而是根据最优值函数直接得到最优策略</li>
+</ul>
+</li>
+<li>动作改变方式<ul>
+<li>策略迭代PI获得新策略$\pi_{new}$后，<strong>更改每个状态的可选动作集</strong>，多次横扫（遍历）$V(S)$</li>
+<li>值迭代VI过程中不产生策略，不更改每个状态的可选动作集，但是<strong>只取每个状态下动作值函数最大的动作作为状态值</strong>，一次横扫（遍历）$V(S)$。（这里需要解释一下，虽然循环是多次遍历，但是因为max操作，每次遍历每个状态所选取的动作不一定一样，虽然策略一直是随机策略，没有产生新策略，但是计算过程没有遍历到所有动作，可以隐含的看作是一个新策略，因此每次遍历时这个“隐策略”都会改变，所以称为一次遍历。）</li>
+</ul>
+</li>
+<li>计算方式<ul>
+<li>策略迭代PI使用贝尔曼期望方程</li>
+<li>值迭代VI使用贝尔曼最优方程</li>
+</ul>
+</li>
+<li>Policy方式<ul>
+<li>策略迭代PI是On-Policy</li>
+<li>值迭代VI是Off-Policy</li>
+</ul>
+</li>
+<li>稳定性检查<ul>
+<li>策略迭代PI中更新策略时进行了策略稳定性检查，判断是否收敛</li>
+<li>值迭代VI获得新策略$\pi$时没有进行策略稳定性检查</li>
+</ul>
+</li>
+</ol>
+<p>至于策略迭代PI与值迭代VI的收敛速度，<strong>通常情况</strong>下，PI的迭代次数更少，VI的运行时间更少。</p>
+<blockquote>
+<p><a href="https://stackoverflow.com/a/42493295/11483803" rel="external nofollow" target="_blank">What is the difference between value iteration and policy iteration?</a></p>
+<p><a href="http://incompleteideas.net/book/RLbook2018.pdf" rel="external nofollow" target="_blank">《Reinforcement Learning : An Introduction 2nd Edition》p77</a></p>
+</blockquote>
+
       
     </div>
     
@@ -539,11 +579,11 @@ q_{*}(s,a) =\sum_{s',r}p(s',r\mid s,a)\left[r+\gamma v_{*}(s')\mid s,a\right]</s
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/dynamic-programming.html">动态规划</a></p>
+  <p><span>本文标题:</span><a href="/dynamic-programming.html">动态规划 Dynamic Programming</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Keavnn 的个人博客">Keavnn</a></p>
   <p><span>发布时间:</span>2019年05月12日 - 20:05</p>
-  <p><span>最后更新:</span>2019年05月13日 - 16:05</p>
-  <p><span>原始链接:</span><a href="/dynamic-programming.html" title="动态规划">http://StepNeverStop.github.io/dynamic-programming.html</a>
+  <p><span>最后更新:</span>2019年05月13日 - 20:05</p>
+  <p><span>原始链接:</span><a href="/dynamic-programming.html" title="动态规划 Dynamic Programming">http://StepNeverStop.github.io/dynamic-programming.html</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://StepNeverStop.github.io/dynamic-programming.html" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="external nofollow" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-相同方式共享 4.0 国际</a> 转载请保留原文链接及作者。</p>  
@@ -627,6 +667,10 @@ q_{*}(s,a) =\sum_{s',r}p(s',r\mid s,a)\left[r+\gamma v_{*}(s')\mid s,a\right]</s
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/mc-td.html" rel="prev" title="Monte Carlo and Temporal-Difference">
+                Monte Carlo and Temporal-Difference <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -712,7 +756,7 @@ q_{*}(s,a) =\sum_{s',r}p(s',r\mid s,a)\left[r+\gamma v_{*}(s')\mid s,a\right]</s
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -810,7 +854,7 @@ q_{*}(s,a) =\sum_{s',r}p(s',r\mid s,a)\left[r+\gamma v_{*}(s')\mid s,a\right]</s
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DP的基本概念"><span class="nav-number">1.</span> <span class="nav-text">DP的基本概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#算法"><span class="nav-number">2.</span> <span class="nav-text">算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#策略迭代-Policy-Iteration"><span class="nav-number">2.1.</span> <span class="nav-text">策略迭代 Policy Iteration</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#伪代码："><span class="nav-number">2.1.1.</span> <span class="nav-text">伪代码：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略评估-Policy-Evaluation"><span class="nav-number">2.1.2.</span> <span class="nav-text">策略评估 Policy Evaluation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略提升-Policy-Improvement"><span class="nav-number">2.1.3.</span> <span class="nav-text">策略提升 Policy Improvement</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#值迭代-Value-Iteration"><span class="nav-number">2.2.</span> <span class="nav-text">值迭代 Value Iteration</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#伪代码"><span class="nav-number">2.2.1.</span> <span class="nav-text">伪代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PI与VI的比较"><span class="nav-number">2.3.</span> <span class="nav-text">PI与VI的比较</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DP的基本概念"><span class="nav-number">1.</span> <span class="nav-text">DP的基本概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#算法"><span class="nav-number">2.</span> <span class="nav-text">算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#策略迭代-Policy-Iteration"><span class="nav-number">2.1.</span> <span class="nav-text">策略迭代 Policy Iteration</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#伪代码"><span class="nav-number">2.1.1.</span> <span class="nav-text">伪代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略评估-Policy-Evaluation"><span class="nav-number">2.1.2.</span> <span class="nav-text">策略评估 Policy Evaluation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略提升-Policy-Improvement"><span class="nav-number">2.1.3.</span> <span class="nav-text">策略提升 Policy Improvement</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#值迭代-Value-Iteration"><span class="nav-number">2.2.</span> <span class="nav-text">值迭代 Value Iteration</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#伪代码-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">伪代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PI与VI的比较"><span class="nav-number">2.3.</span> <span class="nav-text">PI与VI的比较</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -845,7 +889,7 @@ q_{*}(s,a) =\sum_{s',r}p(s',r\mid s,a)\left[r+\gamma v_{*}(s')\mid s,a\right]</s
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">25.5k</span>
+    <span title="Site words total count">26.4k</span>
   
 </div>
 
@@ -865,7 +909,7 @@ q_{*}(s,a) =\sum_{s',r}p(s',r\mid s,a)\left[r+\gamma v_{*}(s')\mid s,a\right]</s
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共25.5k字</span>
+  <span class="post-count">博客全站共26.4k字</span>
 </div> -->
         
 

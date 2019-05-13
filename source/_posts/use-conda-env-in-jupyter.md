@@ -9,13 +9,13 @@ tags:
 - jupyter notebook
 ---
 
-# 在Jupyter Notebook中使用本机的conda环境
+本文介绍了如何在Jupyter Notebook中使用本机的conda环境进行开发
 
 <!--more-->
 
-## Jupyter下conda多环境管理
+# Jupyter下conda多环境管理
 
-### 1. 手撸命令
+## 1. 手撸命令
 
 1. 在`base`环境下安装内核管理工具
 `pip install ipykernel`
@@ -26,7 +26,7 @@ tags:
 4. 删除内核
 `jupyter kernelspec uninstall [env_name]`
 
-### 2. 使用插件
+## 2. 使用插件
 
 简单粗暴, 在`base`环境下使用命令
 `conda install nb_conda`

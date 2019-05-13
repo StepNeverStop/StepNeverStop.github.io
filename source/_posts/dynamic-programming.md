@@ -1,5 +1,5 @@
 ---
-title: 动态规划
+title: 动态规划 Dynamic Programming
 copyright: true
 top: 1
 date: 2019-05-12 20:16:22
@@ -95,7 +95,7 @@ $$
 \pi_{0} \xrightarrow{E} v_{\pi_{0}} \xrightarrow{I} \pi_{1} \xrightarrow{E} v_{\pi_{1}} \xrightarrow{I} \pi_{2} \xrightarrow{E} ... \xrightarrow{I} \pi_{\ast} \xrightarrow{E} v_{\pi_{\ast}}
 $$
 
-### 伪代码：
+### 伪代码
 
 ![](./dynamic-programming/pi.png)
 
@@ -123,7 +123,7 @@ $$
 
 值迭代的思想是：**能不能通过早停的方式，在不更改策略的情况下，直接一次得到最优策略？**
 
-值迭代运用了策略评估、策略迭代的思想，并将它们融合在一起，即不更新策略，直接选择动作值函数$q(s,a)$最大的动作作为状态值$v(s)$，直接迭代出最优状态价值函数$V_{\ast}(S)$，使用贪心策略进而得到最优策略$\pi_{\ast}$。
+值迭代运用了策略评估、策略迭代的思想，并将它们融合在一起，即不更新策略，直接选择动作值函数$q(s,a)$最大的动作作为状态值$v(s)$，直接迭代出**近似最优**（早停，$\Delta \lt \theta$即可）状态价值函数$V_{\ast}(S)$，使用贪心策略进而得到最优策略$\pi_{\ast}$。
 
 特点：使用了贝尔曼最优方程-$v_{\ast}(s)，q_{\ast}(s,a)$。
 
@@ -133,5 +133,34 @@ $$
 
 ## PI与VI的比较
 
+![](./dynamic-programming/pivsvi.png)
 
+相同点：
+
+- 在$0 \leq \gamma \lt 1$，有限MDPs环境中，两种方式都可以收敛到最优策略$\pi_{\ast}$
+- 都使用了贝尔曼方程进行状态值函数的迭代
+
+不同点：
+
+1. 收敛方式
+   - 策略迭代PI包括策略评估Policy Evaluation和策略提升Policy Improvement，这两部循环迭代至策略收敛
+   - 值迭代VI包括找到最优状态值函数和一步提取策略，这两步不需要循环迭代，而是根据最优值函数直接得到最优策略
+2. 动作改变方式
+   - 策略迭代PI获得新策略$\pi_{new}$后，**更改每个状态的可选动作集**，多次横扫（遍历）$V(S)$
+   - 值迭代VI过程中不产生策略，不更改每个状态的可选动作集，但是**只取每个状态下动作值函数最大的动作作为状态值**，一次横扫（遍历）$V(S)$。（这里需要解释一下，虽然循环是多次遍历，但是因为max操作，每次遍历每个状态所选取的动作不一定一样，虽然策略一直是随机策略，没有产生新策略，但是计算过程没有遍历到所有动作，可以隐含的看作是一个新策略，因此每次遍历时这个“隐策略”都会改变，所以称为一次遍历。）
+3. 计算方式
+   - 策略迭代PI使用贝尔曼期望方程
+   - 值迭代VI使用贝尔曼最优方程
+4. Policy方式
+   - 策略迭代PI是On-Policy
+   - 值迭代VI是Off-Policy
+5. 稳定性检查
+   - 策略迭代PI中更新策略时进行了策略稳定性检查，判断是否收敛
+   - 值迭代VI获得新策略$\pi$时没有进行策略稳定性检查
+
+至于策略迭代PI与值迭代VI的收敛速度，**通常情况**下，PI的迭代次数更少，VI的运行时间更少。
+
+> [What is the difference between value iteration and policy iteration?](https://stackoverflow.com/a/42493295/11483803)
+>
+> [《Reinforcement Learning : An Introduction 2nd Edition》p77](http://incompleteideas.net/book/RLbook2018.pdf)
 

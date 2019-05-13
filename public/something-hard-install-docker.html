@@ -109,21 +109,21 @@ daovoice('update');
     })();
 </script>
 
-<meta name="description" content="一些在Docker中比较难以安装的库(整理)">
+<meta name="description" content="本文记录了一些在Docker中比较难以安装、频繁报错的库，如cuda、cudnn。">
 <meta name="keywords" content="docker">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一些在Docker中比较难以安装的库(整理)">
 <meta property="og:url" content="http://StepNeverStop.github.io/something-hard-install-docker.html">
 <meta property="og:site_name" content="Keavnn&#39;Blog">
-<meta property="og:description" content="一些在Docker中比较难以安装的库(整理)">
+<meta property="og:description" content="本文记录了一些在Docker中比较难以安装、频繁报错的库，如cuda、cudnn。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://stepneverstop.github.io/create-sniper-docker-image/Snipaste_2019-01-03_10-56-08.png">
 <meta property="og:image" content="http://stepneverstop.github.io/create-sniper-docker-image/Snipaste_2019-01-03_09-56-41.png">
 <meta property="og:image" content="http://stepneverstop.github.io/something-hard-install-docker/1.png">
-<meta property="og:updated_time" content="2019-05-10T12:39:30.403Z">
+<meta property="og:updated_time" content="2019-05-13T11:51:19.996Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一些在Docker中比较难以安装的库(整理)">
-<meta name="twitter:description" content="一些在Docker中比较难以安装的库(整理)">
+<meta name="twitter:description" content="本文记录了一些在Docker中比较难以安装、频繁报错的库，如cuda、cudnn。">
 <meta name="twitter:image" content="http://stepneverstop.github.io/create-sniper-docker-image/Snipaste_2019-01-03_10-56-08.png">
 
 
@@ -364,8 +364,8 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-10T20:39:30+08:00">
-                2019-05-10
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-13T19:51:19+08:00">
+                2019-05-13
               </time>
             
           </span>
@@ -414,7 +414,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  783
+                  793
                 </span>
               
 
@@ -451,15 +451,16 @@ daovoice('update');
       
 
       
-        <h1 id="一些在Docker中比较难以安装的库-整理"><a href="#一些在Docker中比较难以安装的库-整理" class="headerlink" title="一些在Docker中比较难以安装的库(整理)"></a>一些在Docker中比较难以安装的库(整理)</h1><a id="more"></a>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在配置镜像时, <strong>强烈建议将源更改为国内镜像站</strong>, 因为国外有些镜像站链接速度很慢, 更新也很慢, 很多库无法正确安装</p>
+        <p>本文记录了一些在Docker中比较难以安装、频繁报错的库，如cuda、cudnn。</p>
+<a id="more"></a>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在配置镜像时, <strong>强烈建议将源更改为国内镜像站</strong>, 因为国外有些镜像站链接速度很慢, 更新也很慢, 很多库无法正确安装</p>
 <p>我所使用的镜像站为<code>sources.list</code>:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">deb-src http://archive.ubuntu.com/ubuntu xenial main restricted #Added by software-properties</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial main restricted</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ xenial main restricted multiverse universe #Added by software-properties</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted multiverse universe #Added by software-properties</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial universe</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-updates universe</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-updates multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse #Added by software-properties</span><br><span class="line">deb http://archive.canonical.com/ubuntu xenial partner</span><br><span class="line">deb-src http://archive.canonical.com/ubuntu xenial partner</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted multiverse universe #Added by software-properties</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-security universe</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-security multiverse</span><br></pre></td></tr></table></figure>
 <p>在<code>Dockerfile</code>或者在容器内使用命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak</span><br><span class="line">COPY sources.list /etc/apt/sources.list</span><br></pre></td></tr></table></figure></p>
 <p>将源替换.</p>
-<h2 id="CUDA-9-0-开发者版"><a href="#CUDA-9-0-开发者版" class="headerlink" title="CUDA 9.0 开发者版"></a>CUDA 9.0 开发者版</h2><p><code>dockerfile</code>如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">FROM nvidia/cuda:9.0-runtime-ubuntu16.04</span><br><span class="line">LABEL maintainer &quot;Keavnn &lt;https://stepneverstop.github.io&gt;&quot;</span><br><span class="line"></span><br><span class="line">RUN apt-get update &amp;&amp; apt-get install -y --allow-unauthenticated --no-install-recommends \</span><br><span class="line">        cuda-libraries-dev-$CUDA_PKG_VERSION \</span><br><span class="line">        cuda-nvml-dev-$CUDA_PKG_VERSION \</span><br><span class="line">        cuda-minimal-build-$CUDA_PKG_VERSION \</span><br><span class="line">        cuda-command-line-tools-$CUDA_PKG_VERSION \</span><br><span class="line">        cuda-core-9-0=9.0.176.3-1 \</span><br><span class="line">        cuda-cublas-dev-9-0=9.0.176.4-1 \</span><br><span class="line">        libnccl-dev=$NCCL_VERSION-1+cuda9.0 &amp;&amp; \</span><br><span class="line">    rm -rf /var/lib/apt/lists/*</span><br><span class="line"></span><br><span class="line">ENV LIBRARY_PATH /usr/local/cuda/lib64/stubs</span><br></pre></td></tr></table></figure></p>
+<h1 id="CUDA-9-0-开发者版"><a href="#CUDA-9-0-开发者版" class="headerlink" title="CUDA 9.0 开发者版"></a>CUDA 9.0 开发者版</h1><p><code>dockerfile</code>如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">FROM nvidia/cuda:9.0-runtime-ubuntu16.04</span><br><span class="line">LABEL maintainer &quot;Keavnn &lt;https://stepneverstop.github.io&gt;&quot;</span><br><span class="line"></span><br><span class="line">RUN apt-get update &amp;&amp; apt-get install -y --allow-unauthenticated --no-install-recommends \</span><br><span class="line">        cuda-libraries-dev-$CUDA_PKG_VERSION \</span><br><span class="line">        cuda-nvml-dev-$CUDA_PKG_VERSION \</span><br><span class="line">        cuda-minimal-build-$CUDA_PKG_VERSION \</span><br><span class="line">        cuda-command-line-tools-$CUDA_PKG_VERSION \</span><br><span class="line">        cuda-core-9-0=9.0.176.3-1 \</span><br><span class="line">        cuda-cublas-dev-9-0=9.0.176.4-1 \</span><br><span class="line">        libnccl-dev=$NCCL_VERSION-1+cuda9.0 &amp;&amp; \</span><br><span class="line">    rm -rf /var/lib/apt/lists/*</span><br><span class="line"></span><br><span class="line">ENV LIBRARY_PATH /usr/local/cuda/lib64/stubs</span><br></pre></td></tr></table></figure></p>
 <p><strong>—allow-unauthenticated</strong> 这句命令很重要, 不使用的话很有可能安装失败</p>
-<h2 id="cudnn-7-0-5"><a href="#cudnn-7-0-5" class="headerlink" title="cudnn 7.0.5"></a>cudnn 7.0.5</h2><ul>
+<h1 id="cudnn-7-0-5"><a href="#cudnn-7-0-5" class="headerlink" title="cudnn 7.0.5"></a>cudnn 7.0.5</h1><ul>
 <li><a href="https://developer.nvidia.com/rdp/cudnn-archive" rel="external nofollow" target="_blank">https://developer.nvidia.com/rdp/cudnn-archive</a> 下载cuDNN Libraries for Linux,不要下载 Power 8</li>
 <li>把下载好的包上传到FTP服务器, 或者传输到容器内, 或者直接在容器中下载好</li>
 <li><code>cd</code>到包位置</li>
@@ -476,7 +477,7 @@ daovoice('update');
 <li><code>ldconfig -v</code></li>
 <li>使用<code>cat /usr/local/cuda-9.0/include/cudnn.h | grep CUDNN_MAJOR -A 2</code> 查看cudnn版本<br><img src="./create-sniper-docker-image/Snipaste_2019-01-03_10-56-08.png" alt=""></li>
 </ul>
-<h2 id="jemalloc"><a href="#jemalloc" class="headerlink" title="jemalloc"></a>jemalloc</h2><p>选择安装<code>jemalloc</code>,这个工具可以加速编译,碎片整理,具体请自行谷歌</p>
+<h1 id="jemalloc"><a href="#jemalloc" class="headerlink" title="jemalloc"></a>jemalloc</h1><p>选择安装<code>jemalloc</code>,这个工具可以加速编译,碎片整理,具体请自行谷歌</p>
 <ul>
 <li><code>apt-get install autoconf</code></li>
 <li><code>apt-get install automake</code></li>
@@ -488,7 +489,7 @@ daovoice('update');
 <li><code>make</code></li>
 <li><code>make install_bin install_include install_lib</code>,之所以不使用<code>make install</code>是因为会报错,如下: <img src="./create-sniper-docker-image/Snipaste_2019-01-03_09-56-41.png" alt=""></li>
 </ul>
-<h2 id="Python3-6"><a href="#Python3-6" class="headerlink" title="Python3.6"></a>Python3.6</h2><p>记得<code>sudo</code></p>
+<h1 id="Python3-6"><a href="#Python3-6" class="headerlink" title="Python3.6"></a>Python3.6</h1><p>记得<code>sudo</code></p>
 <ul>
 <li><code>apt-get install software-properties-common</code></li>
 <li><code>add-apt-repository ppa:jonathonf/python-3.6</code>, 按<code>ENTER</code></li>
@@ -529,7 +530,7 @@ daovoice('update');
   <p><span>本文标题:</span><a href="/something-hard-install-docker.html">一些在Docker中比较难以安装的库(整理)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Keavnn 的个人博客">Keavnn</a></p>
   <p><span>发布时间:</span>2019年03月24日 - 18:03</p>
-  <p><span>最后更新:</span>2019年05月10日 - 20:05</p>
+  <p><span>最后更新:</span>2019年05月13日 - 19:05</p>
   <p><span>原始链接:</span><a href="/something-hard-install-docker.html" title="一些在Docker中比较难以安装的库(整理)">http://StepNeverStop.github.io/something-hard-install-docker.html</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://StepNeverStop.github.io/something-hard-install-docker.html" aria-label="复制成功！"></i></span>
   </p>
@@ -703,7 +704,7 @@ daovoice('update');
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -801,7 +802,7 @@ daovoice('update');
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一些在Docker中比较难以安装的库-整理"><span class="nav-number">1.</span> <span class="nav-text">一些在Docker中比较难以安装的库(整理)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CUDA-9-0-开发者版"><span class="nav-number">1.2.</span> <span class="nav-text">CUDA 9.0 开发者版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cudnn-7-0-5"><span class="nav-number">1.3.</span> <span class="nav-text">cudnn 7.0.5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jemalloc"><span class="nav-number">1.4.</span> <span class="nav-text">jemalloc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python3-6"><span class="nav-number">1.5.</span> <span class="nav-text">Python3.6</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CUDA-9-0-开发者版"><span class="nav-number">2.</span> <span class="nav-text">CUDA 9.0 开发者版</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cudnn-7-0-5"><span class="nav-number">3.</span> <span class="nav-text">cudnn 7.0.5</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jemalloc"><span class="nav-number">4.</span> <span class="nav-text">jemalloc</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Python3-6"><span class="nav-number">5.</span> <span class="nav-text">Python3.6</span></a></li></ol></div>
             
 
           </div>
@@ -836,7 +837,7 @@ daovoice('update');
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">25.5k</span>
+    <span title="Site words total count">26.4k</span>
   
 </div>
 
@@ -856,7 +857,7 @@ daovoice('update');
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共25.5k字</span>
+  <span class="post-count">博客全站共26.4k字</span>
 </div> -->
         
 

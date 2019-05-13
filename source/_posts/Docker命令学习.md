@@ -1,5 +1,5 @@
 ---
-title: Docker命令学习
+title: Docker常用以及组合命令学习
 copyright: true
 top: 1
 date: 2019-01-03 13:52:04
@@ -9,7 +9,7 @@ tags:
 
 ---
 
-# Docker常用以及组合命令学习
+本文记录了使用Docker过程中的一些常用的、复杂的命令。
 
 <!--more-->
 

@@ -11,9 +11,11 @@ tags:
 
 ---
 
-# 创建一个基于Mxnet的Sniper Docker镜像
+本文记录了如何在学校机器学习平台上创建一个基于Mxnet的Sniper镜像。
 
-## 说明
+<!--more-->
+
+# 说明
 
 由于此镜像是用于学校机器学习平台,所以文中会出现FTP服务器等字眼,其实是在平台上使用镜像创建一个容器时,平台会**自动**将服务器上我所申请的文件存储区`mount`到创建的容器,我通过`FileZilla`FTP工具与在平台申请的文件存储区进行连接
 ​	
@@ -21,9 +23,7 @@ tags:
 
 **虽然本文中写了关于压缩的相关内容,但是最终并没有使用压缩,原因是由于压缩后出现未知问题,导致在平台上创建的容器不能使用宿主机的NVIDIA驱动,并不能成功运行Demo**
 
-<!--more-->
-
-## 环境
+# 环境
 
 本机环境
 - windows 10 专业版
@@ -42,7 +42,7 @@ tags:
 [SNIPER](https://github.com/mahyarnajibi/SNIPER)
 [机器学习平台](http://10.0.4.228),这是学校资源
 
-## 一 配置基础镜像
+# 一 配置基础镜像
 
 从学校机器学习平台上拉取原始镜像,因为这个镜像配好了一些基本的环境,如python2.x,CUDA9.0等等,所以直接使用它们的镜像作为基础镜像比较省心省力
 `docker pull hub.hoc.ccshu.net/ces/deepo:all-py27-jupyter-ssh`
@@ -59,7 +59,7 @@ tags:
 
 结果输出: `Ubuntu 16.04.4 LTS \n \l`
 
-### 安装 apt-file
+## 安装 apt-file
 
 安装`apt-file`
 
@@ -133,7 +133,7 @@ deb-src http://mirrors.163.com/ubuntu/ xenial-backports main restricted universe
 
 *有可能上述修改DNS的方式并不成功,原因是在云上运行容器时,配置文件自动修改,如果发生这种情况,请每次在新开一个容器时,手动修改配置文件的DNS服务器,使其可以使用网络服务*
 
-## 二 安装编译依赖各种包
+# 二 安装编译依赖各种包
 
 在电脑上空闲的地方,从Github拉取Sniper项目
 
@@ -153,7 +153,7 @@ deb-src http://mirrors.163.com/ubuntu/ xenial-backports main restricted universe
 输出信息:
 ![](./create-sniper-docker-image/Snipaste_2019-01-03_09-42-07.png)
 
-### 安装 jemalloc
+## 安装 jemalloc
 
 选择安装`jemalloc`,这个工具可以加速编译,碎片整理,具体请自行谷歌
 - `apt-get install autoconf`
@@ -171,7 +171,7 @@ deb-src http://mirrors.163.com/ubuntu/ xenial-backports main restricted universe
 ![](./create-sniper-docker-image/Snipaste_2019-01-03_10-03-30.png)
 强迫症必须搞定它,果断`ctrl+c`终止编译
 
-### 安装 pkg-config
+## 安装 pkg-config
 
 - 打开[https://pkg-config.freedesktop.org/releases/](https://pkg-config.freedesktop.org/releases/)
 - 下载最新的,现在看到的是`pkg-config-0.29.2.tar.gz`
@@ -186,7 +186,7 @@ deb-src http://mirrors.163.com/ubuntu/ xenial-backports main restricted universe
 再次`make USE_CUDA_PATH=/usr/local/cuda-9.0`
 算了，还是安装一下cudnn吧
 
-### 安装 cudnn7.0
+## 安装 cudnn7.0
 - [https://developer.nvidia.com/rdp/cudnn-archive](https://developer.nvidia.com/rdp/cudnn-archive) 下载cuDNN Libraries for Linux,不要下载 Power 8
 - 把下载好的包上传到FTP服务器
 - `cd`到包位置
@@ -204,15 +204,15 @@ deb-src http://mirrors.163.com/ubuntu/ xenial-backports main restricted universe
 - 使用`cat /usr/local/cuda-9.0/include/cudnn.h | grep CUDNN_MAJOR -A 2` 查看cudnn版本
 ![](./create-sniper-docker-image/Snipaste_2019-01-03_10-56-08.png)
 
-### 安装 OpenCV
+## 安装 OpenCV
 - 使用`pkg-config opencv --modversion`查看
 - 发现已经有OpenCV
 ![](./create-sniper-docker-image/Snipaste_2019-01-03_10-57-56.png)
 
-### 安装 OpenBLAS
+## 安装 OpenBLAS
 - `apt-get install libopenblas-dev`
 
-### 编译 Mxnet
+## 编译 Mxnet
 
 `make USE_CUDA_PATH=/usr/local/cuda-9.0`
 ![](./create-sniper-docker-image/Snipaste_2019-01-03_13-49-28.png)
@@ -233,7 +233,7 @@ deb-src http://mirrors.163.com/ubuntu/ xenial-backports main restricted universe
 执行结果:
 ![](./create-sniper-docker-image/Snipaste_2019-01-03_16-24-49.png)
 
-### 安装 dos2unix
+## 安装 dos2unix
 
 由于发现这种简单的复制粘贴方式并不能很好的解决,所以查了一些[相关资料](https://blog.csdn.net/lovelovelovelovelo/article/details/79239068)
 选择使用`dos2unix`来转换
@@ -244,14 +244,14 @@ deb-src http://mirrors.163.com/ubuntu/ xenial-backports main restricted universe
 ![](./create-sniper-docker-image/Snipaste_2019-01-03_16-40-53.png)
 问题解决啦
 
-### 安装依赖
+## 安装依赖
 
 在`/SNIPER/`文件夹下`pip install -r requirements.txt`
 一定要确保镜像内可以联网
 
 ![](./create-sniper-docker-image/Snipaste_2019-01-03_16-29-58.png)
 
-### 测试Demo
+## 测试Demo
 
 - `bash download_sniper_detector.sh`,download_sniper_detector.sh
 文件在`/SNIPER/scripts`文件夹下
@@ -261,7 +261,7 @@ deb-src http://mirrors.163.com/ubuntu/ xenial-backports main restricted universe
 
 **运行成功!!!**
 
-## 三 生成镜像
+# 三 生成镜像
 - 使用`exit`退出容器
 - 使用`docker ps -a`查看容器ID
 - 使用`docker stop [ID]`停止容器
@@ -269,7 +269,7 @@ deb-src http://mirrors.163.com/ubuntu/ xenial-backports main restricted universe
 - 使用`docker images`查看生成的镜像
 - 如果需要的话,使用`docker push [name]:[tag]`将刚刚生成的镜像推送到云上
 
-## 四 压缩镜像
+# 四 压缩镜像
 
 **压缩镜像非常麻烦,但是也是有方法的,目前大概三种方法**
 
@@ -282,7 +282,7 @@ deb-src http://mirrors.163.com/ubuntu/ xenial-backports main restricted universe
 `hub.hoc.ccshu.net/wjs/sniper:v1.1`
 现在要对它进行压缩
 
-### 第一步,移除镜像内的SNIPER文件夹,把其放到FTP服务器上去
+## 第一步,移除镜像内的SNIPER文件夹,把其放到FTP服务器上去
 
 - 开启一个容器`docker run -itd --name [name] [id]`
 - 复制容器内文件到本地`docker cp [长ID]:[容器内路径] [本地路径]`,将放置在本地的文件夹上传至FTP服务器
@@ -290,7 +290,7 @@ deb-src http://mirrors.163.com/ubuntu/ xenial-backports main restricted universe
 - 删除容器内文件夹`/SNIPER/`,使用`rm -rf SNIPER`,**一定要小心使用**
 - 退出容器`exit`
 
-### 第二步,压缩镜像
+## 第二步,压缩镜像
 
 压缩容器
 `docker export [ID] | docker import - [name]:[tag]`
@@ -300,7 +300,7 @@ deb-src http://mirrors.163.com/ubuntu/ xenial-backports main restricted universe
 
 由于使用这种方法会使得镜像丢失部分信息,所以,创建一个新的`Dockerfile`,在其中添加缺失的信息
 
-### 第三步,完善镜像
+## 第三步,完善镜像
 
 在任意位置新建`Dockerfile`
 输入
@@ -313,7 +313,7 @@ ENTRYPOINT ["/usr/sbin/sshd","-D"]
 
 然后`docker build -t [name]:[tag] .`,不要忘了最后的`.`
 
-### 第四步 Push
+## 第四步 Push
 
 `docker push [name]:[tag]`
 
@@ -321,7 +321,7 @@ ENTRYPOINT ["/usr/sbin/sshd","-D"]
 镜像在`hoc.hoc.ccshu.net`的私有仓库里
 SNIPER文件夹放置在机器学习平台服务器`mount`的目录里
 
-## 五 测试
+# 五 测试
 
 - 在平台上创建容器
 ![](./create-sniper-docker-image/Snipaste_2019-01-03_18-11-49.png)

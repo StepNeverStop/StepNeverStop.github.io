@@ -1,12 +1,12 @@
 ---
-title: "Git命令学习记录"
+title: Git命令学习记录
 date: 2018-12-29 15:48:51
 updated: 2019-01-02 14:38:24
 categories: 小知识
 tags: Git
 ---
 
-# Git命令学习记录
+本文记录了使用Git过程中一些常用的、复杂的命令。
 
 <!--more-->
 

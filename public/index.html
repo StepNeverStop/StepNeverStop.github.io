@@ -362,8 +362,8 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-12T23:43:31+08:00">
-                2019-05-12
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-13T20:47:11+08:00">
+                2019-05-13
               </time>
             
           </span>
@@ -412,7 +412,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  219
+                  230
                 </span>
               
 
@@ -456,7 +456,9 @@ daovoice('update');
 <li><a href="./rl-classification.html">强化学习的类别</a></li>
 <li><a href="./强化学习之MDP马尔科夫决策过程.html">强化学习之MDP马尔科夫决策过程</a></li>
 <li><a href="./价值与贝尔曼方程.html">价值与贝尔曼方程</a></li>
-<li><a href="./dynamic-programming.html">动态规划</a></li>
+<li><a href="./dynamic-programming.html">动态规划 Dynamic Programming</a></li>
+<li><a href="./mc-td.html">Monte Carlo and Temporal-Difference</a></li>
+<li><a href="./sarsa-and-q-learning.html">SARSA and Q-Learning</a></li>
 </ul>
 <h1 id="论文精读"><a href="#论文精读" class="headerlink" title="论文精读"></a>论文精读</h1><ul>
 <li>-</li>
@@ -550,7 +552,7 @@ daovoice('update');
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://StepNeverStop.github.io/dynamic-programming.html">
+    <link itemprop="mainEntityOfPage" href="http://StepNeverStop.github.io/sarsa-and-q-learning.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Keavnn">
@@ -569,7 +571,7 @@ daovoice('update');
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/dynamic-programming.html" itemprop="url">动态规划</a></h2>
+                <a class="post-title-link" href="/sarsa-and-q-learning.html" itemprop="url">SARSA and Q-Learning</a></h2>
         
 
         <div class="post-meta">
@@ -581,8 +583,8 @@ daovoice('update');
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-12T20:16:22+08:00">
-                2019-05-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-13T20:44:45+08:00">
+                2019-05-13
               </time>
             
 
@@ -597,7 +599,7 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-13T16:46:40+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-13T20:46:37+08:00">
                 2019-05-13
               </time>
             
@@ -647,7 +649,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2k
+                  42
                 </span>
               
 
@@ -663,7 +665,401 @@ daovoice('update');
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  7
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>本文介绍了两个强化学习中解决Model-Free问题的最经典算法：SARSA和Q-Learning，这两个算法也是On-Policy与Off-Policy的分水岭。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/sarsa-and-q-learning.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://StepNeverStop.github.io/mc-td.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Keavnn">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/Kicon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Keavnn'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/mc-td.html" itemprop="url">Monte Carlo and Temporal-Difference</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-13T19:11:58+08:00">
+                2019-05-13
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-13T20:43:42+08:00">
+                2019-05-13
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/ReinforcementLearning/" itemprop="url" rel="index">
+                    <span itemprop="name">ReinforcementLearning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  55
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>本位介绍了强化学习中解决Model-Free问题的两个基本解决思路：蒙特卡洛Monte Carlo与时间差分Temporal-Difference。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/mc-td.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://StepNeverStop.github.io/dynamic-programming.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Keavnn">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/Kicon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Keavnn'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/dynamic-programming.html" itemprop="url">动态规划 Dynamic Programming</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-12T20:16:22+08:00">
+                2019-05-12
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-13T20:42:28+08:00">
+                2019-05-13
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/ReinforcementLearning/" itemprop="url" rel="index">
+                    <span itemprop="name">ReinforcementLearning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9
                 </span>
               
             </div>
@@ -794,8 +1190,8 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-12T20:14:18+08:00">
-                2019-05-12
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-13T20:30:28+08:00">
+                2019-05-13
               </time>
             
           </span>
@@ -844,7 +1240,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.5k
+                  1.7k
                 </span>
               
 
@@ -991,7 +1387,7 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-13T15:09:59+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-13T18:11:12+08:00">
                 2019-05-13
               </time>
             
@@ -1192,8 +1588,8 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-12T23:12:16+08:00">
-                2019-05-12
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-13T09:09:08+08:00">
+                2019-05-13
               </time>
             
           </span>
@@ -1389,7 +1785,7 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-10T20:39:30+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-10T09:25:19+08:00">
                 2019-05-10
               </time>
             
@@ -1586,8 +1982,8 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-10T20:39:30+08:00">
-                2019-05-10
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-13T19:42:19+08:00">
+                2019-05-13
               </time>
             
           </span>
@@ -1636,7 +2032,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  119
+                  132
                 </span>
               
 
@@ -1674,7 +2070,7 @@ daovoice('update');
 
       
         
-          <h1 id="Conda-环境导出导入和其中pip安装包的迁移"><a href="#Conda-环境导出导入和其中pip安装包的迁移" class="headerlink" title="Conda 环境导出导入和其中pip安装包的迁移"></a>Conda 环境导出导入和其中pip安装包的迁移</h1>
+          <p>本文记录了如何导出、导入自己的conda环境，对于pip安装的包如何导出、导入。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/conda环境和pip包的转移.html#more" rel="contents">
@@ -1783,7 +2179,7 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-12T22:59:28+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-12T18:38:59+08:00">
                 2019-05-12
               </time>
             
@@ -1981,8 +2377,8 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-10T20:39:30+08:00">
-                2019-05-10
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-13T19:41:12+08:00">
+                2019-05-13
               </time>
             
           </span>
@@ -2031,7 +2427,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  301
+                  290
                 </span>
               
 
@@ -2069,7 +2465,7 @@ daovoice('update');
 
       
         
-          <h1 id="吴恩达deeplearning-ai课程笔记总结"><a href="#吴恩达deeplearning-ai课程笔记总结" class="headerlink" title="吴恩达deeplearning.ai课程笔记总结"></a>吴恩达deeplearning.ai课程笔记总结</h1><p>在吴恩达机器学习系列课程完结后不久，一位名叫<a href="https://www.slideshare.net/TessFerrandez?utm_campaign=profiletracking&amp;utm_medium=sssite&amp;utm_source=ssslideview" title="Tess Ferrandez小姐姐的主页" rel="external nofollow" target="_blank">Tess Ferrandez</a>的小姐姐在推特上分享了一套自己的课程笔记，瞬间收获了3k+赞和1k+转发。</p>
+          <p>在吴恩达机器学习系列课程完结后不久，一位名叫<a href="https://www.slideshare.net/TessFerrandez?utm_campaign=profiletracking&amp;utm_medium=sssite&amp;utm_source=ssslideview" title="Tess Ferrandez小姐姐的主页" rel="external nofollow" target="_blank">Tess Ferrandez</a>的小姐姐在推特上分享了一套自己的课程笔记，瞬间收获了3k+赞和1k+转发。</p>
 <p>不同于满屏公式代码的黑白笔记，这套信息图不仅知识点满满，且行文构图都像插画一样颜值颇高。吴恩达自己也在推特上转发称赞了这一位有诚意的学习者，毕竟他一直倡导学习是一件简单快乐的事情。</p>
 <p>Link: <a href="https://www.slideshare.net/TessFerrandez/notes-from-coursera-deep-learning-courses-by-andrew-ng" title="笔记源地址" rel="external nofollow" target="_blank">笔记源地址</a></p>
           <!--noindex-->
@@ -2180,8 +2576,8 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-10T20:39:30+08:00">
-                2019-05-10
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-13T19:51:19+08:00">
+                2019-05-13
               </time>
             
           </span>
@@ -2230,7 +2626,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  783
+                  793
                 </span>
               
 
@@ -2268,7 +2664,7 @@ daovoice('update');
 
       
         
-          <h1 id="一些在Docker中比较难以安装的库-整理"><a href="#一些在Docker中比较难以安装的库-整理" class="headerlink" title="一些在Docker中比较难以安装的库(整理)"></a>一些在Docker中比较难以安装的库(整理)</h1>
+          <p>本文记录了一些在Docker中比较难以安装、频繁报错的库，如cuda、cudnn。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/something-hard-install-docker.html#more" rel="contents">
@@ -2377,8 +2773,8 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-10T20:39:30+08:00">
-                2019-05-10
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-13T19:52:06+08:00">
+                2019-05-13
               </time>
             
           </span>
@@ -2427,7 +2823,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  138
+                  149
                 </span>
               
 
@@ -2465,7 +2861,7 @@ daovoice('update');
 
       
         
-          <h1 id="在Jupyter-Notebook中使用本机的conda环境"><a href="#在Jupyter-Notebook中使用本机的conda环境" class="headerlink" title="在Jupyter Notebook中使用本机的conda环境"></a>在Jupyter Notebook中使用本机的conda环境</h1>
+          <p>本文介绍了如何在Jupyter Notebook中使用本机的conda环境进行开发</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/use-conda-env-in-jupyter.html#more" rel="contents">
@@ -2574,7 +2970,7 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-10T20:39:30+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-10T09:24:58+08:00">
                 2019-05-10
               </time>
             
@@ -2771,7 +3167,7 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-10T20:39:30+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-10T09:25:04+08:00">
                 2019-05-10
               </time>
             
@@ -2951,7 +3347,7 @@ daovoice('update');
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/Docker命令学习.html" itemprop="url">Docker命令学习</a></h2>
+                <a class="post-title-link" href="/Docker命令学习.html" itemprop="url">Docker常用以及组合命令学习</a></h2>
         
 
         <div class="post-meta">
@@ -2979,8 +3375,8 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-10T20:39:30+08:00">
-                2019-05-10
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-13T19:45:43+08:00">
+                2019-05-13
               </time>
             
           </span>
@@ -3029,7 +3425,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  132
+                  143
                 </span>
               
 
@@ -3067,7 +3463,7 @@ daovoice('update');
 
       
         
-          <h1 id="Docker常用以及组合命令学习"><a href="#Docker常用以及组合命令学习" class="headerlink" title="Docker常用以及组合命令学习"></a>Docker常用以及组合命令学习</h1>
+          <p>本文记录了使用Docker过程中的一些常用的、复杂的命令。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/Docker命令学习.html#more" rel="contents">
@@ -3176,8 +3572,8 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-10T20:39:30+08:00">
-                2019-05-10
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-13T19:44:34+08:00">
+                2019-05-13
               </time>
             
           </span>
@@ -3264,8 +3660,7 @@ daovoice('update');
 
       
         
-          <h1 id="创建一个基于Mxnet的Sniper-Docker镜像"><a href="#创建一个基于Mxnet的Sniper-Docker镜像" class="headerlink" title="创建一个基于Mxnet的Sniper Docker镜像"></a>创建一个基于Mxnet的Sniper Docker镜像</h1><h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>由于此镜像是用于学校机器学习平台,所以文中会出现FTP服务器等字眼,其实是在平台上使用镜像创建一个容器时,平台会<strong>自动</strong>将服务器上我所申请的文件存储区<code>mount</code>到创建的容器,我通过<code>FileZilla</code>FTP工具与在平台申请的文件存储区进行连接<br>​<br>本文教程虽然有了一个FTP过程,但是如果是生成本地镜像,不考虑FTP,无视文中相关部分即可</p>
-<p><strong>虽然本文中写了关于压缩的相关内容,但是最终并没有使用压缩,原因是由于压缩后出现未知问题,导致在平台上创建的容器不能使用宿主机的NVIDIA驱动,并不能成功运行Demo</strong></p>
+          <p>本文记录了如何在学校机器学习平台上创建一个基于Mxnet的Sniper镜像。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/create-sniper-docker-image.html#more" rel="contents">
@@ -3424,7 +3819,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  367
+                  381
                 </span>
               
 
@@ -3462,7 +3857,7 @@ daovoice('update');
 
       
         
-          <h1 id="Git命令学习记录"><a href="#Git命令学习记录" class="headerlink" title="Git命令学习记录"></a>Git命令学习记录</h1>
+          <p>本文记录了使用Git过程中一些常用的、复杂的命令。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/Git-learn.html#more" rel="contents">
@@ -3571,8 +3966,8 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-10T20:39:30+08:00">
-                2019-05-10
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-13T19:49:05+08:00">
+                2019-05-13
               </time>
             
           </span>
@@ -3621,7 +4016,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  754
+                  761
                 </span>
               
 
@@ -3659,7 +4054,7 @@ daovoice('update');
 
       
         
-          <h1 id="MarkDown基本语法"><a href="#MarkDown基本语法" class="headerlink" title="MarkDown基本语法"></a>MarkDown基本语法</h1><p>所有使用Markdown语法标记的符号后要加一个空格<code>Space</code></p>
+          <p>本文介绍了Markdown的基本语法。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/MarkDown-Grammar.html#more" rel="contents">
@@ -3768,8 +4163,8 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-10T20:39:30+08:00">
-                2019-05-10
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-13T19:54:23+08:00">
+                2019-05-13
               </time>
             
           </span>
@@ -3818,7 +4213,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  394
+                  443
                 </span>
               
 
@@ -3856,7 +4251,7 @@ daovoice('update');
 
       
         
-          <h1 id="Windows下右键新建-md文件教程"><a href="#Windows下右键新建-md文件教程" class="headerlink" title="Windows下右键新建.md文件教程"></a>Windows下右键新建.md文件教程</h1>
+          <p>原本创建.md文件需要首先打开markdown文本编辑器，如Typora，或者新建.txt文件然后修改后缀名，本文介绍了如何在Windows操作系统中添加右键创建.md文件的方法。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/win-rightclick-create-md.html#more" rel="contents">
@@ -3955,7 +4350,7 @@ daovoice('update');
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -4072,7 +4467,7 @@ daovoice('update');
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">25.5k</span>
+    <span title="Site words total count">26.4k</span>
   
 </div>
 
@@ -4092,7 +4487,7 @@ daovoice('update');
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共25.5k字</span>
+  <span class="post-count">博客全站共26.4k字</span>
 </div> -->
         
 
