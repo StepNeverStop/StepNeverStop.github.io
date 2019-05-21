@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://StepNeverStop.github.io/"/>
-  <updated>2019-05-13T12:46:37.930Z</updated>
+  <updated>2019-05-21T13:04:30.714Z</updated>
   <id>http://StepNeverStop.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Evolution Strategies as a Scalable Alternative to Reinforcement Learning</title>
+    <link href="http://StepNeverStop.github.io/Evolution-Strategies-2017.html"/>
+    <id>http://StepNeverStop.github.io/Evolution-Strategies-2017.html</id>
+    <published>2019-05-21T04:38:54.000Z</published>
+    <updated>2019-05-21T13:04:30.714Z</updated>
+    
+    <content type="html"><![CDATA[<p>这一篇论文讲了强化学习算法的替代可解方案：进化策略。主要思想是对参数空间添加噪音而不是动作空间。</p><p>不推荐这篇论文：</p><ul><li>公式没有详细推理，非常难懂</li><li>文中进化策略其实跟强化学习并没有特别大的关系</li><li>很多关于进化策略的性质、优势非常难懂，基本上都是文字解释，没有举例</li><li>文中措辞不难，但想要理解其本质非常难</li></ul><a id="more"></a><h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>进化策略ES是一组/一类算法，而不是一个算法，它属于黑盒优化方法，它由自然进化中的启发式搜索过程而得来：每一代中都有突变的基因，环境对基因突变的效果给出适应性的判断，重组好的突变基因产生下一代，直到最优。</p><p>进化策略算法的划分主要有三个依据：基因如何表示（神经网络参数）、突变如何产生（参数优化过程）、基因如何重组（参数重组）。</p><p>进化策略ES这种方法通常分为<a href="https://pdfs.semanticscholar.org/dd17/8d3f30d801922c98cec9c2d90db05395f244.pdf?_ga=2.257341323.183297583.1558416128-1251761365.1555224483" rel="external nofollow" target="_blank">直接策略搜索</a>和<a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=7307180&amp;tag=1" rel="external nofollow" target="_blank">神经进化</a>，黑盒优化方法有很多很好的特性：</p><ol><li>不关心奖励分布，奖励密集或稀疏都无所谓</li><li>不需要反向传播梯度</li><li>tolerance of potentially arbitrarily long time horizons. 翻译为可以适应长期视野/回报，在长动作序列上有优势</li></ol><p>但是，进化策略ES往往不能解决像Q-Learning和PG这样可应用的难的强化学习问题，这篇论文旨在使进化策略可以解决DRL算法可解决的更难的问题。</p><h1 id="正文精要"><a href="#正文精要" class="headerlink" title="正文精要"></a>正文精要</h1><blockquote><p>A large source of difficulty in RL stems from the lack of informative gradients of policy performance: such gradients may not exist due to non-smoothness of the environment or policy, or may only be available as high-variance estimates because the environment usually can only be accessed via sampling.  </p></blockquote><p>指出强化学习的难题在于缺乏策略性能的有效梯度：梯度可能由于环境不光滑而不存在、可能由于只能采样环境而存在高方差。</p><blockquote><p>For MDP-based reinforcement learning algorithms, on the other hand, it is well known that frameskip is a crucial parameter to get right for the optimization to succeed.</p></blockquote><p>对于基于MDP的强化学习算法，<strong>跳帧</strong>是算法优化的关键参数。</p><blockquote><p>It is common practice in RL to have the agent decide on its actions in a lower frequency than is used in the simulator that runs the environment.</p></blockquote><p>RL通常使智能体在模拟环境中决策频率高于在实际环境中。</p><hr><p>文中设定一个策略的期望奖励为：</p><script type="math/tex; mode=display">\mathbb{E}_{\epsilon \sim N(0,I)}F(\theta+\sigma\epsilon)</script><p>关于网络参数$\theta$的导数为：</p><script type="math/tex; mode=display">\nabla_{\theta}\mathbb{E}_{\epsilon \sim N(0,I)}F(\theta+\sigma\epsilon)=\frac{1}{\sigma}\mathbb{E}_{\epsilon \sim N(0,I)} \{F(\theta+\sigma\epsilon)\epsilon \}</script><p>其中，$\theta$为网络参数，也可以认为是多变量高斯分布的均值，$\sigma$为固定方差，$\epsilon$为扰动向量，由各向同性、方差均为1的多变量高斯分布采样得到。<strong>文中没有对该导数推导过程有介绍，好像是使用了Reinforce Trick的方法，但是却不知道具体如何推导出这个形式</strong>。</p><p>文中提到的算法1是对一个策略进行多次扰动，每扰动一次就与环境交互得到一个episode，最后只用各个扰动向量$\epsilon_{i}$与对应的回报$F(\theta)$相乘，根据该期望进行参数更新。</p><p><img src="./Evolution-Strategies-2017/algorithm1.png" alt=""></p><p>算法2是对算法1的并行化处理，设置相同的随机种子，假设n个worker：</p><ol><li>各个worker共用一个策略$\pi$</li><li>每个worker根据高斯分布采样得到扰动向量$\epsilon$</li><li>各个worker根据扰动后的策略参数采样一个episode</li><li>互相分发各自的回报</li><li><strong>再采样n个扰动向量$\epsilon$</strong>，使用梯度上升更新参数，然后分发策略</li></ol><p><img src="./Evolution-Strategies-2017/algorithm2.png" alt=""></p><p>文中后边提到，其实不必每次都从高斯分布中采样出扰动向量$\epsilon$，可以在开始训练前直接采样得到m个扰动向量，每次需要扰动向量时直接根据m的值生成一个随机数，取出以该随机数为下标的扰动向量即可。这么做可以减少更新时的时长消耗。</p><hr><blockquote><p>Experiments on Atari and MuJoCo show that it is a viable option with some attractive features: it is invariant to action frequency and delayed rewards, and it does not need temporal discounting or value function approximation. Most importantly, ES is highly parallelizable, which allows us to make up for a decreased data efficiency by scaling to more parallel workers. </p></blockquote><p>文中使用的进化策略ES的优点：</p><ul><li>与决策间隔无关，也就是对于跳帧间隔的设置鲁棒性很高</li><li>不关心延迟奖励</li><li>不需要折扣计算回报</li><li>不需要值函数近似</li><li>可以高度并行化使，我们能够通过扩展到更多并行训练节点来弥补数据效率的下降。</li></ul><h1 id="实验发现"><a href="#实验发现" class="headerlink" title="实验发现"></a>实验发现</h1><ol><li>使用<a href="https://arxiv.org/pdf/1606.03498.pdf" rel="external nofollow" target="_blank">Virtual Batch Normalization</a>和神经网络策略重参数（文中没有提到重参数的内容，只提到网络参数的影响）可以极大提升进化策略ES的可靠性。实验中，不使用这两种方法算法很“脆弱”，也就是不稳定。</li><li>进化策略ES可以高度并行化。通过引入一个基于通用随机数的新颖通讯策略，即是是1000个子节点也可以达到运行时间的线性加速。</li><li>进化策略ES的数据效率出奇的好。尽管相比A3C算法需要3-10倍的数据量，但是由于具有不需反向传播、没有值函数等特点，这些轻微的数据效率劣势可以被弥补。实验表明，相同计算量下，1小时ES与1天A3C的效果基本相同。</li><li>进化策略ES相比PG类算法的探索性更强。</li><li>进化策略ES的鲁棒性很好。多种不同训练环境可以使用同一组超参数。</li></ol><h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><h2 id="MuJoCo"><a href="#MuJoCo" class="headerlink" title="MuJoCo"></a>MuJoCo</h2><p>与<strong>高度优化</strong>的TRPO算法相比，ES在离散动作更有优势，因为连续动作在参数扰动方面可能过于平滑并且可能妨碍探索。</p><p>ES和TRPO的网络结构都是：输入层→64，tanh→64，tanh→输出层。</p><p>复杂环境如Hopper和Walker2d中，ES样本复杂性相比TRPO高不到10倍；简单场景中，相比低3倍。</p><p>TRPO训练500W步，ES训练至TRPO训练过程中各阶段效果所需步长的比例如表所示：</p><p><img src="./Evolution-Strategies-2017/mujoco.png" alt=""></p><p>虽然文中说是简单场景低三倍，其实根本就没有明确的低三倍，而且我对文中所提的简单场景复杂场景的划分也持怀疑态度。</p><h2 id="Atari"><a href="#Atari" class="headerlink" title="Atari"></a>Atari</h2><p>预处理、网络架构与Atari那篇论文的一模一样，用A3C使用3.2亿帧训练1天的结果与使用ES训练10亿帧的结果相同（保持计算量相同，因为ES不需要反向传播和值函数评估）。使用720块cpu，训练一个游戏只需1小时。</p><p>最终，纯图像输入下，与A3C相比，23个游戏ES胜，28个游戏A3C胜。</p><p><img src="./Evolution-Strategies-2017/atari.png" alt=""></p><h2 id="并行化-Parallelization"><a href="#并行化-Parallelization" class="headerlink" title="并行化 Parallelization"></a>并行化 Parallelization</h2><p>ES特别适合并行化，因为其通讯低带宽特性（只需各个worker的回报和随机种子）。</p><p>测试环境：3D Humanoid walking task</p><p>结果：单机18核需11小时，与最先进的强化学习算法性能相当，80台机器1440个CPU核心只需10分钟。</p><p><img src="./Evolution-Strategies-2017/parallelization.png" alt=""></p><p>随着核心数增加，训练性能线性加速。</p><h2 id="“跳帧”测试"><a href="#“跳帧”测试" class="headerlink" title="“跳帧”测试"></a>“跳帧”测试</h2><p>将强化学习在模拟环境中训练出的模型用于实际环境中式，通常需要降低其决策频率，也就是加大决策间隔。</p><p>如果跳帧设置过大，智能体所做的动作往往不够好，如果跳帧设置过小，会导致每个episode的步数过长，加大计算量，恶化训练过程（其实文中这么说并不严谨）。</p><p>ES的一个优势是梯度计算与回合长度无关，这间接增加了对跳帧间隔的鲁棒性。在Atari游戏Pong中使用四个不同跳帧间隔{1，2，3，4}的学习曲线如下：</p><p><img src="./Evolution-Strategies-2017/frame-skip.png" alt=""></p><p>由曲线可以看出，不同的跳帧间隔，训练效果差不多。<strong>但，我对该鲁棒性测试在复杂环境中的效果表示怀疑。我觉得前沿强化学习算法在该训练场景中使用不同的跳帧间隔也可以得到相同结果。</strong></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这一篇论文讲了强化学习算法的替代可解方案：进化策略。主要思想是对参数空间添加噪音而不是动作空间。&lt;/p&gt;
+&lt;p&gt;不推荐这篇论文：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;公式没有详细推理，非常难懂&lt;/li&gt;
+&lt;li&gt;文中进化策略其实跟强化学习并没有特别大的关系&lt;/li&gt;
+&lt;li&gt;很多关于进化策略的性质、优势非常难懂，基本上都是文字解释，没有举例&lt;/li&gt;
+&lt;li&gt;文中措辞不难，但想要理解其本质非常难&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="ReinforcementLearning" scheme="http://StepNeverStop.github.io/categories/ReinforcementLearning/"/>
+    
+    
+      <category term="rl" scheme="http://StepNeverStop.github.io/tags/rl/"/>
+    
+  </entry>
   
   <entry>
     <title>SARSA and Q-Learning</title>
@@ -135,9 +164,9 @@
     <link href="http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html"/>
     <id>http://StepNeverStop.github.io/强化学习.html</id>
     <published>2019-05-09T08:24:54.000Z</published>
-    <updated>2019-05-13T12:47:11.523Z</updated>
+    <updated>2019-05-21T13:05:29.192Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><ul><li><a href="./强化学习基本概念.html">强化学习基本概念</a></li><li><a href="./rl-classification.html">强化学习的类别</a></li><li><a href="./强化学习之MDP马尔科夫决策过程.html">强化学习之MDP马尔科夫决策过程</a></li><li><a href="./价值与贝尔曼方程.html">价值与贝尔曼方程</a></li><li><a href="./dynamic-programming.html">动态规划 Dynamic Programming</a></li><li><a href="./mc-td.html">Monte Carlo and Temporal-Difference</a></li><li><a href="./sarsa-and-q-learning.html">SARSA and Q-Learning</a></li></ul><h1 id="论文精读"><a href="#论文精读" class="headerlink" title="论文精读"></a>论文精读</h1><ul><li>-</li></ul><h1 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a>相关信息</h1><ul><li><a href="./强化学习的里程碑.html">强化学习的里程碑</a></li></ul><h1 id="学习资源"><a href="#学习资源" class="headerlink" title="学习资源"></a>学习资源</h1><ul><li><a href="http://incompleteideas.net/book/RLbook2018.pdf" rel="external nofollow" target="_blank">《Reinforcement Learning : An Introduction 2nd Edition》——Sutton</a><ul><li>基础必读</li><li>通俗易懂</li><li>数学公式很多，虽然很多不太实用，但对理解RL的精髓很有帮助</li></ul></li><li><a href="https://www.youtube.com/playlist?list=PLqYmG7hTraZDM-OYHWgPebj2MfCFzFObQ" rel="external nofollow" target="_blank">Reinforcement Learning Course by David Silver, 2015</a><ul><li>基础必看，讲述了强化学习的基础算法</li><li>有字幕，通俗易懂</li><li>有课件Slide</li></ul></li><li><a href="https://spinningup.openai.com/en/latest/" rel="external nofollow" target="_blank">OpenAI Spinning Up</a><ul><li>深度强化学习</li><li>算法很多，解析也很清晰</li><li>有代码仓库，可以查看源代码，方便复现</li></ul></li><li><a href="[https://medium.com/search?q=reinforcement%20learning](https://medium.com/search?q=reinforcement learning">Medium : Reinforcement Learning</a>)<ul><li>博文质量不错，内容涵盖基础与进阶</li><li>缺点：更新少</li></ul></li><li><a href="https://stackoverflow.com/questions/tagged/reinforcement-learning" rel="external nofollow" target="_blank">StackOverflow : Reinforcement Learning</a><ul><li>进阶必备</li><li>多看多交流可以加深自己的理解</li></ul></li></ul>]]></content>
+    <content type="html"><![CDATA[<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><ul><li><a href="./强化学习基本概念.html">强化学习基本概念</a></li><li><a href="./rl-classification.html">强化学习的类别</a></li><li><a href="./强化学习之MDP马尔科夫决策过程.html">强化学习之MDP马尔科夫决策过程</a></li><li><a href="./价值与贝尔曼方程.html">价值与贝尔曼方程</a></li><li><a href="./dynamic-programming.html">动态规划 Dynamic Programming</a></li><li><a href="./mc-td.html">Monte Carlo and Temporal-Difference</a></li><li><a href="./sarsa-and-q-learning.html">SARSA and Q-Learning</a></li></ul><h1 id="论文精读"><a href="#论文精读" class="headerlink" title="论文精读"></a>论文精读</h1><ul><li><a href="./Evolution-Strategies-2017.html">Evolution Strategies as a Scalable Alternative to Reinforcement Learning</a></li></ul><h1 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a>相关信息</h1><ul><li><a href="./强化学习的里程碑.html">强化学习的里程碑</a></li></ul><h1 id="学习资源"><a href="#学习资源" class="headerlink" title="学习资源"></a>学习资源</h1><ul><li><a href="http://incompleteideas.net/book/RLbook2018.pdf" rel="external nofollow" target="_blank">《Reinforcement Learning : An Introduction 2nd Edition》——Sutton</a><ul><li>基础必读</li><li>通俗易懂</li><li>数学公式很多，虽然很多不太实用，但对理解RL的精髓很有帮助</li></ul></li><li><a href="https://www.youtube.com/playlist?list=PLqYmG7hTraZDM-OYHWgPebj2MfCFzFObQ" rel="external nofollow" target="_blank">Reinforcement Learning Course by David Silver, 2015</a><ul><li>基础必看，讲述了强化学习的基础算法</li><li>有字幕，通俗易懂</li><li>有课件Slide</li></ul></li><li><a href="https://spinningup.openai.com/en/latest/" rel="external nofollow" target="_blank">OpenAI Spinning Up</a><ul><li>深度强化学习</li><li>算法很多，解析也很清晰</li><li>有代码仓库，可以查看源代码，方便复现</li></ul></li><li><a href="[https://medium.com/search?q=reinforcement%20learning](https://medium.com/search?q=reinforcement learning">Medium : Reinforcement Learning</a>)<ul><li>博文质量不错，内容涵盖基础与进阶</li><li>缺点：更新少</li></ul></li><li><a href="https://stackoverflow.com/questions/tagged/reinforcement-learning" rel="external nofollow" target="_blank">StackOverflow : Reinforcement Learning</a><ul><li>进阶必备</li><li>多看多交流可以加深自己的理解</li></ul></li></ul>]]></content>
     
     <summary type="html">
     
@@ -452,28 +481,6 @@
     <summary type="html">
     
       &lt;p&gt;本文介绍了Markdown的基本语法。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="小知识" scheme="http://StepNeverStop.github.io/categories/%E5%B0%8F%E7%9F%A5%E8%AF%86/"/>
-    
-    
-      <category term="markdown" scheme="http://StepNeverStop.github.io/tags/markdown/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Windows下右键新建.md文件教程</title>
-    <link href="http://StepNeverStop.github.io/win-rightclick-create-md.html"/>
-    <id>http://StepNeverStop.github.io/win-rightclick-create-md.html</id>
-    <published>2018-12-28T16:00:00.000Z</published>
-    <updated>2019-05-13T11:54:23.663Z</updated>
-    
-    <content type="html"><![CDATA[<p>原本创建.md文件需要首先打开markdown文本编辑器，如Typora，或者新建.txt文件然后修改后缀名，本文介绍了如何在Windows操作系统中添加右键创建.md文件的方法。</p><a id="more"></a><h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>windows10操作系统<br>Typora编辑器</p><h1 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h1><p><img src="./win-rightclick-create-md/1546050455.jpg" alt=""></p><h1 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h1><h2 id="1-打开注册表"><a href="#1-打开注册表" class="headerlink" title="1. 打开注册表"></a>1. 打开注册表</h2><ol><li><code>CMD+R</code>，打开运行对话框</li><li>输入<code>regedit</code>，打开注册表编辑器</li></ol><h2 id="2-修改注册表"><a href="#2-修改注册表" class="headerlink" title="2. 修改注册表"></a>2. 修改注册表</h2><ol><li>在<code>计算机&gt;HKEY_CLASSES_ROOT</code>右键查找，输入<code>Typora</code>，勾选项，取消勾选值和数据</li></ol><p><img src="./win-rightclick-create-md/20181229103503.png" alt=""></p><ol><li>确认运行的程序名字，我的电脑如图所示，运行文件是<code>Typora.exe</code></li></ol><p><img src="./win-rightclick-create-md/20181229103752.png" alt=""><br>如果使用的是markdownpad或者其他编辑器，同理</p><ol><li>在磁盘任意位置新建一个文件，后缀为<code>.reg</code></li><li>打开编辑刚刚创建好的注册表文件，写入一下内容：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line">[HKEY_CLASSES_ROOT\.md]</span><br><span class="line">@=&quot;Typora.exe&quot;</span><br><span class="line">[HKEY_CLASSES_ROOT\.md\ShellNew]</span><br><span class="line">&quot;NullFile&quot;=&quot;&quot;</span><br><span class="line">[HKEY_CLASSES_ROOT\Typora.exe]</span><br><span class="line">@=&quot;Markdown&quot;</span><br></pre></td></tr></table></figure></li></ol><p><code>@=&quot;Typora.exe&quot;</code> 代表的是指定.md文件的运行程序<br><code>@=&quot;Markdown&quot;</code> 代表的是右键时默认的文件名字，这样写新建为<code>新建Markdown.md</code>文件，而且右键菜单中显示<code>MarkDown</code></p><ol><li>编辑好之后,另存为,设置如图所示:</li></ol><p><img src="./win-rightclick-create-md/20181229105408.png" alt=""></p><p>文件名可以随便设置，但是后缀必须是<code>.reg</code>文件,保存类型一定要是<code>文本文档(*.txt)</code>,编码选择<code>Unicode</code>,非常重要!!!!!</p><ol><li>保存文件后,双击运行,修改注册表即可,现在右键即可达到预期效果,如果不行,请重启一下.</li></ol><h2 id="3-编辑新建图标-非必须"><a href="#3-编辑新建图标-非必须" class="headerlink" title="3. 编辑新建图标(非必须)"></a>3. 编辑新建图标(非必须)</h2><ol><li>以<code>Typora</code>为例,在注册表<code>Typora.exe</code>下点击项<code>DefaultIcon</code>,右键修改</li><li>将属性修改为想要设置的Markdown文件图标</li></ol><p><img src="./win-rightclick-create-md/20181229105300.png" alt=""></p><p>文档有错或转载请联系邮箱<code>stepneverstop@qq.com</code></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;原本创建.md文件需要首先打开markdown文本编辑器，如Typora，或者新建.txt文件然后修改后缀名，本文介绍了如何在Windows操作系统中添加右键创建.md文件的方法。&lt;/p&gt;
     
     </summary>
     
