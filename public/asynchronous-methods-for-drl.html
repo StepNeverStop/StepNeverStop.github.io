@@ -109,13 +109,13 @@ daovoice('update');
     })();
 </script>
 
-<meta name="description" content="本文提出了A3C模型，即Asynchronous Advantage Actor-Critic，是A2C的异步版本，使用CPU多核而不用GPU进行训练，文中说效果比使用GPU反而更好。 推荐：  -">
+<meta name="description" content="本文提出了A3C模型，即Asynchronous Advantage Actor-Critic，是A2C的异步版本，使用CPU多核而不用GPU进行训练，文中说效果比使用GPU反而更好。 推荐：  并行梯度优化的佳作 通俗易懂">
 <meta name="keywords" content="rl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Asynchronous Methods for Deep Reinforcement Learning">
 <meta property="og:url" content="http://StepNeverStop.github.io/asynchronous-methods-for-drl.html">
 <meta property="og:site_name" content="Keavnn&#39;Blog">
-<meta property="og:description" content="本文提出了A3C模型，即Asynchronous Advantage Actor-Critic，是A2C的异步版本，使用CPU多核而不用GPU进行训练，文中说效果比使用GPU反而更好。 推荐：  -">
+<meta property="og:description" content="本文提出了A3C模型，即Asynchronous Advantage Actor-Critic，是A2C的异步版本，使用CPU多核而不用GPU进行训练，文中说效果比使用GPU反而更好。 推荐：  并行梯度优化的佳作 通俗易懂">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://stepneverstop.github.io/asynchronous-methods-for-drl/regression.png">
 <meta property="og:image" content="http://stepneverstop.github.io/asynchronous-methods-for-drl/lossfunction.png">
@@ -124,10 +124,10 @@ daovoice('update');
 <meta property="og:image" content="http://stepneverstop.github.io/asynchronous-methods-for-drl/a1stepq.png">
 <meta property="og:image" content="http://stepneverstop.github.io/asynchronous-methods-for-drl/anstepq.png">
 <meta property="og:image" content="http://stepneverstop.github.io/asynchronous-methods-for-drl/a3c.png">
-<meta property="og:updated_time" content="2019-05-30T08:58:52.308Z">
+<meta property="og:updated_time" content="2019-05-30T14:50:59.247Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Asynchronous Methods for Deep Reinforcement Learning">
-<meta name="twitter:description" content="本文提出了A3C模型，即Asynchronous Advantage Actor-Critic，是A2C的异步版本，使用CPU多核而不用GPU进行训练，文中说效果比使用GPU反而更好。 推荐：  -">
+<meta name="twitter:description" content="本文提出了A3C模型，即Asynchronous Advantage Actor-Critic，是A2C的异步版本，使用CPU多核而不用GPU进行训练，文中说效果比使用GPU反而更好。 推荐：  并行梯度优化的佳作 通俗易懂">
 <meta name="twitter:image" content="http://stepneverstop.github.io/asynchronous-methods-for-drl/regression.png">
 
 
@@ -368,7 +368,7 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-30T16:58:52+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-30T22:50:59+08:00">
                 2019-05-30
               </time>
             
@@ -418,7 +418,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.3k
+                  2.4k
                 </span>
               
 
@@ -434,7 +434,7 @@ daovoice('update');
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4
+                  8
                 </span>
               
             </div>
@@ -458,12 +458,13 @@ daovoice('update');
         <p>本文提出了A3C模型，即Asynchronous Advantage Actor-Critic，是A2C的异步版本，使用CPU多核而不用GPU进行训练，文中说效果比使用GPU反而更好。</p>
 <p>推荐：</p>
 <ul>
-<li>-</li>
+<li>并行梯度优化的佳作</li>
+<li>通俗易懂</li>
 </ul>
 <a id="more"></a>
 <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>论文地址：<a href="https://arxiv.org/pdf/1602.01783.pdf" rel="external nofollow" target="_blank">https://arxiv.org/pdf/1602.01783.pdf</a></p>
-<p>本文提出了一个概念简单、异步梯度优化的轻量级深度强化学习训练框架。</p>
-<p>优点：</p>
+<p>本文提出了一个概念简单、异步梯度优化的轻量级深度强化学习训练框架。提出该框架的初衷是占用少的资源稳定深度神经网络的学习。</p>
+<p>效果：</p>
 <ul>
 <li>稳定训练</li>
 <li>在Atari游戏上相比当时最先进的算法，使用一个多核CPU比使用GPU训练时间减半</li>
@@ -487,6 +488,7 @@ daovoice('update');
 <li>不使用GPU，只使用多核CPU，反而训练时间短</li>
 <li>比大规模分布式需要更少的资源占用（内存、算力等）</li>
 <li><strong>相比于<a href="https://arxiv.org/pdf/1507.04296.pdf" rel="external nofollow" target="_blank">Gorila</a>异步训练方式，本文中的训练方式不需要中心服务器，其使用的是共享内存模式</strong></li>
+<li>单机运行减少了通信（梯度和超参数）的开销</li>
 </ol>
 <h1 id="文中精要"><a href="#文中精要" class="headerlink" title="文中精要"></a>文中精要</h1><p>由于本文思想非常简单，所以精简描述论文精华</p>
 <p>本文使用<strong><a href="https://arxiv.org/pdf/1106.5730.pdf" rel="external nofollow" target="_blank">Hogwild!</a></strong>方式进行异步梯度下降</p>
@@ -514,6 +516,7 @@ daovoice('update');
 </ol>
 <p><img src="./asynchronous-methods-for-drl/sgdvsgd.png" alt=""></p>
 <p>看图像可能会觉得SGD并没有严格下降，有时会有损失上升的倾向，但是，总体来看，这种方法最终也是可以收敛到最小值的。总体上，它使损失进行了下降。</p>
+<p>对于熟悉并行编程的人来说，如果让他们设计并行随机梯度下降，他们一定会像这样设计：</p>
 <ul>
 <li>每个线程从训练集随机抽取一个样本$x_{i}$<ul>
 <li>锁参数$\theta$</li>
@@ -523,19 +526,51 @@ daovoice('update');
 </ul>
 </li>
 </ul>
+<p>更新前锁定参数，更新后解锁参数。对于许多问题，更新这一步骤耗时在微秒级，而锁参数耗时在毫秒级，这意味着锁参数要比更新多占用1000多倍的时间。虽然有一些其他方法可以对该过程进行优化，但差距还是很明显。</p>
+<p>如果，<strong>注释掉关于锁的代码呢？</strong>这真是一个大胆的想法，但是Hogwild!就是这么做的。（这都是一个叫Feng Niu的人搞出来的，不知是出于好奇还是在Debug，他在研究加速SGD的时候注释掉了锁的代码，算法不仅有效，还提升了一百多倍。所以说，多试试总是好的。。。）流程如下：</p>
 <ul>
 <li>每个线程从训练集随机抽取一个样本$x_{i}$<ul>
-<li><del>锁参数$\theta~$</del></li>
+<li><del>锁参数$\theta $</del>​</li>
 <li>线程读参数$\theta$</li>
 <li>线程更新参数$\theta \leftarrow\left(\theta-\alpha \nabla L\left(f_{\theta}\left(x_{i}\right), y_{i}\right)\right)$</li>
 <li><del>解锁</del></li>
 </ul>
 </li>
 </ul>
-<h2 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h2><p>首先介绍one-step Q-Learning的训练模式</p>
+<blockquote>
+<p>In a sentence, the main idea of Hogwild! is — “<strong>Remove all thread locks from parallel SGD code</strong>.” In Hogwild!, threads can overwrite each other by writing at the same time and compute gradients using a stale version of the “current solution.” </p>
+</blockquote>
+<p>我们不禁都有一个疑问，这么做，真的可以吗？还真别说，经过实验表明，该方法取得了多线程的益处却没有数学效率上的负面影响。</p>
+<p>本文中的异步更新就是用这种方法，唯一有问题的可能就是两个线程同写，但是即便是同写，写入还是有先后的，最多也就是把前一个线程写入的给覆盖掉，丢弃一个线程的数据更新而已，无伤大雅，至于多个线程写后读、读后写倒都没有大的影响，不影响参数更新与收敛。</p>
+<h2 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h2><p><strong>本文中所有伪代码都使用Hogwild!方式进行梯度更新。</strong></p>
+<p>以下伪代码都是单个线程中actor-learning的操作。每个线程中的actor可以使用不同的探索机制，实验证明不同的探索机制可以提高算法的鲁棒性和性能效果。</p>
+<p>首先介绍异步one-step Q-Learning的训练模式</p>
 <p><img src="./asynchronous-methods-for-drl/a1stepq.png" alt=""></p>
-<p><img src="./asynchronous-methods-for-drl/anstepq.png" alt=""></p>
+<p>解析：</p>
+<ul>
+<li>相比后两个伪代码，该代码中各线程是不需要复制用于选择动作的训练网络（因为各方对target network的定义不同，有些人认为等待赋值的是目标网络，有些人认为需要训练的是目标网络，因此，此处不使用目标网络的术语）的，即每次选择动作，都使用其他线程可能更新过的Q网络进行决策。这是因为不需要使用同一个决策模型向后看多步</li>
+<li>$\theta$是动态变化的，即在该线程的训练过程中，其他线程也可能对参数$\theta$进行了更新</li>
+<li>$I_{target}$代表双Q学习赋值的间隔</li>
+<li>$I_{AsyncUpdate}$代表单线程对共享参数$\theta$更新的间隔</li>
+</ul>
+<hr>
+<p>接下来是异步n-step Q-Learning的训练模式：</p>
+<p>相比于n-step，one-step方法中获得的立即奖励$r$只影响导致其产生的$Q(s,a)$，从而通过$Q(s,a)$间接影响其他的动作值，这会使训练过程很慢，因为需要多次更新才能将奖励传播到前面的相关状态和动作。使奖励传播更快的一个方法就是使用n-step回报。</p>
+<script type="math/tex; mode=display">
+G_{t}=r_{t}+\gamma r_{t+1}+\cdots+\gamma^{n-1} r_{t+n-1}+\max _{a} \gamma^{n} Q\left(s_{t+n}, a\right)</script><p><img src="./asynchronous-methods-for-drl/anstepq.png" alt=""></p>
+<p>解析：</p>
+<ul>
+<li>相比于one-step，该算法为每个线程配置了一个备份网络$\color{red}{\theta’}$</li>
+<li>$t_{max}$为n-step中的$n$</li>
+</ul>
+<hr>
+<p>最后是异步A2C，即A3C的训练模式：</p>
 <p><img src="./asynchronous-methods-for-drl/a3c.png" alt=""></p>
+<p>解析：</p>
+<ul>
+<li>$t_{max}$为n-step向前看的步数</li>
+<li>文中针对该模型将A-C网络架构共享了部分神经网络参数，并且对actor网络的损失函数公式进行了改造：$\nabla_{\theta^{\prime}} \log \pi\left(a_{t} | s_{t} ; \theta^{\prime}\right)\left(R_{t}-V\left(s_{t} ; \theta_{v}\right)\right)+\color{red}{\beta \nabla_{\theta^{\prime}} H\left(\pi\left(s_{t} ; \theta^{\prime}\right)\right)}$，即添加了熵正则化项，它的作用是增加探索，避免网络过早地收敛至局部最优，$\beta$为超参数</li>
+</ul>
 <h1 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h1><blockquote>
 <p><a href="https://medium.com/@krishna_srd/parallel-machine-learning-with-hogwild-f945ad7e48a4" rel="external nofollow" target="_blank">Parallel Machine Learning with Hogwild!</a></p>
 </blockquote>
@@ -568,7 +603,7 @@ daovoice('update');
   <p><span>本文标题:</span><a href="/asynchronous-methods-for-drl.html">Asynchronous Methods for Deep Reinforcement Learning</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Keavnn 的个人博客">Keavnn</a></p>
   <p><span>发布时间:</span>2019年05月30日 - 15:05</p>
-  <p><span>最后更新:</span>2019年05月30日 - 16:05</p>
+  <p><span>最后更新:</span>2019年05月30日 - 22:05</p>
   <p><span>原始链接:</span><a href="/asynchronous-methods-for-drl.html" title="Asynchronous Methods for Deep Reinforcement Learning">http://StepNeverStop.github.io/asynchronous-methods-for-drl.html</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://StepNeverStop.github.io/asynchronous-methods-for-drl.html" aria-label="复制成功！"></i></span>
   </p>
@@ -670,6 +705,12 @@ daovoice('update');
 
 
     <div class="post-spread">
+      
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<div class="addthis_inline_share_toolbox">
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cefbfc88c13b0e7" async="async"></script>
+</div>
+
       
     </div>
   </div>
@@ -871,7 +912,7 @@ daovoice('update');
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">39k</span>
+    <span title="Site words total count">40.1k</span>
   
 </div>
 
@@ -891,7 +932,7 @@ daovoice('update');
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共39k字</span>
+  <span class="post-count">博客全站共40.1k字</span>
 </div> -->
         
 
