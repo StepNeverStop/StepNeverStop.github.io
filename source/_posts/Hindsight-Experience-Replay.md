@@ -22,6 +22,8 @@ description:
 
 # 简介
 
+论文地址：[https://papers.nips.cc/paper/7090-hindsight-experience-replay.pdf](https://papers.nips.cc/paper/7090-hindsight-experience-replay.pdf)
+
 >Dealing with sparse rewards is one of the biggest challenges in Reinforcement Learning (RL).  
 
 强化学习问题中最棘手的问题之一就是稀疏奖励。
@@ -31,6 +33,10 @@ description:
 ![](./Hindsight-Experience-Replay/hindsight.png)
 
 Hindsight意为事后，结合强化学习中序贯决策问题的特性，我们很容易就可以猜想到，“事后”要不然指的是在状态s下执行动作a之后，要不然指的就是当一个episode结束之后。其实，文中对常规经验池的改进也正是运用了这样的含义。
+
+> HER lets an agent learn from undesired outcomes and tackles the problem of sparse rewards in Reinforcement Learning (RL).——Zhao, R., & Tresp, V. (2018). Energy-Based Hindsight Experience Prioritization. *CoRL*.
+
+HER使智能体从没达到的结果中去学习，解决了强化学习中稀疏奖励的问题。
 
 ## 二分奖励 binary reward
 
@@ -139,7 +145,11 @@ HER的几种扩展方式：
 - ReLU激活函数
 - 8核并行，更新参数后取平均
 - A-C网络都是3个隐藏层，每层64个隐节点，Actor输出层用tanh激活函数
-- 经验池大小为$10^{6}$，折扣因子$\gamma=0.98$，学习率$\alpha=0.001$，探索因子$\epsilon-0.2$
+- 经验池大小为$10^{6}$，折扣因子$\gamma=0.98$，学习率$\alpha=0.001$，探索因子$\epsilon = 0.2$
+
+> With probability 20% we sample (uniformly) a random action from the hypercube of valid actions. 
+
+DDPG使用了随机探索机制
 
 ## 训练结果
 

@@ -2,16 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://StepNeverStop.github.io/asynchronous-methods-for-drl.html</loc>
+    
+    <lastmod>2019-05-30T08:58:52.308Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://StepNeverStop.github.io/Hindsight-Experience-Replay.html</loc>
     
-    <lastmod>2019-05-28T13:55:38.042Z</lastmod>
+    <lastmod>2019-05-30T07:57:28.345Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html</loc>
     
-    <lastmod>2019-05-28T13:20:38.952Z</lastmod>
+    <lastmod>2019-05-30T07:35:24.872Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/energy-based-hindsight-experience-prioritization.html</loc>
+    
+    <lastmod>2019-05-30T07:20:06.669Z</lastmod>
     
   </url>
   
@@ -170,14 +184,14 @@
   </url>
   
   <url>
-    <loc>http://StepNeverStop.github.io/schedule/index.html</loc>
+    <loc>http://StepNeverStop.github.io/categories/index.html</loc>
     
     <lastmod>2019-01-05T06:10:15.878Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://StepNeverStop.github.io/categories/index.html</loc>
+    <loc>http://StepNeverStop.github.io/schedule/index.html</loc>
     
     <lastmod>2019-01-05T06:10:15.878Z</lastmod>
     

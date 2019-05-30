@@ -125,7 +125,7 @@ daovoice('update');
 <meta property="og:image" content="http://stepneverstop.github.io/Hindsight-Experience-Replay/singlegoal.png">
 <meta property="og:image" content="http://stepneverstop.github.io/Hindsight-Experience-Replay/rewardshape.png">
 <meta property="og:image" content="http://stepneverstop.github.io/Hindsight-Experience-Replay/fourmodel.png">
-<meta property="og:updated_time" content="2019-05-28T13:55:38.042Z">
+<meta property="og:updated_time" content="2019-05-30T07:57:28.345Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hindsight Experience Replay">
 <meta name="twitter:description" content="本文介绍了一个“事后诸葛亮”的经验池机制，简称为HER，它可以很好地应用于稀疏奖励和二分奖励的问题中，不需要复杂的奖励函数工程设计。 推荐：  稀疏奖励问题的一种解决方案 通俗易懂">
@@ -369,8 +369,8 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-28T21:55:38+08:00">
-                2019-05-28
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-30T15:57:28+08:00">
+                2019-05-30
               </time>
             
           </span>
@@ -419,7 +419,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3.3k
+                  3.4k
                 </span>
               
 
@@ -435,7 +435,7 @@ daovoice('update');
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  13
+                  14
                 </span>
               
             </div>
@@ -463,13 +463,18 @@ daovoice('update');
 <li>通俗易懂</li>
 </ul>
 <a id="more"></a>
-<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><blockquote>
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>论文地址：<a href="https://papers.nips.cc/paper/7090-hindsight-experience-replay.pdf" rel="external nofollow" target="_blank">https://papers.nips.cc/paper/7090-hindsight-experience-replay.pdf</a></p>
+<blockquote>
 <p>Dealing with sparse rewards is one of the biggest challenges in Reinforcement Learning (RL).  </p>
 </blockquote>
 <p>强化学习问题中最棘手的问题之一就是稀疏奖励。</p>
 <p>本文提出了一个新颖的技术：Hindsight Experience Replay（HER），可以从稀疏、二分的奖励问题中高效采样并进行学习，而且可以应用于<strong>所有的Off-Policy</strong>算法中。</p>
 <p><img src="./Hindsight-Experience-Replay/hindsight.png" alt=""></p>
 <p>Hindsight意为事后，结合强化学习中序贯决策问题的特性，我们很容易就可以猜想到，“事后”要不然指的是在状态s下执行动作a之后，要不然指的就是当一个episode结束之后。其实，文中对常规经验池的改进也正是运用了这样的含义。</p>
+<blockquote>
+<p>HER lets an agent learn from undesired outcomes and tackles the problem of sparse rewards in Reinforcement Learning (RL).——Zhao, R., &amp; Tresp, V. (2018). Energy-Based Hindsight Experience Prioritization. <em>CoRL</em>.</p>
+</blockquote>
+<p>HER使智能体从没达到的结果中去学习，解决了强化学习中稀疏奖励的问题。</p>
 <h2 id="二分奖励-binary-reward"><a href="#二分奖励-binary-reward" class="headerlink" title="二分奖励 binary reward"></a>二分奖励 binary reward</h2><p>简言之，完成目标为一个值，没完成目标为另一个值。如：</p>
 <ul>
 <li>$S_{T}=Goal，r=0$</li>
@@ -555,8 +560,12 @@ daovoice('update');
 <li>ReLU激活函数</li>
 <li>8核并行，更新参数后取平均</li>
 <li>A-C网络都是3个隐藏层，每层64个隐节点，Actor输出层用tanh激活函数</li>
-<li>经验池大小为$10^{6}$，折扣因子$\gamma=0.98$，学习率$\alpha=0.001$，探索因子$\epsilon-0.2$</li>
+<li>经验池大小为$10^{6}$，折扣因子$\gamma=0.98$，学习率$\alpha=0.001$，探索因子$\epsilon = 0.2$</li>
 </ul>
+<blockquote>
+<p>With probability 20% we sample (uniformly) a random action from the hypercube of valid actions. </p>
+</blockquote>
+<p>DDPG使用了随机探索机制</p>
 <h2 id="训练结果"><a href="#训练结果" class="headerlink" title="训练结果"></a>训练结果</h2><h3 id="final模式与future模式对比"><a href="#final模式与future模式对比" class="headerlink" title="final模式与future模式对比"></a>final模式与future模式对比</h3><p><img src="./Hindsight-Experience-Replay/finalvsfuture.png" alt=""></p>
 <ul>
 <li>红色曲线为future模式，蓝色曲线为final模式，绿色曲线为使用了<a href="https://arxiv.org/pdf/1703.01310.pdf" rel="external nofollow" target="_blank">count-based</a>的DDPG，褐红色虚线为原始DDPG</li>
@@ -662,7 +671,7 @@ daovoice('update');
   <p><span>本文标题:</span><a href="/Hindsight-Experience-Replay.html">Hindsight Experience Replay</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Keavnn 的个人博客">Keavnn</a></p>
   <p><span>发布时间:</span>2019年05月28日 - 18:05</p>
-  <p><span>最后更新:</span>2019年05月28日 - 21:05</p>
+  <p><span>最后更新:</span>2019年05月30日 - 15:05</p>
   <p><span>原始链接:</span><a href="/Hindsight-Experience-Replay.html" title="Hindsight Experience Replay">http://StepNeverStop.github.io/Hindsight-Experience-Replay.html</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://StepNeverStop.github.io/Hindsight-Experience-Replay.html" aria-label="复制成功！"></i></span>
   </p>
@@ -748,6 +757,10 @@ daovoice('update');
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/energy-based-hindsight-experience-prioritization.html" rel="prev" title="Energy-Based Hindsight Experience Prioritization">
+                Energy-Based Hindsight Experience Prioritization <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -832,7 +845,7 @@ daovoice('update');
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -965,7 +978,7 @@ daovoice('update');
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">34.7k</span>
+    <span title="Site words total count">39k</span>
   
 </div>
 
@@ -985,7 +998,7 @@ daovoice('update');
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共34.7k字</span>
+  <span class="post-count">博客全站共39k字</span>
 </div> -->
         
 
