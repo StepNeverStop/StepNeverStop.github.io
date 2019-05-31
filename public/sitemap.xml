@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://StepNeverStop.github.io/asynchronous-methods-for-drl.html</loc>
+    <loc>http://StepNeverStop.github.io/rl2.html</loc>
     
-    <lastmod>2019-05-30T14:50:59.247Z</lastmod>
+    <lastmod>2019-05-31T07:03:00.680Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html</loc>
     
-    <lastmod>2019-05-30T09:52:24.507Z</lastmod>
+    <lastmod>2019-05-31T03:28:28.084Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/asynchronous-methods-for-drl.html</loc>
+    
+    <lastmod>2019-05-31T03:25:16.041Z</lastmod>
     
   </url>
   
@@ -44,69 +51,6 @@
   </url>
   
   <url>
-    <loc>http://StepNeverStop.github.io/win-rightclick-create-md.html</loc>
-    
-    <lastmod>2019-05-13T14:27:05.713Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://StepNeverStop.github.io/use-conda-env-in-jupyter.html</loc>
-    
-    <lastmod>2019-05-13T14:27:05.713Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://StepNeverStop.github.io/something-hard-install-docker.html</loc>
-    
-    <lastmod>2019-05-13T14:27:05.713Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://StepNeverStop.github.io/dynamic-programming.html</loc>
-    
-    <lastmod>2019-05-13T14:27:05.707Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://StepNeverStop.github.io/create-sniper-docker-image.html</loc>
-    
-    <lastmod>2019-05-13T14:27:05.707Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://StepNeverStop.github.io/conda%E7%8E%AF%E5%A2%83%E5%92%8Cpip%E5%8C%85%E7%9A%84%E8%BD%AC%E7%A7%BB.html</loc>
-    
-    <lastmod>2019-05-13T14:27:05.706Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://StepNeverStop.github.io/MarkDown-Grammar.html</loc>
-    
-    <lastmod>2019-05-13T14:27:05.706Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://StepNeverStop.github.io/AnderewNg-deeplearning-note-summary.html</loc>
-    
-    <lastmod>2019-05-13T14:27:05.705Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://StepNeverStop.github.io/Docker%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0.html</loc>
-    
-    <lastmod>2019-05-13T14:27:05.705Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://StepNeverStop.github.io/sarsa-and-q-learning.html</loc>
     
     <lastmod>2019-05-13T12:46:37.930Z</lastmod>
@@ -121,9 +65,72 @@
   </url>
   
   <url>
+    <loc>http://StepNeverStop.github.io/dynamic-programming.html</loc>
+    
+    <lastmod>2019-05-13T12:42:28.856Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://StepNeverStop.github.io/rl-classification.html</loc>
     
     <lastmod>2019-05-13T12:30:28.146Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/win-rightclick-create-md.html</loc>
+    
+    <lastmod>2019-05-13T11:54:23.663Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/use-conda-env-in-jupyter.html</loc>
+    
+    <lastmod>2019-05-13T11:52:06.850Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/something-hard-install-docker.html</loc>
+    
+    <lastmod>2019-05-13T11:51:19.996Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/MarkDown-Grammar.html</loc>
+    
+    <lastmod>2019-05-13T11:49:05.906Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/Docker%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0.html</loc>
+    
+    <lastmod>2019-05-13T11:45:43.286Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/create-sniper-docker-image.html</loc>
+    
+    <lastmod>2019-05-13T11:44:34.919Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/conda%E7%8E%AF%E5%A2%83%E5%92%8Cpip%E5%8C%85%E7%9A%84%E8%BD%AC%E7%A7%BB.html</loc>
+    
+    <lastmod>2019-05-13T11:42:19.949Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/AnderewNg-deeplearning-note-summary.html</loc>
+    
+    <lastmod>2019-05-13T11:41:12.603Z</lastmod>
     
   </url>
   
@@ -137,70 +144,70 @@
   <url>
     <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8BMDP%E9%A9%AC%E5%B0%94%E7%A7%91%E5%A4%AB%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B.html</loc>
     
-    <lastmod>2019-05-12T15:12:16.237Z</lastmod>
+    <lastmod>2019-05-13T01:09:08.291Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.html</loc>
     
-    <lastmod>2019-05-12T14:59:28.294Z</lastmod>
+    <lastmod>2019-05-12T10:38:59.847Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%9A%84%E9%87%8C%E7%A8%8B%E7%A2%91.html</loc>
     
-    <lastmod>2019-05-10T12:39:30.414Z</lastmod>
+    <lastmod>2019-05-10T01:25:19.932Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://StepNeverStop.github.io/%E5%88%9B%E5%BB%BAML-Agents%E7%9A%84Docker%E9%95%9C%E5%83%8F.html</loc>
     
-    <lastmod>2019-05-10T12:39:30.411Z</lastmod>
+    <lastmod>2019-05-10T01:25:04.774Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://StepNeverStop.github.io/%E4%B8%BA%E8%BF%9C%E7%A8%8BUbuntu%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E8%A3%85%E5%9B%BE%E5%83%8F%E7%95%8C%E9%9D%A2.html</loc>
     
-    <lastmod>2019-05-10T12:39:30.404Z</lastmod>
+    <lastmod>2019-05-10T01:24:58.142Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://StepNeverStop.github.io/tags/index.html</loc>
     
-    <lastmod>2019-01-05T06:15:58.291Z</lastmod>
+    <lastmod>2019-01-05T06:10:15.880Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://StepNeverStop.github.io/sitemap/index.html</loc>
     
-    <lastmod>2019-01-05T06:15:58.291Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://StepNeverStop.github.io/about/index.html</loc>
-    
-    <lastmod>2019-01-05T06:15:58.290Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://StepNeverStop.github.io/schedule/index.html</loc>
-    
-    <lastmod>2019-01-05T06:15:58.290Z</lastmod>
+    <lastmod>2019-01-05T06:10:15.879Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://StepNeverStop.github.io/categories/index.html</loc>
     
-    <lastmod>2019-01-05T06:15:58.290Z</lastmod>
+    <lastmod>2019-01-05T06:10:15.878Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/schedule/index.html</loc>
+    
+    <lastmod>2019-01-05T06:10:15.878Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/about/index.html</loc>
+    
+    <lastmod>2019-01-05T06:10:15.877Z</lastmod>
     
   </url>
   

@@ -26,10 +26,16 @@ description:
 
 本文提出了一个概念简单、异步梯度优化的轻量级深度强化学习训练框架。提出该框架的初衷是占用少的资源稳定深度神经网络的学习。
 
+该框架可适用于：
+
+- 基于值与基于策略的方法
+- on-policy与off-policy的方法
+- 离散与连续问题
+
 效果：
 
 - 稳定训练
-- 在Atari游戏上相比当时最先进的算法，使用一个多核CPU比使用GPU训练时间减半
+- 在Atari游戏上使用DQN算法，一个16核CPU比Nvidia K40 GPU快，使用A3C算法可以快一倍
 - 成功适用于很多连续运动学控制问题，例如图像输入的3D迷宫
 
 > the sequence of observed data encountered by an online RL agent is non-stationary, and on-line RL updates are strongly correlated. By storing the agent’s data in an experience replay memory, the data can be batched or randomly sampled from different time-steps. Aggregating over memory in this way reduces non-stationarity and decorrelates updates, but at the same time limits the methods to off-policy reinforcement learning algorithms 
@@ -157,6 +163,63 @@ $$
 
 - $t_{max}$为n-step向前看的步数
 - 文中针对该模型将A-C网络架构共享了部分神经网络参数，并且对actor网络的损失函数公式进行了改造：$\nabla_{\theta^{\prime}} \log \pi\left(a_{t} | s_{t} ; \theta^{\prime}\right)\left(R_{t}-V\left(s_{t} ; \theta_{v}\right)\right)+\color{red}{\beta \nabla_{\theta^{\prime}} H\left(\pi\left(s_{t} ; \theta^{\prime}\right)\right)}$，即添加了熵正则化项，它的作用是增加探索，避免网络过早地收敛至局部最优，$\beta$为超参数
+
+正态分布的熵可以表示为$-\frac{1}{2}\left(\log \left(2 \pi \sigma^{2}\right)+1\right)$
+
+# 实验部分
+
+实验结果视频：
+
+- [TORCS A3C训练驾驶汽车](https://youtu.be/0xo1Ldx3L5Q)
+- [MuJoco 一些训练效果](https://youtu.be/Ajjc08-iPx8)
+- [Labyrinth 3D迷宫](https://youtu.be/nMR5mjCFZCw)
+
+Atari 2600 实验结果：
+
+![](./asynchronous-methods-for-drl/table1.png)
+
+不同线程数的加速效果：
+
+![](./asynchronous-methods-for-drl/table2.png)
+
+文中比较了三种优化函数的性能，分别是：
+
+- 动量SGD，Momentum SGD
+- RMSProp
+- Shared RMSProp
+
+RMSProp是这样更新的：
+$$
+g=\alpha g+(1-\alpha) \Delta \theta^{2}
+$$
+
+$$
+\theta \leftarrow \theta-\eta \frac{\Delta \theta}{\sqrt{g+\epsilon}}
+$$
+
+$\eta$为学习率，$\alpha$为RMSProp折扣因子
+
+RMSProp与Shared RMSProp的差别就是：
+
+- Shared RMSProp各线程共享参数$g$，且无锁异步更新
+- RMSProp各线程独立一个参数$g$
+
+实验结果如下：
+
+测试每种算法50次试验，得分从高到低排列，算法为n-step Q-Learning和A3C
+
+**综合来看，三种优化方式效果差别不大，但是Shared RMSProp>RMSProp>Momentum SGD**
+
+![](./asynchronous-methods-for-drl/threeoptimizer.png)
+
+---
+
+实验结果太多，懒得贴了，总之，这种异步框架方法的优点是：
+
+- 使用离线在线策略，基于值基于策略方法，离散连续问题
+- 稳定训练
+- 加速训练
+- 比经验池少消耗资源
 
 # 引用
 
