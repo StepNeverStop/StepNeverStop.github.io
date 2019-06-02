@@ -119,7 +119,7 @@ daovoice('update');
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://stepneverstop.github.io/rl2/meta.png">
 <meta property="og:image" content="http://stepneverstop.github.io/rl2/meta-rl.png">
-<meta property="og:updated_time" content="2019-05-31T07:03:00.680Z">
+<meta property="og:updated_time" content="2019-06-02T01:19:23.071Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RL^2|Fast Reinforcement Learning vis Slow Reinforcement Learning">
 <meta name="twitter:description" content="本文引用了元学习在深度学习领域的思想，在多任务中训练一个通用模型——slow，用这个通用模型拓展到其他任务进行训练就会快很多，得到新模型——fast。本文中的模型使用RNN作为训练模型。 推荐程度：中等偏下  可以拓宽知识面，了解众家思想 我个人认为，这样的元学习并没有达到让机器”学会如何学习的学习方法“的目的，即“learning to learn”">
@@ -363,8 +363,8 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-31T15:03:00+08:00">
-                2019-05-31
+              <time title="更新于" itemprop="dateModified" datetime="2019-06-02T09:19:23+08:00">
+                2019-06-02
               </time>
             
           </span>
@@ -504,7 +504,7 @@ daovoice('update');
 <li>MDP问题：在多臂老虎机和网格MDPs任务中，与理论上合理的算法（没有指出是哪些算法）性能相当</li>
 <li>POMDP问题：图像输入的导航任务中，实验表明，智能体能够有效地利用学习到的视觉信息和以往情景中获得的短期信息。实验结果视频：<a href="https://goo.gl/rDDBpb" rel="external nofollow" target="_blank">https://goo.gl/rDDBpb</a></li>
 </ul>
-<h1 id="个人见解"><a href="#个人见解" class="headerlink" title="个人见解"></a>个人见解</h1><p>我认为这样的元强化学习根本不能达到提出元学习的初衷。说到底，这种方式只是让一个一面白纸的模型可以学习成多种任务的通用基础模型（slow），然后在使用这个基础模型对其他任务进行训练时可以快速训练出结果（fast）。这种方式可以加速学习，但是却并不能使机器学会去学习，学会如何进行学习的方法，虽然意义上说让智能体学到了强化学习算法的过程，其实本质上是使智能体学到了多种MDP任务中的经验，并把它转换为“记忆<br>，而没有教会机器”记忆“这个过程。</p>
+<h1 id="个人见解"><a href="#个人见解" class="headerlink" title="个人见解"></a>个人见解</h1><p>我认为这样的元强化学习根本不能实现提出元学习的初衷。说到底，这种方式只是让一个“一面白纸”的模型可以学习成多种任务的通用基础模型（slow），然后在使用这个基础模型对其他任务进行训练时可以快速训练出结果（fast）。这种方式可以加速学习，但是却并不能使机器学会去学习，学会如何进行学习的方法，虽然意义上说让智能体学到了强化学习算法的过程，其实本质上是使智能体学到了多种MDP任务中的经验，寻找一个易于根据MDP任务最优化的通用模型，并把它转换为“记忆，而没有教会机器”记忆“这个过程。</p>
 <p>（WTF？RNN训练智能体+多任务切换+更改网络输入+任务级目标函数 这就是元强化学习啦？？？）</p>
 <p><img src="./rl2/meta-rl.png" alt=""></p>
 
@@ -536,7 +536,7 @@ daovoice('update');
   <p><span>本文标题:</span><a href="/rl2.html">RL^2|Fast Reinforcement Learning vis Slow Reinforcement Learning</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Keavnn 的个人博客">Keavnn</a></p>
   <p><span>发布时间:</span>2019年05月31日 - 11:05</p>
-  <p><span>最后更新:</span>2019年05月31日 - 15:05</p>
+  <p><span>最后更新:</span>2019年06月02日 - 09:06</p>
   <p><span>原始链接:</span><a href="/rl2.html" title="RL^2|Fast Reinforcement Learning vis Slow Reinforcement Learning">http://StepNeverStop.github.io/rl2.html</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://StepNeverStop.github.io/rl2.html" aria-label="复制成功！"></i></span>
   </p>
@@ -621,6 +621,10 @@ daovoice('update');
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/ss.html" rel="prev" title="Ubuntu16.04配置Shadowsocks服务器">
+                Ubuntu16.04配置Shadowsocks服务器 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -712,7 +716,7 @@ daovoice('update');
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -845,7 +849,7 @@ daovoice('update');
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">41.8k</span>
+    <span title="Site words total count">43.6k</span>
   
 </div>
 
@@ -865,7 +869,7 @@ daovoice('update');
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共41.8k字</span>
+  <span class="post-count">博客全站共43.6k字</span>
 </div> -->
         
 
