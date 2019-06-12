@@ -15,7 +15,7 @@ description:
 
 <!--more-->
 
-<h1 id="Gorila">[DeepMind]Massively Parallel Methods for Deep Reinforcement Learning[Gorila]</h1>
+<h1 align="center" style="color:blue" id="Gorila">[DeepMind]Massively Parallel Methods for Deep Reinforcement Learning[Gorila]</h1>
 
 本文提出了一个分布式强化学习训练的架构：Gorila(General Reinforcement Learning Architecture)。2015年发于ICML，本文使用DQN算法进行分布式实现。
 
@@ -86,7 +86,7 @@ Gorila进一步实现了DRL的希望：一个可伸缩的架构，随着计算�
 
 
 
-<h1 id="MB-MPO">[UCB/OpenAI]Model-Based Reinforcement Learning via Meta-Policy Optimization[MB-MPO]</h1>
+<h1 align="center" style="color:blue" id="MB-MPO">[UCB/OpenAI]Model-Based Reinforcement Learning via Meta-Policy Optimization[MB-MPO]</h1>
 
 论文地址：[https://arxiv.org/pdf/1809.05214.pdf](https://arxiv.org/pdf/1809.05214.pdf)
 
@@ -150,12 +150,16 @@ $$
 - 行为策略使用VPG，即传统策略梯度算法进行优化，元策略使用TRPO算法进行优化
 - 伪代码中的大致流程如下：
   1. 初始化策略$\pi_{\theta}$并将其复制K份$\pi_{\theta_{1}^{\prime}}, \dots, \pi_{\boldsymbol{\theta}_{K}^{\prime}}$
-  2. 使用$\pi_{\theta_{1}^{\prime}}, \dots, \pi_{\boldsymbol{\theta}_{K}^{\prime}}$对各自的环境模型进行**采样（这一步是实际交互，即真实数据）**，将数据存入经验池
+  2. 使用$\pi_{\theta_{1}^{\prime}}, \dots, \pi_{\boldsymbol{\theta}_{K}^{\prime}}$对**真实的环境模型进行采样（这一步是实际交互，即真实数据）**，将数据存入经验池
   3. 根据经验池训练K个环境模型，即使用`学习环境动态模型`部分的公式
   4. 对于每个更新后的环境模型，用元策略$\color{red}{\pi_{\theta}}$进行**虚拟采样（这一步是预测采样，即不实际进行交互）**，采样到$\mathcal{T}_{k}$以适应性修改行为策略$\boldsymbol{\theta}_{k}^{\prime}$。这里也是前边提到的行为策略更新是不连贯的原因。
   5. 再用适应性策略$\boldsymbol{\theta}_{k}^{\prime}$进行**虚拟采样**，采样到$\mathcal{T}_{k}^{\prime}$以更新元策略$\pi_{\theta}$
   6. 跳向第2步
 - 伪代码中虽然没有明确指出，但是其实使用了baseline的trick用来减少方差
+
+## 流程示意图
+
+![](./rl-rough-reading/mb-mpo-visio.png)
 
 ## 效果
 
@@ -163,3 +167,4 @@ $$
 2. 可以达到model-free算法的渐进性能
 3. 需要更少的经验，低采样复杂性。其实是使用了虚拟采样，提高了数据效率，减少了交互采样的代价。
 4. 对于模型偏差（model-bias，即环境模型没学到位）的情况，之前的算法不能有效处理，该算法对不完美、不完全、不完整的模型具有很好地鲁棒性
+

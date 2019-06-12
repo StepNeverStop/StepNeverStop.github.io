@@ -86,7 +86,7 @@ daovoice('update');
 
 
 
-  <meta name="keywords" content="If it is to be, it is up to me.">
+  <meta name="keywords" content="rl,">
 
 
 
@@ -109,17 +109,20 @@ daovoice('update');
     })();
 </script>
 
-<meta name="description" content="A blog to record and share knowledge about machine learning.">
-<meta name="keywords" content="Keavnn,Reinfocement Learning,Docker">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Keavnn&#39;Blog">
-<meta property="og:url" content="http://StepNeverStop.github.io/tags/markdown/index.html">
+<meta name="description" content="这篇论文将强化学习的目标与最大熵结合了起来，提出了简称为MEP的经验池机制。许多将熵与强化学习结合的方法都是考虑可选动作分布的熵，该篇论文很新颖的使用的是“迹”的熵。 推荐程度中等：  有些地方解释的不是很清楚 熵的结合方式特殊，可以一看 有些公式推导过于复杂，难懂">
+<meta name="keywords" content="rl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Maximum Entropy-Regularized Multi-Goal Reinforcement-Learning">
+<meta property="og:url" content="http://StepNeverStop.github.io/maximum-entropy-regularized-multi-goal-reinforcement-learning.html">
 <meta property="og:site_name" content="Keavnn&#39;Blog">
-<meta property="og:description" content="A blog to record and share knowledge about machine learning.">
+<meta property="og:description" content="这篇论文将强化学习的目标与最大熵结合了起来，提出了简称为MEP的经验池机制。许多将熵与强化学习结合的方法都是考虑可选动作分布的熵，该篇论文很新颖的使用的是“迹”的熵。 推荐程度中等：  有些地方解释的不是很清楚 熵的结合方式特殊，可以一看 有些公式推导过于复杂，难懂">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://stepneverstop.github.io/maximum-entropy-regularized-multi-goal-reinforcement-learning/pseudo.png">
+<meta property="og:updated_time" content="2019-06-12T13:32:50.651Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Keavnn&#39;Blog">
-<meta name="twitter:description" content="A blog to record and share knowledge about machine learning.">
+<meta name="twitter:title" content="Maximum Entropy-Regularized Multi-Goal Reinforcement-Learning">
+<meta name="twitter:description" content="这篇论文将强化学习的目标与最大熵结合了起来，提出了简称为MEP的经验池机制。许多将熵与强化学习结合的方法都是考虑可选动作分布的熵，该篇论文很新颖的使用的是“迹”的熵。 推荐程度中等：  有些地方解释的不是很清楚 熵的结合方式特殊，可以一看 有些公式推导过于复杂，难懂">
+<meta name="twitter:image" content="http://stepneverstop.github.io/maximum-entropy-regularized-multi-goal-reinforcement-learning/pseudo.png">
 
 
 
@@ -149,13 +152,13 @@ daovoice('update');
 
 
 
-  <link rel="canonical" href="http://StepNeverStop.github.io/tags/markdown/">
+  <link rel="canonical" href="http://StepNeverStop.github.io/maximum-entropy-regularized-multi-goal-reinforcement-learning.html">
 
 
 
 
 
-  <title>标签: markdown | Keavnn'Blog</title>
+  <title>Maximum Entropy-Regularized Multi-Goal Reinforcement-Learning | Keavnn'Blog</title>
   
 
 
@@ -174,7 +177,7 @@ daovoice('update');
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
     <a href="https://github.com/StepNeverStop" class="github-corner" aria-label="View source on GitHub" rel="external nofollow" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -300,78 +303,334 @@ daovoice('update');
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h2>markdown<small>标签</small>
-        </h2>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://StepNeverStop.github.io/maximum-entropy-regularized-multi-goal-reinforcement-learning.html">
 
-      <h3 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Keavnn">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/Kicon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Keavnn'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/MarkDown-Grammar.html" itemprop="url">
-              
-                <span itemprop="name">MarkDown基本语法</span>
-              
-            </a>
         
-      </h3>
+          <h2 class="post-title" itemprop="name headline">Maximum Entropy-Regularized Multi-Goal Reinforcement-Learning</h2>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-29T15:23:57+08:00" content="2018-12-29">
-          12-29
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-12T20:49:32+08:00">
+                2019-06-12
+              </time>
+            
 
-    </header>
-  </article>
+            
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-06-12T21:32:50+08:00">
+                2019-06-12
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/ReinforcementLearning/" itemprop="url" rel="index">
+                    <span itemprop="name">ReinforcementLearning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+      
+
+      
+        <p>这篇论文将强化学习的目标与最大熵结合了起来，提出了简称为MEP的经验池机制。许多将熵与强化学习结合的方法都是考虑可选动作分布的熵，该篇论文很新颖的使用的是“迹”的熵。</p>
+<p>推荐程度中等：</p>
+<ul>
+<li>有些地方解释的不是很清楚</li>
+<li>熵的结合方式特殊，可以一看</li>
+<li>有些公式推导过于复杂，难懂</li>
+</ul>
+<a id="more"></a>
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>论文地址：<a href="https://arxiv.org/pdf/1905.08786.pdf" rel="external nofollow" target="_blank">https://arxiv.org/pdf/1905.08786.pdf</a></p>
+<p>原作者代码地址：<a href="https://github.com/ruizhaogit/mep.git" rel="external nofollow" target="_blank">https://github.com/ruizhaogit/mep.git</a></p>
+<p>该文章发于2019年的ICML，与之前写过的《Energy-Based Hindsight Experience Prioritization》为同一作者。</p>
+<p>本文主要做了三个贡献：</p>
+<ol>
+<li>修改了目标函数，提出了最大熵正则化多目标强化学习(Maximum Entropy-Regularized Multi-Goal RL)的想法</li>
+<li>推导出替代(surrogate)目标函数，是第1步目标函数的一个下界，可以使算法稳定优化</li>
+<li>提出了Maximum Entropy-based Prioritization(MEP)的经验池框架</li>
+</ol>
+<h1 id="文中精要"><a href="#文中精要" class="headerlink" title="文中精要"></a>文中精要</h1><p>文中目标函数的构造主要受Guiasu于1971年提出的加权熵(Weighted Entropy)启发。加权熵表示为：</p>
+<script type="math/tex; mode=display">
+\mathcal{H}_{p}^{w}=-\sum_{k=1}^{K} w_{k} p_{k} \log p_{k}</script><p>$w_{k}$表示权重。</p>
+<h2 id="多目标强化学习的符号表示"><a href="#多目标强化学习的符号表示" class="headerlink" title="多目标强化学习的符号表示"></a>多目标强化学习的符号表示</h2><p>用$p\left(\boldsymbol{\tau} | g^{e}, \boldsymbol{\theta}\right)$表示一个迹出现的概率：</p>
+<ul>
+<li>$\boldsymbol{\tau}=s_{1}, a_{1}, s_{2}, a_{2}, \ldots, s_{T-1}, a_{T-1}, s_{T}$代表迹</li>
+<li>$g^{e}$代表一个真实的目标，即不是“事后诸葛亮”假定的目标，$g^{e} \in \operatorname{Val}\left(G^{e}\right)$，后一项为目标空间，一般情况下，可以视为状态空间$\mathcal{S}$的子集</li>
+<li>$\theta$代表策略参数</li>
+</ul>
+<p>展开来写，一个迹在策略$\theta$被采样到的概率为</p>
+<script type="math/tex; mode=display">
+p\left(\boldsymbol{\tau} | g^{e}, \boldsymbol{\theta}\right)=p\left(s_{1}\right) \prod_{t=1}^{T-1} p\left(a_{t} | s_{t}, g^{e}, \boldsymbol{\theta}\right) p\left(s_{t+1} | s_{t}, a_{t}\right)</script><p>由此定义策略$\theta$下的期望奖励回报，也就是目标函数，表示为</p>
+<script type="math/tex; mode=display">
+\begin{aligned} \eta(\boldsymbol{\theta}) &=\mathbb{E}\left[\sum_{t=1}^{T} r\left(S_{t}, G^{e}\right) | \boldsymbol{\theta}\right] \\ &=\sum_{g^{e}} p\left(g^{e}\right) \sum_{\boldsymbol{\tau}} p\left(\boldsymbol{\tau} | g^{e}, \boldsymbol{\theta}\right) \sum_{t=1}^{T} r\left(s_{t}, g^{e}\right) \end{aligned}</script><p>很容易理解，也就是在传统的目标函数前边加了一项关于每个目标求积分的步骤。</p>
+<p>如果使用off-policy算法且用经验池机制来提升采样效率，那么目标函数为</p>
+<script type="math/tex; mode=display">
+\eta^{\mathcal{R}}(\boldsymbol{\theta})=\sum_{\boldsymbol{\tau}, g^{e}} p_{\mathcal{R}}\left(\boldsymbol{\tau}, g^{e} | \boldsymbol{\theta}\right) \sum_{t=1}^{T} r\left(s_{t}, g^{e}\right)</script><p>其中$\mathcal{R}$表示经验池。</p>
+<h2 id="最大熵正则化目标函数"><a href="#最大熵正则化目标函数" class="headerlink" title="最大熵正则化目标函数"></a>最大熵正则化目标函数</h2><p>将前文提到的$\eta(\boldsymbol{\theta})$与加权熵结合起来，就构造出了本文中新的目标函数，即</p>
+<script type="math/tex; mode=display">
+\begin{aligned} \eta^{\mathcal{H}}(\boldsymbol{\theta}) &=\mathcal{H}_{p}^{w}\left(\mathcal{T}^{g}\right) \\ &=\mathbb{E}_{p}\left[\color{red} {\log \frac{1}{p\left(\boldsymbol{\tau}^{g}\right)}} \sum_{t=1}^{T} r\left(S_{t}, G^{e}\right) | \boldsymbol{\theta}\right] \end{aligned}</script><p>$\color{red} {p\left(\boldsymbol{\tau}^{g}\right)}$代表$\sum_{g^{e}} p_{\mathcal{R}}\left(\tau^{g}, g^{e} | \boldsymbol{\theta} \right )$，期望右下角的$p$也是$p\left(\boldsymbol{\tau}^{g}\right)$的意思。</p>
+<p><strong>与传统的结合方式不同的是，这种结合方式并没有将熵作为一个加和的项，而是相乘。</strong></p>
+<p>仔细想一下，如果将这个式子视为加权熵，那么权重系数是累计奖励$\sum_{t=1}^{T} r\left(s_{t}, g^{e}\right)$，这样做的直观解释是：<strong>对于各种各样的迹，给与累计回报大的以更多权重，使算法直到要朝哪个迹的方向优化。</strong></p>
+<p>反而，如果将前一个对数项视为传统强化学习目标函数的权重系数，那么这样的直观解释是：<strong>迹出现的概率越低，就越新颖，反而要使其权重增加，从而驱使算法向探索的方向优化。</strong></p>
+<h2 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h2><p><img src="./maximum-entropy-regularized-multi-goal-reinforcement-learning/pseudo.png" alt=""></p>
+<h1 id="实验部分"><a href="#实验部分" class="headerlink" title="实验部分"></a>实验部分</h1><p>未完待续</p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-heart"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+    <div>
+      
         
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/win-rightclick-create-md.html" itemprop="url">
-              
-                <span itemprop="name">Windows下右键新建.md文件教程</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-29T00:00:00+08:00" content="2018-12-29">
-          12-29
-        </time>
-      </div>
-
-    </header>
-  </article>
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/maximum-entropy-regularized-multi-goal-reinforcement-learning.html">Maximum Entropy-Regularized Multi-Goal Reinforcement-Learning</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Keavnn 的个人博客">Keavnn</a></p>
+  <p><span>发布时间:</span>2019年06月12日 - 20:06</p>
+  <p><span>最后更新:</span>2019年06月12日 - 21:06</p>
+  <p><span>原始链接:</span><a href="/maximum-entropy-regularized-multi-goal-reinforcement-learning.html" title="Maximum Entropy-Regularized Multi-Goal Reinforcement-Learning">http://StepNeverStop.github.io/maximum-entropy-regularized-multi-goal-reinforcement-learning.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://StepNeverStop.github.io/maximum-entropy-regularized-multi-goal-reinforcement-learning.html" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="external nofollow" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-相同方式共享 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
 
 
       
     </div>
 
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果您获得了帮助，也可以资助一下小的啦~</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏啦</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Keavnn 微信">
+        <p>微信</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Keavnn 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/rl/" rel="tag"> <i class="fa fa-tag"></i> rl</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/rl-rough-reading.html" rel="next" title="强化学习论文浅读集合">
+                <i class="fa fa-chevron-left"></i> 强化学习论文浅读集合
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<div class="addthis_inline_share_toolbox">
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cefbfc88c13b0e7" async="async"></script>
+</div>
+
+      
+    </div>
+  </div>
 
 
           </div>
@@ -379,6 +638,15 @@ daovoice('update');
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTk0NS8xODQ5MQ=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -401,8 +669,17 @@ daovoice('update');
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -507,6 +784,22 @@ daovoice('update');
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文中精要"><span class="nav-number">2.</span> <span class="nav-text">文中精要</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#多目标强化学习的符号表示"><span class="nav-number">2.1.</span> <span class="nav-text">多目标强化学习的符号表示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最大熵正则化目标函数"><span class="nav-number">2.2.</span> <span class="nav-text">最大熵正则化目标函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#伪代码"><span class="nav-number">2.3.</span> <span class="nav-text">伪代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验部分"><span class="nav-number">3.</span> <span class="nav-text">实验部分</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -656,6 +949,10 @@ daovoice('update');
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -684,6 +981,17 @@ daovoice('update');
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
