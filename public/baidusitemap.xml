@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html</loc>
-    <lastmod>2019-06-12</lastmod>
+    <loc>http://StepNeverStop.github.io/rl-with-deep-energy-based-policies.html</loc>
+    <lastmod>2019-06-27</lastmod>
   </url>  <url>
-    <loc>http://StepNeverStop.github.io/maximum-entropy-regularized-multi-goal-reinforcement-learning.html</loc>
-    <lastmod>2019-06-12</lastmod>
+    <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html</loc>
+    <lastmod>2019-06-26</lastmod>
   </url>  <url>
     <loc>http://StepNeverStop.github.io/rl-rough-reading.html</loc>
-    <lastmod>2019-06-12</lastmod>
+    <lastmod>2019-06-26</lastmod>
+  </url>  <url>
+    <loc>http://StepNeverStop.github.io/maximum-entropy-regularized-multi-goal-reinforcement-learning.html</loc>
+    <lastmod>2019-06-13</lastmod>
   </url>  <url>
     <loc>http://StepNeverStop.github.io/universal-value-function-approximators.html</loc>
     <lastmod>2019-06-02</lastmod>

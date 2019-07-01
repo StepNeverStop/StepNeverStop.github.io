@@ -2,23 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html</loc>
+    <loc>http://StepNeverStop.github.io/rl-with-deep-energy-based-policies.html</loc>
     
-    <lastmod>2019-06-12T13:34:01.493Z</lastmod>
+    <lastmod>2019-06-27T01:29:59.095Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://StepNeverStop.github.io/maximum-entropy-regularized-multi-goal-reinforcement-learning.html</loc>
+    <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html</loc>
     
-    <lastmod>2019-06-12T13:32:50.651Z</lastmod>
+    <lastmod>2019-06-26T11:54:55.394Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://StepNeverStop.github.io/rl-rough-reading.html</loc>
     
-    <lastmod>2019-06-12T03:03:09.439Z</lastmod>
+    <lastmod>2019-06-26T08:27:14.481Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/maximum-entropy-regularized-multi-goal-reinforcement-learning.html</loc>
+    
+    <lastmod>2019-06-13T02:08:05.463Z</lastmod>
     
   </url>
   
@@ -219,14 +226,14 @@
   </url>
   
   <url>
-    <loc>http://StepNeverStop.github.io/schedule/index.html</loc>
+    <loc>http://StepNeverStop.github.io/categories/index.html</loc>
     
     <lastmod>2019-01-05T06:10:15.878Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://StepNeverStop.github.io/categories/index.html</loc>
+    <loc>http://StepNeverStop.github.io/schedule/index.html</loc>
     
     <lastmod>2019-01-05T06:10:15.878Z</lastmod>
     
