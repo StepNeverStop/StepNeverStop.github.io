@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://StepNeverStop.github.io/Prioritized-Experience-Replay.html</loc>
+    
+    <lastmod>2019-08-06T00:27:37.307Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/use-conda-env-in-jupyter.html</loc>
+    
+    <lastmod>2019-07-30T00:58:47.583Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/rl-rough-reading.html</loc>
+    
+    <lastmod>2019-07-10T07:01:57.155Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://StepNeverStop.github.io/rl-with-deep-energy-based-policies.html</loc>
     
     <lastmod>2019-06-27T01:29:59.095Z</lastmod>
@@ -12,13 +33,6 @@
     <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html</loc>
     
     <lastmod>2019-06-26T11:54:55.394Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://StepNeverStop.github.io/rl-rough-reading.html</loc>
-    
-    <lastmod>2019-06-26T08:27:14.481Z</lastmod>
     
   </url>
   
@@ -72,13 +86,6 @@
   </url>
   
   <url>
-    <loc>http://StepNeverStop.github.io/Prioritized-Experience-Replay.html</loc>
-    
-    <lastmod>2019-05-23T12:26:46.505Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://StepNeverStop.github.io/Evolution-Strategies-2017.html</loc>
     
     <lastmod>2019-05-22T11:47:25.386Z</lastmod>
@@ -117,13 +124,6 @@
     <loc>http://StepNeverStop.github.io/win-rightclick-create-md.html</loc>
     
     <lastmod>2019-05-13T11:54:23.663Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://StepNeverStop.github.io/use-conda-env-in-jupyter.html</loc>
-    
-    <lastmod>2019-05-13T11:52:06.850Z</lastmod>
     
   </url>
   

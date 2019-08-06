@@ -18,13 +18,22 @@ tags:
 ## 1. 手撸命令
 
 1. 在`base`环境下安装内核管理工具
-`pip install ipykernel`
+    `pip install ipykernel`
+
 2. 将环境内核添加到`jupyter kernel`中
-`python -m ipykernel install --user --name [env_name] --display-name "[show name in jupyter]"`
-3. 查看已在`jupyter`中创建的虚拟环境内核
-`jupyter kernelspec list`
-4. 删除内核
-`jupyter kernelspec uninstall [env_name]`
+    `python -m ipykernel install --user --name [env_name] --display-name "[show name in jupyter]"`
+
+3. 在各个环境中先`activate [env_name]`激活，再安装`ipykernel`
+`conda install ipykernel`
+
+4. 不用第二步，在各个环境内操作内核
+`python -m ipykernel install --name [show name in jupyter]`
+
+5. 查看已在`jupyter`中创建的虚拟环境内核
+    `jupyter kernelspec list`
+
+6. 删除内核
+    `jupyter kernelspec uninstall [env_name]`
 
 ## 2. 使用插件
 

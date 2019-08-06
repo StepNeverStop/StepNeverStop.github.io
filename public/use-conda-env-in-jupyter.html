@@ -121,7 +121,7 @@ daovoice('update');
 <meta property="og:image" content="http://stepneverstop.github.io/use-conda-env-in-jupyter/2.png">
 <meta property="og:image" content="http://stepneverstop.github.io/use-conda-env-in-jupyter/3.png">
 <meta property="og:image" content="http://stepneverstop.github.io/use-conda-env-in-jupyter/4.png">
-<meta property="og:updated_time" content="2019-05-13T11:52:06.850Z">
+<meta property="og:updated_time" content="2019-07-30T00:58:47.583Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在Jupyter Notebook中使用本机的conda环境">
 <meta name="twitter:description" content="本文介绍了如何在Jupyter Notebook中使用本机的conda环境进行开发">
@@ -365,8 +365,8 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-13T19:52:06+08:00">
-                2019-05-13
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-30T08:58:47+08:00">
+                2019-07-30
               </time>
             
           </span>
@@ -415,7 +415,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  149
+                  193
                 </span>
               
 
@@ -455,10 +455,18 @@ daovoice('update');
         <p>本文介绍了如何在Jupyter Notebook中使用本机的conda环境进行开发</p>
 <a id="more"></a>
 <h1 id="Jupyter下conda多环境管理"><a href="#Jupyter下conda多环境管理" class="headerlink" title="Jupyter下conda多环境管理"></a>Jupyter下conda多环境管理</h1><h2 id="1-手撸命令"><a href="#1-手撸命令" class="headerlink" title="1. 手撸命令"></a>1. 手撸命令</h2><ol>
-<li>在<code>base</code>环境下安装内核管理工具<br><code>pip install ipykernel</code></li>
-<li>将环境内核添加到<code>jupyter kernel</code>中<br><code>python -m ipykernel install --user --name [env_name] --display-name &quot;[show name in jupyter]&quot;</code></li>
-<li>查看已在<code>jupyter</code>中创建的虚拟环境内核<br><code>jupyter kernelspec list</code></li>
-<li>删除内核<br><code>jupyter kernelspec uninstall [env_name]</code></li>
+<li><p>在<code>base</code>环境下安装内核管理工具<br> <code>pip install ipykernel</code></p>
+</li>
+<li><p>将环境内核添加到<code>jupyter kernel</code>中<br> <code>python -m ipykernel install --user --name [env_name] --display-name &quot;[show name in jupyter]&quot;</code></p>
+</li>
+<li><p>在各个环境中先<code>activate [env_name]</code>激活，再安装<code>ipykernel</code><br><code>conda install ipykernel</code></p>
+</li>
+<li><p>不用第二步，在各个环境内操作内核<br><code>python -m ipykernel install --name [show name in jupyter]</code></p>
+</li>
+<li><p>查看已在<code>jupyter</code>中创建的虚拟环境内核<br> <code>jupyter kernelspec list</code></p>
+</li>
+<li><p>删除内核<br> <code>jupyter kernelspec uninstall [env_name]</code></p>
+</li>
 </ol>
 <h2 id="2-使用插件"><a href="#2-使用插件" class="headerlink" title="2. 使用插件"></a>2. 使用插件</h2><p>简单粗暴, 在<code>base</code>环境下使用命令<br><code>conda install nb_conda</code><br><img src="./use-conda-env-in-jupyter/1.png" alt=""><br><img src="./use-conda-env-in-jupyter/2.png" alt=""><br>接下来, 看看jupyter中能不能显示<code>conda</code>环境<br><code>jupyter notebook</code><br><img src="./use-conda-env-in-jupyter/3.png" alt=""><br>在文件内部也可以很方便的切换环境<br><img src="./use-conda-env-in-jupyter/4.png" alt=""></p>
 
@@ -490,7 +498,7 @@ daovoice('update');
   <p><span>本文标题:</span><a href="/use-conda-env-in-jupyter.html">在Jupyter Notebook中使用本机的conda环境</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Keavnn 的个人博客">Keavnn</a></p>
   <p><span>发布时间:</span>2019年03月22日 - 13:03</p>
-  <p><span>最后更新:</span>2019年05月13日 - 19:05</p>
+  <p><span>最后更新:</span>2019年07月30日 - 08:07</p>
   <p><span>原始链接:</span><a href="/use-conda-env-in-jupyter.html" title="在Jupyter Notebook中使用本机的conda环境">http://StepNeverStop.github.io/use-conda-env-in-jupyter.html</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://StepNeverStop.github.io/use-conda-env-in-jupyter.html" aria-label="复制成功！"></i></span>
   </p>
@@ -805,7 +813,7 @@ daovoice('update');
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">53.2k</span>
+    <span title="Site words total count">54.3k</span>
   
 </div>
 
@@ -825,7 +833,7 @@ daovoice('update');
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共53.2k字</span>
+  <span class="post-count">博客全站共54.3k字</span>
 </div> -->
         
 

@@ -367,3 +367,23 @@ $$
 2. 不使用TD-error计算优先级，而使用迹密度，减少了计算时间
 3. 提升了采样效率两倍左右
 4. 算法性能超过最新算法9%（这个结果看看即可，不必放在心上）
+
+<h1 align="center" style="color:blue" id="NAF">[Google]Continuous Deep Q-Learning with Model-based Acceleration[NAF]</h1>
+
+论文地址：[https://arxiv.org/abs/1603.00748](https://arxiv.org/abs/1603.00748)
+
+本文介绍了标准化优势函数Normalized Advantage Function——NAF算法，该算法简化了A-C架构，将Q-Learning的思想应用于高维连续空间。
+
+本文的主要贡献是：
+
+1. 提出NAF，简化了Actor-Critic架构
+2. 将Q-Learning推广至高维连续空间
+3. 提出新的与已学模型结合的方法，提升了采样复杂性（也就是降低）和学习效率，不牺牲策略的最优性。原文中翻译意思是，评估了几种将已学习模型与Q-Learning结合的方案，提出将局部线性模型与局部On-Policy想定推演结合以加速Q-Learning算法在model-free、连续问题下的学习
+
+## 伪代码
+
+![](./rl-rough-reading/naf-pseudo.png)
+
+解析：
+
+- 。

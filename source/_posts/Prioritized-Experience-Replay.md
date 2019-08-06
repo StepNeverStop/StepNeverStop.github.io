@@ -169,7 +169,7 @@ $$
   - ![](./Prioritized-Experience-Replay/sum-tree.png)
   - 采样与更新TD-error的时间复杂度为$O(log_{2}N)$
 - 学习完之后对学习使用的经验更新其TD-error
-- 重要性权重$w_{j}=\left ( N \cdot P(j)\right )^{-\beta}/max_{i}w_{i}$，由$max_{i}w_{i}=max_{i}\left ( N \cdot P(i)\right )^{-\beta}=\left ( min_{i}N \cdot P(i)\right )^{-\beta}=w_{j}=\left ( N \cdot P_{min}\right )^{-\beta}$,可以将其化简为$w_{j}=\left ( \frac{p_{min}}{p_{i}} \right )^{\beta}$
+- 重要性权重$w_{j}=\left ( N \cdot P(j)\right )^{-\beta}/max_{i}w_{i}$，由$max_{i}w_{i}=max_{i}\left ( N \cdot P(i)\right )^{-\beta}=\left ( min_{i}N \cdot P(i)\right )^{-\beta}=\left ( N \cdot P_{min}\right )^{-\beta}$,可以将其化简为$w_{j}=\left ( \frac{p_{min}}{p_{i}} \right )^{\beta}$
 - 第12行，赋值其实是$(\left | \delta_{i} \right |+ \epsilon)^{\alpha}$，如果是rank-based，则为$rank(i)^{-\alpha}$
 - 第6行，对于新采样到的经验，不必计算其TD-error，直接将其设置为最大即可，当使用该经验学习之后再计算其TD-error
 - $\Delta$其实就是误差函数$\delta^{2}$对$\theta$的导数，只不过对于mini-batch中的各个经验使用重要性比率进行了加权求和。
@@ -192,10 +192,20 @@ class Sum_Tree(object):
         capacity = 5，设置经验池大小
         tree = [0,1,2,3,4,5,6,7,8,9,10,11,12] 8-12存放叶子结点p值，1-7存放父节点、根节点p值的和，0存放树节点的数量
         data = [0,1,2,3,4,5] 1-5存放数据， 0存放capacity
+        Tree structure and array storage:
+        Tree index:
+                    1         -> storing priority sum
+              /          \ 
+             2            3
+            / \          / \
+          4     5       6   7
+         / \   / \     / \  / \
+        8   9 10   11 12                   -> storing priority for transitions
         """
         assert capacity != 1
         self.now = 0
         self.parent_node_count = self.get_parent_node_count(capacity)
+        print(self.parent_node_count)
         self.tree = np.zeros(self.parent_node_count + capacity + 1)
         self.tree[0] = len(self.tree) - 1
         self.data = np.zeros(capacity + 1, dtype=object)
@@ -223,8 +233,8 @@ class Sum_Tree(object):
         self.tree[parent] += diff
         if parent != 1:
             self._propagate(parent, diff)
-
-    def _total(self):
+    @property
+    def total(self):
         return self.tree[1]
 
     def get(self, seg_p_total):
@@ -233,11 +243,13 @@ class Sum_Tree(object):
         """
         tree_index = self._retrieve(1, seg_p_total)
         data_index = tree_index - self.parent_node_count
-        return (tree_index, self.tree[tree_index], self.data[data_index])
+        return (tree_index, data_index, self.tree[tree_index], self.data[data_index])
 
     def _retrieve(self, tree_index, seg_p_total):
         left = 2 * tree_index
         right = left + 1
+#         left = 2 * tree_index + 1
+#         right = 2 * (tree_index + 1)
         if left >= self.tree[0]:
             return tree_index
         return self._retrieve(left, seg_p_total) if seg_p_total <= self.tree[left] else self._retrieve(right, seg_p_total - self.tree[left])
@@ -309,3 +321,151 @@ print(tree.get(4))
 ![](./Prioritized-Experience-Replay/normalized-score1.png)
 
 ![](./Prioritized-Experience-Replay/normalized-score.png)
+
+# PER的代码
+
+```
+import numpy as np
+from abc import ABC, abstractmethod
+
+
+class Buffer(ABC):
+    @abstractmethod
+    def sample(self) -> list:
+        pass
+
+class Sum_Tree(object):
+    def __init__(self, capacity):
+        """
+        capacity = 5，设置经验池大小
+        tree = [0,1,2,3,4,5,6,7,8,9,10,11,12] 8-12存放叶子结点p值，1-7存放父节点、根节点p值的和，0存放树节点的数量
+        data = [0,1,2,3,4,5] 1-5存放数据， 0存放capacity
+        Tree structure and array storage:
+        Tree index:
+                    1         -> storing priority sum
+              /          \ 
+             2            3
+            / \          / \
+          4     5       6   7
+         / \   / \     / \  / \
+        8   9 10   11 12                   -> storing priority for transitions
+        """
+        assert capacity > 0
+        self.now = 0
+        self.parent_node_count = self.get_parent_node_count(capacity)
+        print(self.parent_node_count)
+        self.tree = np.zeros(self.parent_node_count + capacity + 1)
+        self.tree[0] = len(self.tree) - 1
+        self.data = np.zeros(capacity + 1, dtype=object)
+        self.data[0] = capacity
+
+    def add(self, p, data):
+        """
+        p : property
+        data : [s, a, r, s_, done]
+        """
+        tree_index = self.now + self.parent_node_count + 1
+        self.data[self.now + 1] = data
+        self._updatetree(tree_index, p)
+        self.now += 1
+        if self.now > self.data[0]:
+            self.now = 0
+
+    def _updatetree(self, tree_index, p):
+        diff = p - self.tree[tree_index]
+        self._propagate(tree_index, diff)
+        self.tree[tree_index] = p
+
+    def _propagate(self, tree_index, diff):
+        parent = tree_index // 2
+        self.tree[parent] += diff
+        if parent != 1:
+            self._propagate(parent, diff)
+
+    @property
+    def total(self):
+        return self.tree[1]
+
+    def get(self, seg_p_total):
+        """
+        seg_p_total : The value of priority to sample
+        """
+        tree_index = self._retrieve(1, seg_p_total)
+        data_index = tree_index - self.parent_node_count
+        return (tree_index, data_index, self.tree[tree_index], self.data[data_index])
+
+    def _retrieve(self, tree_index, seg_p_total):
+        left = 2 * tree_index
+        right = left + 1
+#         left = 2 * tree_index + 1
+#         right = 2 * (tree_index + 1)
+        if left >= self.tree[0]:
+            return tree_index
+        return self._retrieve(left, seg_p_total) if seg_p_total <= self.tree[left] else self._retrieve(right, seg_p_total - self.tree[left])
+
+    def pp(self):
+        print(self.tree, self.data)
+
+    def get_parent_node_count(self, capacity):
+        i = 0
+        while True:
+            if pow(2, i) < capacity <= pow(2, i + 1):
+                return pow(2, i + 1) - 1
+            i += 1
+
+
+class PrioritizedReplayBuffer(Buffer):
+    def __init__(self, batch_size, capacity, alpha, beta, epsilon):
+        self.batch_size = batch_size
+        self.capacity = capacity
+        self._size = 0
+        self.alpha = alpha
+        self.beta = beta
+        self.tree = Sum_Tree(capacity)
+        self.epsilon = epsilon
+        self.min_p = np.inf
+
+    def add(self, p, *args):
+        '''
+        input: priorities, [ss, as, rs, _ss, dones]
+        '''
+        p = np.power(np.abs(p) + self.epsilon, self.alpha)
+        min_p = p.min()
+        if min_p < self.min_p:
+            self.min_p = min_p
+        if hasattr(args[0], '__len__'):
+            for i in range(len(args[0])):
+                self.tree.add(p[i], tuple(arg[i] for arg in args))
+                if self._size < self.capacity:
+                    self._size += 1
+        else:
+            self.tree.add(p, args)
+            if self._size < self.capacity:
+                self._size += 1
+
+    def sample(self):
+        '''
+        output: weights, [ss, as, rs, _ss, dones]
+        '''
+        n_sample = self.batch_size if self.is_lg_batch_size else self._size
+        interval = self.tree.total / n_sample
+        segment = [self.tree.total - i * interval for i in range(n_sample + 1)]
+        t = [self.tree.get(np.random.uniform(segment[i], segment[i + 1], 1)) for i in range(n_sample)]
+        t = [np.array(e) for e in zip(*t)]
+        self.last_indexs = t[0]
+        return np.power(self.min_p / t[-2], self.beta), t[-1]
+
+    @property
+    def is_lg_batch_size(self):
+        return self._size > self.batch_size
+
+    def update_priority(self, priority):
+        '''
+        input: priorities
+        '''
+        assert hasattr(priority, '__len__')
+        assert len(priority) == len(self.last_indexs)
+        for i in range(len(priority)):
+            self.tree._updatetree(self.last_indexs[i], priority[i])
+```
+
