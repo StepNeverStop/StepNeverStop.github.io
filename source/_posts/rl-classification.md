@@ -152,6 +152,8 @@ On-policy、Off-policy与On-line、Off-line之间有关系吗？
 - 官话：如果个体在学习过程中优化的策略与自己的行为策略是不同的策略时，这种学习方式称为**异步策略学习（off-policy learning）**
 - 行为策略与目标策略不同，行为策略可能是目标策略的“分身”（双网络结构），或者完全是另一个采样的策略
 
+两者的区别简而言之：如果需要估计一个值，用于估计的额外信息和当前信息出自同一策略则为on-policy，否则为off-policy。以SARSA和Q-Learning算法为例，对于Q值的估计，SARSA中$s_{t+1}$的动作由当前策略产生，故为on-policy算法，而Q-Learning中$s_{t+1}$的动作由贪心策略产生，故为off-policy。
+
 例如：
 
 

@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://StepNeverStop.github.io/rl-classification.html</loc>
+    
+    <lastmod>2019-08-25T05:37:46.831Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://StepNeverStop.github.io/Prioritized-Experience-Replay.html</loc>
     
     <lastmod>2019-08-06T00:27:37.307Z</lastmod>
@@ -110,13 +117,6 @@
     <loc>http://StepNeverStop.github.io/dynamic-programming.html</loc>
     
     <lastmod>2019-05-13T12:42:28.856Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://StepNeverStop.github.io/rl-classification.html</loc>
-    
-    <lastmod>2019-05-13T12:30:28.146Z</lastmod>
     
   </url>
   
