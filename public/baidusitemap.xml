@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://StepNeverStop.github.io/win-rightclick-create-md.html</loc>
+    <lastmod>2019-08-26</lastmod>
+  </url>  <url>
     <loc>http://StepNeverStop.github.io/rl-classification.html</loc>
     <lastmod>2019-08-25</lastmod>
   </url>  <url>
@@ -50,9 +53,6 @@
     <lastmod>2019-05-13</lastmod>
   </url>  <url>
     <loc>http://StepNeverStop.github.io/dynamic-programming.html</loc>
-    <lastmod>2019-05-13</lastmod>
-  </url>  <url>
-    <loc>http://StepNeverStop.github.io/win-rightclick-create-md.html</loc>
     <lastmod>2019-05-13</lastmod>
   </url>  <url>
     <loc>http://StepNeverStop.github.io/something-hard-install-docker.html</loc>

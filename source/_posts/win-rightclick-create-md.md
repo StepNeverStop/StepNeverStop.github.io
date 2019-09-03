@@ -36,7 +36,7 @@ Typora编辑器
 如果使用的是markdownpad或者其他编辑器，同理
 
 3. 在磁盘任意位置新建一个文件，后缀为`.reg`
-4. 打开编辑刚刚创建好的注册表文件，写入一下内容：
+4. 打开编辑刚刚创建好的注册表文件，写入以下内容：
 ```
 Windows Registry Editor Version 5.00
 [HKEY_CLASSES_ROOT\.md]
