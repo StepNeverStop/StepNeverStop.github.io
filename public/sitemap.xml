@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://StepNeverStop.github.io/rl-rough-reading.html</loc>
+    
+    <lastmod>2019-10-08T08:30:31.087Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://StepNeverStop.github.io/about/index.html</loc>
     
     <lastmod>2019-09-03T06:52:37.483Z</lastmod>
@@ -33,13 +40,6 @@
     <loc>http://StepNeverStop.github.io/use-conda-env-in-jupyter.html</loc>
     
     <lastmod>2019-07-30T00:58:47.583Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://StepNeverStop.github.io/rl-rough-reading.html</loc>
-    
-    <lastmod>2019-07-10T07:01:57.155Z</lastmod>
     
   </url>
   

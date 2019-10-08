@@ -16,6 +16,7 @@ description:
 <!--more-->
 
 <h1 align="center" style="color:blue" id="Gorila">[DeepMind]Massively Parallel Methods for Deep Reinforcement Learning[Gorila]</h1>
+
 本文提出了一个分布式强化学习训练的架构：Gorila(General Reinforcement Learning Architecture)。2015年发于ICML，本文使用DQN算法进行分布式实现。
 
 论文地址：[https://arxiv.org/pdf/1507.04296.pdf](https://arxiv.org/pdf/1507.04296.pdf)
@@ -86,6 +87,7 @@ Gorila进一步实现了DRL的希望：一个可伸缩的架构，随着计算�
 
 
 <h1 align="center" style="color:blue" id="MB-MPO">[UCB/OpenAI]Model-Based Reinforcement Learning via Meta-Policy Optimization[MB-MPO]</h1>
+
 论文地址：[https://arxiv.org/pdf/1809.05214.pdf](https://arxiv.org/pdf/1809.05214.pdf)
 
 本文2018年发布于CoRL，提出了一个基于模型的元强化学习算法MB-MPO。相比于一般的元强化学习是从多个MDPs任务中学习一个通用模型加速以后特定任务的模型训练，该文中的方法是将一个model-free的任务学习多个不确定、不完全、不完美的动态模型，即一个模型集合，然后使用这个模型集合学习出该任务的通用模型。因为它有一个从model-free学习动态模型的过程，所以为model-based方法。
@@ -167,6 +169,7 @@ $$
 4. 对于模型偏差（model-bias，即环境模型没学到位）的情况，之前的算法不能有效处理，该算法对不完美、不完全、不完整的模型具有很好地鲁棒性
 
 <h1 align="center" style="color:blue" id="DIAYN">[UCB/Google AI]Diversity is All Your Need: Learning Skills Without a Reward Function[DIAYN]</h1>
+
 论文地址：[https://arxiv.org/pdf/1802.06070.pdf](https://arxiv.org/pdf/1802.06070.pdf)
 
 Google网页：[https://sites.google.com/view/diayn/home](https://sites.google.com/view/diayn/home)
@@ -369,7 +372,6 @@ $$
 4. 算法性能超过最新算法9%（这个结果看看即可，不必放在心上）
 
 <h1 align="center" style="color:blue" id="NAF">[Google]Continuous Deep Q-Learning with Model-based Acceleration[NAF]</h1>
-
 论文地址：[https://arxiv.org/abs/1603.00748](https://arxiv.org/abs/1603.00748)
 
 本文介绍了标准化优势函数Normalized Advantage Function——NAF算法，该算法简化了A-C架构，将Q-Learning的思想应用于高维连续空间。

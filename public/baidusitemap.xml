@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://StepNeverStop.github.io/rl-rough-reading.html</loc>
+    <lastmod>2019-10-08</lastmod>
+  </url>  <url>
     <loc>http://StepNeverStop.github.io/win-rightclick-create-md.html</loc>
     <lastmod>2019-08-26</lastmod>
   </url>  <url>
@@ -12,9 +15,6 @@
   </url>  <url>
     <loc>http://StepNeverStop.github.io/use-conda-env-in-jupyter.html</loc>
     <lastmod>2019-07-30</lastmod>
-  </url>  <url>
-    <loc>http://StepNeverStop.github.io/rl-rough-reading.html</loc>
-    <lastmod>2019-07-10</lastmod>
   </url>  <url>
     <loc>http://StepNeverStop.github.io/rl-with-deep-energy-based-policies.html</loc>
     <lastmod>2019-06-27</lastmod>
