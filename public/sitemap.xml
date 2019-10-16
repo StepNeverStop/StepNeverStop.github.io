@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://StepNeverStop.github.io/Prioritized-Experience-Replay.html</loc>
+    
+    <lastmod>2019-10-14T12:18:20.252Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/Docker%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0.html</loc>
+    
+    <lastmod>2019-10-12T03:14:17.976Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://StepNeverStop.github.io/rl-rough-reading.html</loc>
     
     <lastmod>2019-10-08T08:30:31.087Z</lastmod>
@@ -26,13 +40,6 @@
     <loc>http://StepNeverStop.github.io/rl-classification.html</loc>
     
     <lastmod>2019-08-25T05:37:46.831Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://StepNeverStop.github.io/Prioritized-Experience-Replay.html</loc>
-    
-    <lastmod>2019-08-06T00:27:37.307Z</lastmod>
     
   </url>
   
@@ -145,13 +152,6 @@
     <loc>http://StepNeverStop.github.io/MarkDown-Grammar.html</loc>
     
     <lastmod>2019-05-13T11:49:05.906Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://StepNeverStop.github.io/Docker%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0.html</loc>
-    
-    <lastmod>2019-05-13T11:45:43.286Z</lastmod>
     
   </url>
   

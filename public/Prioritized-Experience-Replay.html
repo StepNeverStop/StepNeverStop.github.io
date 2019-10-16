@@ -122,7 +122,7 @@ daovoice('update');
 <meta property="og:image" content="http://stepneverstop.github.io/Prioritized-Experience-Replay/learning-speed.png">
 <meta property="og:image" content="http://stepneverstop.github.io/Prioritized-Experience-Replay/normalized-score1.png">
 <meta property="og:image" content="http://stepneverstop.github.io/Prioritized-Experience-Replay/normalized-score.png">
-<meta property="og:updated_time" content="2019-08-06T00:27:37.307Z">
+<meta property="og:updated_time" content="2019-10-14T12:18:20.252Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Prioritized Experience Replay">
 <meta name="twitter:description" content="这篇论文介绍了优先经验回放机制，它可以使学习过程更高效。 推荐：  实用技巧 通俗易懂">
@@ -376,8 +376,8 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-08-06T08:27:37+08:00">
-                2019-08-06
+              <time title="更新于" itemprop="dateModified" datetime="2019-10-14T20:18:20+08:00">
+                2019-10-14
               </time>
             
           </span>
@@ -585,7 +585,7 @@ w_{i}=\left ( \frac{1}{N} \cdot \frac{1}{P(i)} \right )^{\beta}</script><ul>
 </ul>
 </li>
 <li>学习完之后对学习使用的经验更新其TD-error</li>
-<li>重要性权重$w_{j}=\left ( N \cdot P(j)\right )^{-\beta}/max_{i}w_{i}$，由$max_{i}w_{i}=max_{i}\left ( N \cdot P(i)\right )^{-\beta}=\left ( min_{i}N \cdot P(i)\right )^{-\beta}=\left ( N \cdot P_{min}\right )^{-\beta}$,可以将其化简为$w_{j}=\left ( \frac{p_{min}}{p_{i}} \right )^{\beta}$</li>
+<li>重要性权重$w_{j}=\left ( N \cdot P(j)\right )^{-\beta}/max_{i}w_{i}$，由$max_{i}w_{i}=max_{i}\left ( N \cdot P(i)\right )^{-\beta}=\left ( min_{i}N \cdot P(i)\right )^{-\beta}=\left ( N \cdot P_{min}\right )^{-\beta}$,可以将其化简为$w_{j}=\left ( \frac{p_{min}}{p_{j}} \right )^{\beta}$</li>
 <li>第12行，赋值其实是$(\left | \delta_{i} \right |+ \epsilon)^{\alpha}$，如果是rank-based，则为$rank(i)^{-\alpha}$</li>
 <li>第6行，对于新采样到的经验，不必计算其TD-error，直接将其设置为最大即可，当使用该经验学习之后再计算其TD-error</li>
 <li>$\Delta$其实就是误差函数$\delta^{2}$对$\theta$的导数，只不过对于mini-batch中的各个经验使用重要性比率进行了加权求和。</li>
@@ -663,7 +663,7 @@ w_{i}=\left ( \frac{1}{N} \cdot \frac{1}{P(i)} \right )^{\beta}</script><ul>
   <p><span>本文标题:</span><a href="/Prioritized-Experience-Replay.html">Prioritized Experience Replay</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Keavnn 的个人博客">Keavnn</a></p>
   <p><span>发布时间:</span>2019年05月22日 - 08:05</p>
-  <p><span>最后更新:</span>2019年08月06日 - 08:08</p>
+  <p><span>最后更新:</span>2019年10月14日 - 20:10</p>
   <p><span>原始链接:</span><a href="/Prioritized-Experience-Replay.html" title="Prioritized Experience Replay">http://StepNeverStop.github.io/Prioritized-Experience-Replay.html</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://StepNeverStop.github.io/Prioritized-Experience-Replay.html" aria-label="复制成功！"></i></span>
   </p>
@@ -976,7 +976,7 @@ w_{i}=\left ( \frac{1}{N} \cdot \frac{1}{P(i)} \right )^{\beta}</script><ul>
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">54.2k</span>
+    <span title="Site words total count">54.4k</span>
   
 </div>
 
@@ -996,7 +996,7 @@ w_{i}=\left ( \frac{1}{N} \cdot \frac{1}{P(i)} \right )^{\beta}</script><ul>
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共54.2k字</span>
+  <span class="post-count">博客全站共54.4k字</span>
 </div> -->
         
 

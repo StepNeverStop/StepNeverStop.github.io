@@ -169,7 +169,7 @@ $$
   - ![](./Prioritized-Experience-Replay/sum-tree.png)
   - 采样与更新TD-error的时间复杂度为$O(log_{2}N)$
 - 学习完之后对学习使用的经验更新其TD-error
-- 重要性权重$w_{j}=\left ( N \cdot P(j)\right )^{-\beta}/max_{i}w_{i}$，由$max_{i}w_{i}=max_{i}\left ( N \cdot P(i)\right )^{-\beta}=\left ( min_{i}N \cdot P(i)\right )^{-\beta}=\left ( N \cdot P_{min}\right )^{-\beta}$,可以将其化简为$w_{j}=\left ( \frac{p_{min}}{p_{i}} \right )^{\beta}$
+- 重要性权重$w_{j}=\left ( N \cdot P(j)\right )^{-\beta}/max_{i}w_{i}$，由$max_{i}w_{i}=max_{i}\left ( N \cdot P(i)\right )^{-\beta}=\left ( min_{i}N \cdot P(i)\right )^{-\beta}=\left ( N \cdot P_{min}\right )^{-\beta}$,可以将其化简为$w_{j}=\left ( \frac{p_{min}}{p_{j}} \right )^{\beta}$
 - 第12行，赋值其实是$(\left | \delta_{i} \right |+ \epsilon)^{\alpha}$，如果是rank-based，则为$rank(i)^{-\alpha}$
 - 第6行，对于新采样到的经验，不必计算其TD-error，直接将其设置为最大即可，当使用该经验学习之后再计算其TD-error
 - $\Delta$其实就是误差函数$\delta^{2}$对$\theta$的导数，只不过对于mini-batch中的各个经验使用重要性比率进行了加权求和。

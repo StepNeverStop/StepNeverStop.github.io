@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://StepNeverStop.github.io/Prioritized-Experience-Replay.html</loc>
+    <lastmod>2019-10-14</lastmod>
+  </url>  <url>
+    <loc>http://StepNeverStop.github.io/Docker%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0.html</loc>
+    <lastmod>2019-10-12</lastmod>
+  </url>  <url>
     <loc>http://StepNeverStop.github.io/rl-rough-reading.html</loc>
     <lastmod>2019-10-08</lastmod>
   </url>  <url>
@@ -9,9 +15,6 @@
   </url>  <url>
     <loc>http://StepNeverStop.github.io/rl-classification.html</loc>
     <lastmod>2019-08-25</lastmod>
-  </url>  <url>
-    <loc>http://StepNeverStop.github.io/Prioritized-Experience-Replay.html</loc>
-    <lastmod>2019-08-06</lastmod>
   </url>  <url>
     <loc>http://StepNeverStop.github.io/use-conda-env-in-jupyter.html</loc>
     <lastmod>2019-07-30</lastmod>
@@ -59,9 +62,6 @@
     <lastmod>2019-05-13</lastmod>
   </url>  <url>
     <loc>http://StepNeverStop.github.io/MarkDown-Grammar.html</loc>
-    <lastmod>2019-05-13</lastmod>
-  </url>  <url>
-    <loc>http://StepNeverStop.github.io/Docker%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0.html</loc>
     <lastmod>2019-05-13</lastmod>
   </url>  <url>
     <loc>http://StepNeverStop.github.io/create-sniper-docker-image.html</loc>
