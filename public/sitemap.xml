@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://StepNeverStop.github.io/install-atari-and-box2d-on-win10.html</loc>
+    
+    <lastmod>2019-10-17T07:28:04.067Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://StepNeverStop.github.io/Prioritized-Experience-Replay.html</loc>
     
     <lastmod>2019-10-14T12:18:20.252Z</lastmod>
@@ -12,6 +19,13 @@
     <loc>http://StepNeverStop.github.io/Docker%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0.html</loc>
     
     <lastmod>2019-10-12T03:14:17.976Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html</loc>
+    
+    <lastmod>2019-10-08T08:42:22.636Z</lastmod>
     
   </url>
   
@@ -54,13 +68,6 @@
     <loc>http://StepNeverStop.github.io/rl-with-deep-energy-based-policies.html</loc>
     
     <lastmod>2019-06-27T01:29:59.095Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html</loc>
-    
-    <lastmod>2019-06-26T11:54:55.394Z</lastmod>
     
   </url>
   
