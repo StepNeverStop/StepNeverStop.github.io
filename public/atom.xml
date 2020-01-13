@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://StepNeverStop.github.io/"/>
-  <updated>2019-10-17T07:28:04.067Z</updated>
+  <updated>2020-01-13T03:01:39.823Z</updated>
   <id>http://StepNeverStop.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>配置阿里云上的服务器</title>
+    <link href="http://StepNeverStop.github.io/config-alios.html"/>
+    <id>http://StepNeverStop.github.io/config-alios.html</id>
+    <published>2020-01-13T01:22:24.000Z</published>
+    <updated>2020-01-13T03:01:39.823Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文记录了在阿里云服务器上配置自己训练环境的过程。</p><a id="more"></a><h1 id="安装Miniconda"><a href="#安装Miniconda" class="headerlink" title="安装Miniconda"></a>安装Miniconda</h1><p><code>wget https://repo.continuum.io/miniconda/Miniconda3-4.6.14-Linux-x86_64.sh</code></p><p><code>sh Miniconda3-4.6.14-Linux-x86_64.sh</code><br>一路<code>ENTER</code>和<code>yes</code></p><p><code>source ~/.bashrc</code></p><p>更新</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">conda update conda</span><br><span class="line">conda update --all</span><br><span class="line">apt-get update</span><br></pre></td></tr></table></figure><h1 id="安装MuJoCo"><a href="#安装MuJoCo" class="headerlink" title="安装MuJoCo"></a>安装MuJoCo</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mkdir ~/.mujoco</span><br><span class="line">cd .mujoco/</span><br><span class="line">wget url https://www.roboti.us/download/mujoco200_linux.zip</span><br><span class="line">apt-get install zip</span><br><span class="line">unzip mujoco200_linux.zip</span><br><span class="line">wget url https://www.roboti.us/getid/getid_linux</span><br><span class="line">chmod +x getid_linux</span><br><span class="line">./getid_linux</span><br></pre></td></tr></table></figure><p>接着把获取到的计算机ID用于注册30天免费的Mujoco引擎<a href="https://www.roboti.us/license.html" rel="external nofollow" target="_blank">https://www.roboti.us/license.html</a></p><p>把邮箱里的mjkey.txt通过ssh连接或者sftp软件File Zilla放置云服务器上</p><p>放在<code>~/.mujoco</code>与<code>~/.mujoco/mujoco200_linux/bin</code>文件夹下</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mv ~/.mujoco/mujoco200_linux ~/.mujoco/mujoco200</span><br><span class="line">apt-get install nano</span><br><span class="line">nano ~/.bashrc</span><br></pre></td></tr></table></figure><p>在尾部添加<code>export LD_LIBRARY_PATH=$HOME/.mujoco/mujoco200/bin</code>，<code>export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/root/.mujoco/mujoco200/bin</code>然后保存退出</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bashrc</span><br><span class="line">apt install python3-pip</span><br><span class="line">pip install --upgrade pip</span><br></pre></td></tr></table></figure><p>注意：在配置完Git之后：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">conda activate tf2</span><br><span class="line">pip install fasteners</span><br><span class="line">apt install libosmesa6-dev</span><br><span class="line">apt-get install python3 python-dev python3-dev \</span><br><span class="line">     build-essential libssl-dev libffi-dev \</span><br><span class="line">     libxml2-dev libxslt1-dev zlib1g-dev \</span><br><span class="line">     python-pip libgl1-mesa-dev patchelf libglfw3 libglfw3-dev</span><br><span class="line">pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple -U &apos;mujoco-py&lt;2.1,&gt;=2.0&apos;</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Successfully built mujoco-py</span><br><span class="line">Installing collected packages: mujoco-py</span><br><span class="line">Successfully installed mujoco-py-2.0.2.9</span><br></pre></td></tr></table></figure><p>测试一下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$ python3</span><br><span class="line">import mujoco_py</span><br><span class="line">import os</span><br><span class="line">mj_path, _ = mujoco_py.utils.discover_mujoco()</span><br><span class="line">xml_path = os.path.join(mj_path, &apos;model&apos;, &apos;humanoid.xml&apos;)</span><br><span class="line">model = mujoco_py.load_model_from_path(xml_path)</span><br><span class="line">sim = mujoco_py.MjSim(model)</span><br><span class="line"></span><br><span class="line">print(sim.data.qpos)</span><br><span class="line"># [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]</span><br><span class="line"></span><br><span class="line">sim.step()</span><br><span class="line">print(sim.data.qpos)</span><br><span class="line"># [-2.09531783e-19  2.72130735e-05  6.14480786e-22 -3.45474715e-06</span><br><span class="line">#   7.42993721e-06 -1.40711141e-04 -3.04253586e-04 -2.07559344e-04</span><br><span class="line">#   8.50646247e-05 -3.45474715e-06  7.42993721e-06 -1.40711141e-04</span><br><span class="line">#  -3.04253586e-04 -2.07559344e-04 -8.50646247e-05  1.11317030e-04</span><br><span class="line">#  -7.03465386e-05 -2.22862221e-05 -1.11317030e-04  7.03465386e-05</span><br><span class="line">#  -2.22862221e-05]</span><br></pre></td></tr></table></figure><h1 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">apt-get install git</span><br><span class="line">mkdir ~/keavnn</span><br><span class="line">cd ~/keavnn/</span><br><span class="line">git clone https://github.com/StepNeverStop/RLs.git</span><br><span class="line">git clone https://github.com/openai/gym.git</span><br><span class="line">cd gym</span><br><span class="line">pip install -e &apos;.[all]&apos;</span><br><span class="line">conda create -n tf2 python=3.6</span><br><span class="line">conda activate tf2</span><br><span class="line">conda install -y docopt numpy pillow yaml pyyaml pandas openpyxl</span><br><span class="line"></span><br><span class="line">apt-get install apt-file</span><br><span class="line">apt-file update</span><br><span class="line">apt-file search libSM.so.6</span><br><span class="line">apt-get install libsm6</span><br><span class="line">apt-file search libXrender.so.1</span><br><span class="line">apt-get install libxrender1</span><br><span class="line"></span><br><span class="line">pip install protobuf</span><br><span class="line">python -m pip install grpcio</span><br><span class="line">python -m pip install grpcio-tools</span><br><span class="line">pip install tensorflow</span><br><span class="line">pip install tensorflow_probability</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文记录了在阿里云服务器上配置自己训练环境的过程。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Docker" scheme="http://StepNeverStop.github.io/categories/Docker/"/>
+    
+    
+      <category term="docker" scheme="http://StepNeverStop.github.io/tags/docker/"/>
+    
+      <category term="conda" scheme="http://StepNeverStop.github.io/tags/conda/"/>
+    
+  </entry>
   
   <entry>
     <title>在Windows 10系统上安装gym等环境</title>
@@ -487,28 +511,6 @@
     <summary type="html">
     
       &lt;h1 id=&quot;强化学习之MDP马尔科夫决策过程&quot;&gt;&lt;a href=&quot;#强化学习之MDP马尔科夫决策过程&quot; class=&quot;headerlink&quot; title=&quot;强化学习之MDP马尔科夫决策过程&quot;&gt;&lt;/a&gt;强化学习之MDP马尔科夫决策过程&lt;/h1&gt;&lt;p&gt;每每提到强化学习，最先接触的理论肯定是马尔科夫决策过程（MDP，Markov Decision Process），为什么总提到MDP呢？并不是只有我一个人有这个疑问。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="ReinforcementLearning" scheme="http://StepNeverStop.github.io/categories/ReinforcementLearning/"/>
-    
-    
-      <category term="rl" scheme="http://StepNeverStop.github.io/tags/rl/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>强化学习的里程碑</title>
-    <link href="http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%9A%84%E9%87%8C%E7%A8%8B%E7%A2%91.html"/>
-    <id>http://StepNeverStop.github.io/强化学习的里程碑.html</id>
-    <published>2019-05-07T00:26:39.000Z</published>
-    <updated>2019-05-10T01:25:19.932Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="强化学习的里程碑"><a href="#强化学习的里程碑" class="headerlink" title="强化学习的里程碑"></a>强化学习的里程碑</h1><a id="more"></a><h2 id="Alpha-Go"><a href="#Alpha-Go" class="headerlink" title="Alpha Go"></a>Alpha Go</h2><blockquote><p>阿尔法围棋（AlphaGo）是第一个击败人类职业围棋选手、第一个战胜围棋世界冠军的人工智能机器人，由谷歌（Google）旗下<strong>DeepMind</strong>公司戴密斯·哈萨比斯领衔的团队开发。其主要工作原理是“深度学习”。</p><blockquote><p>2016年3月，阿尔法围棋与围棋世界冠军、职业九段棋手李世石进行围棋人机大战，以4比1的总比分获胜；</p><p><img src="./强化学习的里程碑/LeeSedolBattleWithAlphaGo.jpeg" alt=""></p><p>2016年末2017年初，该程序在中国棋类网站上以“大师”（Master）为注册账号与中日韩数十位围棋高手进行快棋对决，连续60局无一败绩；</p><p>2017年5月，在中国乌镇围棋峰会上，它与排名世界第一的世界围棋冠军柯洁对战，以3比0的总比分获胜。围棋界公认阿尔法围棋的棋力已经超过人类职业围棋顶尖水平，在GoRatings网站公布的世界职业围棋排名中，其等级分曾超过排名人类第一的棋手柯洁。</p><p><img src="./强化学习的里程碑/KeJieBattleWithAlphaGo.jpeg" alt=""></p><p>2017年5月27日，在柯洁与阿尔法围棋的人机大战之后，阿尔法围棋团队宣布阿尔法围棋将不再参加围棋比赛。</p><p>2017年10月18日，DeepMind团队公布了最强版阿尔法围棋，代号AlphaGo Zero。</p></blockquote></blockquote><p>2016年3月机器学习一个重要的时间就是：名为AlphaGo的计算机程序打败了围棋世界冠军李世石，比分4：1。按理来说我们对机器在某项比赛、某些运动中击败人类顶尖选手不会感到大惊小怪，最著名的就是97年IBM的“深蓝（Deep Blue）”计算机程序打败了世界象棋冠军Garry Kasparov。</p><p><img src="./强化学习的里程碑/GKBattleWithDeepBlue.jpeg" alt=""></p><p>机器同样是使用强大的算力以数倍、数十倍、数百倍的训练时间去击败人类（通常人类训练十年的时间，机器可以模拟训练几百年），为什么Alpha Go的取胜这么重要、这么引人关注（世界各地媒体疯狂报道，一股狂潮如炒作一般）呢？</p><p>原因有两个：</p><ol><li>AlphaGo解决的围棋问题比之前的都要复杂，西洋双陆棋只有$10^{20}$种不同的“棋位”空间配置，深蓝打败人类的国际象棋有$10^{43}$种不同的“棋位”空间配置，而围棋却有$10^{170}$种不同的“棋位”空间配置，这种量级的数字人类已经无法处理（意思是对于这么多种不同的状态，就是目前算力最强的计算机也无能为力）。举个例子，$10^{170}$这个数字比宇宙中存在的原子数还多。为什么AlphaGo可以在围棋上击败人类就如此重要呢？因为机器如果可以解决这个大的状态空间的问题，那么在机器学习也应该能解决很复杂的现实世界中的问题。这意味着机器真正融入我们的劳动力市场，为我们的日常生活提供便利的日子已经不远啦（真的吗？）！</li><li>AlphaGo解决的围棋问题不可能通过纯粹的、暴力计算的方式来学习出很好的模型，这就需要为AlphaGo设计一个更加“智能、聪明”的算法。AlphaGo引起热潮的另一个原因就是，其训练算法是一个通用算法，而不是一个专门为解决某项任务特别设计的算法，这与97年IBM的深蓝计算机程序完全不同，因为深蓝只能用于学习下国际象棋，在中国象棋中就不适于训练。此前，AlphaGo的前身已经能够在Atari 49个不同规则、不同游戏模式中使用相同的通用训练算法训练出比人类还厉害的模型，AlphaGo的成功意味着不仅在虚拟环境可以使用这一套学习方法训练模型，而且可以在不同的现实世界问题中使用这一套学习方法、代码结构。</li></ol><p><strong>有能力解决状态空间非常大的问题</strong>和<strong>通用学习算法</strong>是使AlphaGo警报一时的两个主要原因，这也解释了为什么这场比赛在媒体上引起了轰动。有些人认为李世石的失败是机器占据人类劳动力市场的先兆，也有些人认为这预示着人工智能迎来了黄金时代，实际上我们距离真正的人工智能还有很长的路要走，就算机器可以在某项非常复杂的任务中超过人类的表现能力，其也没有真正的思维方式，不会进行思考，说到底也只是曲线的拟合罢了，但是，只有基础做好了，才能向上研究人工智能。</p><p>构建AlphaGo和其前身（应用于Atari游戏）的学习算法的设计思路、计算架构在一系列论文和视频中都可以获得，而没有被Google（收购了英国公司DeepMind）私藏。为什么他不私藏呢？这么厉害的代码、设计思路没必要公开出来嘛，因为Google想把自己打造为基于云的机器学习和大数据的领导者，而它在2016年是全球第三大云服务提供商，排在微软和亚马逊之后，它需要把客户从其他平台引流到自己的平台上。由此可见，大公司们之间的竞争反而可以使我们平民获益。</p><blockquote><p><a href="https://randomant.net/the-algorithm-behind-the-curtain/" rel="external nofollow" target="_blank">The Algorithm Behind the Curtain: How DeepMind Built a Machine that Beat a Go Master (1 of 5)</a></p></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;强化学习的里程碑&quot;&gt;&lt;a href=&quot;#强化学习的里程碑&quot; class=&quot;headerlink&quot; title=&quot;强化学习的里程碑&quot;&gt;&lt;/a&gt;强化学习的里程碑&lt;/h1&gt;
     
     </summary>
     

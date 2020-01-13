@@ -117,7 +117,7 @@ daovoice('update');
 <meta property="og:site_name" content="Keavnn&#39;Blog">
 <meta property="og:description" content="本文记录了使用Docker过程中的一些常用的、复杂的命令。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-12T03:14:17.976Z">
+<meta property="og:updated_time" content="2019-10-31T08:05:43.695Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker常用以及组合命令学习">
 <meta name="twitter:description" content="本文记录了使用Docker过程中的一些常用的、复杂的命令。">
@@ -370,8 +370,8 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-10-12T11:14:17+08:00">
-                2019-10-12
+              <time title="更新于" itemprop="dateModified" datetime="2019-10-31T16:05:43+08:00">
+                2019-10-31
               </time>
             
           </span>
@@ -420,7 +420,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  258
+                  274
                 </span>
               
 
@@ -460,22 +460,15 @@ daovoice('update');
         <p>本文记录了使用Docker过程中的一些常用的、复杂的命令。</p>
 <a id="more"></a>
 <ul>
-<li><p>停止并删除正在运行的容器<br><code>docker rm $(docker stop $(docker ps -aq))</code><br>如果是在windows操作系统，可能会执行出错，可以切换至powershell或者使用命令：<br><code>FOR /f &quot;tokens=*&quot; %i IN (&#39;command 1&#39;) DO [command 2] %i</code></p>
-</li>
-<li><p>查看容器的长ID<br><code>docker inspect -f &#39;{?{.ID}}&#39; [name]</code><br><strong>去掉命令中的<code>?</code>,因为双括号会转义失败</strong></p>
-</li>
-<li><p>宿主机向容器内传输文件/文件夹<br><code>docker cp 本地文件路径 ID全称:容器路径</code></p>
-</li>
-<li><p>容器传输文件/文件夹到宿主机<br><code>docker cp ID全称:容器文件路径 本地路径</code></p>
-</li>
-<li><p>修改本地已有镜像的名字<br><code>docker tag [ImageID] [NewImageNmae]:[tag]</code></p>
-</li>
-<li><p>创建新的镜像<br><code>docker build -t [name]:[tag] -f [dockerfile_path] .</code></p>
-</li>
-<li><p>开启一个容器<br><code>docker run -it(交互模式) -d(后台运行) --name [name] [name]:[tag]</code><br>如果需要启用<code>NVIDIA GPU</code>，可以加上命令参数<code>--gpus [all or device=0]</code></p>
-</li>
-<li><p>进入一个正在运行的容器<br><code>docker exec -it [name] [command]</code></p>
-</li>
+<li>停止并删除正在运行的容器<br><code>docker rm $(docker stop $(docker ps -aq))</code><br>如果是在windows操作系统，可能会执行出错，可以切换至powershell或者使用命令：<br><code>FOR /f &quot;tokens=*&quot; %i IN (&#39;command 1&#39;) DO [command 2] %i</code></li>
+<li>查看容器的长ID<br><code>docker inspect -f &#39;{?{.ID}}&#39; [name]</code><br><strong>去掉命令中的<code>?</code>,因为双括号会转义失败</strong></li>
+<li>宿主机向容器内传输文件/文件夹<br><code>docker cp 本地文件路径 ID全称:容器路径</code></li>
+<li>容器传输文件/文件夹到宿主机<br><code>docker cp ID全称:容器文件路径 本地路径</code></li>
+<li>修改本地已有镜像的名字<br><code>docker tag [ImageID] [NewImageNmae]:[tag]</code></li>
+<li>创建新的镜像<br><code>docker build -t [name]:[tag] -f [dockerfile_path] .</code></li>
+<li>开启一个容器<br><code>docker run -it(交互模式) -d(后台运行) --name [name] [name]:[tag]</code><br>如果需要启用<code>NVIDIA GPU</code>，可以加上命令参数<code>--gpus [all or device=0]</code></li>
+<li>进入一个正在运行的容器<br><code>docker exec -it [name] [command]</code></li>
+<li>从容器生成镜像<br><code>docker commit [container name or id] [image name:version]</code></li>
 </ul>
 
       
@@ -506,7 +499,7 @@ daovoice('update');
   <p><span>本文标题:</span><a href="/Docker命令学习.html">Docker常用以及组合命令学习</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Keavnn 的个人博客">Keavnn</a></p>
   <p><span>发布时间:</span>2019年01月03日 - 13:01</p>
-  <p><span>最后更新:</span>2019年10月12日 - 11:10</p>
+  <p><span>最后更新:</span>2019年10月31日 - 16:10</p>
   <p><span>原始链接:</span><a href="/Docker命令学习.html" title="Docker常用以及组合命令学习">http://StepNeverStop.github.io/Docker命令学习.html</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://StepNeverStop.github.io/Docker命令学习.html" aria-label="复制成功！"></i></span>
   </p>
@@ -677,7 +670,7 @@ daovoice('update');
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -780,7 +773,7 @@ daovoice('update');
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -794,7 +787,7 @@ daovoice('update');
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">54.5k</span>
+    <span title="Site words total count">55k</span>
   
 </div>
 
@@ -814,7 +807,7 @@ daovoice('update');
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共54.5k字</span>
+  <span class="post-count">博客全站共55k字</span>
 </div> -->
         
 

@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://StepNeverStop.github.io/config-alios.html</loc>
+    
+    <lastmod>2020-01-13T03:01:39.823Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/Docker%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0.html</loc>
+    
+    <lastmod>2019-10-31T08:05:43.695Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://StepNeverStop.github.io/install-atari-and-box2d-on-win10.html</loc>
     
     <lastmod>2019-10-17T07:28:04.067Z</lastmod>
@@ -12,13 +26,6 @@
     <loc>http://StepNeverStop.github.io/Prioritized-Experience-Replay.html</loc>
     
     <lastmod>2019-10-14T12:18:20.252Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://StepNeverStop.github.io/Docker%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0.html</loc>
-    
-    <lastmod>2019-10-12T03:14:17.976Z</lastmod>
     
   </url>
   
