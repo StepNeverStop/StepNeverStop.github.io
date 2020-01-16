@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta name="google-site-verification" content="zu-9nWphPjrzXV8v514mkHknIz4dNfHlib56-KNAu44">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+<script>
+(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/356f1943.js","daovoice")
+daovoice('init', {
+  app_id: "356f1943"
+});
+daovoice('update');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="rl,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Keavnn'Blog" type="application/atom+xml">
+
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码','') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<meta name="description" content="这篇论文将强化学习的目标与最大熵结合了起来，提出了简称为MEP的经验池机制。许多将熵与强化学习结合的方法都是考虑可选动作分布的熵，该篇论文很新颖的使用的是“迹”的熵。 推荐程度中等偏下：  有些地方解释的不是很清楚 熵的结合方式特殊，可以一看 有些公式推导过于复杂，难懂 有些参考文献标注不准，如A3C算法的论文并没有使用熵的概念，却在熵相关的语句进行了标注">
+<meta name="keywords" content="rl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Maximum Entropy-Regularized Multi-Goal Reinforcement-Learning">
+<meta property="og:url" content="http://StepNeverStop.github.io/maximum-entropy-regularized-multi-goal-reinforcement-learning.html">
+<meta property="og:site_name" content="Keavnn&#39;Blog">
+<meta property="og:description" content="这篇论文将强化学习的目标与最大熵结合了起来，提出了简称为MEP的经验池机制。许多将熵与强化学习结合的方法都是考虑可选动作分布的熵，该篇论文很新颖的使用的是“迹”的熵。 推荐程度中等偏下：  有些地方解释的不是很清楚 熵的结合方式特殊，可以一看 有些公式推导过于复杂，难懂 有些参考文献标注不准，如A3C算法的论文并没有使用熵的概念，却在熵相关的语句进行了标注">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://stepneverstop.github.io/maximum-entropy-regularized-multi-goal-reinforcement-learning/inequality.png">
+<meta property="og:image" content="http://stepneverstop.github.io/maximum-entropy-regularized-multi-goal-reinforcement-learning/x-x%5E2.png">
+<meta property="og:image" content="http://stepneverstop.github.io/maximum-entropy-regularized-multi-goal-reinforcement-learning/MEP.png">
+<meta property="og:image" content="http://stepneverstop.github.io/maximum-entropy-regularized-multi-goal-reinforcement-learning/pseudo.png">
+<meta property="og:image" content="http://stepneverstop.github.io/maximum-entropy-regularized-multi-goal-reinforcement-learning/env.png">
+<meta property="og:image" content="http://stepneverstop.github.io/maximum-entropy-regularized-multi-goal-reinforcement-learning/mean-success.png">
+<meta property="og:image" content="http://stepneverstop.github.io/maximum-entropy-regularized-multi-goal-reinforcement-learning/training-time.png">
+<meta property="og:image" content="http://stepneverstop.github.io/maximum-entropy-regularized-multi-goal-reinforcement-learning/sample-efficiency.png">
+<meta property="og:updated_time" content="2019-07-07T10:19:13.194Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Maximum Entropy-Regularized Multi-Goal Reinforcement-Learning">
+<meta name="twitter:description" content="这篇论文将强化学习的目标与最大熵结合了起来，提出了简称为MEP的经验池机制。许多将熵与强化学习结合的方法都是考虑可选动作分布的熵，该篇论文很新颖的使用的是“迹”的熵。 推荐程度中等偏下：  有些地方解释的不是很清楚 熵的结合方式特殊，可以一看 有些公式推导过于复杂，难懂 有些参考文献标注不准，如A3C算法的论文并没有使用熵的概念，却在熵相关的语句进行了标注">
+<meta name="twitter:image" content="http://stepneverstop.github.io/maximum-entropy-regularized-multi-goal-reinforcement-learning/inequality.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://StepNeverStop.github.io/maximum-entropy-regularized-multi-goal-reinforcement-learning.html">
+
+
+
+
+
+  <title>Maximum Entropy-Regularized Multi-Goal Reinforcement-Learning | Keavnn'Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/StepNeverStop" class="github-corner" aria-label="View source on GitHub" rel="external nofollow" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Keavnn'Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">If it is to be, it is up to me.</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://StepNeverStop.github.io/maximum-entropy-regularized-multi-goal-reinforcement-learning.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Keavnn">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/Kicon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Keavnn'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Maximum Entropy-Regularized Multi-Goal Reinforcement-Learning</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-12T20:49:32+08:00">
+                2019-06-12
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-07T18:19:13+08:00">
+                2019-07-07
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/ReinforcementLearning/" itemprop="url" rel="index">
+                    <span itemprop="name">ReinforcementLearning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.9k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这篇论文将强化学习的目标与最大熵结合了起来，提出了简称为MEP的经验池机制。许多将熵与强化学习结合的方法都是考虑可选动作分布的熵，该篇论文很新颖的使用的是“迹”的熵。</p>
+<p>推荐程度中等偏下：</p>
+<ul>
+<li>有些地方解释的不是很清楚</li>
+<li>熵的结合方式特殊，可以一看</li>
+<li>有些公式推导过于复杂，难懂</li>
+<li>有些参考文献标注不准，如A3C算法的论文并没有使用熵的概念，却在熵相关的语句进行了标注</li>
+</ul>
+<a id="more"></a>
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>论文地址：<a href="https://arxiv.org/pdf/1905.08786.pdf" rel="external nofollow" target="_blank">https://arxiv.org/pdf/1905.08786.pdf</a></p>
+<p>原作者代码地址：<a href="https://github.com/ruizhaogit/mep.git" rel="external nofollow" target="_blank">https://github.com/ruizhaogit/mep.git</a></p>
+<p>该文章发于2019年的ICML，与之前写过的《Energy-Based Hindsight Experience Prioritization》为同一作者。</p>
+<p>本文主要做了三个贡献：</p>
+<ol>
+<li>修改了目标函数，提出了最大熵正则化多目标强化学习(Maximum Entropy-Regularized Multi-Goal RL)的想法</li>
+<li>推导出替代(surrogate)目标函数，是第1步目标函数的一个下界，可以使算法稳定优化</li>
+<li>提出了Maximum Entropy-based Prioritization(MEP)的经验池框架</li>
+</ol>
+<h1 id="文中精要"><a href="#文中精要" class="headerlink" title="文中精要"></a>文中精要</h1><p>文中目标函数的构造主要受Guiasu于1971年提出的加权熵(Weighted Entropy)启发。加权熵表示为：</p>
+<script type="math/tex; mode=display">
+\mathcal{H}_{p}^{w}=-\sum_{k=1}^{K} w_{k} p_{k} \log p_{k}</script><p>$w_{k}$表示权重。</p>
+<h2 id="多目标强化学习的符号表示"><a href="#多目标强化学习的符号表示" class="headerlink" title="多目标强化学习的符号表示"></a>多目标强化学习的符号表示</h2><p>用$p\left(\boldsymbol{\tau} | g^{e}, \boldsymbol{\theta}\right)$表示一个迹出现的概率：</p>
+<ul>
+<li>$\boldsymbol{\tau}=s_{1}, a_{1}, s_{2}, a_{2}, \ldots, s_{T-1}, a_{T-1}, s_{T}$代表迹</li>
+<li>$g^{e}$代表一个真实的目标，即不是“事后诸葛亮”假定的目标，$g^{e} \in \operatorname{Val}\left(G^{e}\right)$，后一项为目标空间，一般情况下，可以视为状态空间$\mathcal{S}$的子集</li>
+<li>$\theta$代表策略参数</li>
+</ul>
+<p>展开来写，一个迹在策略$\theta$被采样到的概率为</p>
+<script type="math/tex; mode=display">
+p\left(\boldsymbol{\tau} | g^{e}, \boldsymbol{\theta}\right)=p\left(s_{1}\right) \prod_{t=1}^{T-1} p\left(a_{t} | s_{t}, g^{e}, \boldsymbol{\theta}\right) p\left(s_{t+1} | s_{t}, a_{t}\right)</script><p>由此定义策略$\theta$下的期望奖励回报，也就是目标函数，表示为</p>
+<script type="math/tex; mode=display">
+\begin{aligned} \eta(\boldsymbol{\theta}) &=\mathbb{E}\left[\sum_{t=1}^{T} r\left(S_{t}, G^{e}\right) | \boldsymbol{\theta}\right] \\ &=\sum_{g^{e}} p\left(g^{e}\right) \sum_{\boldsymbol{\tau}} p\left(\boldsymbol{\tau} | g^{e}, \boldsymbol{\theta}\right) \sum_{t=1}^{T} r\left(s_{t}, g^{e}\right) \end{aligned}</script><p>很容易理解，也就是在传统的目标函数前边加了一项关于每个目标求积分的步骤。</p>
+<p>如果使用off-policy算法且用经验池机制来提升采样效率，那么目标函数为</p>
+<script type="math/tex; mode=display">
+\eta^{\mathcal{R}}(\boldsymbol{\theta})=\sum_{\boldsymbol{\tau}, g^{e}} p_{\mathcal{R}}\left(\boldsymbol{\tau}, g^{e} | \boldsymbol{\theta}\right) \sum_{t=1}^{T} r\left(s_{t}, g^{e}\right)</script><p>其中$\mathcal{R}$表示经验池。注意，$\eta^{\mathcal{R}}(\boldsymbol{\theta})$将$\eta(\boldsymbol{\theta})$的前两个积分项合在一起写了，所以是联合概率而不是条件概率。</p>
+<h2 id="最大熵正则化目标函数"><a href="#最大熵正则化目标函数" class="headerlink" title="最大熵正则化目标函数"></a>最大熵正则化目标函数</h2><p>将前文提到的$\eta(\boldsymbol{\theta})$与加权熵结合起来，就构造出了本文中新的目标函数，即</p>
+<script type="math/tex; mode=display">
+\begin{aligned} \eta^{\mathcal{H}}(\boldsymbol{\theta}) &=\mathcal{H}_{p}^{w}\left(\mathcal{T}^{g}\right) \\ &=\mathbb{E}_{p}\left[\color{red} {\log \frac{1}{p\left(\boldsymbol{\tau}^{g}\right)}} \sum_{t=1}^{T} r\left(S_{t}, G^{e}\right) | \boldsymbol{\theta}\right] \end{aligned}</script><p>$\color{red} {p\left(\boldsymbol{\tau}^{g}\right)}$代表$\sum_{g^{e}} p_{\mathcal{R}}\left(\tau^{g}, g^{e} | \boldsymbol{\theta} \right )$，期望右下角的$p$也是$p\left(\boldsymbol{\tau}^{g}\right)$的意思。</p>
+<p><strong>与传统的结合方式不同的是，这种结合方式并没有将熵作为一个加和的项，而是相乘。</strong></p>
+<p>仔细想一下，如果将这个式子视为加权熵，那么权重系数是累计奖励$\sum_{t=1}^{T} r\left(s_{t}, g^{e}\right)$，这样做的直观解释是：<strong>对于各种各样的迹，给与累计回报大的以更多权重，使算法直到要朝哪个迹的方向优化。</strong></p>
+<p>反而，如果将前一个对数项视为传统强化学习目标函数的权重系数，那么这样的直观解释是：<strong>迹出现的概率越低，就越新颖，反而要使其权重增加，从而驱使算法向探索的方向优化。</strong></p>
+<h2 id="替代目标函数"><a href="#替代目标函数" class="headerlink" title="替代目标函数"></a>替代目标函数</h2><p>文中指出，$\eta^{\mathcal{H}}(\boldsymbol{\theta}) $中的$\log \frac{1}{p\left(\boldsymbol{\tau}^{g}\right)}$这一项是无界的，即取值范围为$[0,+\infty]$，这会导致通用值函数近似的训练不稳定，因此提出了可靠地替代目标函数$\eta^{\mathcal{L}}(\boldsymbol{\theta})$，这个目标函数是原目标函数的一个下界。</p>
+<blockquote>
+<p>the weight, $\log \left(1 / p\left(\boldsymbol{\tau}^{g}\right)\right)$, is unbounded, which makes the training of the universal function approximator unstable. </p>
+</blockquote>
+<p>表示为</p>
+<script type="math/tex; mode=display">
+\eta^{\mathcal{L}}(\boldsymbol{\theta})=Z \cdot \mathbb{E}_{\color{red}{q}}\left[\sum_{t=1}^{T} r\left(S_{t}, G^{e}\right) | \boldsymbol{\theta}\right]</script><p>注意，期望积分的是迹分布函数$q$，而不是经验池中真实的迹分布函数$p$。</p>
+<p>那么，新的迹分布函数$q\left(\boldsymbol{\tau}^{g}\right)$是怎么得来的？</p>
+<p>首先，使用Latent Varibale Model(LVM)对$p\left(\boldsymbol{\tau}^{g}\right)$的潜在分布进行建模，因为LVM适合于对复杂的分布进行建模。</p>
+<blockquote>
+<p>We use a Latent Variable Model(LVM) (Murphy, 2012) to model the underlying distribution of $p\left(\boldsymbol{\tau}^{g}\right)$, since LVM is suitable for modeling complex distributions.</p>
+</blockquote>
+<p>将分布用混合高斯模型MoG表示，</p>
+<script type="math/tex; mode=display">
+p\left(\boldsymbol{\tau}^{g} | \boldsymbol{\phi}\right)=\frac{1}{Z} \sum_{i=k}^{K} c_{k} \mathcal{N}\left(\boldsymbol{\tau}^{g} | \boldsymbol{\mu}_{k}, \boldsymbol{\Sigma}_{k}\right)</script><p>其中，</p>
+<ul>
+<li>$K$为隐变量的个数</li>
+<li>$\boldsymbol{\mu}_{k}, \boldsymbol{\Sigma}_{k}$分布为均值与协方差矩阵</li>
+<li>$c_{k}$为混合系数</li>
+<li>$Z$为配分函数（归一化系数）</li>
+<li>$\phi$为模型参数，包含所有的均值、协方差矩阵和混合系数</li>
+</ul>
+<p>文中接着使用$p\left(\boldsymbol{\tau}^{g} | \boldsymbol{\phi}\right)$的补作为经验重放的优先级，即</p>
+<script type="math/tex; mode=display">
+\overline{p}\left(\boldsymbol{\tau}^{g} | \boldsymbol{\phi}\right) \propto 1-p\left(\boldsymbol{\tau}^{g} | \boldsymbol{\phi}\right)</script><p>补越大，就代表迹出现的概率越低，那么就对该迹赋予更大的优先级。作者想通过过采样这些迹来增大训练时迹分布的熵。直观的解释就是，概率分布不均匀，那么让概率大的出现次数少，概率小的出现次数多，这样就会使采样的分布朝着均匀分布的方向移动，从而使熵值增加。</p>
+<p>文中由此引出了新的迹分布$q\left(\boldsymbol{\tau}^{g}\right)$，它表示为原始分布与其补的联合分布，</p>
+<script type="math/tex; mode=display">
+\begin{aligned} q\left(\boldsymbol{\tau}^{g}\right) & \propto \overline{p}\left(\boldsymbol{\tau}^{g} | \boldsymbol{\phi}\right) p\left(\boldsymbol{\tau}^{g}\right) \\ & \propto\left(1-p\left(\boldsymbol{\tau}^{g} | \boldsymbol{\phi}\right)\right) p\left(\boldsymbol{\tau}^{g}\right) \\ & \approx p\left(\boldsymbol{\tau}^{g}\right)-p\left(\boldsymbol{\tau}^{g}\right)^{2} \end{aligned}</script><p>文中将正比的比例设置为$\color{blue}{\frac{1}{Z}}$，即$q\left(\boldsymbol{\tau}^{g}\right)=\frac{1}{Z} p\left(\boldsymbol{\tau}^{g}\right)\left(1-p\left(\boldsymbol{\tau}^{g}\right)\right)$，接下来就可以证明$\eta^{\mathcal{L}}(\boldsymbol{\theta})$为$\eta^{\mathcal{H}}(\boldsymbol{\theta}) $的下界：</p>
+<script type="math/tex; mode=display">
+\begin{aligned} 
+\eta^{\mathcal{L}}(\boldsymbol{\theta}) &=Z \cdot \mathbb{E}_{q}\left[\sum_{t=1}^{T} r\left(S_{t}, G^{e}\right) | \boldsymbol{\theta}\right] \\ &=\sum_{\boldsymbol{\tau}^{g}} Z \cdot q\left(\boldsymbol{\tau}^{g}\right) \sum_{t=1}^{T} r\left(s_{t}, g^{e}\right) \\
+&=\sum_{\tau^{g}} \frac{Z}{Z} p\left(\tau^{g}\right)\left(1-p\left(\tau^{g}\right)\right) \sum_{t=1}^{T} r\left(s_{t}, g^{e}\right) \\
+&<\sum_{\tau^{g}}-p\left(\boldsymbol{\tau}^{g}\right) \log p\left(\boldsymbol{\tau}^{g}\right) \sum_{t=1}^{T} r\left(s_{t}, g^{e}\right) \\
+&=\mathbb{E}_{p}\left[\log \frac{1}{p\left(\boldsymbol{\tau}^{g}\right)} \sum_{t=1}^{T} r\left(S_{t}, G^{e}\right) | \boldsymbol{\theta}\right] \\
+&=\mathcal{H}_{p}^{w}\left(\mathcal{T}^{g}\right) \\
+&=\eta^{\mathcal{H}}(\boldsymbol{\theta})
+\end{aligned}</script><p>在小于号不等式那一步，使用了函数的性质：$\log x&lt;x-1$。很容易可以画出$f(x)=\ln{x}-x+1$在区间[0,1]上的图像：</p>
+<p><img src="./maximum-entropy-regularized-multi-goal-reinforcement-learning/inequality.png" alt=""></p>
+<p>文中进一步证明了$q$分布的熵比$p$分布的熵更大，因此，由$q$分布来进行采样可以使采样更均匀（= =！那么直接使用均匀分布采样不更好吗？），使学习的目标更多样化。证明过程篇幅过长，详见原论文附录，</p>
+<script type="math/tex; mode=display">
+p\left(\boldsymbol{\tau}^{g}\right), \text { where } p\left(\boldsymbol{\tau}_{i}^{g}\right) \in(0,1) \text { and } \sum_{i=1}^{N} p\left(\boldsymbol{\tau}_{i}^{g}\right)=1</script><script type="math/tex; mode=display">
+q\left(\boldsymbol{\tau}_{i}^{g}\right)=\frac{1}{Z} p\left(\boldsymbol{\tau}_{i}^{g}\right)\left(1-p\left(\boldsymbol{\tau}_{i}^{g}\right)\right), \text { where } \sum_{i=1}^{N} q\left(\boldsymbol{\tau}_{i}^{g}\right)=1</script><script type="math/tex; mode=display">
+\mathcal{H}_{q}\left(\mathcal{T}^{g}\right)-\mathcal{H}_{p}\left(\mathcal{T}^{g}\right) \geq 0</script><h2 id="基于最大熵的优先级"><a href="#基于最大熵的优先级" class="headerlink" title="基于最大熵的优先级"></a>基于最大熵的优先级</h2><p>文中说是基于最大熵的优先经验回放，但是除了使用$q\left(\boldsymbol{\tau}^{g}\right)$分布之外，在这一部分没有体现出熵的影子，优先级的设置为</p>
+<script type="math/tex; mode=display">
+q\left(\boldsymbol{\tau}_{i}^{g}\right)=\frac{\operatorname{rank}\left(q\left(\boldsymbol{\tau}_{i}^{g}\right)\right)}{\sum_{n=1}^{N} \operatorname{rank}\left(q\left(\boldsymbol{\tau}_{n}^{g}\right)\right)}</script><p>使用排序作为衡量优先级的标准是因为这种方式更具鲁棒性，对异常值不敏感。</p>
+<p>之前文中说想要使出现概率低的迹以更高的概率被从经验池中采样到，如果是按照新的$q$分布来定义迹出现的概率，那么到这里是有些说不通的，因为，前文提到$q\left(\boldsymbol{\tau}^{g}\right) \approx p\left(\boldsymbol{\tau}^{g}\right)-p\left(\boldsymbol{\tau}^{g}\right)^{2} $，那么画出$f(x)=x-x^2$在区间[0，1]上的图像为：</p>
+<p><img src="./maximum-entropy-regularized-multi-goal-reinforcement-learning/x-x^2.png" alt=""></p>
+<p>由此可见，q值小的地方为p值小与p值大的地方，这就会导致出现概率最大、概率最小的迹被经验池重复的次数多，与前文所讲不同。</p>
+<p>而如果考虑以真实的p分布来定义迹出现的概率，那么此处不应该使用$\operatorname{rank}\left(q\left(\tau_{i}^{g}\right)\right)$作为排序的标准，而应该是$\operatorname{rank}\overline{p}\left(\boldsymbol{\tau}^{g} | \boldsymbol{\phi}\right)$，或者$\operatorname{rank}p\left(\boldsymbol{\tau}^{g}\right)$。</p>
+<p>总之，这里关于优先级的解释不是很清楚。</p>
+<h2 id="流程示意图"><a href="#流程示意图" class="headerlink" title="流程示意图"></a>流程示意图</h2><p><img src="./maximum-entropy-regularized-multi-goal-reinforcement-learning/MEP.png" alt=""></p>
+<h2 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h2><p><img src="./maximum-entropy-regularized-multi-goal-reinforcement-learning/pseudo.png" alt=""></p>
+<p>解析：</p>
+<ul>
+<li>每一次迭代，都重新构造优先采样分布$q\left(\tau^{g}\right)$</li>
+</ul>
+<h1 id="实验部分"><a href="#实验部分" class="headerlink" title="实验部分"></a>实验部分</h1><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p><img src="./maximum-entropy-regularized-multi-goal-reinforcement-learning/env.png" alt=""></p>
+<ul>
+<li>算法：DDPG</li>
+<li>5个随机种子进行实验，取最好的结果</li>
+<li>19个CPU</li>
+<li>训练200个epoch</li>
+</ul>
+<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><p><img src="./maximum-entropy-regularized-multi-goal-reinforcement-learning/mean-success.png" alt=""></p>
+<ul>
+<li><strong>以训练的epoch为标准</strong>，使用了MEP的收敛速度更快</li>
+</ul>
+<p><img src="./maximum-entropy-regularized-multi-goal-reinforcement-learning/training-time.png" alt=""></p>
+<p>可以看到，结合MEP的效果最好，但是我觉得这种对比一点都不严谨，从数据上看，不使用MEP比使用MEP的训练时间更短，且效果也差不多，那么如果训练相同的时间，说不定使用MEP的效果并没有不使用的好。</p>
+<p><img src="./maximum-entropy-regularized-multi-goal-reinforcement-learning/sample-efficiency.png" alt=""></p>
+<p>固定成功率，在机器人实验中，提升了1.95倍采样效率，即使用更少的样本训练相同的效果。</p>
+<h1 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h1><p>前文提到原目标函数中的对数项会使训练值函数不稳定，为什么？</p>
+<p>为什么构造新的迹分布$q\left(\boldsymbol{\tau}^{g}\right)$为那样的形式？</p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-heart"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/maximum-entropy-regularized-multi-goal-reinforcement-learning.html">Maximum Entropy-Regularized Multi-Goal Reinforcement-Learning</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Keavnn 的个人博客">Keavnn</a></p>
+  <p><span>发布时间:</span>2019年06月12日 - 20:06</p>
+  <p><span>最后更新:</span>2019年07月07日 - 18:07</p>
+  <p><span>原始链接:</span><a href="/maximum-entropy-regularized-multi-goal-reinforcement-learning.html" title="Maximum Entropy-Regularized Multi-Goal Reinforcement-Learning">http://StepNeverStop.github.io/maximum-entropy-regularized-multi-goal-reinforcement-learning.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://StepNeverStop.github.io/maximum-entropy-regularized-multi-goal-reinforcement-learning.html" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="external nofollow" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-相同方式共享 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果您获得了帮助，也可以资助一下小的啦~</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏啦</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Keavnn 微信">
+        <p>微信</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Keavnn 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/rl/" rel="tag"> <i class="fa fa-tag"></i> rl</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/rl-rough-reading.html" rel="next" title="强化学习论文浅读集合">
+                <i class="fa fa-chevron-left"></i> 强化学习论文浅读集合
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/rl-with-deep-energy-based-policies.html" rel="prev" title="Reinforcement Learning with Deep Energy-Based Policies">
+                Reinforcement Learning with Deep Energy-Based Policies <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<div class="addthis_inline_share_toolbox">
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cefbfc88c13b0e7" async="async"></script>
+</div>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTk0NS8xODQ5MQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/Kicon.jpg" alt="Keavnn">
+            
+              <p class="site-author-name" itemprop="name">Keavnn</p>
+              <p class="site-description motion-element" itemprop="description">If it is to be, it is up to me.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StepNeverStop" target="_blank" title="GitHub" rel="external nofollow">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:oooooooooooooooocoo@vip.qq.com" target="_blank" title="E-Mail" rel="external nofollow">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank" rel="external nofollow">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons">
+              </a>
+            </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://bluefisher.github.io" title="Fisher Chang" target="_blank" rel="external nofollow">Fisher Chang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文中精要"><span class="nav-number">2.</span> <span class="nav-text">文中精要</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#多目标强化学习的符号表示"><span class="nav-number">2.1.</span> <span class="nav-text">多目标强化学习的符号表示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最大熵正则化目标函数"><span class="nav-number">2.2.</span> <span class="nav-text">最大熵正则化目标函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#替代目标函数"><span class="nav-number">2.3.</span> <span class="nav-text">替代目标函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于最大熵的优先级"><span class="nav-number">2.4.</span> <span class="nav-text">基于最大熵的优先级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流程示意图"><span class="nav-number">2.5.</span> <span class="nav-text">流程示意图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#伪代码"><span class="nav-number">2.6.</span> <span class="nav-text">伪代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验部分"><span class="nav-number">3.</span> <span class="nav-text">实验部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">3.1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验结果"><span class="nav-number">3.2.</span> <span class="nav-text">实验结果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#疑问"><span class="nav-number">4.</span> <span class="nav-text">疑问</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Keavnn</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">54.9k</span>
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- <div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共54.9k字</span>
+</div> -->
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

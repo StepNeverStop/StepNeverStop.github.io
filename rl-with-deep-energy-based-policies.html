@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta name="google-site-verification" content="zu-9nWphPjrzXV8v514mkHknIz4dNfHlib56-KNAu44">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+<script>
+(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/356f1943.js","daovoice")
+daovoice('init', {
+  app_id: "356f1943"
+});
+daovoice('update');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="rl,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Keavnn'Blog" type="application/atom+xml">
+
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码','') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<meta name="description" content="本文提出了一个算法，用于学习连续空间下基于能量的策略：SQL，不是数据库的SQL，而是soft Q-Learning。该算法应用了最大熵理论，并且使用能量模型（EBM，Energy-Based Model）作为决策模型。 推荐阅读该论文：  公式复杂，但详尽吃透可以学习到SVGD、EBM等概念与算法 文章充实，可以继续阅读后续算法SAC 拓展在强化学习与熵进行结合方面的知识">
+<meta name="keywords" content="rl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Reinforcement Learning with Deep Energy-Based Policies">
+<meta property="og:url" content="http://StepNeverStop.github.io/rl-with-deep-energy-based-policies.html">
+<meta property="og:site_name" content="Keavnn&#39;Blog">
+<meta property="og:description" content="本文提出了一个算法，用于学习连续空间下基于能量的策略：SQL，不是数据库的SQL，而是soft Q-Learning。该算法应用了最大熵理论，并且使用能量模型（EBM，Energy-Based Model）作为决策模型。 推荐阅读该论文：  公式复杂，但详尽吃透可以学习到SVGD、EBM等概念与算法 文章充实，可以继续阅读后续算法SAC 拓展在强化学习与熵进行结合方面的知识">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://stepneverstop.github.io/rl-with-deep-energy-based-policies/unimodal-policy.png">
+<meta property="og:image" content="http://stepneverstop.github.io/rl-with-deep-energy-based-policies/multimodal-policy.png">
+<meta property="og:image" content="http://stepneverstop.github.io/rl-with-deep-energy-based-policies/1dgmm.gif">
+<meta property="og:image" content="http://stepneverstop.github.io/rl-with-deep-energy-based-policies/vp.gif">
+<meta property="og:image" content="http://stepneverstop.github.io/rl-with-deep-energy-based-policies/pseudo.png">
+<meta property="og:updated_time" content="2019-07-07T10:19:13.227Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Reinforcement Learning with Deep Energy-Based Policies">
+<meta name="twitter:description" content="本文提出了一个算法，用于学习连续空间下基于能量的策略：SQL，不是数据库的SQL，而是soft Q-Learning。该算法应用了最大熵理论，并且使用能量模型（EBM，Energy-Based Model）作为决策模型。 推荐阅读该论文：  公式复杂，但详尽吃透可以学习到SVGD、EBM等概念与算法 文章充实，可以继续阅读后续算法SAC 拓展在强化学习与熵进行结合方面的知识">
+<meta name="twitter:image" content="http://stepneverstop.github.io/rl-with-deep-energy-based-policies/unimodal-policy.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://StepNeverStop.github.io/rl-with-deep-energy-based-policies.html">
+
+
+
+
+
+  <title>Reinforcement Learning with Deep Energy-Based Policies | Keavnn'Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/StepNeverStop" class="github-corner" aria-label="View source on GitHub" rel="external nofollow" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Keavnn'Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">If it is to be, it is up to me.</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://StepNeverStop.github.io/rl-with-deep-energy-based-policies.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Keavnn">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/Kicon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Keavnn'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Reinforcement Learning with Deep Energy-Based Policies</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-26T15:12:39+08:00">
+                2019-06-26
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-07T18:19:13+08:00">
+                2019-07-07
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/ReinforcementLearning/" itemprop="url" rel="index">
+                    <span itemprop="name">ReinforcementLearning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文提出了一个算法，用于学习连续空间下基于能量的策略：SQL，不是数据库的SQL，而是soft Q-Learning。该算法应用了最大熵理论，并且使用能量模型（EBM，Energy-Based Model）作为决策模型。</p>
+<p>推荐阅读该论文：</p>
+<ul>
+<li>公式复杂，但详尽吃透可以学习到SVGD、EBM等概念与算法</li>
+<li>文章充实，可以继续阅读后续算法SAC</li>
+<li>拓展在强化学习与熵进行结合方面的知识</li>
+</ul>
+<a id="more"></a>
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>论文地址：<a href="https://arxiv.org/abs/1702.08165" rel="external nofollow" target="_blank">https://arxiv.org/abs/1702.08165</a></p>
+<p>源代码：<a href="https://github.com/rail-berkeley/softlearning" rel="external nofollow" target="_blank">https://github.com/rail-berkeley/softlearning</a></p>
+<p>该论文与2017年发于第34次ICML会议上，本文对v2版本进行分析。该论文作者为Tuomas Haarnoja，是伯克利大学BAIR实验室的博士生，SAC算法也是他的杰作。</p>
+<p>传统的RL方法主要是用分布拟合单峰分布，即</p>
+<p><img src="./rl-with-deep-energy-based-policies/unimodal-policy.png" alt=""></p>
+<p>也有许多算法想要根据Q函数的值拟合出多峰分布，即</p>
+<p><img src="./rl-with-deep-energy-based-policies/multimodal-policy.png" alt=""></p>
+<p>本文中就是针对拟合多峰分布提出了算法SQL。</p>
+<p>为什么要拟合多峰分布呢？当我们考虑最优控制和概率推理之间的联系时，随机策略才是最优解。</p>
+<blockquote>
+<p>As discussed in prior work, a stochastic policy emerges as the optimal answer when we consider the connection between optimal control and probabilistic inference.</p>
+</blockquote>
+<p>随机策略有一些优点：</p>
+<ul>
+<li>如果可以全面地学习给定任务中的目标策略，那么结果策略可以作为很好的初始化策略，微调后以学习更高级的策略</li>
+<li>这种随机的探索机制，可以更好地寻求多峰任务中的最佳决策模型</li>
+<li>更好的鲁棒性，环境有干扰或者噪音时，有多种完成目标的行动可以选择，可以从干扰中“脱身”</li>
+</ul>
+<h2 id="算法效果"><a href="#算法效果" class="headerlink" title="算法效果"></a>算法效果</h2><blockquote>
+<p>The applications of training such stochastic policies include improved exploration in the case of multimodal objectives and compositionality via pretraining general-purpose stochastic policies that can then be efficiently finetuned into task-specific behaviors. </p>
+</blockquote>
+<p>在多峰目标任务中训练随机策略可以提升探索，也可以预训练出通用目的的随机策略以微调后运用至指定任务中进行训练（迁移学习、元学习）。</p>
+<h1 id="文中精要"><a href="#文中精要" class="headerlink" title="文中精要"></a>文中精要</h1><h2 id="标准强化学习的最优策略"><a href="#标准强化学习的最优策略" class="headerlink" title="标准强化学习的最优策略"></a>标准强化学习的最优策略</h2><script type="math/tex; mode=display">
+\pi_{\mathrm{std}}^{*}=\arg \max _{\pi} \sum_{t} \mathbb{E}_{\left(\mathbf{s}_{t}, \mathbf{a}_{t}\right) \sim \rho_{\pi}}\left[r\left(\mathbf{s}_{t}, \mathbf{a}_{t}\right)\right] \tag{1}</script><ul>
+<li><p><code>std</code>下标代表标准的意思：standard，星号$\ast$代表最优</p>
+</li>
+<li><p>$\rho_{\pi}$代表策略$\pi\left(\mathbf{a}_{t} | \mathbf{s}_{t}\right)$下的迹分布，$\rho_{\pi}\left(\mathbf{s}_{t}, \mathbf{a}_{t}\right)$代表状态-行动对的边缘分布。</p>
+</li>
+</ul>
+<blockquote>
+<p>We will also use $\rho_{\pi}\left(\mathbf{s}_{t}\right)$ and $\rho_{\pi}\left(\mathbf{s}_{t}, \mathbf{a}_{t}\right)$ to denote the state and state-action marginals of the trajectory distribution induced by a policy $\pi\left(\mathbf{a}_{t} | \mathbf{s}_{t}\right)$. </p>
+</blockquote>
+<h2 id="最大熵强化学习的最优策略"><a href="#最大熵强化学习的最优策略" class="headerlink" title="最大熵强化学习的最优策略"></a>最大熵强化学习的最优策略</h2><p>最大熵强化学习在标准RL的目标函数上加入了一个关于状态下可选动作分布熵的项，这种目标希望智能体不仅能以获得最大奖励的方式完成目标，而且能够决策地尽可能随机。因为通过这种目标函数学到的策略<strong>更具鲁棒性</strong>，可以更好适用于环境的突然变化，或者从前没有遇到过得场景。</p>
+<script type="math/tex; mode=display">
+\pi_{\mathrm{MaxEnt}}^{*}=\arg \max _{\pi} \sum_{t} \mathbb{E}_{\left(\mathbf{s}_{t}, \mathbf{a}_{t}\right) \sim \rho_{\pi}}\left[r\left(\mathbf{s}_{t}, \mathbf{a}_{t}\right)+\color{red}{\alpha \mathcal{H}\left(\pi\left(\cdot | \mathbf{s}_{t}\right)\right)}\right]
+\tag{2}</script><ul>
+<li><code>MaxEnt</code>下标代表最大熵的意思：Maximum entropy</li>
+<li>式中的系数$\alpha$可以用来调节奖励项与熵值项的重要性比率。<strong>一般将$\alpha$表示为奖励范围（reward scale）的倒数，但在实际中通常将其作为超参数手动调节。</strong>SAC算法中有介绍在训练过程中自动调节该系数的方法。</li>
+<li>本文中的SQL算法也是为了优化该目标函数</li>
+</ul>
+<h2 id="最大熵目标的优点"><a href="#最大熵目标的优点" class="headerlink" title="最大熵目标的优点"></a>最大熵目标的优点</h2><ul>
+<li>在多峰（即一个状态下有多个最优动作选择）问题中提升探索能力</li>
+<li>可以用于迁移学习，因为其“预训练”模型更好地适应之后的任务</li>
+</ul>
+<h2 id="soft-值函数"><a href="#soft-值函数" class="headerlink" title="soft 值函数"></a>soft 值函数</h2><p>文中，<strong><em>定义</em></strong>了最大熵RL下的Q函数与V函数，注意，是定义，不是推导出来的。</p>
+<p>soft Q函数定义如下：</p>
+<script type="math/tex; mode=display">
+{Q_{\text { soft }}^{*}\left(\mathbf{s}_{t}, \mathbf{a}_{t}\right)=r_{t}+}  {\mathbb{E}_{\left(\mathbf{s}_{t+1}, \ldots\right) \sim \rho_{\pi}}\left[\sum_{l=1}^{\infty} \gamma^{l}\left(r_{t+l}+\alpha \mathcal{H}\left(\pi_{\text { MaxEnt }}^{*}\left(\cdot | \mathbf{s}_{t+l}\right)\right)\right)\right]}
+\tag{3}</script><p>soft V函数定义如下：</p>
+<script type="math/tex; mode=display">
+V_{\mathrm{soft}}^{*}\left(\mathbf{s}_{t}\right)=\alpha \log \int_{\mathcal{A}} \exp \left(\frac{1}{\alpha} Q_{\mathrm{soft}}^{*}\left(\mathbf{s}_{t}, \mathbf{a}^{\prime}\right)\right) d \mathbf{a}^{\prime}
+\tag{4}</script><p>乍一看这个值函数$V_{\mathrm{soft}}^{*}\left(\mathbf{s}_{t}\right)$的形式定义的很奇怪，的确很奇怪，严格来说，它的真实意义并不是为了构造状态值函数，而是构造一个配分函数使得后面推导最优策略时可以化简过程。当然，算法中也不需要用它的值去衡量状态的价值，只是作为计算的中间过程。</p>
+<p>作者说，值函数满足soft 贝尔曼方程，即</p>
+<script type="math/tex; mode=display">
+Q_{\mathrm{soft}}^{*}\left(\mathbf{s}_{t}, \mathbf{a}_{t}\right)=r_{t}+\gamma \mathbb{E}_{\mathbf{s}_{t+1} \sim p_{\mathbf{s}}}\left[V_{\mathrm{soft}}^{*}\left(\mathbf{s}_{t+1}\right)\right]
+\tag{5}</script><h2 id="能量模型与策略"><a href="#能量模型与策略" class="headerlink" title="能量模型与策略"></a>能量模型与策略</h2><p>文中提出能量模型（Energy-Based Models）的初衷是之前很多人在研究中使用了多项式分布（discrete multinomial distributions）、高斯分布（Gaussian distributions）来表示策略，这样的分布通常用来表示动作价值分布是单峰（unimodal）的情况，而且最终收敛结果往往是接近确定性（near-deterministic）的。即使拓展出多峰的形式，也各自有或多或少的不足。基于此，作者想使用更广泛、通用的分布用来表示复杂、多峰的动作选择。</p>
+<p>所以，作者选择使用基于能量的通用策略：</p>
+<script type="math/tex; mode=display">
+\pi\left(\mathbf{a}_{t} | \mathbf{s}_{t}\right) \propto \exp \left(-\mathcal{E}\left(\mathbf{s}_{t}, \mathbf{a}_{t}\right)\right)
+\tag{6}</script><ul>
+<li><p>$\mathcal{E}$是字母E的花体形式，代表能量函数，其可以被深度神经网络表示，如果使用通用值函数近似来表示能量函数，那么可以表示任意策略$\pi\left(\boldsymbol{a}_{t} | \mathbf{s}_{t}\right)$</p>
+</li>
+<li><blockquote>
+<p>where $\mathcal{E}$ is an energy function that could be represented, for example, by a deep neural network. If we use a universal function approximator for $\mathcal{E}$, we can represent any distribution $\pi\left(\boldsymbol{a}_{t} | \mathbf{s}_{t}\right)$. </p>
+</blockquote>
+</li>
+<li><p>文中将该能量函数设置为</p>
+<script type="math/tex; mode=display">
+\mathcal{E}\left(\mathbf{s}_{t}, \mathbf{a}_{t}\right)=-\frac{1}{\alpha} Q_{\operatorname{soft}}\left(\mathbf{s}_{t}, \mathbf{a}_{t}\right)
+\tag{7}</script><p>其实也很容易就能理解，将负号抵消掉之后，Q值大的动作能量高嘛，指数分布又能更好的放大较大的值，使Q值大的动作更为突出，这样完全可以作为选择动作的策略</p>
+</li>
+</ul>
+<p>但是有一个问题是，不能使能量无限大呀，假如超过了计算能力那就不好了，当然这种情况几乎不会发生。于是，可以将能量给归一化，即</p>
+<script type="math/tex; mode=display">
+\begin{aligned} 
+\pi_{\text { MaxEnt }}^{*}\left(a_{t} | s_{t}\right) 
+&=\frac{\exp \left(\frac{1}{\alpha} Q_{\text { soft }}^{*}\left(s_{t}, a_{t}\right)\right)}{\int_{\mathcal{A}} \exp \left(\frac{1}{\alpha} Q_{\text { soft }}^{*}\left(s_{t}, a_{t}\right)\right) \mathrm{d} a^{\prime}} \\ 
+&=\frac{\exp \left(\frac{1}{\alpha} Q_{\text { soft }}^{*}\left(s_{t}, a_{t}\right)\right)}{\exp \left(\frac{1}{\alpha} V_{\text { soft }}^{*}\left(s_{t}\right)\right)} \\
+&=\frac{\exp \left(\frac{1}{\alpha} Q_{\text { soft }}^{*}\left(s_{t}, a_{t}\right)\right)}{\color{blue}{\exp \log} \exp \left(\frac{1}{\alpha} V_{\text { soft }}^{*}\left(s_{t}\right)\right)} \\
+&=\color{red}{\exp \left(\frac{1}{\alpha}\left(Q_{\text { soft }}^{*}\left(s_{t}, a_{t}\right)-V_{\text { soft }}^{*}\left(s_{t}\right)\right)\right)}
+\end{aligned}
+\tag{8}</script><p></p><p align="center" style="color:blue"><a href="https://bluefisher.github.io/2018/11/13/Reinforcement-Learning-with-Deep-Energy-Based-Policies/" rel="external nofollow" target="_blank">BlueFisher's Blog</a></p><br>论文中只给出了红色字体的部分，其实这才是作者想要表达的意思，文中就是基于此定义了状态值函数$V_{\mathrm{soft}}^{*}\left(\mathbf{s}_{t}\right)$的形式。<p></p>
+<p>在这个公式中就可以看出，策略是对动作值函数Q进行了一个softmax操作，这也是文中soft的含义。</p>
+<h2 id="使用SQL优化目标函数"><a href="#使用SQL优化目标函数" class="headerlink" title="使用SQL优化目标函数"></a>使用SQL优化目标函数</h2><p>像使用Q-Learning对网格世界问题进行优化求解一样，我们也可以使用迭代的方式进行优化，交互计算两个值函数，使其各自收敛，就可以导出最优策略。</p>
+<p>于是，作者定义了soft Q-Iteration。</p>
+<h3 id="Soft-Q-Iteration"><a href="#Soft-Q-Iteration" class="headerlink" title="Soft Q-Iteration"></a>Soft Q-Iteration</h3><p>先要假设值函数$Q_{\mathrm{soft}}(\cdot, \cdot)$、$V_{\text { soft }}(\cdot)$有界，</p>
+<script type="math/tex; mode=display">
+\int_{\mathcal{A}} \exp \left(\frac{1}{\alpha} Q_{\mathrm{soft}}\left(\cdot, \mathbf{a}^{\prime}\right)\right) d \mathbf{a}^{\prime}<\infty \ ，\ Q_{\mathrm{soft}}^{*}<\infty
+\tag{9}</script><p>文中定义的交互迭代至收敛的方式其实跟SARSA算法比较像：</p>
+<script type="math/tex; mode=display">
+\begin{array}{c}
+{Q_{\text { soft }}\left(\mathbf{s}_{t}, \mathbf{a}_{t}\right) \leftarrow r_{t}+\gamma \mathbb{E}_{\mathbf{s}_{t+1} \sim p_{\mathbf{s}}}\left[V_{\text { soft }}\left(\mathbf{s}_{t+1}\right)\right], \forall \mathbf{s}_{t}, \mathbf{a}_{t}} \\ 
+{V_{\text { soft }}\left(\mathbf{s}_{t}\right) \leftarrow \alpha \log \int_{\mathcal{A}} \exp \left(\frac{1}{\alpha} Q_{\text { soft }}\left(\mathbf{s}_{t}, \mathbf{a}^{\prime}\right)\right) d \mathbf{a}^{\prime}, \forall \mathbf{s}_{t}}
+\end{array}
+\tag{10}</script><p>这种优化方式在理论上是可行的，但是在实际应用中存在两个问题：</p>
+<ol>
+<li>连续空间无法求期望，或者计算不准确。<strong>解决方案是重要性采样，使用采样多次后计算来代替积分，在初期进行随机均匀采样，后期根据policy来采样。</strong></li>
+<li>迭代过程需要不断选择动作，问题是式（8）的分布形式无法进行采样。<strong>解决方案是使用SVGD算法拟合后验分布，并输出采样的动作。</strong></li>
+</ol>
+<h3 id="Soft-Q-Learning"><a href="#Soft-Q-Learning" class="headerlink" title="Soft Q-Learning"></a>Soft Q-Learning</h3><p>文中在这一部分引用了重要性采样，解决了上面提到的第一个问题，即，使用分布$q_{\mathrm{a}^{\prime}}$来代替真实策略分布</p>
+<script type="math/tex; mode=display">
+\exp \left(\frac{1}{\alpha}\left(Q_{\text { soft }}^{*}\left(s_{t}, a_{t}\right)-V_{\text { soft }}^{*}\left(s_{t}\right)\right)\right
+)</script><p>进行采样。</p>
+<script type="math/tex; mode=display">
+V_{\mathrm{soft}}^{\theta}\left(\mathbf{s}_{t}\right)=\alpha \log \mathbb{E}_{\color{red}{q_{\mathrm{a}^{\prime}}}}\left[\frac{\exp \left(\frac{1}{\alpha} Q_{\mathrm{soft}}^{\theta}\left(\mathbf{s}_{t}, \mathbf{a}^{\prime}\right)\right)}{q_{\mathrm{a}^{\prime}}\left(\mathbf{a}^{\prime}\right)}\right]
+\tag{11}</script><p>采样分布$q_{\mathrm{a}^{\prime}}$可以使用任意的分布，但是由于重要性采样的性质，采样分布与原分布越接近，效果越好。式子中的$\theta$为Q神经网络的参数。</p>
+<p>因为在训练初期，我们估计的真实分布是偏差很大的，几乎可以说是错误的，因此在训练初期将采样分布设置为均匀分布比较合理，在训练一段时间之后，可以将采样分布设置为接近原分布，甚至是原分布（如果原分布可以采样，如，使用神经网络等“黑匣子”进行表示）</p>
+<p>由此，可以定义Q神经网络的损失函数为：</p>
+<script type="math/tex; mode=display">
+J_{Q}(\theta)=\mathbb{E}_{\mathbf{s}_{t} \sim q_{\mathbf{s}_{t}}, \mathbf{a}_{t} \sim q_{\mathbf{a}_{t}}}\left[\frac{1}{2}\left(\hat{Q}_{\mathrm{soft}}^{\overline{\theta}}\left(\mathbf{s}_{t}, \mathbf{a}_{t}\right)-Q_{\mathrm{soft}}^{\theta}\left(\mathbf{s}_{t}, \mathbf{a}_{t}\right)\right)^{2}\right]
+\tag{12}</script><p>上式中期望的下标为环境和真实策略分布，$\overline{\theta}$代表target网络的参数，目标是最小化这个损失函数，其中，</p>
+<script type="math/tex; mode=display">
+\hat{Q}_{\mathrm{soft}}^{\overline{\theta}}\left(\mathbf{s}_{t}, \mathbf{a}_{t}\right)=r_{t}+\gamma \mathbb{E}_{\mathbf{s}_{t+1} \sim p_{\mathbf{s}}}\left[V_{\mathrm{soft}}^{\overline{\theta}}\left(\mathbf{s}_{t+1}\right)\right]
+\tag{13}</script><h3 id="近似采样与SVGD"><a href="#近似采样与SVGD" class="headerlink" title="近似采样与SVGD"></a>近似采样与SVGD</h3><p>SVGD：Stein Vairational Gradient Descent，SVGD是一种确定性的、基于梯度的近似推理采样算法。</p>
+<p>文中在这一部分引用了SVGD的优化算法，并且使用SVGD近似策略的后验分布以进行采样，解决了上文提到的第二个问题。在百度上完全搜不到关于SVGD算法的信息，但是了解了这个算法之后，感觉它的能力还是很强的，最终，搜集了Google、Bing的检索结果，发现了原作者在SVGD方法上的一些资源分享，<a href="https://www.cs.utexas.edu/~lqiang/stein.html" rel="external nofollow" target="_blank">Stein’s Method for Practical Machine Learning</a></p>
+<p>对于基于能量的模型、分布，有两类采样方式：</p>
+<ol>
+<li>MCMC采样，即马尔科夫链蒙特卡洛采样</li>
+<li>学习一个采样网络去近似采样出符合目标分布的样本</li>
+</ol>
+<p>在需要不断更新策略的在线学习任务中，使用MCMC采样是不可行的，于是作者使用了基于SVGD和Amortized SVGD的采样网络。</p>
+<p>SVGD论文：<a href="https://arxiv.org/abs/1608.04471" rel="external nofollow" target="_blank">https://arxiv.org/abs/1608.04471</a></p>
+<p>Amortized SVGD论文：<a href="https://arxiv.org/abs/1707.06626" rel="external nofollow" target="_blank">https://arxiv.org/abs/1707.06626</a></p>
+<p><img src="./rl-with-deep-energy-based-policies/1dgmm.gif" alt=""><br><img src="./rl-with-deep-energy-based-policies/vp.gif" alt=""></p>
+<p>Amortized SVGD有一些有趣的性质：</p>
+<ul>
+<li>可以训练随机采样网络非常快地采样</li>
+<li>可以准确收敛至EBM能量模型的后验估计分布</li>
+<li>文中结合了Amortized SVGD后，算法形式很像A-C模式</li>
+</ul>
+<p>SVGD算法的更新形式是这样的，</p>
+<script type="math/tex; mode=display">
+x_{i} \leftarrow x_{i}+\frac{\epsilon}{n} \sum_{j=1}^{n}\left[k\left(x_{j}, x_{i}\right) \nabla_{x_{j}} \log p\left(x_{j}\right)+\nabla_{x_{j}} k\left(x_{j}, x_{i}\right)\right], \qquad \forall i=1, \ldots, n
+\tag{14}</script><ul>
+<li>$\epsilon$代表学习率</li>
+<li>$k\left(x_{j}, x_{i}\right)$代表正定核，如径向基（RBF，Radial Basis Function）函数$k\left(x, x^{\prime}\right)=\exp \left(-\frac{1}{h}\left|x-x^{\prime}\right|_{2}^{2}\right)$，它可以被认为是变量之间的相似性度量</li>
+<li>包含对数项$\log p\left(x_{j}\right)$的梯度驱使采样器朝着$p(x)$分布中高概率区域进行采样</li>
+<li>第二项核函数梯度驱使样本点之间产生间隙，相当于用一个排斥力使样本点尽可能分散开</li>
+<li>对数项梯度不依赖分布$p(x)$的归一化常数，使SVGD易于应用于图模型、贝叶斯推理和深层生成模型中出现的难以处理的分布。</li>
+</ul>
+<p>先定义我们采样网络（其实就是Actor）的目标函数：</p>
+<script type="math/tex; mode=display">
+J_{\pi}\left(\phi ; \mathbf{s}_{t}\right)=D_{\mathrm{KL}}\left(\pi^{\phi}\left(\cdot | \mathbf{s}_{t}\right) \| \exp \left(\frac{1}{\alpha}\left(Q_{\mathrm{soft}}^{\theta}\left(\mathbf{s}_{t}, \cdot\right)-V_{\mathrm{soft}}^{\theta}\right)\right)\right)
+\tag{15}</script><ul>
+<li>$\phi$表示采样网络中的参数</li>
+<li>将产生动作的函数简写成$\mathbf{a}_{t}^{(i)}=f^{\phi}\left(\xi^{(i)} ; \mathbf{s}_{t}\right)$，也就是说神经网络的输入分为两部分，一部分是状态$s$，一部分是噪声扰乱“perturb”$\xi$，一般从标准正态分布中采样，而且最好使噪声的维度与动作的维度一致</li>
+</ul>
+<p>计算梯度方向：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\Delta f^{\phi}\left(\cdot ; \mathbf{s}_{t}\right)=& \mathbb{E}_{\mathbf{a}_{t} \sim \pi^{\phi}}\left[\kappa\left(\mathbf{a}_{t}, f^{\phi}\left(\cdot ; \mathbf{s}_{t}\right)\right) \nabla_{\mathbf{a}^{\prime}} Q_{\mathrm{soft}}^{\theta}\left.\left(\mathbf{s}_{t}, \mathbf{a}^{\prime}\right)\right|_{\mathbf{a}^{\prime}=\mathbf{a}_{t}}\right.\\ &+\alpha \nabla_{\mathbf{a}^{\prime}} \kappa\left.\left(\mathbf{a}^{\prime}, f^{\phi}\left(\cdot ; \mathbf{s}_{t}\right)\right)\right|_{\mathbf{a}^{\prime}=\mathbf{a}_{t}} ] \end{aligned}
+\tag{16}</script><ul>
+<li><p>严格来说，$\Delta f^{\phi}$是希尔伯特空间的最优梯度方向，并不是Actor目标函数$J_{\pi}$的梯度</p>
+</li>
+<li><blockquote>
+<p>To be precise, $\Delta f^{\phi}$ is the optimal direction in the reproducing kernel Hilbert space of $\kappa$, and is thus not strictly speaking the gradient of $J_{\pi}\left(\phi ; \mathbf{s}_{t}\right)$ </p>
+</blockquote>
+</li>
+</ul>
+<p>根据链式法则，Stein变分梯度SVG为</p>
+<script type="math/tex; mode=display">
+\frac{\partial J_{\pi}\left(\phi ; \mathbf{s}_{t}\right)}{\partial \phi} \propto \mathbb{E}_{\xi}\left[\Delta f^{\phi}\left(\xi ; \mathbf{s}_{t}\right) \frac{\partial f^{\phi}\left(\xi ; \mathbf{s}_{t}\right)}{\partial \phi}\right]
+\tag{17}</script><h2 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h2><p><img src="./rl-with-deep-energy-based-policies/pseudo.png" alt=""></p>
+<p>解析：</p>
+<p>算法中更新Actor网络时，其实是使用了如下梯度公式：</p>
+<script type="math/tex; mode=display">
+\hat{\nabla}_{\phi} J_{\pi}\left(\phi ; \mathbf{s}_{t}\right)=\frac{1}{K M} \sum_{j=1}^{K} \sum_{i=1}^{M}\left(\kappa\left(\mathbf{a}_{t}^{(i)}, \tilde{\mathbf{a}}_{t}^{(j)}\right) \nabla_{\mathbf{a}^{\prime}} Q_{\mathrm{soft}}\left.\left(\mathbf{s}_{t}, \mathbf{a}^{\prime}\right)\right|_{\mathbf{a}^{\prime}=\mathbf{a}_{i}^{(i)}}+\nabla_{\mathbf{a}^{\prime}} \kappa\left.\left(\mathbf{a}^{\prime}, \tilde{\mathbf{a}}_{t}^{(j)}\right)\right|_{\mathbf{a}^{\prime}=\mathbf{a}_{i}^{(i)}}\right) \nabla_{\phi} f^{\phi}\left(\tilde{\xi}^{(j)} ; \mathbf{s}_{t}\right)
+\tag{18}</script><p>更新方向为mini-batch经验的梯度平均值，而不是累加和</p>
+<ul>
+<li>伪代码中定义了Actor的target网络，参数为$\overline{\theta}$。但是伪代码中并没有显示出其在何处使用，我<strong>猜测</strong>该网络代表采样分布$q_{\mathbf{a}^{\prime}}$<ul>
+<li>$q_{\mathbf{a}^{\prime}}$在训练初期使用均匀分布</li>
+<li>$q_{\mathbf{a}^{\prime}}$在一段时间之后使用Actor真实分布，我猜测这里使用的就是Actor目标网络</li>
+</ul>
+</li>
+<li>噪音$\xi$从多维标准正态分布中采样，维度最好与动作空间维度一致</li>
+<li>$\left\{\mathbf{a}^{(i, j)}\right\}_{j=0}^{M} \sim q_{\mathbf{a}^{\prime}}$其中的M用于设置采样多少个样本，以使用公式（11）计算V值，使用的网络为Q目标网络</li>
+<li>在更新Q网络时，使用了从经验池采样到的真实执行过的动作</li>
+<li>$\left\{\xi^{(i, j)}\right\}_{j=0}^{M} \sim \mathcal{N}(\mathbf{0}, \boldsymbol{I})$中其实少写了一个参数$K$，但实际上$K=M$，在这一步中需要采样两组噪音，当然也可以采样一组，使用两次。</li>
+<li>在更新Actor网络时，没有使用经验池中采样到的动作，而模拟采样了两组动作，即根据两组噪音生成的动作，用它们来计算梯度并更新。</li>
+<li>Q网络的输入为状态与动作的连接，$(s||a)$，输出为Q值</li>
+<li>Actor网络的输入为状态与噪音的连接，$(s||\xi)$，输出为动作$a$</li>
+<li>伪代码中的式(10)、(11)、(13)、(14)分别代表本文中的式(11)、(12)、(16)、(17)</li>
+</ul>
+<h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><h2 id="实验设置"><a href="#实验设置" class="headerlink" title="实验设置"></a>实验设置</h2><ul>
+<li>比较算法：DDPG vs SQL</li>
+<li>Actor和Q网络使用Adam优化器</li>
+<li>Actor学习率为0.0001，Q网络学习率为0.001</li>
+<li>经验池大小为100W</li>
+<li>经验池填充1W条经验后开始训练</li>
+<li>batch_size=64</li>
+<li>Actor和Q网络都是2层隐藏层，每层200个隐藏节点，激活函数为ReLU</li>
+<li><p>DDPG和SQL都使用了Ornstein-Uhlenbeck随机过程产生噪音来增加探索，它是一种序贯相关的随机过程，$\theta=0.15 \ , \ \sigma=0.3$</p>
+<ul>
+<li><p>OU随机过程可以在序贯模型中添加与时间相关的随机噪音，而且噪音也满足强马尔可夫性</p>
+</li>
+<li><p>形式为$d x_{t}=\theta\left(\mu-x_{t}\right) d t+\sigma d W_{t}$，是一个具有均值恢复属性的随机过程</p>
+</li>
+<li><p>$\theta$表示变量$x$以多大幅度、多块恢复到平均值，$\mu$代表平均值，$\sigma$代表波动程度，$d W_{t}$代表维纳过程，一般通过高斯分布实现</p>
+</li>
+<li><p>OU随机过程产生的噪音只与上一次产生的噪音相关，它可以用于增加探索，也能够柔顺控制。比如在相邻的两个决策动作，一个为10，一个为-10，反复如此，智能体会产生震荡。在此使用OU过程可以使智能体在一个方向保持一定时间，不会瞬间过大地改变智能体的状态，相当于增加了时滞性。</p>
+</li>
+<li><p>代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = 10</span><br><span class="line">dx = theta * (mu - x) + sigma * numpy.random.randn(len(x))</span><br><span class="line">x = x + dx</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>参考：</p>
+<ul>
+<li><a href="https://www.quora.com/Why-do-we-use-the-Ornstein-Uhlenbeck-Process-in-the-exploration-of-DDPG" rel="external nofollow" target="_blank">https://www.quora.com/Why-do-we-use-the-Ornstein-Uhlenbeck-Process-in-the-exploration-of-DDPG</a></li>
+<li><a href="https://github.com/floodsung/DDPG-tensorflow/blob/master/ou_noise.py" rel="external nofollow" target="_blank">https://github.com/floodsung/DDPG-tensorflow/blob/master/ou_noise.py</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/51333694" rel="external nofollow" target="_blank">https://zhuanlan.zhihu.com/p/51333694</a></li>
+<li>核函数使用了径向基函数RBF，$\kappa\left(\mathbf{a}, \mathbf{a}^{\prime}\right)=\exp \left(-\frac{1}{h}\left|\mathbf{a}-\mathbf{a}^{\prime}\right|_{2}^{2}\right)$，其中，$h=\frac{d}{2 \log (M+1)}$，$d$为各变量对之间距离的中位数</li>
+<li>目标网络的更新采样硬覆盖的模式</li>
+<li>超参数$\alpha$根据任务设置为10，0.1等等</li>
+<li>训练的epoch、步长、系数$\alpha$，采样动作的数量$K 和 M$根据任务（多目标，单目标，微调）的不同而不同，具体请看原论文附录D部分</li>
+</ul>
+</li>
+</ul>
+<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><p>未完待续</p>
+<h1 id="个人感想"><a href="#个人感想" class="headerlink" title="个人感想"></a>个人感想</h1><p>虽然文中用大量公式、篇幅结合最大熵进行介绍、推理，但是在伪代码以及目标函数中似乎并没有看到关于熵的影子，包含熵项的Q值也是通过Q网络的输出将熵的值包含在内，并没有显式地计算它。</p>
+<p>虽然算法的名字为soft Q-Learning，但其实它跟传统的Q-Learning算法思想并不相同，如果说有一点相同，那也是都是想使Q值收敛以推导出最优策略，但是这个优化过程也跟SARSA算法比较像，并没有使用传统Q-Learning中贪婪的选择最有价值下一个动作以自举的方法。</p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-heart"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/rl-with-deep-energy-based-policies.html">Reinforcement Learning with Deep Energy-Based Policies</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Keavnn 的个人博客">Keavnn</a></p>
+  <p><span>发布时间:</span>2019年06月26日 - 15:06</p>
+  <p><span>最后更新:</span>2019年07月07日 - 18:07</p>
+  <p><span>原始链接:</span><a href="/rl-with-deep-energy-based-policies.html" title="Reinforcement Learning with Deep Energy-Based Policies">http://StepNeverStop.github.io/rl-with-deep-energy-based-policies.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://StepNeverStop.github.io/rl-with-deep-energy-based-policies.html" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="external nofollow" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-相同方式共享 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果您获得了帮助，也可以资助一下小的啦~</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏啦</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Keavnn 微信">
+        <p>微信</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Keavnn 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/rl/" rel="tag"> <i class="fa fa-tag"></i> rl</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/maximum-entropy-regularized-multi-goal-reinforcement-learning.html" rel="next" title="Maximum Entropy-Regularized Multi-Goal Reinforcement-Learning">
+                <i class="fa fa-chevron-left"></i> Maximum Entropy-Regularized Multi-Goal Reinforcement-Learning
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/install-atari-and-box2d-on-win10.html" rel="prev" title="在Windows 10系统上安装gym等环境">
+                在Windows 10系统上安装gym等环境 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<div class="addthis_inline_share_toolbox">
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cefbfc88c13b0e7" async="async"></script>
+</div>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTk0NS8xODQ5MQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/Kicon.jpg" alt="Keavnn">
+            
+              <p class="site-author-name" itemprop="name">Keavnn</p>
+              <p class="site-description motion-element" itemprop="description">If it is to be, it is up to me.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StepNeverStop" target="_blank" title="GitHub" rel="external nofollow">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:oooooooooooooooocoo@vip.qq.com" target="_blank" title="E-Mail" rel="external nofollow">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank" rel="external nofollow">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons">
+              </a>
+            </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://bluefisher.github.io" title="Fisher Chang" target="_blank" rel="external nofollow">Fisher Chang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#算法效果"><span class="nav-number">1.1.</span> <span class="nav-text">算法效果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文中精要"><span class="nav-number">2.</span> <span class="nav-text">文中精要</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#标准强化学习的最优策略"><span class="nav-number">2.1.</span> <span class="nav-text">标准强化学习的最优策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最大熵强化学习的最优策略"><span class="nav-number">2.2.</span> <span class="nav-text">最大熵强化学习的最优策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最大熵目标的优点"><span class="nav-number">2.3.</span> <span class="nav-text">最大熵目标的优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#soft-值函数"><span class="nav-number">2.4.</span> <span class="nav-text">soft 值函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#能量模型与策略"><span class="nav-number">2.5.</span> <span class="nav-text">能量模型与策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用SQL优化目标函数"><span class="nav-number">2.6.</span> <span class="nav-text">使用SQL优化目标函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Soft-Q-Iteration"><span class="nav-number">2.6.1.</span> <span class="nav-text">Soft Q-Iteration</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Soft-Q-Learning"><span class="nav-number">2.6.2.</span> <span class="nav-text">Soft Q-Learning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#近似采样与SVGD"><span class="nav-number">2.6.3.</span> <span class="nav-text">近似采样与SVGD</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#伪代码"><span class="nav-number">2.7.</span> <span class="nav-text">伪代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验"><span class="nav-number">3.</span> <span class="nav-text">实验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实验设置"><span class="nav-number">3.1.</span> <span class="nav-text">实验设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验结果"><span class="nav-number">3.2.</span> <span class="nav-text">实验结果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#个人感想"><span class="nav-number">4.</span> <span class="nav-text">个人感想</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Keavnn</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">54.9k</span>
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- <div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共54.9k字</span>
+</div> -->
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

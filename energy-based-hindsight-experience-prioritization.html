@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta name="google-site-verification" content="zu-9nWphPjrzXV8v514mkHknIz4dNfHlib56-KNAu44">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+<script>
+(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/356f1943.js","daovoice")
+daovoice('init', {
+  app_id: "356f1943"
+});
+daovoice('update');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="rl,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Keavnn'Blog" type="application/atom+xml">
+
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码','') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<meta name="description" content="本文是对HER“事后”经验池机制的一个扩展，它结合了物理学的能量知识以及优先经验回放PER对HER进行提升。简称：EBP 推荐：  创新虽不多，但是基于能量的创意可以拓宽在机器人领域训练的视野 通俗易懂">
+<meta name="keywords" content="rl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Energy-Based Hindsight Experience Prioritization">
+<meta property="og:url" content="http://StepNeverStop.github.io/energy-based-hindsight-experience-prioritization.html">
+<meta property="og:site_name" content="Keavnn&#39;Blog">
+<meta property="og:description" content="本文是对HER“事后”经验池机制的一个扩展，它结合了物理学的能量知识以及优先经验回放PER对HER进行提升。简称：EBP 推荐：  创新虽不多，但是基于能量的创意可以拓宽在机器人领域训练的视野 通俗易懂">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://stepneverstop.github.io/energy-based-hindsight-experience-prioritization/pseudo.png">
+<meta property="og:image" content="http://stepneverstop.github.io/energy-based-hindsight-experience-prioritization/issue.png">
+<meta property="og:image" content="http://stepneverstop.github.io/energy-based-hindsight-experience-prioritization/issue2.png">
+<meta property="og:image" content="http://stepneverstop.github.io/energy-based-hindsight-experience-prioritization/issue3.png">
+<meta property="og:image" content="http://stepneverstop.github.io/energy-based-hindsight-experience-prioritization/env.png">
+<meta property="og:image" content="http://stepneverstop.github.io/energy-based-hindsight-experience-prioritization/meansuccessrate.png">
+<meta property="og:image" content="http://stepneverstop.github.io/energy-based-hindsight-experience-prioritization/trainingtime.png">
+<meta property="og:image" content="http://stepneverstop.github.io/energy-based-hindsight-experience-prioritization/finalmeanrate.png">
+<meta property="og:image" content="http://stepneverstop.github.io/energy-based-hindsight-experience-prioritization/sampleefficiency.png">
+<meta property="og:image" content="http://stepneverstop.github.io/energy-based-hindsight-experience-prioritization/pearsoncorrelation.png">
+<meta property="og:updated_time" content="2019-05-30T09:52:24.500Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Energy-Based Hindsight Experience Prioritization">
+<meta name="twitter:description" content="本文是对HER“事后”经验池机制的一个扩展，它结合了物理学的能量知识以及优先经验回放PER对HER进行提升。简称：EBP 推荐：  创新虽不多，但是基于能量的创意可以拓宽在机器人领域训练的视野 通俗易懂">
+<meta name="twitter:image" content="http://stepneverstop.github.io/energy-based-hindsight-experience-prioritization/pseudo.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://StepNeverStop.github.io/energy-based-hindsight-experience-prioritization.html">
+
+
+
+
+
+  <title>Energy-Based Hindsight Experience Prioritization | Keavnn'Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/StepNeverStop" class="github-corner" aria-label="View source on GitHub" rel="external nofollow" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Keavnn'Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">If it is to be, it is up to me.</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://StepNeverStop.github.io/energy-based-hindsight-experience-prioritization.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Keavnn">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/Kicon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Keavnn'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Energy-Based Hindsight Experience Prioritization</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-30T08:58:58+08:00">
+                2019-05-30
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-30T17:52:24+08:00">
+                2019-05-30
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/ReinforcementLearning/" itemprop="url" rel="index">
+                    <span itemprop="name">ReinforcementLearning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.9k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  12
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文是对HER“事后”经验池机制的一个扩展，它结合了物理学的能量知识以及优先经验回放PER对HER进行提升。简称：EBP</p>
+<p>推荐：</p>
+<ul>
+<li>创新虽不多，但是基于能量的创意可以拓宽在机器人领域训练的视野</li>
+<li>通俗易懂</li>
+</ul>
+<a id="more"></a>
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>论文地址：<a href="https://arxiv.org/pdf/1810.01363.pdf" rel="external nofollow" target="_blank">https://arxiv.org/pdf/1810.01363.pdf</a></p>
+<p>这篇论文由慕尼黑大学博三学生<a href="https://ruizhaogit.github.io" rel="external nofollow" target="_blank">赵瑞</a>和他的导师Volker Tresp发于2018年的CoRL会议。</p>
+<p><strong>本文提出了一个简单高效的、基于能量的方法去优先回放“事后经验”。Energy+HER+PER</strong></p>
+<p>在HER中，智能体从它可完成的“虚拟”目标中进行大量学习，虚拟目标就是我们使用“事后诸葛亮”方法所调整的经验中的目标。</p>
+<p>本文针对原始HER提出了一个稍有不足的地方：经验回放是完全随机的，即没有优先级，没有考虑哪些episode哪些经验对学习更有价值，其实这个问题与PER相对于传统经验池机制也是一样的。</p>
+<p>本文中使用的功能定理（work-energy principle）来计算能量。</p>
+<h1 id="文中精要"><a href="#文中精要" class="headerlink" title="文中精要"></a>文中精要</h1><p>相比于传统的PER优先经验回放使用TD-error作为衡量优先级的度量，本文中使用“迹能量”作为其度量。</p>
+<p>迹能量是这么定义的：</p>
+<ul>
+<li><blockquote>
+<p>We define a trajectory energy function as the sum of the transition energy of the target object over the trajectory. </p>
+</blockquote>
+</li>
+<li><p>迹能量是一个episode中transition energy（不知道怎么翻译合适，过渡能量？经验能量？转换能量？）的总和</p>
+</li>
+</ul>
+<p>接下来介绍一下能量在本文中是如何体现的。</p>
+<h2 id="经验能量差-Transition-Energy"><a href="#经验能量差-Transition-Energy" class="headerlink" title="经验能量差 Transition Energy"></a>经验能量差 Transition Energy</h2><p>我就直接拿论文中实验场景所用到的能力来说明这个能量差。简言之，在本文的实验中主要是操作机械手臂移动物体的水平位置和垂直高度，所以物体的能量基本包含三种：</p>
+<ol>
+<li><strong>势能 Potential Energy</strong> $E_{p}(s_{t})$</li>
+<li><strong>动能 Kinetic Energy</strong> $E_{k}(s_{t})$</li>
+<li><strong>转动能，也叫角动能 Rotational Energy</strong> $E_{r}(s_{t})$</li>
+</ol>
+<p>一个物体的能量由这三部分之和组成：</p>
+<script type="math/tex; mode=display">
+E\left(s_{t}\right)=E_{p}\left(s_{t}\right)+E_{k}\left(s_{t}\right)+E_{r}\left(s_{t}\right)</script><p>经验能量差指的就是相邻状态转移之间的能量差值，表示为：</p>
+<script type="math/tex; mode=display">
+E_{t r a n}\left(s_{t-1}, s_{t}\right)=\operatorname{clip}\left(E\left(s_{t}\right)-E\left(s_{t-1}\right), 0, E_{t r a n}^{\max }\right)</script><p>其中，</p>
+<ul>
+<li><p>将差值clip到0是因为我们只对由机器人做功导致物体的能量增值感兴趣</p>
+</li>
+<li><p>将差值clip到$E_{t r a n}^{\max }$是想减缓某些特别大的能量差值的影响，使<strong>训练更稳定</strong></p>
+</li>
+</ul>
+<p><em>注：其实我觉得文中加这个clip操作完全是想多使用一个trick，让文章看起来更饱满一点，我个人认为不使用这个clip，或者只对下界进行clip，对算法性能是没有影响的。有待验证。</em></p>
+<h3 id="势能-Potential-Energy"><a href="#势能-Potential-Energy" class="headerlink" title="势能 Potential Energy"></a>势能 Potential Energy</h3><p>物理学中学过，物体的重力势能公式为：$E=mgh$</p>
+<p>本文中这样书写：</p>
+<script type="math/tex; mode=display">
+E_{p}(s_{t})=mgz_{t}</script><ul>
+<li>$m$代表物体的质量</li>
+<li>$g$代表地球的重力系数，$g \approx 9.81 \mathrm{m} / \mathrm{s}^{2}$</li>
+<li>$z_{t}$代表物体在$t$时刻的高度$h$</li>
+</ul>
+<h3 id="动能-Kinetic-Energy"><a href="#动能-Kinetic-Energy" class="headerlink" title="动能 Kinetic Energy"></a>动能 Kinetic Energy</h3><p>物理学中学过，物体的动能公式为：</p>
+<script type="math/tex; mode=display">
+E=\frac{1}{2} mv^{2}=\frac{1}{2} m\left [ \frac{\sqrt{v_{x}^{2}+v_{y}^{2}+v_{z}^{2}}}{\Delta t} \right ]^{2}</script><p>本文中这样书写：</p>
+<script type="math/tex; mode=display">
+E_{k}\left(s_{t}\right)=\frac{1}{2} m v_{x, t}^{2}+\frac{1}{2} m v_{y, t}^{2}+\frac{1}{2} m v_{z, t}^{2} \approx \frac{m\left(\left(x_{t}-x_{t-1}\right)^{2}+\left(y_{t}-y_{t-1}\right)^{2}+\left(z_{t}-z_{t-1}\right)^{2}\right)}{2 \Delta t^{2}}</script><ul>
+<li>$v_{x, t} \approx\left(x_{t}-x_{t-1}\right) / \Delta t$</li>
+<li>$v_{y, t} \approx\left(y_{t}-y_{t-1}\right) / \Delta t$</li>
+<li>$v_{z, t} \approx\left(z_{t}-z_{t-1}\right) / \Delta t$</li>
+<li>$\Delta t$表示相邻两个状态之间的时间间隔，假设我们在模拟器中，1秒60帧，即每帧16.67ms，我们如果每帧执行一次动作，那么$\Delta t=16.67ms$，如果每60帧执行一次动作，那么$\Delta t=1s$</li>
+</ul>
+<h3 id="转动能-Rotational-Energy"><a href="#转动能-Rotational-Energy" class="headerlink" title="转动能 Rotational Energy"></a>转动能 Rotational Energy</h3><p>物理学中学过，物体的转动能公式为：$K=\frac{1}{2} I \cdot \omega^{2}$，注意，中间的点代表点乘，$I$代表物体的惯性矩，$\omega$代表物体的角速度</p>
+<p>本文中这样书写：</p>
+<script type="math/tex; mode=display">
+\left[ \begin{array}{c}{\phi} \\ {\theta} \\ {\psi}\end{array}\right]=\left[ \begin{array}{c}{\arctan \frac{2(a b+c d)}{1-2\left(b^{2}+c^{2}\right)}} \\ {\arcsin (2(a c-d b))} \\ {\arcsin \frac{2(a d+b c)}{1-2\left(c^{2}+d^{2}\right)}}\end{array}\right]=\left[ \begin{array}{c}{\operatorname{atan} 2\left(2(a b+c d), 1-2\left(b^{2}+c^{2}\right)\right)} \\ {\operatorname{asin}(2(a c-d b))} \\ {\operatorname{atan} 2\left(2(a d+b c), 1-2\left(c^{2}+d^{2}\right)\right)}\end{array}\right]</script><script type="math/tex; mode=display">
+E_{r}\left(s_{t}\right)=\frac{1}{2} I_{x} \omega_{x, t}^{2}+\frac{1}{2} I_{y} \omega_{y, t}^{2}+\frac{1}{2} I_{z} \omega_{z, t}^{2} \approx \frac{I_{x}\left(\phi_{t}-\phi_{t-1}\right)^{2}+I_{y}\left(\theta_{t}-\theta_{t-1}\right)^{2}+I_{z}\left(\psi_{t}-\psi_{t-1}\right)^{2}}{2 \Delta t^{2}}</script><p>其中$a,b,c,d$为旋转四元组，其知识可以百度或google自行了解。</p>
+<script type="math/tex; mode=display">
+q=a+b \imath+c \jmath+d k</script><p>$\phi, \theta, \psi$代表$x,y,z$轴方向的旋转角度</p>
+<ul>
+<li>$\omega_{x, t} \approx\left(\phi_{t}-\phi_{t-1}\right) / \Delta_{t}$</li>
+<li>$\omega_{y, t} \approx\left(\theta_{t}-\theta_{t-1}\right) / \Delta_{t}$</li>
+<li>$\omega_{z, t} \approx\left(\psi_{t}-\psi_{t-1}\right) / \Delta_{t}$</li>
+<li>$\Delta t$与上文解释相同</li>
+</ul>
+<p><strong>$m,I_{x},I_{y},I_{z}$可以设置为常量，本文实验中设置$m=I_{x}=I_{y}=I_{z}=1$</strong></p>
+<h2 id="迹能量-Trajectory-Energy"><a href="#迹能量-Trajectory-Energy" class="headerlink" title="迹能量 Trajectory Energy"></a>迹能量 Trajectory Energy</h2><p>给定一个回合中所有的经验能量差，迹能量可以表示为这个回合中所有经验能量差之和：</p>
+<script type="math/tex; mode=display">
+E_{t r a j}(\mathcal{T})=E_{t r a j}\left(s_{0}, s_{1}, \ldots, s_{T}\right)=\sum_{t=1}^{T} E_{t r a n}\left(s_{t-1}, s_{t}\right)</script><h2 id="基于能量的优先级"><a href="#基于能量的优先级" class="headerlink" title="基于能量的优先级"></a>基于能量的优先级</h2><p>首先计算迹能量，然后对迹能量高的迹（episode）优先进行回放。</p>
+<p>根据迹能量计算迹的优先级为：</p>
+<script type="math/tex; mode=display">
+p\left(\mathcal{T}_{i}\right)=\frac{E_{t r a j}\left(\mathcal{T}_{i}\right)}{\sum_{n=1}^{N} E_{t r a j}\left(\mathcal{T}_{n}\right)}</script><p>$N$代表经验池中迹的总数量</p>
+<h2 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h2><p><img src="./energy-based-hindsight-experience-prioritization/pseudo.png" alt=""></p>
+<p>解析：</p>
+<ul>
+<li>以本文实验为例，状态$s$由七元组$\left[x_{t}, y_{t}, z_{t}, a_{t}, b_{t}, c_{t}, d_{t}\right]$表示，其中前三个代表物体的位置，后三个代表物体旋转的四元组。</li>
+<li>目标$g$与状态$s$的表示相同</li>
+<li>$||$操作符为连结的意思，即<code>tf.concat(a,b)</code></li>
+<li>向经验池中存入的不仅仅有$(s,a,r,s’)$，还有优先级$p$与迹能量$E_{traj}$，<strong>其实我感觉这样很多余，如果使用sum-tree结构的，存其一即可</strong></li>
+<li>文中所使用的HER是<strong>future模式</strong></li>
+</ul>
+<p><strong>注意：</strong></p>
+<p>我认为伪代码中有两行很有问题，即</p>
+<p><img src="./energy-based-hindsight-experience-prioritization/issue.png" alt=""></p>
+<p>我不明白为什么把原始经验$\left(s_{t}\left|g, a_{t}, r_{t}, s_{t+1}\right| g, p, E_{t r a j}\right)$存入经验池之后，需要根据优先级采样一个迹，再从采样到的迹中采样出一个经验$\left(s_{t}, a_{t}, s_{t+1}\right)$</p>
+<p>起初我是这么认为的，它想对经验池中迹能量高的episode进行大概率抽取，并对其中的经验进行多次扩充，由此对迹能量小的episode更加忽视，突出迹能量高的episode</p>
+<p>但是，看到下一行<img src="./energy-based-hindsight-experience-prioritization/issue2.png" alt="">我有一个疑问：如果根据优先级采样出的迹$\mathcal{T}$与当前所操作的迹$\mathcal{T}_{current}$不同，那么，为什么还要为不同迹中的经验存入相同的优先级和迹能量呢？即$\left(s_{t}\left|g^{\prime}, a_{t}, r_{t}^{\prime}, s_{t+1}\right| g^{\prime}, p, E_{t r a j}\right)$</p>
+<p>这样肯定是不行的，那么只有一个答案，采样迹这一步多余的，或者说，不应该出现在这里，而应该放在最后一个循环的开始，即</p>
+<p><img src="./energy-based-hindsight-experience-prioritization/issue3.png" alt=""></p>
+<p>也就是说，应该把采样迹，从迹中采样经验的步骤放在minibatch之前，这样就合情合理了。</p>
+<p>这是我自己的一个疑问，如果读者有其他见解，欢迎置评讨论。</p>
+<h2 id="EBP的总结"><a href="#EBP的总结" class="headerlink" title="EBP的总结"></a>EBP的总结</h2><p>EBP与PER的不同点：</p>
+<ul>
+<li>EBP使用物理学中的能量</li>
+<li>PER使用TD-error</li>
+</ul>
+<p>相比于将HER与PER结合而使用TD-error作为衡量优先级的方法，使用迹能量较少了计算量，因为PER每次回放经验都必须重新计算使用经验的新的TD-error，并存回经验池。（其实，如果使用sum-tree来构建PER，这个劣势其实很小）</p>
+<p>文中通过实验发现：比较PER与EBP的时间复杂性，显示EBP提升了算法的性能效果（performance）但是却不增加额外的计算量。PER则提升较少，计算量也增加了。</p>
+<p>EBP的优点：</p>
+<ul>
+<li>可结合任意off-policy算法</li>
+<li>结合了物理知识，使其可以应用于现实世界的问题</li>
+<li>提升采样效率进两倍</li>
+<li>相比最先进的（state-of-the-art）算法，不增加计算时间的情况下，算法效果提升了4个百分点。（此条可以忽略，因为其未必做了充分的实验来进行对比）</li>
+<li>适用于任何机器人操作任务</li>
+<li>适用于多目标算法</li>
+</ul>
+<h1 id="实验部分"><a href="#实验部分" class="headerlink" title="实验部分"></a>实验部分</h1><p>文中实验结果：<a href="https://youtu.be/jtsF2tTeUGQ" rel="external nofollow" target="_blank">https://youtu.be/jtsF2tTeUGQ</a></p>
+<p>代码地址：<a href="https://github.com/ruizhaogit/EnergyBasedPrioritization" rel="external nofollow" target="_blank">https://github.com/ruizhaogit/EnergyBasedPrioritization</a></p>
+<p>实验部分的完整细节请参考论文原文。</p>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
+<li>OpenAI Gym与MuJoCo物理引擎</li>
+<li>一个7自由度的机械手臂，与HER中一样；一个24自由度的机器手</li>
+<li>四项任务：pick &amp; place，机器手操作方块、蛋、笔</li>
+</ul>
+<p><img src="./energy-based-hindsight-experience-prioritization/env.png" alt=""></p>
+<ul>
+<li>使用稀疏奖励，二分奖励，完成容忍度内目标为0，否则为-1</li>
+</ul>
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><ul>
+<li>文中没有说明具体使用什么算法作对比，只有伪代码中提到了DPG、DDPG</li>
+<li>文中亦没有对算法中的超参数设置、网络结构进行说明</li>
+<li>19个CPU</li>
+<li>器械臂场景$E_{t r a n}^{\max }=0.5$，机械手场景$E_{t r a n}^{\max }=2.5$</li>
+<li>文中主要比较了HER、HER+PER、HER+EBP</li>
+</ul>
+<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><p><img src="./energy-based-hindsight-experience-prioritization/meansuccessrate.png" alt=""></p>
+<ul>
+<li>横坐标是训练的轮数，应该是指episode的意思</li>
+<li>纵坐标是5个随机种子实验的平均成功率</li>
+<li>蓝色代表HER+EBP，橘色代表HER，绿色代表HER+PER</li>
+</ul>
+<p><img src="./energy-based-hindsight-experience-prioritization/trainingtime.png" alt=""></p>
+<p>结果：</p>
+<ul>
+<li>从上图可以看出，四项任务中，HER+EBP比其他两种方法收敛速度都快，效果也更好一点</li>
+<li>从上表可以看出，HER+EBP与HER的训练时间基本相同，而HER+PER要消耗10倍的时间</li>
+</ul>
+<hr>
+<p><img src="./energy-based-hindsight-experience-prioritization/finalmeanrate.png" alt=""></p>
+<p>结果：</p>
+<ul>
+<li>训练结束后，HER+EBP在四项任务中效果都最好</li>
+<li>HER+EBP比HER提高了1-5个百分点，平均提升了3.75个百分点</li>
+</ul>
+<blockquote>
+<p>We can see that EBP is a simple yet effective method, without increasing computational time, but still, improves current state-of-the-art methods. </p>
+</blockquote>
+<p><img src="./energy-based-hindsight-experience-prioritization/sampleefficiency.png" alt=""></p>
+<p>结果：</p>
+<ul>
+<li>采样效率方面，总体来看，EBP+HER比HER提升了2倍</li>
+</ul>
+<hr>
+<p>最后，作者比较了迹能量与TD-error的pearson相关系数</p>
+<ul>
+<li>系数为1，即正线性相关</li>
+<li>系数为-1，即负线性相关</li>
+<li>系数为0，即不线性相关</li>
+</ul>
+<p><img src="./energy-based-hindsight-experience-prioritization/pearsoncorrelation.png" alt=""></p>
+<p>结果：</p>
+<ul>
+<li>四个实验中，迹能量与TD-error均成正相关</li>
+<li>平均下来pearson系数为0.6，说明迹能量与TD-error呈正线性相关关系，也就是说迹能量可以像TD-error一样表示经验的可学习价值</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-heart"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/energy-based-hindsight-experience-prioritization.html">Energy-Based Hindsight Experience Prioritization</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Keavnn 的个人博客">Keavnn</a></p>
+  <p><span>发布时间:</span>2019年05月30日 - 08:05</p>
+  <p><span>最后更新:</span>2019年05月30日 - 17:05</p>
+  <p><span>原始链接:</span><a href="/energy-based-hindsight-experience-prioritization.html" title="Energy-Based Hindsight Experience Prioritization">http://StepNeverStop.github.io/energy-based-hindsight-experience-prioritization.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://StepNeverStop.github.io/energy-based-hindsight-experience-prioritization.html" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="external nofollow" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-相同方式共享 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果您获得了帮助，也可以资助一下小的啦~</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏啦</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Keavnn 微信">
+        <p>微信</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Keavnn 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/rl/" rel="tag"> <i class="fa fa-tag"></i> rl</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Hindsight-Experience-Replay.html" rel="next" title="Hindsight Experience Replay">
+                <i class="fa fa-chevron-left"></i> Hindsight Experience Replay
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/asynchronous-methods-for-drl.html" rel="prev" title="Asynchronous Methods for Deep Reinforcement Learning">
+                Asynchronous Methods for Deep Reinforcement Learning <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<div class="addthis_inline_share_toolbox">
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cefbfc88c13b0e7" async="async"></script>
+</div>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTk0NS8xODQ5MQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/Kicon.jpg" alt="Keavnn">
+            
+              <p class="site-author-name" itemprop="name">Keavnn</p>
+              <p class="site-description motion-element" itemprop="description">If it is to be, it is up to me.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StepNeverStop" target="_blank" title="GitHub" rel="external nofollow">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:oooooooooooooooocoo@vip.qq.com" target="_blank" title="E-Mail" rel="external nofollow">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank" rel="external nofollow">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons">
+              </a>
+            </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://bluefisher.github.io" title="Fisher Chang" target="_blank" rel="external nofollow">Fisher Chang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文中精要"><span class="nav-number">2.</span> <span class="nav-text">文中精要</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#经验能量差-Transition-Energy"><span class="nav-number">2.1.</span> <span class="nav-text">经验能量差 Transition Energy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#势能-Potential-Energy"><span class="nav-number">2.1.1.</span> <span class="nav-text">势能 Potential Energy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动能-Kinetic-Energy"><span class="nav-number">2.1.2.</span> <span class="nav-text">动能 Kinetic Energy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#转动能-Rotational-Energy"><span class="nav-number">2.1.3.</span> <span class="nav-text">转动能 Rotational Energy</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迹能量-Trajectory-Energy"><span class="nav-number">2.2.</span> <span class="nav-text">迹能量 Trajectory Energy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于能量的优先级"><span class="nav-number">2.3.</span> <span class="nav-text">基于能量的优先级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#伪代码"><span class="nav-number">2.4.</span> <span class="nav-text">伪代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EBP的总结"><span class="nav-number">2.5.</span> <span class="nav-text">EBP的总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验部分"><span class="nav-number">3.</span> <span class="nav-text">实验部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">3.1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法"><span class="nav-number">3.2.</span> <span class="nav-text">算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验结果"><span class="nav-number">3.3.</span> <span class="nav-text">实验结果</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Keavnn</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">54.9k</span>
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- <div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共54.9k字</span>
+</div> -->
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
