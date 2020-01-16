@@ -52,11 +52,7 @@ apt-get install libsm6
 apt-file search libXrender.so.1
 apt-get install libxrender1
 
-pip install protobuf
-python -m pip install grpcio
-python -m pip install grpcio-tools
-pip install tensorflow
-pip install tensorflow_probability
+pip install protobuf grpcio grpcio-tools tensorflow tensorflow_probability
 ```
 
 # 安装MuJoCo
@@ -105,6 +101,9 @@ apt-get install python3 python-dev python3-dev \
      python-pip libgl1-mesa-dev patchelf libglfw3 libglfw3-dev
 pip install fasteners
 pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple -U 'mujoco-py<2.1,>=2.0'
+
+cd ~/keavnn/RLt/gym
+pip install -e '.[all]'
 ```
 
 ```
