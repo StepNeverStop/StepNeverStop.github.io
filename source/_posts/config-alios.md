@@ -33,6 +33,32 @@ conda update --all
 apt-get update
 ```
 
+
+# 安装Git
+
+```
+apt-get install git
+mkdir ~/keavnn
+cd ~/keavnn/
+git clone https://github.com/StepNeverStop/RLt.git
+conda create -n tf2 python=3.6
+conda activate tf2
+conda install -y docopt numpy pillow yaml pyyaml pandas openpyxl
+
+apt-get install apt-file
+apt-file update
+apt-file search libSM.so.6
+apt-get install libsm6
+apt-file search libXrender.so.1
+apt-get install libxrender1
+
+pip install protobuf
+python -m pip install grpcio
+python -m pip install grpcio-tools
+pip install tensorflow
+pip install tensorflow_probability
+```
+
 # 安装MuJoCo
 
 
@@ -72,12 +98,12 @@ pip install --upgrade pip
 
 ```
 conda activate tf2
-pip install fasteners
 apt install libosmesa6-dev
 apt-get install python3 python-dev python3-dev \
      build-essential libssl-dev libffi-dev \
      libxml2-dev libxslt1-dev zlib1g-dev \
      python-pip libgl1-mesa-dev patchelf libglfw3 libglfw3-dev
+pip install fasteners
 pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple -U 'mujoco-py<2.1,>=2.0'
 ```
 
@@ -112,31 +138,3 @@ print(sim.data.qpos)
 ```
 
 
-
-# 安装Git
-
-```
-apt-get install git
-mkdir ~/keavnn
-cd ~/keavnn/
-git clone https://github.com/StepNeverStop/RLs.git
-git clone https://github.com/openai/gym.git
-cd gym
-pip install -e '.[all]'
-conda create -n tf2 python=3.6
-conda activate tf2
-conda install -y docopt numpy pillow yaml pyyaml pandas openpyxl
-
-apt-get install apt-file
-apt-file update
-apt-file search libSM.so.6
-apt-get install libsm6
-apt-file search libXrender.so.1
-apt-get install libxrender1
-
-pip install protobuf
-python -m pip install grpcio
-python -m pip install grpcio-tools
-pip install tensorflow
-pip install tensorflow_probability
-```
