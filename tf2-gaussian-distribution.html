@@ -117,7 +117,7 @@ daovoice('update');
 <meta property="og:site_name" content="Keavnn&#39;Blog">
 <meta property="og:description" content="此篇博文用于记录和描述一些高斯分布的基本特性以及在tensorflow2.0中的不同之处。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-04-08T10:45:46.979Z">
+<meta property="og:updated_time" content="2020-04-08T12:03:09.830Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tensorflow2.0中的高斯分布及其概率">
 <meta name="twitter:description" content="此篇博文用于记录和描述一些高斯分布的基本特性以及在tensorflow2.0中的不同之处。">
@@ -370,7 +370,7 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-04-08T18:45:46+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2020-04-08T20:03:09+08:00">
                 2020-04-08
               </time>
             
@@ -420,7 +420,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  646
+                  1.5k
                 </span>
               
 
@@ -436,7 +436,7 @@ daovoice('update');
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  7
                 </span>
               
             </div>
@@ -515,6 +515,26 @@ f_{x}\left(x_{1}, \ldots, x_{k}\right)=\frac{\exp \left(-\frac{1}{2}(\vec{x}-\ve
     &= \frac{\exp\Big(-\frac{(x_1-\mu_1)^2}{2\sigma_1^2} \Big)}{\sqrt{2\pi\sigma_1^2}}  \cdot \frac{\exp\Big(-\frac{(x_2-\mu_2)^2}{2\sigma_2^2} \Big)}{\sqrt{2\pi\sigma_2^2}}  \cdots \frac{\exp\Big(-\frac{(x_k-\mu_k)^2}{2\sigma_k^2} \Big)}{\sqrt{2\pi\sigma_k^2}} \\
     &= f_1(x_1) \cdot f_2(x_2) \cdots f_k(x_k)
 \end{align} %]]></script><p>这样就得到了，对角协方差矩阵的多元高斯分布，其变量的联合概率密度等于各个变量独立高斯分布概率密度的连积。</p>
+<h1 id="TensorFlow-2-0-Gaussian-Functions"><a href="#TensorFlow-2-0-Gaussian-Functions" class="headerlink" title="TensorFlow 2.0 Gaussian Functions"></a>TensorFlow 2.0 Gaussian Functions</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> tensorflow_probability <span class="keyword">as</span> tfp</span><br><span class="line"></span><br><span class="line">dt = tf.float32</span><br><span class="line"></span><br><span class="line">mu = tf.constant([<span class="number">1.</span>, <span class="number">2.</span>], dtype=dt)		<span class="comment"># 均值</span></span><br><span class="line">sigma = tf.constant([<span class="number">1.</span>, <span class="number">2.</span>], dtype=dt)	<span class="comment"># 标准差</span></span><br><span class="line">covariance = tf.constant([							<span class="comment"># 协方差矩阵</span></span><br><span class="line">  [<span class="number">1.</span>, <span class="number">0.</span>],</span><br><span class="line">  [<span class="number">0.</span>, <span class="number">4.</span>]</span><br><span class="line">])</span><br><span class="line">x = tf.constant([<span class="number">0.92</span>, <span class="number">2.03</span>], dtype=dt)	<span class="comment"># 模拟一个样本</span></span><br></pre></td></tr></table></figure>
+<p>测试一下TF中几个不同高斯分布的1. 采样形式；2. 样本概率的表示。定义一个函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_gaussian</span><span class="params">(dist, y)</span>:</span></span><br><span class="line">  <span class="string">'''</span></span><br><span class="line"><span class="string">  param dist: 传入的高斯分布</span></span><br><span class="line"><span class="string">  param y: 传入的样本</span></span><br><span class="line"><span class="string">  '''</span></span><br><span class="line">  x = dist.sample()</span><br><span class="line">  print(x)	<span class="comment"># 输出分布的采样</span></span><br><span class="line">  p = dist.prob(x)</span><br><span class="line">  print(p)	<span class="comment"># 输出采样样本的概率</span></span><br><span class="line">  p_y = dist.prob(y)</span><br><span class="line">  print(<span class="string">'prob: '</span>, p_y)	<span class="comment"># 输出样本的概率</span></span><br><span class="line">  print(<span class="string">'sum_prob: '</span>, tf.reduce_sum(p_y))	<span class="comment"># 输出样本的概率之和</span></span><br><span class="line">  print(<span class="string">'prod_prob: '</span>, tf.reduce_prod(p_y))	<span class="comment"># 输出样本的概率之积</span></span><br><span class="line">  log_p_y = dist.log_prob(y)</span><br><span class="line">  print(<span class="string">'log_prob: '</span>, log_p_y)	<span class="comment"># 输出样本的概率对数</span></span><br><span class="line">  print(<span class="string">'sum_log_prob: '</span>, tf.reduce_sum(log_p_y))	<span class="comment"># 输出样本的概率对数之和</span></span><br><span class="line">  print(<span class="string">'prod_log_prob: '</span>, tf.reduce_prod(log_p_y))	<span class="comment"># 输出样本的概率对数之积</span></span><br></pre></td></tr></table></figure>
+<h2 id="Normal"><a href="#Normal" class="headerlink" title="Normal"></a>Normal</h2><p><code>test_gaussian(tfp.distributions.Normal(loc=mu, scale=sigma), x)</code>，其参数中的scale为标准差。</p>
+<p>输出为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tf.Tensor([-0.24812889  2.8150756 ], shape=(2,), dtype=float32)</span><br><span class="line">tf.Tensor([0.18307646 0.1835755 ], shape=(2,), dtype=float32)</span><br><span class="line">prob:  tf.Tensor([0.3976677  0.19944869], shape=(2,), dtype=float32)</span><br><span class="line">sum_prob:  tf.Tensor(0.5971164, shape=(), dtype=float32)</span><br><span class="line">prod_prob:  tf.Tensor(0.07931431, shape=(), dtype=float32)</span><br><span class="line">log_prob:  tf.Tensor([-0.9221385 -1.6121982], shape=(2,), dtype=float32)</span><br><span class="line">sum_log_prob:  tf.Tensor(-2.5343368, shape=(), dtype=float32)</span><br><span class="line">prod_log_prob:  tf.Tensor(1.4866701, shape=(), dtype=float32)</span><br></pre></td></tr></table></figure>
+<p>这个分布为各个变量的独立高斯分布，有$n$个变量，则采样出$n$个值，其概率为每个变量各自的概率，如$n=2$，上面结果给出概率为：prob:  tf.Tensor([0.3976677  0.19944869], shape=(2,), dtype=float32)。</p>
+<h2 id="MultivariateNormalDiag"><a href="#MultivariateNormalDiag" class="headerlink" title="MultivariateNormalDiag"></a>MultivariateNormalDiag</h2><p><code>test_gaussian(tfp.distributions.MultivariateNormalDiag(loc=mu, scale_diag=sigma), x)</code>，其参数中的scale_diag为协方差矩阵对角线的平方根，也就是每个变量对应的标准差。</p>
+<p>输出为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tf.Tensor([2.550062  1.5906484], shape=(2,), dtype=float32)</span><br><span class="line">tf.Tensor(0.02343988, shape=(), dtype=float32)</span><br><span class="line">prob:  tf.Tensor(0.07931432, shape=(), dtype=float32)</span><br><span class="line">sum_prob:  tf.Tensor(0.07931432, shape=(), dtype=float32)</span><br><span class="line">prod_prob:  tf.Tensor(0.07931432, shape=(), dtype=float32)</span><br><span class="line">log_prob:  tf.Tensor(-2.5343366, shape=(), dtype=float32)</span><br><span class="line">sum_log_prob:  tf.Tensor(-2.5343366, shape=(), dtype=float32)</span><br><span class="line">prod_log_prob:  tf.Tensor(-2.5343366, shape=(), dtype=float32)</span><br></pre></td></tr></table></figure>
+<p>这个分布于各变量独立的高斯分布相同，其协方差矩阵为对角矩阵，与Normal不同的是，其概率为每个变量各自概率之积，即联合概率。其概率对数为每个变量各自概率对数之和。</p>
+<p>prob = Normal: prod_prob</p>
+<p>log_prob = Normal: sum_log_prob</p>
+<h2 id="MultivariateNormalFullCovariance"><a href="#MultivariateNormalFullCovariance" class="headerlink" title="MultivariateNormalFullCovariance"></a>MultivariateNormalFullCovariance</h2><p><code>test_gaussian(tfp.distributions.MultivariateNormalFullCovariance(loc=mu, covariance_matrix=covariance), x)</code>，其参数中的covariance_matrix为协方差矩阵，因此如果使用<code>MultivariateNormalDiag</code>并指定对角线参数为<code>scale_diag=[1,2]</code>，那么实现相同的分布使用<code>MultivariateNormalFullCovariance</code>应指定协方差矩阵参数为<code>covariance_matrix=[[1,0],[0,2]]</code>。</p>
+<p>输出为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tf.Tensor([3.1393874 1.2191284], shape=(2,), dtype=float32)</span><br><span class="line">tf.Tensor(0.007478423, shape=(), dtype=float32)</span><br><span class="line">prob:  tf.Tensor(0.07931432, shape=(), dtype=float32)</span><br><span class="line">sum_prob:  tf.Tensor(0.07931432, shape=(), dtype=float32)</span><br><span class="line">prod_prob:  tf.Tensor(0.07931432, shape=(), dtype=float32)</span><br><span class="line">log_prob:  tf.Tensor(-2.5343366, shape=(), dtype=float32)</span><br><span class="line">sum_log_prob:  tf.Tensor(-2.5343366, shape=(), dtype=float32)</span><br><span class="line">prod_log_prob:  tf.Tensor(-2.5343366, shape=(), dtype=float32)</span><br></pre></td></tr></table></figure>
+<p>这个分布为多个变量的联合高斯分布，如果设置协方差矩阵为对角矩阵，且为<code>MultivariateNormalDiag</code>对角参数的平方，则两个分布一致。</p>
+<h2 id="TruncatedNormal"><a href="#TruncatedNormal" class="headerlink" title="TruncatedNormal"></a>TruncatedNormal</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tfp.distributions.TruncatedNormal(</span><br><span class="line">    loc, scale, low, high, validate_args=<span class="keyword">False</span>, allow_nan_stats=<span class="keyword">True</span>,</span><br><span class="line">    name=<span class="string">'TruncatedNormal'</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>这个分布相比<code>Normal</code>多了两个参数：low和high，如果样本＞high或者＜low，则其概率为0，对数概率为-inf。使用这个分布采样的样本也在low和high之间。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dist = tfp.distributions.TruncatedNormal(loc=[<span class="number">0.</span>, <span class="number">1.</span>], scale=<span class="number">1.0</span>, low=[<span class="number">-1.</span>, <span class="number">0.</span>], high=[<span class="number">1.</span>, <span class="number">1.</span>])</span><br><span class="line">print(dist.prob([<span class="number">1.1</span>, <span class="number">-0.1</span>]))</span><br><span class="line">print(dist.log_prob([<span class="number">1.1</span>, <span class="number">-0.1</span>]))</span><br><span class="line"></span><br><span class="line">结果：</span><br><span class="line">tf.Tensor([<span class="number">0.</span> <span class="number">0.</span>], shape=(<span class="number">2</span>,), dtype=float32)</span><br><span class="line">tf.Tensor([-inf -inf], shape=(<span class="number">2</span>,), dtype=float32)</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -544,7 +564,7 @@ f_{x}\left(x_{1}, \ldots, x_{k}\right)=\frac{\exp \left(-\frac{1}{2}(\vec{x}-\ve
   <p><span>本文标题:</span><a href="/tf2-gaussian-distribution.html">Tensorflow2.0中的高斯分布及其概率</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Keavnn 的个人博客">Keavnn</a></p>
   <p><span>发布时间:</span>2020年04月08日 - 10:04</p>
-  <p><span>最后更新:</span>2020年04月08日 - 18:04</p>
+  <p><span>最后更新:</span>2020年04月08日 - 20:04</p>
   <p><span>原始链接:</span><a href="/tf2-gaussian-distribution.html" title="Tensorflow2.0中的高斯分布及其概率">http://StepNeverStop.github.io/tf2-gaussian-distribution.html</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://StepNeverStop.github.io/tf2-gaussian-distribution.html" aria-label="复制成功！"></i></span>
   </p>
@@ -820,7 +840,7 @@ f_{x}\left(x_{1}, \ldots, x_{k}\right)=\frac{\exp \left(-\frac{1}{2}(\vec{x}-\ve
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#对角协方差高斯分布"><span class="nav-number">1.</span> <span class="nav-text">对角协方差高斯分布</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#对角协方差高斯分布"><span class="nav-number">1.</span> <span class="nav-text">对角协方差高斯分布</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TensorFlow-2-0-Gaussian-Functions"><span class="nav-number">2.</span> <span class="nav-text">TensorFlow 2.0 Gaussian Functions</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Normal"><span class="nav-number">2.1.</span> <span class="nav-text">Normal</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MultivariateNormalDiag"><span class="nav-number">2.2.</span> <span class="nav-text">MultivariateNormalDiag</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MultivariateNormalFullCovariance"><span class="nav-number">2.3.</span> <span class="nav-text">MultivariateNormalFullCovariance</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TruncatedNormal"><span class="nav-number">2.4.</span> <span class="nav-text">TruncatedNormal</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -855,7 +875,7 @@ f_{x}\left(x_{1}, \ldots, x_{k}\right)=\frac{\exp \left(-\frac{1}{2}(\vec{x}-\ve
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">62.3k</span>
+    <span title="Site words total count">63.2k</span>
   
 </div>
 
@@ -875,7 +895,7 @@ f_{x}\left(x_{1}, \ldots, x_{k}\right)=\frac{\exp \left(-\frac{1}{2}(\vec{x}-\ve
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共62.3k字</span>
+  <span class="post-count">博客全站共63.2k字</span>
 </div> -->
         
 
