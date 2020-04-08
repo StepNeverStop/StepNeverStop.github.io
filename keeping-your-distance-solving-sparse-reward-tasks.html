@@ -109,18 +109,24 @@ daovoice('update');
     })();
 </script>
 
-<meta name="description" content="基础知识 强化学习基本概念 强化学习的类别 强化学习之MDP马尔科夫决策过程 价值与贝尔曼方程 动态规划 Dynamic Programming Monte Carlo and Temporal-Difference SARSA and Q-Learning  论文精读 Energy-Based Hindsight Experience Prioritization Maximum Entropy">
+<meta name="description" content="这篇论文介绍了一个简单有效的model-free方法——Sibling Rivalry(同胞对抗？)，用于解决稀疏奖励问题。该方法特定于“以达到某个目标状态(goal-oriented)”为任务的问题，并且从塑性的距离目标相关奖励(distance-to-goal rewards)中学习。 推荐：  self-balancing 奖励机制 基于奖励函数的创新，比较有趣">
 <meta name="keywords" content="rl">
 <meta property="og:type" content="article">
-<meta property="og:title" content="强化学习">
-<meta property="og:url" content="http://StepNeverStop.github.io/强化学习.html">
+<meta property="og:title" content="Keeping Your Distance: Solving Sparse Reward Tasks Using Self-Balancing Shaped Rewards">
+<meta property="og:url" content="http://StepNeverStop.github.io/keeping-your-distance-solving-sparse-reward-tasks.html">
 <meta property="og:site_name" content="Keavnn&#39;Blog">
-<meta property="og:description" content="基础知识 强化学习基本概念 强化学习的类别 强化学习之MDP马尔科夫决策过程 价值与贝尔曼方程 动态规划 Dynamic Programming Monte Carlo and Temporal-Difference SARSA and Q-Learning  论文精读 Energy-Based Hindsight Experience Prioritization Maximum Entropy">
+<meta property="og:description" content="这篇论文介绍了一个简单有效的model-free方法——Sibling Rivalry(同胞对抗？)，用于解决稀疏奖励问题。该方法特定于“以达到某个目标状态(goal-oriented)”为任务的问题，并且从塑性的距离目标相关奖励(distance-to-goal rewards)中学习。 推荐：  self-balancing 奖励机制 基于奖励函数的创新，比较有趣">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-04-05T05:43:35.888Z">
+<meta property="og:image" content="http://stepneverstop.github.io/keeping-your-distance-solving-sparse-reward-tasks/motivating-example.png">
+<meta property="og:image" content="http://stepneverstop.github.io/keeping-your-distance-solving-sparse-reward-tasks/pseudo.png">
+<meta property="og:image" content="http://stepneverstop.github.io/keeping-your-distance-solving-sparse-reward-tasks/experiment1.png">
+<meta property="og:image" content="http://stepneverstop.github.io/keeping-your-distance-solving-sparse-reward-tasks/experiment2.png">
+<meta property="og:image" content="http://stepneverstop.github.io/keeping-your-distance-solving-sparse-reward-tasks/experiment3.png">
+<meta property="og:updated_time" content="2020-04-08T10:52:31.085Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="强化学习">
-<meta name="twitter:description" content="基础知识 强化学习基本概念 强化学习的类别 强化学习之MDP马尔科夫决策过程 价值与贝尔曼方程 动态规划 Dynamic Programming Monte Carlo and Temporal-Difference SARSA and Q-Learning  论文精读 Energy-Based Hindsight Experience Prioritization Maximum Entropy">
+<meta name="twitter:title" content="Keeping Your Distance: Solving Sparse Reward Tasks Using Self-Balancing Shaped Rewards">
+<meta name="twitter:description" content="这篇论文介绍了一个简单有效的model-free方法——Sibling Rivalry(同胞对抗？)，用于解决稀疏奖励问题。该方法特定于“以达到某个目标状态(goal-oriented)”为任务的问题，并且从塑性的距离目标相关奖励(distance-to-goal rewards)中学习。 推荐：  self-balancing 奖励机制 基于奖励函数的创新，比较有趣">
+<meta name="twitter:image" content="http://stepneverstop.github.io/keeping-your-distance-solving-sparse-reward-tasks/motivating-example.png">
 
 
 
@@ -150,13 +156,13 @@ daovoice('update');
 
 
 
-  <link rel="canonical" href="http://StepNeverStop.github.io/强化学习.html">
+  <link rel="canonical" href="http://StepNeverStop.github.io/keeping-your-distance-solving-sparse-reward-tasks.html">
 
 
 
 
 
-  <title>强化学习 | Keavnn'Blog</title>
+  <title>Keeping Your Distance: Solving Sparse Reward Tasks Using Self-Balancing Shaped Rewards | Keavnn'Blog</title>
   
 
 
@@ -325,7 +331,7 @@ daovoice('update');
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://StepNeverStop.github.io/强化学习.html">
+    <link itemprop="mainEntityOfPage" href="http://StepNeverStop.github.io/keeping-your-distance-solving-sparse-reward-tasks.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Keavnn">
@@ -342,7 +348,7 @@ daovoice('update');
 
         
         
-          <h2 class="post-title" itemprop="name headline">强化学习</h2>
+          <h2 class="post-title" itemprop="name headline">Keeping Your Distance: Solving Sparse Reward Tasks Using Self-Balancing Shaped Rewards</h2>
         
 
         <div class="post-meta">
@@ -354,8 +360,8 @@ daovoice('update');
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-09T16:24:54+08:00">
-                2019-05-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-30T18:09:45+08:00">
+                2020-03-30
               </time>
             
 
@@ -370,8 +376,8 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-04-05T13:43:35+08:00">
-                2020-04-05
+              <time title="更新于" itemprop="dateModified" datetime="2020-04-08T18:52:31+08:00">
+                2020-04-08
               </time>
             
           </span>
@@ -420,7 +426,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  352
+                  1.8k
                 </span>
               
 
@@ -436,7 +442,7 @@ daovoice('update');
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  6
                 </span>
               
             </div>
@@ -457,73 +463,78 @@ daovoice('update');
       
 
       
-        <h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><ul>
-<li><a href="./强化学习基本概念.html">强化学习基本概念</a></li>
-<li><a href="./rl-classification.html">强化学习的类别</a></li>
-<li><a href="./强化学习之MDP马尔科夫决策过程.html">强化学习之MDP马尔科夫决策过程</a></li>
-<li><a href="./价值与贝尔曼方程.html">价值与贝尔曼方程</a></li>
-<li><a href="./dynamic-programming.html">动态规划 Dynamic Programming</a></li>
-<li><a href="./mc-td.html">Monte Carlo and Temporal-Difference</a></li>
-<li><a href="./sarsa-and-q-learning.html">SARSA and Q-Learning</a></li>
+        <p>这篇论文介绍了一个简单有效的model-free方法——<strong>Sibling Rivalry</strong>(同胞对抗？)，用于解决稀疏奖励问题。该方法特定于“以达到某个目标状态(goal-oriented)”为任务的问题，并且从塑性的距离目标相关奖励(distance-to-goal rewards)中学习。</p>
+<p>推荐：</p>
+<ul>
+<li>self-balancing 奖励机制</li>
+<li>基于奖励函数的创新，比较有趣</li>
 </ul>
-<h1 id="论文精读"><a href="#论文精读" class="headerlink" title="论文精读"></a>论文精读</h1><ul>
-<li><a href="./energy-based-hindsight-experience-prioritization.html">Energy-Based Hindsight Experience Prioritization</a></li>
-<li><a href="./maximum-entropy-regularized-multi-goal-reinforcement-learning.html">Maximum Entropy-Regularized Multi-Goal Reinforcement-Learning</a></li>
-<li><a href="./rl-with-deep-energy-based-policies.html">Reinforcement Learning with Deep Energy-Based Policies</a></li>
+<a id="more"></a>
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>论文地址：<a href="http://arxiv.org/abs/1911.01417" rel="external nofollow" target="_blank">http://arxiv.org/abs/1911.01417.pdf</a></p>
+<p>这篇文章解决的问题点是：</p>
+<ul>
+<li>由朴素的距离目标相关的奖励(naive distance-to-goal reward shaping)引起的动态学习在局部最优点稳定的问题</li>
 </ul>
-<h2 id="Open-AI"><a href="#Open-AI" class="headerlink" title="Open AI"></a>Open AI</h2><ul>
-<li><a href="./Evolution-Strategies-2017.html">Evolution Strategies as a Scalable Alternative to Reinforcement Learning</a></li>
-<li><a href="./Hindsight-Experience-Replay.html">Hindsight Experience Replay</a></li>
-<li><a href="./rl2.html">RL<sup>2</sup>: Fast Reinforcement Learning via Slow Reinforcement Learning</a></li>
+<p>这篇文章方法的优点是：</p>
+<ul>
+<li>增强目标但不需额外奖励工程设计，也不需领域专家知识</li>
+<li>可以收敛至原始的稀疏奖励目标</li>
 </ul>
-<h2 id="Deep-Mind"><a href="#Deep-Mind" class="headerlink" title="Deep Mind"></a>Deep Mind</h2><ul>
-<li><a href="./Prioritized-Experience-Replay.html">Prioritized Experience Replay</a></li>
-<li><a href="./universal-value-function-approximators.html">Universal Value Function Approximators</a></li>
-<li><a href="./asynchronous-methods-for-drl.html">Asynchronous Methods for Deep Reinforcement Learning</a></li>
-</ul>
-<h1 id="论文浅读"><a href="#论文浅读" class="headerlink" title="论文浅读"></a><a href="./rl-rough-reading.html">论文浅读</a></h1><ul>
-<li><a href="./rl-rough-reading.html#Gorila">Massively Parallel Methods for Deep Reinforcement Learning</a></li>
-<li><a href="./rl-rough-reading.html#MB-MPO">Model-Based Reinforcement Learning via Meta-Policy Optimization</a></li>
-<li><a href="./rl-rough-reading.html#DIAYN">Diversity is All Your Need: Learning Skills Without a Reward Function</a></li>
-<li><a href="./rl-rough-reading.html#CDP">Curiosity-Driven Experience Prioritization via Density Estimation</a></li>
-<li><a href="./rl-rough-reading.html#NAF">Continuous Deep Q-Learning with Model-based Acceleration</a></li>
-<li><a href="./rl-rough-reading.html#ERE">Boosting Soft Actor-Critic: Emphasizing Recent Experience without Forgetting the Past</a></li>
-<li><a href="./rl-rough-reading.html#6SAN">Reinforcement Learning with Attention that Works: A Self-Supervised Approach</a></li>
-</ul>
-<h1 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a>相关信息</h1><ul>
-<li><a href="./强化学习的里程碑.html">强化学习的里程碑</a></li>
-</ul>
-<h1 id="学习资源"><a href="#学习资源" class="headerlink" title="学习资源"></a>学习资源</h1><ul>
-<li><a href="http://incompleteideas.net/book/RLbook2018.pdf" rel="external nofollow" target="_blank">《Reinforcement Learning : An Introduction 2nd Edition》——Sutton</a><ul>
-<li>基础必读</li>
-<li>通俗易懂</li>
-<li>数学公式很多，虽然很多不太实用，但对理解RL的精髓很有帮助</li>
-</ul>
+<p>文章发表在NeurIPS 2019上。</p>
+<h1 id="文中精要"><a href="#文中精要" class="headerlink" title="文中精要"></a>文中精要</h1><p>文中shaped rewards一时不知道该如何做翻译，姑且就称之为“塑性奖励”好了，意为为解决某一特定问题而精心设计的奖励函数机制。</p>
+<p>Reward shaping是一种修改奖励信号的技术，比如，它可以用于重新标注失败的经验序列，并从其中筛选出可促进任务完成的经验序列进行学习。然而，这种技术是否可以提升任务性能严重取决于塑性奖励的精心设计。这种塑性奖励有时可以解决稀疏奖励问题，但是具有两个显著特点：</p>
+<ol>
+<li><p>需要精心的工程设计，也可以理解为需要对环境或任务的先验知识</p>
+<blockquote>
+<p>requires careful engineering</p>
+</blockquote>
 </li>
-<li><a href="https://www.youtube.com/playlist?list=PLqYmG7hTraZDM-OYHWgPebj2MfCFzFObQ" rel="external nofollow" target="_blank">Reinforcement Learning Course by David Silver, 2015</a><ul>
-<li>基础必看，讲述了强化学习的基础算法</li>
-<li>有字幕，通俗易懂</li>
-<li>有课件Slide</li>
-</ul>
+<li><p>往往只适用于特定任务，特定问题，比如同样的避障问题，载具类型不同，可能就不适用</p>
+<blockquote>
+<p>is problem specific</p>
+</blockquote>
 </li>
-<li><a href="https://spinningup.openai.com/en/latest/" rel="external nofollow" target="_blank">OpenAI Spinning Up</a><ul>
-<li>深度强化学习</li>
-<li>算法很多，解析也很清晰</li>
-<li>有代码仓库，可以查看源代码，方便复现</li>
+</ol>
+<p>对于现实世界的RL问题，需要手动设计一个与任务契合/对齐的奖励机制，一个好的奖励函数往往比算法的选择更加重要。但是现实世界问题非常复杂，细粒度的奖励函数也十分难以设计，往往会具有“捡了芝麻丢了西瓜”的特点。比如，在避障问题中，如果针对墙壁这种障碍物设置奖励函数，策略在学习过程中会对墙壁这种实体过拟合，导致当遇到一种新的障碍物时，策略无法适用，还不如简单的稀疏奖励（完成即获得奖励，反之则无），让智能体自己从环境中学习哪些具有障碍物共有或特有特性。</p>
+<p>还有一个很严重的问题是，复杂的奖励机制容易使策略陷入局部最优，比如说达到状态A可以获得奖励+10，而达到状态B可以获得奖励+1，那么如果状态A十分难以到达，策略往往会收敛在状态B，或者其他相似的状态附近中去，造成策略在这些局部最优解附近稳定下来。</p>
+<p>稀疏奖励往往不存在这种局部最优，或者考虑不周的问题。设计一个合适的稀疏奖励函数很简单，也很直接，但是从这种奖励函数中学习需要大量的时间，而且甚至学习不出来任何东西，<strong>通常需要额外的启发式探索机制去帮助智能体发现这个稀疏的正奖励</strong>。</p>
+<p>方法结合了塑性奖励的可学习性与稀疏奖励的通用性。</p>
+<p>解决面向目标(goal-oriented)的任务</p>
+<p>提出了Sibling Rivalry，特点是：</p>
+<ul>
+<li>model-free</li>
+<li><strong>动态</strong>奖励塑性</li>
+<li>保持稀疏奖励任务的原有最优策略</li>
 </ul>
-</li>
-<li><a href="https://medium.com/search?q=reinforcement learning" rel="external nofollow" target="_blank">Medium : Reinforcement Learning</a><ul>
-<li>博文质量不错，内容涵盖基础与进阶</li>
-<li>缺点：更新少</li>
-</ul>
-</li>
-<li><a href="https://stackoverflow.com/questions/tagged/reinforcement-learning" rel="external nofollow" target="_blank">StackOverflow : Reinforcement Learning</a><ul>
-<li>进阶必备</li>
-<li>多看多交流可以加深自己的理解</li>
-</ul>
-</li>
-</ul>
-
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><p>纯稀疏奖励的形式是这样的：</p>
+<script type="math/tex; mode=display">
+r(s, g)=\left\{\begin{array}{ll}
+1, & d(s, g) \leq \delta \\
+0, & \text { otherwise }
+\end{array}\right.</script><p>其中，$s$代表当前状态，$g$代表目标状态。$d$是一个函数用来判断当前状态与目标状态的距离度量，例如$L_1$或$L_2$距离，这个距离可以用来表示任务的完成度，即距离越短，任务完成度越高。$\delta$代表目标点的半径，也就是说，状态不必完全等于目标状态，只需要距离度量小于一定范围$\delta$即可，这个是很常用的做法，比如Unity ML-Agents的示例环境——RollerBall，也是使用这样的设置。</p>
+<p>这种纯稀疏奖励的设置很难解决，往往需要很大的探索才能获取到寥寥无几的正奖励样本轨迹，给智能体的学习带来了很大的困难。</p>
+<p>其实可以对上述奖励进行修改，使得其可以按照距目标状态的距离给出不同的奖励，引导智能体朝向目标状态移动。它通常为下边这种形式：</p>
+<script type="math/tex; mode=display">
+\begin{array}{ll}
+\tilde{r}(s, g)= & \left\{\begin{array}{ll}
+1, & d(s, g) \leq \delta \\
+-d(s, g), & \text { otherwise }
+\end{array}\right.
+\end{array}</script><p>这种奖励形式很直观，如果没有达到目标状态，则一直是负奖励，且距离越远则负奖励越大，这样将会引导智能体朝向目标状态移动。针对一些比较简单的稀疏奖励环境，这种形式的奖励设计可以带来算法性能的提升，而且往往可以解决稀疏奖励问题。但是，这种基于距离的塑性奖励（Distance-based shaped rewards）很容易陷入局部最优点，并且在局部最优点附近稳定下来，得不到进一步地策略提升。为什么这么说呢？就比如gym的MountainCar场景，智能体需要先倒退再前进才能达到目标点，也就是说要先经历负奖励的增大过程，再经历负奖励的减小过程，才能最终完成目标，从初始状态直接朝向目标点移动是不能把车子开到山顶上去的。使用这种形式的奖励将会使得智能体抵达半山腰，却永远都触及不到目标点。还有一些U-shape的路径问题，在U型的两端设置起始点与目标点，使用这种奖励机制将会使得智能体在直线朝向目标点移动时偏离轨道，永远学不会以U型的方式完成目标。</p>
+<p>使用上述奖励形式的问题经验存在各种各样的局部最优点，而且这些局部最优点与状态空间结构（state space structure）、转移动态（transition dynamics）和环境的其他特性都有关系。</p>
+<p>那么有没有一种对奖励进行塑性的方式可以避免局部最优点的影响呢？确实是有的，我们再对上述奖励函数做如下改进：</p>
+<script type="math/tex; mode=display">
+r^{\prime}(s, g, \bar{g})=\left\{\begin{array}{ll}
+1, & d(s, g) \leq \delta \\
+\min [0,-d(s, g)+d(s, \bar{g})], & \text { otherwise }
+\end{array}\right.</script><p>与上式不同的是，这里多了一个符号——$\bar g$，它用来表示局部最优点的状态。论文中给出了这样一个例子：</p>
+<p><img src="./keeping-your-distance-solving-sparse-reward-tasks/motivating-example.png" alt=""></p>
+<h1 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h1><p><img src="./keeping-your-distance-solving-sparse-reward-tasks/pseudo.png" alt=""></p>
+<h1 id="实验分析"><a href="#实验分析" class="headerlink" title="实验分析"></a>实验分析</h1><p><img src="./keeping-your-distance-solving-sparse-reward-tasks/experiment1.png" alt=""></p>
+<p><img src="./keeping-your-distance-solving-sparse-reward-tasks/experiment2.png" alt=""></p>
+<p><img src="./keeping-your-distance-solving-sparse-reward-tasks/experiment3.png" alt=""></p>
+<p>​    </p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1>
       
     </div>
     
@@ -549,12 +560,12 @@ daovoice('update');
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/强化学习.html">强化学习</a></p>
+  <p><span>本文标题:</span><a href="/keeping-your-distance-solving-sparse-reward-tasks.html">Keeping Your Distance: Solving Sparse Reward Tasks Using Self-Balancing Shaped Rewards</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Keavnn 的个人博客">Keavnn</a></p>
-  <p><span>发布时间:</span>2019年05月09日 - 16:05</p>
-  <p><span>最后更新:</span>2020年04月05日 - 13:04</p>
-  <p><span>原始链接:</span><a href="/强化学习.html" title="强化学习">http://StepNeverStop.github.io/强化学习.html</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://StepNeverStop.github.io/强化学习.html" aria-label="复制成功！"></i></span>
+  <p><span>发布时间:</span>2020年03月30日 - 18:03</p>
+  <p><span>最后更新:</span>2020年04月08日 - 18:04</p>
+  <p><span>原始链接:</span><a href="/keeping-your-distance-solving-sparse-reward-tasks.html" title="Keeping Your Distance: Solving Sparse Reward Tasks Using Self-Balancing Shaped Rewards">http://StepNeverStop.github.io/keeping-your-distance-solving-sparse-reward-tasks.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://StepNeverStop.github.io/keeping-your-distance-solving-sparse-reward-tasks.html" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="external nofollow" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-相同方式共享 4.0 国际</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -628,8 +639,8 @@ daovoice('update');
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/强化学习之MDP马尔科夫决策过程.html" rel="next" title="强化学习之MDP马尔科夫决策过程">
-                <i class="fa fa-chevron-left"></i> 强化学习之MDP马尔科夫决策过程
+              <a href="/some-issues-of-install-packages.html" rel="next" title="关于安装一些库的问题">
+                <i class="fa fa-chevron-left"></i> 关于安装一些库的问题
               </a>
             
           </div>
@@ -638,8 +649,8 @@ daovoice('update');
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/价值与贝尔曼方程.html" rel="prev" title="价值与贝尔曼方程">
-                价值与贝尔曼方程 <i class="fa fa-chevron-right"></i>
+              <a href="/rl-an-introduction.html" rel="prev" title="《Reinforcement Learning: An Introduction》阅读笔记">
+                《Reinforcement Learning: An Introduction》阅读笔记 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -830,7 +841,7 @@ daovoice('update');
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础知识"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#论文精读"><span class="nav-number">2.</span> <span class="nav-text">论文精读</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Open-AI"><span class="nav-number">2.1.</span> <span class="nav-text">Open AI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Deep-Mind"><span class="nav-number">2.2.</span> <span class="nav-text">Deep Mind</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#论文浅读"><span class="nav-number">3.</span> <span class="nav-text">论文浅读</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#相关信息"><span class="nav-number">4.</span> <span class="nav-text">相关信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#学习资源"><span class="nav-number">5.</span> <span class="nav-text">学习资源</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文中精要"><span class="nav-number">2.</span> <span class="nav-text">文中精要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法"><span class="nav-number">3.</span> <span class="nav-text">方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#伪代码"><span class="nav-number">4.</span> <span class="nav-text">伪代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验分析"><span class="nav-number">5.</span> <span class="nav-text">实验分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -1389,6 +1400,26 @@ daovoice('update');
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

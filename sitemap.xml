@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://StepNeverStop.github.io/rl-an-introduction.html</loc>
+    
+    <lastmod>2020-04-08T10:53:25.627Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/keeping-your-distance-solving-sparse-reward-tasks.html</loc>
+    
+    <lastmod>2020-04-08T10:52:31.085Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://StepNeverStop.github.io/tf2-gaussian-distribution.html</loc>
     
     <lastmod>2020-04-08T10:45:46.979Z</lastmod>
@@ -72,14 +86,14 @@
   </url>
   
   <url>
-    <loc>http://StepNeverStop.github.io/rl-classification.html</loc>
+    <loc>http://StepNeverStop.github.io/win-rightclick-create-md.html</loc>
     
     <lastmod>2019-09-03T10:27:17.253Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://StepNeverStop.github.io/win-rightclick-create-md.html</loc>
+    <loc>http://StepNeverStop.github.io/rl-classification.html</loc>
     
     <lastmod>2019-09-03T10:27:17.253Z</lastmod>
     
@@ -177,13 +191,6 @@
   </url>
   
   <url>
-    <loc>http://StepNeverStop.github.io/dynamic-programming.html</loc>
-    
-    <lastmod>2019-05-13T14:27:05.707Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://StepNeverStop.github.io/create-sniper-docker-image.html</loc>
     
     <lastmod>2019-05-13T14:27:05.707Z</lastmod>
@@ -191,14 +198,21 @@
   </url>
   
   <url>
-    <loc>http://StepNeverStop.github.io/conda%E7%8E%AF%E5%A2%83%E5%92%8Cpip%E5%8C%85%E7%9A%84%E8%BD%AC%E7%A7%BB.html</loc>
+    <loc>http://StepNeverStop.github.io/dynamic-programming.html</loc>
+    
+    <lastmod>2019-05-13T14:27:05.707Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/MarkDown-Grammar.html</loc>
     
     <lastmod>2019-05-13T14:27:05.706Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://StepNeverStop.github.io/MarkDown-Grammar.html</loc>
+    <loc>http://StepNeverStop.github.io/conda%E7%8E%AF%E5%A2%83%E5%92%8Cpip%E5%8C%85%E7%9A%84%E8%BD%AC%E7%A7%BB.html</loc>
     
     <lastmod>2019-05-13T14:27:05.706Z</lastmod>
     
