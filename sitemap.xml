@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html</loc>
+    
+    <lastmod>2020-04-09T10:51:49.626Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://StepNeverStop.github.io/keeping-your-distance-solving-sparse-reward-tasks.html</loc>
     
     <lastmod>2020-04-09T03:46:55.796Z</lastmod>
@@ -19,13 +26,6 @@
     <loc>http://StepNeverStop.github.io/rl-rough-reading.html</loc>
     
     <lastmod>2020-04-08T11:18:08.762Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html</loc>
-    
-    <lastmod>2020-04-08T10:59:15.294Z</lastmod>
     
   </url>
   
@@ -86,14 +86,14 @@
   </url>
   
   <url>
-    <loc>http://StepNeverStop.github.io/rl-classification.html</loc>
+    <loc>http://StepNeverStop.github.io/win-rightclick-create-md.html</loc>
     
     <lastmod>2019-09-03T10:27:17.253Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://StepNeverStop.github.io/win-rightclick-create-md.html</loc>
+    <loc>http://StepNeverStop.github.io/rl-classification.html</loc>
     
     <lastmod>2019-09-03T10:27:17.253Z</lastmod>
     
