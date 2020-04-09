@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://StepNeverStop.github.io/keeping-your-distance-solving-sparse-reward-tasks.html</loc>
+    
+    <lastmod>2020-04-09T03:46:55.796Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://StepNeverStop.github.io/tf2-gaussian-distribution.html</loc>
     
     <lastmod>2020-04-08T12:03:09.830Z</lastmod>
@@ -26,13 +33,6 @@
     <loc>http://StepNeverStop.github.io/rl-an-introduction.html</loc>
     
     <lastmod>2020-04-08T10:53:25.627Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://StepNeverStop.github.io/keeping-your-distance-solving-sparse-reward-tasks.html</loc>
-    
-    <lastmod>2020-04-08T10:52:31.085Z</lastmod>
     
   </url>
   
@@ -86,14 +86,14 @@
   </url>
   
   <url>
-    <loc>http://StepNeverStop.github.io/win-rightclick-create-md.html</loc>
+    <loc>http://StepNeverStop.github.io/rl-classification.html</loc>
     
     <lastmod>2019-09-03T10:27:17.253Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://StepNeverStop.github.io/rl-classification.html</loc>
+    <loc>http://StepNeverStop.github.io/win-rightclick-create-md.html</loc>
     
     <lastmod>2019-09-03T10:27:17.253Z</lastmod>
     
