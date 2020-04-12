@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://StepNeverStop.github.io/PaStaNet.html</loc>
+    <lastmod>2020-04-12</lastmod>
+  </url>  <url>
+    <loc>http://StepNeverStop.github.io/dppo.html</loc>
+    <lastmod>2020-04-11</lastmod>
+  </url>  <url>
+    <loc>http://StepNeverStop.github.io/h-dqn.html</loc>
+    <lastmod>2020-04-11</lastmod>
+  </url>  <url>
+    <loc>http://StepNeverStop.github.io/bootstrapped-dqn.html</loc>
+    <lastmod>2020-04-11</lastmod>
+  </url>  <url>
     <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html</loc>
-    <lastmod>2020-04-09</lastmod>
+    <lastmod>2020-04-11</lastmod>
+  </url>  <url>
+    <loc>http://StepNeverStop.github.io/rl-rough-reading.html</loc>
+    <lastmod>2020-04-11</lastmod>
   </url>  <url>
     <loc>http://StepNeverStop.github.io/keeping-your-distance-solving-sparse-reward-tasks.html</loc>
     <lastmod>2020-04-09</lastmod>
   </url>  <url>
     <loc>http://StepNeverStop.github.io/tf2-gaussian-distribution.html</loc>
-    <lastmod>2020-04-08</lastmod>
-  </url>  <url>
-    <loc>http://StepNeverStop.github.io/rl-rough-reading.html</loc>
     <lastmod>2020-04-08</lastmod>
   </url>  <url>
     <loc>http://StepNeverStop.github.io/rl-an-introduction.html</loc>
@@ -79,16 +91,16 @@
     <loc>http://StepNeverStop.github.io/mc-td.html</loc>
     <lastmod>2019-05-13</lastmod>
   </url>  <url>
-    <loc>http://StepNeverStop.github.io/create-sniper-docker-image.html</loc>
-    <lastmod>2019-05-13</lastmod>
-  </url>  <url>
     <loc>http://StepNeverStop.github.io/dynamic-programming.html</loc>
     <lastmod>2019-05-13</lastmod>
   </url>  <url>
-    <loc>http://StepNeverStop.github.io/MarkDown-Grammar.html</loc>
+    <loc>http://StepNeverStop.github.io/create-sniper-docker-image.html</loc>
     <lastmod>2019-05-13</lastmod>
   </url>  <url>
     <loc>http://StepNeverStop.github.io/conda%E7%8E%AF%E5%A2%83%E5%92%8Cpip%E5%8C%85%E7%9A%84%E8%BD%AC%E7%A7%BB.html</loc>
+    <lastmod>2019-05-13</lastmod>
+  </url>  <url>
+    <loc>http://StepNeverStop.github.io/MarkDown-Grammar.html</loc>
     <lastmod>2019-05-13</lastmod>
   </url>  <url>
     <loc>http://StepNeverStop.github.io/AnderewNg-deeplearning-note-summary.html</loc>

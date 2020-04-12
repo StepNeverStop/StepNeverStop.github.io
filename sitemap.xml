@@ -2,9 +2,44 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://StepNeverStop.github.io/PaStaNet.html</loc>
+    
+    <lastmod>2020-04-12T08:18:45.523Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/dppo.html</loc>
+    
+    <lastmod>2020-04-11T06:15:45.331Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/h-dqn.html</loc>
+    
+    <lastmod>2020-04-11T04:40:15.274Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/bootstrapped-dqn.html</loc>
+    
+    <lastmod>2020-04-11T04:39:56.646Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html</loc>
     
-    <lastmod>2020-04-09T10:51:49.626Z</lastmod>
+    <lastmod>2020-04-11T04:36:58.562Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/rl-rough-reading.html</loc>
+    
+    <lastmod>2020-04-11T04:00:03.946Z</lastmod>
     
   </url>
   
@@ -19,13 +54,6 @@
     <loc>http://StepNeverStop.github.io/tf2-gaussian-distribution.html</loc>
     
     <lastmod>2020-04-08T12:03:09.830Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://StepNeverStop.github.io/rl-rough-reading.html</loc>
-    
-    <lastmod>2020-04-08T11:18:08.762Z</lastmod>
     
   </url>
   
@@ -86,14 +114,14 @@
   </url>
   
   <url>
-    <loc>http://StepNeverStop.github.io/win-rightclick-create-md.html</loc>
+    <loc>http://StepNeverStop.github.io/rl-classification.html</loc>
     
     <lastmod>2019-09-03T10:27:17.253Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://StepNeverStop.github.io/rl-classification.html</loc>
+    <loc>http://StepNeverStop.github.io/win-rightclick-create-md.html</loc>
     
     <lastmod>2019-09-03T10:27:17.253Z</lastmod>
     
@@ -191,13 +219,6 @@
   </url>
   
   <url>
-    <loc>http://StepNeverStop.github.io/create-sniper-docker-image.html</loc>
-    
-    <lastmod>2019-05-13T14:27:05.707Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://StepNeverStop.github.io/dynamic-programming.html</loc>
     
     <lastmod>2019-05-13T14:27:05.707Z</lastmod>
@@ -205,14 +226,21 @@
   </url>
   
   <url>
-    <loc>http://StepNeverStop.github.io/MarkDown-Grammar.html</loc>
+    <loc>http://StepNeverStop.github.io/create-sniper-docker-image.html</loc>
+    
+    <lastmod>2019-05-13T14:27:05.707Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/conda%E7%8E%AF%E5%A2%83%E5%92%8Cpip%E5%8C%85%E7%9A%84%E8%BD%AC%E7%A7%BB.html</loc>
     
     <lastmod>2019-05-13T14:27:05.706Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://StepNeverStop.github.io/conda%E7%8E%AF%E5%A2%83%E5%92%8Cpip%E5%8C%85%E7%9A%84%E8%BD%AC%E7%A7%BB.html</loc>
+    <loc>http://StepNeverStop.github.io/MarkDown-Grammar.html</loc>
     
     <lastmod>2019-05-13T14:27:05.706Z</lastmod>
     
@@ -268,14 +296,14 @@
   </url>
   
   <url>
-    <loc>http://StepNeverStop.github.io/sitemap/index.html</loc>
+    <loc>http://StepNeverStop.github.io/tags/index.html</loc>
     
     <lastmod>2019-01-05T06:15:58.291Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://StepNeverStop.github.io/tags/index.html</loc>
+    <loc>http://StepNeverStop.github.io/sitemap/index.html</loc>
     
     <lastmod>2019-01-05T06:15:58.291Z</lastmod>
     
