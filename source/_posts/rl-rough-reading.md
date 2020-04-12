@@ -388,4 +388,250 @@ $$
 
 解析：
 
-- 。
+- 待写
+
+
+
+<h1 align="center" style="color:blue" id="ERE">[NYU]Boosting Soft Actor-Critic: Emphasizing Recent Experience without Forgetting the Past[ERE]</h1>
+
+论文地址：[http://arxiv.org/abs/1906.04009](http://arxiv.org/abs/1906.04009)
+
+代码仓库：[https://github.com/BY571/Soft-Actor-Critic-and-Extensions](https://github.com/BY571/Soft-Actor-Critic-and-Extensions)(不确定是否为论文原作者的仓库，该仓库PER的实现没有用sum-tree，2020年04月02日13:42:44)
+
+这篇论文主要是对经验池机制的扩展，SAC是被应用的算法。
+
+ERE是Emphasizing Recent Experience的缩写，从名字即可以看出，该经验池机制的侧重点是近期经验。简单说一下ERE的思想及流程：
+
+1. 强调近期观测到的数据，同时不遗忘过去学到的知识；
+2. 在更新神经网络参数时，比如要连续更新$K$次，即要从经验池中循环取$K$个mini-batch的数据，那么，在第一次更新时，从整个经验池进行采样，后续更新时，逐渐缩小经验池的可采样范围，也就是收缩，使得在间隔内更新的次数也多，近期经验被采样出的概率越大
+
+论文中的原句：
+
+> We propose Emphasizing Recent Experience (ERE), a simple but powerful off-policy sampling technique, which emphasizes recently observed data while not forgetting the past. The ERE algorithm samples more aggressively from recent experience, and also orders the updates to ensure that updates from old data do not overwrite updates from new data.
+
+## 经验池逐渐缩放的原理
+
+核心思想是，在训练阶段（也就是先收集好一批轨迹，然后再更新$K$次的阶段），第一个mini-batch数据从整个经验池范围采样，在后续次序的更新中，我们逐渐减小经验池的可采样范围，使得mini-batch数据中包含越来越多的近期经验。
+
+举个例子：假如经验池共十个位置，即0到9，0放置最新的经验，9放置最旧的经验，batch-size为2，那么在第一次更新时，从0-9中采样两条经验。在第二次更新时，从0-8中采样两条经验。……以此类推。
+
+论文中提出了下边这个公式：
+$$
+c_{k}=\max \left\{N \cdot \eta^{k \frac{1000}{K}}, c_{\min }\right\}
+$$
+在这个公式中，$N$代表经验池的总容量；$\eta \in(0,1]$是引入的一个超参数，用来决定**对近期数据的重视程度**，当$\eta=1$时等同于均匀采样，当$\eta<1$时，$c_k$随着更新次数逐渐减小。作者通过实验发现$\eta \in(0.994,0.999)$时效果不错；$c_{min}$是为$c_k$设置的一个下界，防止从一个很小的范围内采样数据，可能会导致过拟合现象。大写的$K$表示更新的册数，小写的$k$，$1\leq k \leq K$，表示当前是第几次更新。
+
+虽然作者说只引入了$\eta$这一个超参数，但其实我觉得，更新次数$K$与基数$1000$也属于可调的超参数，虽然在实验中往往将$K$设置为一条轨迹的步长，即有多少步就更新多少次，这样在更新次数上与一步一更新是一致的，但是说到底它也是个可变的参数。
+
+文中还提到ERE可以与PER相结合，先决定采样区间，再按照区间内经验的权重选择批数据进行更新。通过代码没有看到在ERE与PER结合时使用sum-tree结构，可能在sum-tree结构上ERE不能很好适用，因为区间的选择也会改变树根节点的位置，为各种功能的计算都引入不便。
+$$
+P(i)=\frac{p_{i}^{\alpha}}{\sum_{j} p_{j}^{\alpha}}, i, j \in D_{c_{k}}
+$$
+$D_{c_k}$即为经验池中前$c_k$个近期的经验数据。
+
+## 伪代码
+
+![](./rl-rough-reading/ere-pseudo.png)
+
+
+
+## 优缺点
+
+优点：
+
+1. 简单有效
+2. 可用于任何使用经验池机制的off-policy算法中，通用性强
+3. 引入的额外计算损耗可以忽略不计
+4. 只引入一个超参数$\eta$，用来控制经验池可采样范围缩减的速率，容易调节（我觉得公式中的1000以及$c_{min}$应该也算是需要手动设置的超参数）
+5. 可以结合PER使用
+
+缺点：
+
+1. 传统off-policy算法的更新方式是走一步更新一次参数，像baseline等许多仓库都是这么做的，但是OpenAI的Spinning Up仓库却采用先采样一条轨迹，然后按照轨迹的步长为更新次数，循环更新网络。该论文提出的ERE也是使用先采样轨迹再更新的方式，目前看来不能应用在一步一更新的优化方式中，因为各个时间步的经验池是略有不同的
+2. 创新很小，实验上也没有看出明显的提升。而且，增加重放近期经验的次数的本质原因也不清楚，似乎只是实验效果不错，所以就这样错了，没有看到比较透彻的数学分析
+
+## 总结
+
+该论文的实验图见原文。虽然在许多环境中都产生了1.收敛速度更快一点，2.最终性能得分更高一些，但是总感觉不那么make sense。我个人觉得这个ERE可用可不用，它更像是一种实验得出来有效的trick，而不像是为了解决某一问题而特定研究出来的方法。该方法可以当做是扩展眼界的trick。
+
+<h1 align="center" style="color:blue" id="6SAN">Reinforcement Learning with Attention that Works: A Self-Supervised Approach</h1>
+
+论文地址：[http://arxiv.org/abs/1904.03367](http://arxiv.org/abs/1904.03367)
+
+这篇文章是将self-attention结合进强化学习，并在PPO算法上进行了验证，使用了Arcade Learning Environment的10个环境，分3个随机种子进行实验。
+
+由于论文中没有明确的self-attention在RL中的运算过程，所以目前不太清楚中间的计算细节。
+
+## 提出的方法
+
+![](./rl-rough-reading/6san.png)
+
+上图为论文提出的Self-Attention在RL中应用的总体架构，其中$H_1,H_2,H_3$均为卷积层。文中将自注意力层加在了卷积层中间，而不是像DARQN一样将注意力层放置在卷积层之后。文中并未对Self-Attention模块中$F_1,F_2,G_1,Y$的运算进行解释。
+
+作者对self-attention的可能实现做了深入的探索，提出并实验了六种结构：
+
+1. SAN: Self-Attending Network 在$H_1,H_2$最底层网络间加入自注意力机制
+
+2. SSAN: Strong Self-Attending Network 意思似乎是将自注意力机制的输出$Y$乘以因子2，以增强注意力在网络中的影响
+
+   > Multiplying the output of the last convolutional layer in the self-attention component (’Y’) by a factor of two (thereby increasing the inﬂuence of attention on the network).
+
+3. SADN: Self-Attending Double Network 加入两个自注意力层，分别在$H_1, H_2$与$H_2, H_3$之间
+
+4. SSADN: Strong Self-Attending Double Network 两注意力层的输出均乘2
+
+5. PSAN: Pure Self-Attending Network 只使用注意力层的输出作为特征表示
+
+   > Passing only the output of the selfattention forward, removing the addition of the previous convolutional layer output.
+
+6. PSADN: Pure Self-Attending Double Network 与上相同
+
+## 总结
+
+实验结果与分析见论文原文。
+
+此篇文章略读思想即可，文章中没有自注意力机制的完整计算流程，也没有开源源代码，因此无法了解到具体细节。而且，文章中提出了六种自注意力机制结构并进行了实验，个人感觉这六种结构不全是必要的，比如SSAN与PSAN这两类的完全没有get到这么设置的意义，给人一种为了做对比试验而设置的感觉。本篇文章创新性也不高。
+
+<h1 align="center" style="color:blue" id="MANet">[SNU]Multi-focus Attention Network for Efficient Deep Reinforcement Learning[MANet]</h1>
+
+论文地址：[http://arxiv.org/abs/1712.04603](http://arxiv.org/abs/1712.04603)
+
+这篇文章17年发表在AAAI上，提出了MANet算法(多焦点注意力+DQN)，它的创新点主要是将图像分割成若干区域，在这些区域中并行计算注意力权重，最终加权得到新的状态特征。作者展示了MANet算法可以应用在**单智能体图像输**入的环境中，也可以扩展模型应用**在多智能体合作任务**中。
+
+作者提出MANet针对的问题是：当前深度强化学习模型无法利用感知数据中实体与实体之间的关系，因此需要大量的采样经验去学习。作者希望通过多焦点注意力模型将感知数据中局部范围内实体之间的关系给embed到状态特征之中，加速策略模型学习并且提升模型性能。
+
+> current DRL models connect the entire low-level sensory input to the state-action values rather than exploiting the relationship between and among entities that constitute the sensory input.
+
+最终实验结果简报是：
+
+1. 与DQN做比较时，单智能体场景中使用更少经验取得最高得分
+2. 在多智能体合作任务中，相较于SOTA算法(18年以前)，MANet加速学习20%
+
+> MANet attains highest scores with significantly less experience samples. Additionally, the model shows higher performance compared to the Deep Q-network and the single attention model as benchmarks. Furthermore, we extend our model to attentive communication model for performing multi-agent cooperative tasks. In multi-agent cooperative task experiments, our model shows 20% faster learning than existing state-of-the-art model.
+
+## 模型讲解
+
+![](./rl-rough-reading/MANet-structure.png)
+
+上图为论文中提出的MANet的结构示意图。MANet主要由四个模块组成：
+
+- 输入分割模块(Input Segmentation)
+- 特征提取模块(Feature Extraction)
+- 并行注意力模块(Parallel Attentions)
+- 状态-动作值估计模块(State-action Value Estimation)
+
+**在单智能体任务中**：
+
+1. 输入分割模块
+
+   在这个阶段主要将底层传感器输入分割成多个块/区域，将每一个块的状态称为局部状态。作者使用了最简单的均匀格子切分方法，就是每个局部状态格子大小相同。作者也提到可以使用其他分割方式，可能由于实现困难或者切分后图像大小不一致使处理困难等因素而没有采用。
+
+   > We believe that we can apply more sophisticated methods like super-pixel segmentation (Achanta et al. 2010) or spatial transformer networks (Jaderberg, Simonyan, and Zisserman 2015).
+
+2. 特征提取模块
+
+   这个模块主要从每个局部状态提取键(Key)特征和值(Value)特征。
+
+   其中，键特征主要用于决定模型应该注意到的位置
+
+   > The key features are used to determine where the model should attend.
+
+   值特征主要用于编码用于评估Q值的信息
+
+   > The value features are used to encode information for state-action value estimation.
+
+   这一模块的计算过程是这样的，首先提取局部状态的通用特征：
+   $$
+   c_{i}=f_{f}\left(s_{i}\right) \text { for all } i \in(0,1, \ldots, K)
+   $$
+   其中，$K$为第一阶段切分的局部状态的个数，$s_i$表示第$i$个局部状态，$c_i$表示其通用特征，$f_f$是特征提取函数（作者使用深度卷积网络）。
+
+   然后，将通用特征$c_i$与局部状态的索引$i$拼接后，再计算键特征与值特征：
+   $$
+   \begin{aligned}
+   &K e y_{i}=W_{k e y} * c_{i}\\
+   &V a l_{i}=f_{v}\left(W_{v a l} * c_{i}\right)
+   \end{aligned}
+   $$
+   其中，$Key_i$与$Val_i$分别表示第$i$个局部状态的键、值特征。$f_v$表示非线性激活函数（作者使用的是leaky ReLU），$W_{key},W_{val}$是权重矩阵。
+
+3. 并行注意力模块
+
+   这一模块主要是区分各个局部状态的重要性，按重要性的不同加权表示特征。
+   $$
+   A_{i}^{n}=\frac{\exp \left(a_{n} * Key_{i}^{T}\right)}{\sum_{i^{\prime}} \exp \left(a_{n^{*} Key_{i^{\prime}}^{T}}\right)} \text { for all } n \in(0,1, \ldots, N)
+   $$
+   其中，$N$是上面结构图中注意力层的数量，$A_i^n$表示第$n$层注意力的向量的第$i$个元素，$i^{\prime} \in\{0,1, \ldots, \mathrm{K}\}$，$a_n$是第$n$个选择向量（图中的selector，像神经网络参数一样可以被训练）。上述公式其实是softmax的形式。
+
+   由于$a$的随机初始化基本上相似，所以计算得来的注意力权重也必将相近，作者不希望所有的注意力层都注意某一局部区域（或者相似区域），比如说第5个局部区域，这样的话就很低效。作者希望多个注意力层可以皆可能地注意到不同的局部状态，以达到多焦点（multi-focus）的效果，作者探索了两种正则化方式来鼓励这种行为。
+
+   第一种正则化方法是熵正则化：
+   $$
+   R_{e}=\lambda_{e} * \sum_{n}\left\|A^{n} * \log A^{n}\right\|
+   $$
+   这个式子的熵的负数形式，值越小，越随机（越雨露均沾），趋向于均匀分布，也就是越不集中注意力。
+
+   第二种正则化方法是距离正则化：
+   $$
+   R_{d}=\lambda_{d} * \exp \left(-\sum_{n, m}\left(A^{n}-A^{m}\right)^{2}\right)
+   $$
+   这个式子为$e$的指数性质，值越小，说明两个注意力层注意关注的区域越不相同，也就是越集中注意力且注意不同的局部状态。
+
+   *由于论文没有开源源代码，所以目前不确定熵正则化项的具体应用方式，不知道是最大化熵正则化项以鼓励不同注意力层注意不同区域，还是最小化熵正则化项以trade-off距离正则化项，放置距离正则化项过多的注意不同区域。*
+
+4. 状态-动作值估计模块
+
+   这一模块综合每个注意力层的输出特征，并且输入到剩余网络以估计状态-动作值。作者将基于注意力的加权值特征定义为：
+   $$
+   h_{n}=\sum_{i} V a l_{i} * A_{i}^{n}
+   $$
+   其中，$h_n$是由第$n$个注意力层的注意力权重$A^n$加权的值特征。最终联合特征和Q值表示为：
+   $$
+   g=\left\{h_{0}, h_{1}, \ldots, h_{N}\right\}
+   $$
+
+   $$
+   Q=f_{q}(g)
+   $$
+
+**在多智能体合作任务中**：
+
+​	在这种任务中，MANet主要将其它智能体的相关信息加权到某个智能体的状态特征中，相当于特征融合。
+
+1. 输入分割模块
+
+   每一个智能体即是局部状态，因此不用分割，故不需要该模块。
+
+2. 特征提取模块
+   $$
+   \begin{aligned}
+   &c_{i}=f_{f}\left(s_{i}\right) \text { for all } i \in(0,1, \ldots, K)\\
+   &K e y_{i}=W_{k e y} * c_{i}\\
+   &\color{red}{a_{i}=W_{a} * c_{i}}\\
+   &V a l_{i}=f_{v}\left(W_{v a l} * c_{i}\right)
+   \end{aligned}
+   $$
+   $K$表示任务中智能体的个数。与单智能体不同的是，这里的selector是由通用特征$c_i$与权重矩阵$W_a$计算得来的，如上述公式红色字体所示。
+
+3. 注意力交流模块（Attentive Communication）
+   $$
+   A_{j}^{i}=\frac{\exp \left(a^{i} * \operatorname{Key}_{j}^{T}\right)}{\sum_{j^{\prime}} \exp \left(a^{i} * \operatorname{Ke} y_{j^{\prime}}^{T}\right)} \quad i, j \in(0,1, \ldots, K)
+   $$
+   $A_j^i$表示智能体$j$对智能体$i$的注意力权重，值越大则$j$的信息对$i$越重要。
+
+4. 状态-动作值估计模块
+   $$
+   \begin{array}{c}
+   h_{i}=\sum_{j} V a l_{j} * A_{j}^{i} \quad j \in(0,1, \ldots, K) \\
+   g_{i}=\left\{V a l_{i}, h_{i}\right\} \\
+   Q_{i}=f\left(g_{i}\right)
+   \end{array}
+   $$
+   $h_i$为第$i$个智能体的交流特征——从其他智能体的特征中基于注意力加权得来的。
+
+   在多智能体任务中，由于selector $a$与智能体的通用特征相关，因此之间不太相似，所以不需要熵和距离正则化项（作者认为的）。
+
+   作者添加了另一个正则化项$R=\lambda \cdot \left(a \cdot Key^{T} \right)$以解决值容易发散的问题。***我目前还没有理解到这个正则化项的作用及意义。***
+
+   
+

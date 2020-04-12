@@ -1,10 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://StepNeverStop.github.io/config-alios.html</loc>
-    <lastmod>2020-01-16</lastmod>
+    <loc>http://StepNeverStop.github.io/rl3000questions.html</loc>
+    <lastmod>2020-04-12</lastmod>
+  </url>  <url>
+    <loc>http://StepNeverStop.github.io/MarkDown-Grammar.html</loc>
+    <lastmod>2020-04-12</lastmod>
+  </url>  <url>
+    <loc>http://StepNeverStop.github.io/PaStaNet.html</loc>
+    <lastmod>2020-04-12</lastmod>
+  </url>  <url>
+    <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html</loc>
+    <lastmod>2020-04-12</lastmod>
+  </url>  <url>
+    <loc>http://StepNeverStop.github.io/learn-grpc.html</loc>
+    <lastmod>2020-04-12</lastmod>
+  </url>  <url>
+    <loc>http://StepNeverStop.github.io/dppo.html</loc>
+    <lastmod>2020-04-11</lastmod>
+  </url>  <url>
+    <loc>http://StepNeverStop.github.io/h-dqn.html</loc>
+    <lastmod>2020-04-11</lastmod>
+  </url>  <url>
+    <loc>http://StepNeverStop.github.io/bootstrapped-dqn.html</loc>
+    <lastmod>2020-04-11</lastmod>
+  </url>  <url>
+    <loc>http://StepNeverStop.github.io/rl-rough-reading.html</loc>
+    <lastmod>2020-04-11</lastmod>
+  </url>  <url>
+    <loc>http://StepNeverStop.github.io/keeping-your-distance-solving-sparse-reward-tasks.html</loc>
+    <lastmod>2020-04-09</lastmod>
+  </url>  <url>
+    <loc>http://StepNeverStop.github.io/tf2-gaussian-distribution.html</loc>
+    <lastmod>2020-04-08</lastmod>
+  </url>  <url>
+    <loc>http://StepNeverStop.github.io/rl-an-introduction.html</loc>
+    <lastmod>2020-04-08</lastmod>
+  </url>  <url>
+    <loc>http://StepNeverStop.github.io/some-issues-of-install-packages.html</loc>
+    <lastmod>2020-03-19</lastmod>
   </url>  <url>
     <loc>http://StepNeverStop.github.io/Docker%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0.html</loc>
+    <lastmod>2020-03-17</lastmod>
+  </url>  <url>
+    <loc>http://StepNeverStop.github.io/config-alios.html</loc>
     <lastmod>2020-01-16</lastmod>
   </url>  <url>
     <loc>http://StepNeverStop.github.io/install-atari-and-box2d-on-win10.html</loc>
@@ -12,9 +51,6 @@
   </url>  <url>
     <loc>http://StepNeverStop.github.io/Prioritized-Experience-Replay.html</loc>
     <lastmod>2019-10-16</lastmod>
-  </url>  <url>
-    <loc>http://StepNeverStop.github.io/rl-rough-reading.html</loc>
-    <lastmod>2019-10-15</lastmod>
   </url>  <url>
     <loc>http://StepNeverStop.github.io/rl-classification.html</loc>
     <lastmod>2019-09-03</lastmod>
@@ -24,9 +60,6 @@
   </url>  <url>
     <loc>http://StepNeverStop.github.io/use-conda-env-in-jupyter.html</loc>
     <lastmod>2019-08-06</lastmod>
-  </url>  <url>
-    <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html</loc>
-    <lastmod>2019-07-07</lastmod>
   </url>  <url>
     <loc>http://StepNeverStop.github.io/rl-with-deep-energy-based-policies.html</loc>
     <lastmod>2019-07-07</lastmod>
@@ -68,9 +101,6 @@
     <lastmod>2019-05-13</lastmod>
   </url>  <url>
     <loc>http://StepNeverStop.github.io/dynamic-programming.html</loc>
-    <lastmod>2019-05-13</lastmod>
-  </url>  <url>
-    <loc>http://StepNeverStop.github.io/MarkDown-Grammar.html</loc>
     <lastmod>2019-05-13</lastmod>
   </url>  <url>
     <loc>http://StepNeverStop.github.io/conda%E7%8E%AF%E5%A2%83%E5%92%8Cpip%E5%8C%85%E7%9A%84%E8%BD%AC%E7%A7%BB.html</loc>

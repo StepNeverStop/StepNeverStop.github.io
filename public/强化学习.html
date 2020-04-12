@@ -117,7 +117,7 @@ daovoice('update');
 <meta property="og:site_name" content="Keavnn&#39;Blog">
 <meta property="og:description" content="基础知识 强化学习基本概念 强化学习的类别 强化学习之MDP马尔科夫决策过程 价值与贝尔曼方程 动态规划 Dynamic Programming Monte Carlo and Temporal-Difference SARSA and Q-Learning  论文精读 Energy-Based Hindsight Experience Prioritization Maximum Entropy">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-07T10:19:13.439Z">
+<meta property="og:updated_time" content="2020-04-12T08:33:35.023Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="强化学习">
 <meta name="twitter:description" content="基础知识 强化学习基本概念 强化学习的类别 强化学习之MDP马尔科夫决策过程 价值与贝尔曼方程 动态规划 Dynamic Programming Monte Carlo and Temporal-Difference SARSA and Q-Learning  论文精读 Energy-Based Hindsight Experience Prioritization Maximum Entropy">
@@ -370,8 +370,8 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-07-07T18:19:13+08:00">
-                2019-07-07
+              <time title="更新于" itemprop="dateModified" datetime="2020-04-12T16:33:35+08:00">
+                2020-04-12
               </time>
             
           </span>
@@ -420,7 +420,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  323
+                  429
                 </span>
               
 
@@ -436,7 +436,7 @@ daovoice('update');
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  2
                 </span>
               
             </div>
@@ -470,6 +470,7 @@ daovoice('update');
 <li><a href="./energy-based-hindsight-experience-prioritization.html">Energy-Based Hindsight Experience Prioritization</a></li>
 <li><a href="./maximum-entropy-regularized-multi-goal-reinforcement-learning.html">Maximum Entropy-Regularized Multi-Goal Reinforcement-Learning</a></li>
 <li><a href="./rl-with-deep-energy-based-policies.html">Reinforcement Learning with Deep Energy-Based Policies</a></li>
+<li><a href="./keeping-your-distance-solving-sparse-reward-tasks.html">Keeping Your Distance: Solving Sparse Reward Tasks Using Self-Balancing Shaped Rewards</a></li>
 </ul>
 <h2 id="Open-AI"><a href="#Open-AI" class="headerlink" title="Open AI"></a>Open AI</h2><ul>
 <li><a href="./Evolution-Strategies-2017.html">Evolution Strategies as a Scalable Alternative to Reinforcement Learning</a></li>
@@ -486,9 +487,17 @@ daovoice('update');
 <li><a href="./rl-rough-reading.html#MB-MPO">Model-Based Reinforcement Learning via Meta-Policy Optimization</a></li>
 <li><a href="./rl-rough-reading.html#DIAYN">Diversity is All Your Need: Learning Skills Without a Reward Function</a></li>
 <li><a href="./rl-rough-reading.html#CDP">Curiosity-Driven Experience Prioritization via Density Estimation</a></li>
+<li><a href="./rl-rough-reading.html#NAF">Continuous Deep Q-Learning with Model-based Acceleration</a></li>
+<li><a href="./rl-rough-reading.html#ERE">Boosting Soft Actor-Critic: Emphasizing Recent Experience without Forgetting the Past</a></li>
+<li><a href="./rl-rough-reading.html#6SAN">Reinforcement Learning with Attention that Works: A Self-Supervised Approach</a></li>
+<li><a href="./rl-rough-reading.html#MANet">Multi-focus Attention Network for Efficient Deep Reinforcement Learning</a></li>
+<li><a href="./dppo.html">Emergence of Locomotion Behaviours in Rich Environments</a></li>
+<li><a href="./bootstrapped-dqn.html">Deep Exploration via Bootstrapped DQN</a></li>
+<li><a href="./h-dqn.html">Hierarchical Deep Reinforcement Learning: Integrating Temporal Abstraction and Intrinsic Motivation</a></li>
 </ul>
 <h1 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a>相关信息</h1><ul>
 <li><a href="./强化学习的里程碑.html">强化学习的里程碑</a></li>
+<li><a href="./rl3000questions.html">蓝猫淘气三千问</a></li>
 </ul>
 <h1 id="学习资源"><a href="#学习资源" class="headerlink" title="学习资源"></a>学习资源</h1><ul>
 <li><a href="http://incompleteideas.net/book/RLbook2018.pdf" rel="external nofollow" target="_blank">《Reinforcement Learning : An Introduction 2nd Edition》——Sutton</a><ul>
@@ -517,6 +526,13 @@ daovoice('update');
 <li><a href="https://stackoverflow.com/questions/tagged/reinforcement-learning" rel="external nofollow" target="_blank">StackOverflow : Reinforcement Learning</a><ul>
 <li>进阶必备</li>
 <li>多看多交流可以加深自己的理解</li>
+</ul>
+</li>
+</ul>
+<h1 id="不错的代码仓库"><a href="#不错的代码仓库" class="headerlink" title="不错的代码仓库"></a>不错的代码仓库</h1><ul>
+<li><a href="https://github.com/thu-ml/tianshou" rel="external nofollow" target="_blank">TianShou</a>——An elegant, flexible, and superfast PyTorch deep Reinforcement Learning platform.<ul>
+<li>pytorch</li>
+<li>清华开源，适合入门</li>
 </ul>
 </li>
 </ul>
@@ -549,7 +565,7 @@ daovoice('update');
   <p><span>本文标题:</span><a href="/强化学习.html">强化学习</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Keavnn 的个人博客">Keavnn</a></p>
   <p><span>发布时间:</span>2019年05月09日 - 16:05</p>
-  <p><span>最后更新:</span>2019年07月07日 - 18:07</p>
+  <p><span>最后更新:</span>2020年04月12日 - 16:04</p>
   <p><span>原始链接:</span><a href="/强化学习.html" title="强化学习">http://StepNeverStop.github.io/强化学习.html</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://StepNeverStop.github.io/强化学习.html" aria-label="复制成功！"></i></span>
   </p>
@@ -729,7 +745,7 @@ daovoice('update');
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">43</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -740,7 +756,7 @@ daovoice('update');
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -751,7 +767,7 @@ daovoice('update');
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -827,7 +843,7 @@ daovoice('update');
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础知识"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#论文精读"><span class="nav-number">2.</span> <span class="nav-text">论文精读</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Open-AI"><span class="nav-number">2.1.</span> <span class="nav-text">Open AI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Deep-Mind"><span class="nav-number">2.2.</span> <span class="nav-text">Deep Mind</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#论文浅读"><span class="nav-number">3.</span> <span class="nav-text">论文浅读</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#相关信息"><span class="nav-number">4.</span> <span class="nav-text">相关信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#学习资源"><span class="nav-number">5.</span> <span class="nav-text">学习资源</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础知识"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#论文精读"><span class="nav-number">2.</span> <span class="nav-text">论文精读</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Open-AI"><span class="nav-number">2.1.</span> <span class="nav-text">Open AI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Deep-Mind"><span class="nav-number">2.2.</span> <span class="nav-text">Deep Mind</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#论文浅读"><span class="nav-number">3.</span> <span class="nav-text">论文浅读</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#相关信息"><span class="nav-number">4.</span> <span class="nav-text">相关信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#学习资源"><span class="nav-number">5.</span> <span class="nav-text">学习资源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#不错的代码仓库"><span class="nav-number">6.</span> <span class="nav-text">不错的代码仓库</span></a></li></ol></div>
             
 
           </div>
@@ -862,7 +878,7 @@ daovoice('update');
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">54.9k</span>
+    <span title="Site words total count">71k</span>
   
 </div>
 
@@ -882,7 +898,7 @@ daovoice('update');
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共54.9k字</span>
+  <span class="post-count">博客全站共71k字</span>
 </div> -->
         
 

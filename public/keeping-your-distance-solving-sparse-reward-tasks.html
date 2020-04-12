@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta name="google-site-verification" content="zu-9nWphPjrzXV8v514mkHknIz4dNfHlib56-KNAu44">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+<script>
+(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/356f1943.js","daovoice")
+daovoice('init', {
+  app_id: "356f1943"
+});
+daovoice('update');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="rl,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Keavnn'Blog" type="application/atom+xml">
+
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码','') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<meta name="description" content="这篇论文介绍了一个简单有效的model-free方法——Sibling Rivalry(同胞对抗？)，用于解决稀疏奖励问题。该方法特定于“以达到某个目标状态(goal-oriented)”为任务的问题，并且从塑性的距离目标相关奖励(distance-to-goal rewards)中学习。 推荐：  self-balancing 奖励机制 基于奖励函数的创新，比较有趣">
+<meta name="keywords" content="rl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Keeping Your Distance: Solving Sparse Reward Tasks Using Self-Balancing Shaped Rewards">
+<meta property="og:url" content="http://StepNeverStop.github.io/keeping-your-distance-solving-sparse-reward-tasks.html">
+<meta property="og:site_name" content="Keavnn&#39;Blog">
+<meta property="og:description" content="这篇论文介绍了一个简单有效的model-free方法——Sibling Rivalry(同胞对抗？)，用于解决稀疏奖励问题。该方法特定于“以达到某个目标状态(goal-oriented)”为任务的问题，并且从塑性的距离目标相关奖励(distance-to-goal rewards)中学习。 推荐：  self-balancing 奖励机制 基于奖励函数的创新，比较有趣">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://stepneverstop.github.io/keeping-your-distance-solving-sparse-reward-tasks/motivating-example.png">
+<meta property="og:image" content="http://stepneverstop.github.io/keeping-your-distance-solving-sparse-reward-tasks/sr-example.png">
+<meta property="og:image" content="http://stepneverstop.github.io/keeping-your-distance-solving-sparse-reward-tasks/pseudo.png">
+<meta property="og:image" content="http://stepneverstop.github.io/keeping-your-distance-solving-sparse-reward-tasks/experiment1.png">
+<meta property="og:image" content="http://stepneverstop.github.io/keeping-your-distance-solving-sparse-reward-tasks/experiment2.png">
+<meta property="og:image" content="http://stepneverstop.github.io/keeping-your-distance-solving-sparse-reward-tasks/experiment3.png">
+<meta property="og:updated_time" content="2020-04-09T03:46:55.796Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Keeping Your Distance: Solving Sparse Reward Tasks Using Self-Balancing Shaped Rewards">
+<meta name="twitter:description" content="这篇论文介绍了一个简单有效的model-free方法——Sibling Rivalry(同胞对抗？)，用于解决稀疏奖励问题。该方法特定于“以达到某个目标状态(goal-oriented)”为任务的问题，并且从塑性的距离目标相关奖励(distance-to-goal rewards)中学习。 推荐：  self-balancing 奖励机制 基于奖励函数的创新，比较有趣">
+<meta name="twitter:image" content="http://stepneverstop.github.io/keeping-your-distance-solving-sparse-reward-tasks/motivating-example.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://StepNeverStop.github.io/keeping-your-distance-solving-sparse-reward-tasks.html">
+
+
+
+
+
+  <title>Keeping Your Distance: Solving Sparse Reward Tasks Using Self-Balancing Shaped Rewards | Keavnn'Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/StepNeverStop" class="github-corner" aria-label="View source on GitHub" rel="external nofollow" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Keavnn'Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">If it is to be, it is up to me.</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://StepNeverStop.github.io/keeping-your-distance-solving-sparse-reward-tasks.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Keavnn">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/Kicon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Keavnn'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Keeping Your Distance: Solving Sparse Reward Tasks Using Self-Balancing Shaped Rewards</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-30T18:09:45+08:00">
+                2020-03-30
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-04-09T11:46:55+08:00">
+                2020-04-09
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/ReinforcementLearning/" itemprop="url" rel="index">
+                    <span itemprop="name">ReinforcementLearning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这篇论文介绍了一个简单有效的model-free方法——<strong>Sibling Rivalry</strong>(同胞对抗？)，用于解决稀疏奖励问题。该方法特定于“以达到某个目标状态(goal-oriented)”为任务的问题，并且从塑性的距离目标相关奖励(distance-to-goal rewards)中学习。</p>
+<p>推荐：</p>
+<ul>
+<li>self-balancing 奖励机制</li>
+<li>基于奖励函数的创新，比较有趣</li>
+</ul>
+<a id="more"></a>
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>论文地址：<a href="http://arxiv.org/abs/1911.01417" rel="external nofollow" target="_blank">http://arxiv.org/abs/1911.01417.pdf</a></p>
+<p>这篇文章解决的问题点是：</p>
+<ul>
+<li>由朴素的距离目标相关的奖励(naive distance-to-goal reward shaping)引起的动态学习在局部最优点稳定的问题</li>
+</ul>
+<p>这篇文章方法的优点是：</p>
+<ul>
+<li>增强目标但不需额外奖励工程设计，也不需领域专家知识</li>
+<li>可以收敛至原始的稀疏奖励目标</li>
+</ul>
+<p>文章发表在NeurIPS 2019上。</p>
+<p>这篇论文提出的Sibling Rivalry(SR)方法结合了塑性奖励的可学习性与稀疏奖励的通用性。它主要解决面向目标(goal-oriented)的任务，是对距离奖励函数的改进，实现了奖励函数的自平衡(self-balancing，自动退化至纯稀疏奖励形式)，它的特点是：</p>
+<ul>
+<li>model-free</li>
+<li>应用在on-policy算法上</li>
+<li>应用在<strong><em>目标状态已知</em></strong>，且<strong><em>以距离为奖励函数导向</em></strong>的任务中</li>
+<li><strong>动态</strong>奖励塑性</li>
+<li>保持稀疏奖励任务的原有最优策略</li>
+<li>跳出局部最优解，寻找全局最优</li>
+<li>可以与分层RL相结合（有实验佐证）</li>
+</ul>
+<h1 id="文中精要"><a href="#文中精要" class="headerlink" title="文中精要"></a>文中精要</h1><p>文中shaped rewards一时不知道该如何做翻译，姑且就称之为“塑性奖励”好了，意为为解决某一特定问题而精心设计的奖励函数机制。</p>
+<p>Reward shaping是一种修改奖励信号的技术，比如，它可以用于重新标注失败的经验序列，并从其中筛选出可促进任务完成的经验序列进行学习。然而，这种技术是否可以提升任务性能严重取决于塑性奖励的精心设计。这种塑性奖励有时可以解决稀疏奖励问题，但是具有两个显著特点：</p>
+<ol>
+<li><p>需要精心的工程设计，也可以理解为需要对环境或任务的先验知识</p>
+<blockquote>
+<p>requires careful engineering</p>
+</blockquote>
+</li>
+<li><p>往往只适用于特定任务，特定问题，比如同样的避障问题，载具类型不同，可能就不适用</p>
+<blockquote>
+<p>is problem specific</p>
+</blockquote>
+</li>
+</ol>
+<p>对于现实世界的RL问题，需要手动设计一个与任务契合/对齐的奖励机制，一个好的奖励函数往往比算法的选择更加重要。但是现实世界问题非常复杂，细粒度的奖励函数也十分难以设计，往往会具有“捡了芝麻丢了西瓜”的特点。比如，在避障问题中，如果针对墙壁这种障碍物设置奖励函数，策略在学习过程中会对墙壁这种实体过拟合，导致当遇到一种新的障碍物时，策略无法适用，还不如简单的稀疏奖励（完成即获得奖励，反之则无），让智能体自己从环境中学习哪些具有障碍物共有或特有特性。</p>
+<p>还有一个很严重的问题是，复杂的奖励机制容易使策略陷入局部最优，比如说达到状态A可以获得奖励+10，而达到状态B可以获得奖励+1，那么如果状态A十分难以到达，策略往往会收敛在状态B，或者其他相似的状态附近中去，造成策略在这些局部最优解附近稳定下来。</p>
+<p>稀疏奖励往往不存在这种局部最优，或者考虑不周的问题。设计一个合适的稀疏奖励函数很简单，也很直接，但是从这种奖励函数中学习需要大量的时间，而且甚至学习不出来任何东西，<strong>通常需要额外的启发式探索机制去帮助智能体发现这个稀疏的正奖励</strong>。</p>
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><p>纯稀疏奖励的形式是这样的：</p>
+<script type="math/tex; mode=display">
+r(s, g)=\left\{\begin{array}{ll}
+1, & d(s, g) \leq \delta \\
+0, & \text { otherwise }
+\end{array}\right.</script><p>其中，$s$代表当前状态，$g$代表目标状态。$d$是一个函数用来判断当前状态与目标状态的距离度量，例如$L_1$或$L_2$距离，这个距离可以用来表示任务的完成度，即距离越短，任务完成度越高。$\delta$代表目标点的半径，也就是说，状态不必完全等于目标状态，只需要距离度量小于一定范围$\delta$即可，这个是很常用的做法，比如Unity ML-Agents的示例环境——RollerBall，也是使用这样的设置。</p>
+<p>这种纯稀疏奖励的设置很难解决，往往需要很大的探索才能获取到寥寥无几的正奖励样本轨迹，给智能体的学习带来了很大的困难。</p>
+<p>其实可以对上述奖励进行修改，使得其可以按照距目标状态的距离给出不同的奖励，引导智能体朝向目标状态移动。它通常为下边这种形式：</p>
+<script type="math/tex; mode=display">
+\begin{array}{ll}
+\tilde{r}(s, g)= & \left\{\begin{array}{ll}
+1, & d(s, g) \leq \delta \\
+-d(s, g), & \text { otherwise }
+\end{array}\right.
+\end{array}</script><p>这种奖励形式很直观，如果没有达到目标状态，则一直是负奖励，且距离越远则负奖励越大，这样将会引导智能体朝向目标状态移动。针对一些比较简单的稀疏奖励环境，这种形式的奖励设计可以带来算法性能的提升，而且往往可以解决稀疏奖励问题。但是，这种基于距离的塑性奖励（Distance-based shaped rewards）很容易陷入局部最优点，并且在局部最优点附近稳定下来，得不到进一步地策略提升。为什么这么说呢？就比如gym的MountainCar场景，智能体需要先倒退再前进才能达到目标点，也就是说要先经历负奖励的增大过程，再经历负奖励的减小过程，才能最终完成目标，从初始状态直接朝向目标点移动是不能把车子开到山顶上去的。使用这种形式的奖励将会使得智能体抵达半山腰，却永远都触及不到目标点。还有一些U-shape的路径问题，在U型的两端设置起始点与目标点，使用这种奖励机制将会使得智能体在直线朝向目标点移动时偏离轨道，永远学不会以U型的方式完成目标。</p>
+<p>使用上述奖励形式的问题经验存在各种各样的局部最优点，而且这些局部最优点与状态空间结构（state space structure）、转移动态（transition dynamics）和环境的其他特性都有关系。</p>
+<p>那么有没有一种对奖励进行塑性的方式可以避免局部最优点的影响呢？确实是有的，我们再对上述奖励函数做如下改进：</p>
+<script type="math/tex; mode=display">
+r^{\prime}(s, g, \bar{g})=\left\{\begin{array}{ll}
+1, & d(s, g) \leq \delta \\
+\min [0,-d(s, g)+d(s, \bar{g})], & \text { otherwise }
+\end{array}\right.</script><p>与上式不同的是，这里多了一个符号——$\bar g$，它用来表示局部最优点的状态。论文中给出了这样一个例子：</p>
+<p><img src="./keeping-your-distance-solving-sparse-reward-tasks/motivating-example.png" alt=""></p>
+<p>最左边的图是一个简单的环境，智能体的目标是到达绿色的Goal点，如果使用前文提到的$\tilde{r}$，则会存在局部最优点，也就是图中的Local Optimum。为什么会存在这个局部最优点呢？可以设想一下，假设智能体从左下角出发，那么它在上方路径和下方路径各走一步时，明显下方路径的负奖励衰减的更快，所以智能体通常会选择走下方路径，最终收敛到与Goal隔岸相望的Local Optimum。$\tilde{r}$的奖励函数图像轮廓如上面中间图像红色线条所示，图中横坐标为坐标点，纵坐标为奖励值的高低。绿色光点为智能体在轨迹终态的分布，可以看出，使用$\tilde{r}$作为奖励函数时，在这个环境中奖励图像存在一个小的山峰，相比于全局最优点，智能体更易达到局部最优点，而且会在局部最优附近稳定下来，导致无法产生全局最优策略。</p>
+<p>最右侧的图是使用了增强后的距离奖励函数$r^{\prime}$所描绘的奖励图像轮廓，可以看出，通过将局部最优点的山峰构造成低谷，即可抵消局部最优点的影响。绿色点的分布也彰显了增强奖励函数后，智能体可以收敛到全局最优策略。为什么像$r^{\prime}$一样构造奖励函数即可解决局部最优点的影响呢？可以想象一下，将三角形的原理应用上去，当智能体选择上方路径时，两距离相减值逐渐趋于正值，也就是奖励逐渐增大，而选择下方路径时， 两距离相减横为负奖励，这种特性引导着智能体向逐渐增大的正奖励的方向靠拢。</p>
+<p>虽然像$r^{\prime}$这种增强距离奖励的形式可以解决稀疏奖励问题，并跳出局部最优点，但是其通常具有如下几个缺点：</p>
+<ol>
+<li>需要领域专家知识分析局部最优点；</li>
+<li>环境或任务复杂时，存在多种局部最优点，难以确定合适的奖励函数；</li>
+<li>一不小心便会弄巧成拙，还会引入新的局部最优点。</li>
+</ol>
+<h2 id="同胞对抗——Sibling-Rivalry"><a href="#同胞对抗——Sibling-Rivalry" class="headerlink" title="同胞对抗——Sibling Rivalry"></a>同胞对抗——Sibling Rivalry</h2><p>作者十分中意这种跳出局部最优点的方式，所以，作者设想需要一个新的奖励机制，它应当满足：</p>
+<ol>
+<li>可以解决稀疏奖励问题</li>
+<li>不需要专家及领域知识对环境进行全面的分析与判断</li>
+<li>动态评估局部最优点，自适应调整奖励函数</li>
+</ol>
+<p>这有点像静态图与动态图的区别，$r^{\prime}$就好像是静态图，需要专家先把图构好，再解决问题，而同胞对抗（Sibling Rivalry， SR）的思想就好像是动态图，一边执行一边应对潜在的局部最优点。</p>
+<p>先来说一下SR的思想：</p>
+<ol>
+<li><p>每次采样两条轨迹，同样的起始点与目标点；</p>
+</li>
+<li><p>距离目标近的为$\tau^c$，远的为$\tau^f$;</p>
+</li>
+<li><p>互相认为对方的终态$s_T$为局部最优点（假想敌），构造奖励函数，计算轨迹每一时间步的奖励。</p>
+</li>
+</ol>
+<p>如下图所示，每次都roll out两条轨迹，这两条轨迹即称为同胞，然后互相指认对方的终态$S_T^c$和$S_T^f$为局部最优点，促使智能体不选择对方的路径，即为对抗。注意，这样的方式确实有可能使得策略在远离局部最优点的同时，也偏离潜在的正确路径，因为智能体并不真正了解什么样的路径是比较好或者比较坏的。</p>
+<p><img src="./keeping-your-distance-solving-sparse-reward-tasks/sr-example.png" alt=""></p>
+<p>这种互相对抗的方式增加了智能体的探索能力，因为当智能体的策略不是最优时，它会趋向于选择各种不同的路径，以使得策略可以避开尽可能多的局部最优点。</p>
+<p>基于两条同胞轨迹$\tau^{c}$和$\tau^{f}$，如何构造它们的奖励函数呢？其实也很简单，像$r^{\prime}$一样，将其中的局部最优点$\bar g$更换一下即可：</p>
+<script type="math/tex; mode=display">
+r_{\tau^{f}}^{\prime}=r^{\prime}\left(s_{T}^{f}, g, s_{T}^{c}\right) \quad \& \quad r_{\tau^{c}}^{\prime}=r^{\prime}\left(s_{T}^{c}, g, s_{T}^{f}\right)</script><p>作者将这种奖励机制称为<strong>Self-balancing reward</strong>，可以翻译为自平衡/自适应奖励。什么意思呢？可以想想一下，如果策略已经接近全局最优了，那么$g \approx s_{T}^{f} \approx s_{T}^{c}$，此时的奖励从$r^{\prime}_{\tau^{f}}$和$r^{\prime}_{\tau^{c}}$逐渐退化至纯稀疏奖励$r$。为什么呢？因为此时的$-d(s, g)+d(s, \bar{g})$几乎为0呀！</p>
+<p>这样自动退化的奖励机制有什么好处呢？会<strong>使得智能体最终的最优策略与使用纯稀疏奖励时一致</strong>，大道至简，复杂的奖励函数未必可以引导智能体习得期望的行为，然而，纯稀疏奖励虽然难以学习，但是其产生的智能体行为往往是最直接最符合设计者的期望的。</p>
+<p>有了轨迹经验，也根据各自的奖励函数生成了奖励，那么该如何进行优化呢？既然取得了两条同胞轨迹，两条轨迹都要拿来训练么？我们结合伪代码进行分析。</p>
+<h1 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h1><p><img src="./keeping-your-distance-solving-sparse-reward-tasks/pseudo.png" alt=""></p>
+<p>解析：</p>
+<ul>
+<li>$\rho(s_0, g)$为一个分布，用于采样任务的初始状态和目标状态，论文中的实验都是将智能体的起止点和目标点固定在一个小范围内，至于SR是否可以用在大范围随机的起始、目标点场景中，还未可知；</li>
+<li>$m$是一个函数映射，用于将智能体状态空间$S$映射至目标状态空间$G$，$m(s): S \rightarrow G$；</li>
+<li>$d$是一个距离度量函数，通常为$L_1,L_2$度量；</li>
+<li>$\delta$是判定目标完成的容错半径；</li>
+<li>注意，Critic网络V的输入不仅包括状态$s$，目标$g$，也包括局部最优点（同胞轨迹的终态）$\bar g$；</li>
+<li>作者引入了一个“包容性阈值”$\epsilon$，这个值用来控制对使用距离目标点较近的轨迹$\tau^c$来训练的容忍度，也用来平衡探索与利用，当$\epsilon\uparrow$，利用增加，当$\epsilon\downarrow$，探索增加（学习远距离经验）；</li>
+<li>SR是先采样轨迹$s,a,s,a,…$再计算每一步的奖励的，采样时不包括$r$；</li>
+<li>每次rollout两条轨迹——$\tau^a$和$\tau^b$，距离目标点$g$比较近的终态轨迹标记为$\tau^c$，远的标记为$\tau^{f}$；</li>
+<li>优化模型时，何时用$\tau^f$？<ul>
+<li>任何时候</li>
+<li>猜想：距离远的不太可能是局部最优点，因为距离越远，负奖励越大，算法不会稳定收敛在距离目标点很远的局部最优处，会想办法跳出来</li>
+</ul>
+</li>
+<li>优化模型时，何时用$\tau^c$?<ul>
+<li>1，当两条同胞轨迹的终态距离小于$\epsilon$时；2，当$\tau^c$的终态已足以完成目标时</li>
+<li>猜想：当两条轨迹的终态距离小于一定阈值时，认为轨迹质量差不多，都可以用来更新</li>
+<li>距离目标点$g$近的轨迹已经足够近，是可以获得全局最优解的轨迹，要学习</li>
+</ul>
+</li>
+</ul>
+<h1 id="实验分析"><a href="#实验分析" class="headerlink" title="实验分析"></a>实验分析</h1><p>作者使用PPO算法在四种类型的任务场景中进行了实验：</p>
+<ol>
+<li>连续动作任务</li>
+<li>分层决策任务</li>
+<li>离散动作任务</li>
+<li>《我的世界》3D构造任务，这个任务主要用来测试SR的可扩展性</li>
+</ol>
+<p>任务的细节设置以及实验结果详情请看原论文。</p>
+<p><img src="./keeping-your-distance-solving-sparse-reward-tasks/experiment1.png" alt=""></p>
+<p>在这两个实验中，可以看出SR比ICM和HER的效果都要好，任务完成的成功率也必将高，且方差比较小。</p>
+<p><img src="./keeping-your-distance-solving-sparse-reward-tasks/experiment2.png" alt=""></p>
+<p>在这个离散的任务中，从图像看出纯DQN即可以解决，但是却没有看到蓝色的纯PPO曲线，按道理来说PPO应该也能解决。</p>
+<p><img src="./keeping-your-distance-solving-sparse-reward-tasks/experiment3.png" alt=""></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><blockquote>
+<p>We introduce Sibling Rivalry, a simple and effective method for learning goal-reaching tasks from a generic class of distance-based shaped rewards. Sibling Rivalry makes use of sibling rollouts and self-balancing rewards to prevent the learning dynamics from stabilizing around local optima. By leveraging the distance metric used to deﬁne the underlying sparse reward, our technique enables robust learning from shaped rewards without relying on carefully-designed, problem-speciﬁc reward functions. We demonstrate the applicability of our method across a variety of goal-reaching tasks where naive distance-to-goal reward shaping consistently fails and techniques to learn from sparse rewards struggle to explore properly and/or generalize from failed rollouts. Our experiments show that Sibling Rivalry can be readily applied to both continuous and discrete domains, incorporated into hierarchical RL, and scaled to demanding environments.</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-heart"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/keeping-your-distance-solving-sparse-reward-tasks.html">Keeping Your Distance: Solving Sparse Reward Tasks Using Self-Balancing Shaped Rewards</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Keavnn 的个人博客">Keavnn</a></p>
+  <p><span>发布时间:</span>2020年03月30日 - 18:03</p>
+  <p><span>最后更新:</span>2020年04月09日 - 11:04</p>
+  <p><span>原始链接:</span><a href="/keeping-your-distance-solving-sparse-reward-tasks.html" title="Keeping Your Distance: Solving Sparse Reward Tasks Using Self-Balancing Shaped Rewards">http://StepNeverStop.github.io/keeping-your-distance-solving-sparse-reward-tasks.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://StepNeverStop.github.io/keeping-your-distance-solving-sparse-reward-tasks.html" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="external nofollow" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-相同方式共享 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果您获得了帮助，也可以资助一下小的啦~</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏啦</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Keavnn 微信">
+        <p>微信</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Keavnn 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/rl/" rel="tag"> <i class="fa fa-tag"></i> rl</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/some-issues-of-install-packages.html" rel="next" title="关于安装一些库的问题">
+                <i class="fa fa-chevron-left"></i> 关于安装一些库的问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/rl-an-introduction.html" rel="prev" title="《Reinforcement Learning: An Introduction》阅读笔记">
+                《Reinforcement Learning: An Introduction》阅读笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<div class="addthis_inline_share_toolbox">
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cefbfc88c13b0e7" async="async"></script>
+</div>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTk0NS8xODQ5MQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/Kicon.jpg" alt="Keavnn">
+            
+              <p class="site-author-name" itemprop="name">Keavnn</p>
+              <p class="site-description motion-element" itemprop="description">If it is to be, it is up to me.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StepNeverStop" target="_blank" title="GitHub" rel="external nofollow">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:oooooooooooooooocoo@vip.qq.com" target="_blank" title="E-Mail" rel="external nofollow">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank" rel="external nofollow">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons">
+              </a>
+            </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://bluefisher.github.io" title="Fisher Chang" target="_blank" rel="external nofollow">Fisher Chang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文中精要"><span class="nav-number">2.</span> <span class="nav-text">文中精要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法"><span class="nav-number">3.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#同胞对抗——Sibling-Rivalry"><span class="nav-number">3.1.</span> <span class="nav-text">同胞对抗——Sibling Rivalry</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#伪代码"><span class="nav-number">4.</span> <span class="nav-text">伪代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验分析"><span class="nav-number">5.</span> <span class="nav-text">实验分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Keavnn</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">71k</span>
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- <div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共71k字</span>
+</div> -->
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

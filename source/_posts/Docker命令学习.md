@@ -35,5 +35,9 @@ tags:
 `docker exec -it [name] [command]`
 - 从容器生成镜像
 `docker commit [container name or id] [image name:version]`
+- 把docker容器中的文件传输到本机
+`docker cp [container name or id]:[path] [本机path]`
+- 把本机文件传输到docker容器内
+`docker cp [本机path] [container name or id]:[path]`
 
 

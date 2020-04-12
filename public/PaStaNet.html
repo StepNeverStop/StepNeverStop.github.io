@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta name="google-site-verification" content="zu-9nWphPjrzXV8v514mkHknIz4dNfHlib56-KNAu44">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+<script>
+(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/356f1943.js","daovoice")
+daovoice('init', {
+  app_id: "356f1943"
+});
+daovoice('update');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="dl,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Keavnn'Blog" type="application/atom+xml">
+
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码','') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<meta name="description" content="这篇论文是上海交大卢策吾老师团队下李永露博士在2020CVPR会议三连中中的其中一篇。方向为HOIs方向，即人物交互。">
+<meta name="keywords" content="dl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PaStaNet: Toward Human Activity Knowledge Engine">
+<meta property="og:url" content="http://StepNeverStop.github.io/PaStaNet.html">
+<meta property="og:site_name" content="Keavnn&#39;Blog">
+<meta property="og:description" content="这篇论文是上海交大卢策吾老师团队下李永露博士在2020CVPR会议三连中中的其中一篇。方向为HOIs方向，即人物交互。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://stepneverstop.github.io/PaStaNet/fig1.png">
+<meta property="og:image" content="http://stepneverstop.github.io/PaStaNet/fig6.png">
+<meta property="og:image" content="http://stepneverstop.github.io/PaStaNet/table6.png">
+<meta property="og:image" content="http://stepneverstop.github.io/PaStaNet/table7.png">
+<meta property="og:image" content="http://stepneverstop.github.io/PaStaNet/fig2.png">
+<meta property="og:image" content="http://stepneverstop.github.io/PaStaNet/fig8.png">
+<meta property="og:image" content="http://stepneverstop.github.io/PaStaNet/fig9.png">
+<meta property="og:image" content="http://stepneverstop.github.io/PaStaNet/fig3.png">
+<meta property="og:image" content="http://stepneverstop.github.io/PaStaNet/fig4.png">
+<meta property="og:image" content="http://stepneverstop.github.io/PaStaNet/fig10.png">
+<meta property="og:image" content="http://stepneverstop.github.io/PaStaNet/fig5.png">
+<meta property="og:image" content="http://stepneverstop.github.io/PaStaNet/table1.png">
+<meta property="og:image" content="http://stepneverstop.github.io/PaStaNet/table2.png">
+<meta property="og:image" content="http://stepneverstop.github.io/PaStaNet/table3.png">
+<meta property="og:image" content="http://stepneverstop.github.io/PaStaNet/table4.png">
+<meta property="og:image" content="http://stepneverstop.github.io/PaStaNet/fig14.png">
+<meta property="og:updated_time" content="2020-04-12T10:40:44.339Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PaStaNet: Toward Human Activity Knowledge Engine">
+<meta name="twitter:description" content="这篇论文是上海交大卢策吾老师团队下李永露博士在2020CVPR会议三连中中的其中一篇。方向为HOIs方向，即人物交互。">
+<meta name="twitter:image" content="http://stepneverstop.github.io/PaStaNet/fig1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://StepNeverStop.github.io/PaStaNet.html">
+
+
+
+
+
+  <title>PaStaNet: Toward Human Activity Knowledge Engine | Keavnn'Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/StepNeverStop" class="github-corner" aria-label="View source on GitHub" rel="external nofollow" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Keavnn'Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">If it is to be, it is up to me.</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://StepNeverStop.github.io/PaStaNet.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Keavnn">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/Kicon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Keavnn'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">PaStaNet: Toward Human Activity Knowledge Engine</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-12T01:23:03+08:00">
+                2020-04-12
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-04-12T18:40:44+08:00">
+                2020-04-12
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/DeepLearning/" itemprop="url" rel="index">
+                    <span itemprop="name">DeepLearning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  21
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这篇论文是上海交大<a href="http://mvig.sjtu.edu.cn/" rel="external nofollow" target="_blank">卢策吾</a>老师团队下<a href="https://dirtyharrylyl.github.io/" rel="external nofollow" target="_blank">李永露</a>博士在2020CVPR会议三连中中的其中一篇。方向为HOIs方向，即人物交互。</p>
+<a id="more"></a>
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>论文地址：<a href="http://arxiv.org/abs/2004.00945" rel="external nofollow" target="_blank">http://arxiv.org/abs/2004.00945</a></p>
+<p>作者开源的代码和数据集：<a href="http://hake-mvig.cn/" rel="external nofollow" target="_blank">http://hake-mvig.cn/</a></p>
+<p>PaSta是Part State的缩写，它是<strong>细粒度动作语义标记</strong>(ﬁne-grained action semantic tokens)，是人类活动/行为的更精细的表达，比如一个人类的行为是开汽车，那么这个行为的part state就包括手握方向盘、脚踩油门等等，这种part state用三元组形式表示，比如：&#60;hand, hold, something&#62;。</p>
+<p>这篇论文主要有两个比较大的贡献：</p>
+<ol>
+<li>建立了一个大型知识库PaStaNet（其实是HAKE数据集），目前标注了700w+局部状态。</li>
+<li>设计了一个分层的动作识别模型（为什么分层呢？因为作者提到现有的基于图像的动作识别理解方法主要采取直接映射/端到端的方式，可能会遇到性能瓶颈。）<ol>
+<li>第一层是Activity2Vec模型，用来从原始图片中提取PaSta特征，PaSta是组成多种人类行为的通用表示，比如一个PaSta是hold，那么开汽车时有hold方向盘，吃苹果时有hold苹果，两种不同的行为共享同样的PaSta；</li>
+<li>第二层使用了PaSta-based Reasoning（PaSta-R，基于局部状态的推理）方法，用这种方法从第一层中识别的PaSta来推测图片中的人类行为活动。</li>
+</ol>
+</li>
+</ol>
+<p>下文中以下概念术语等同：</p>
+<ul>
+<li>PaStaNet——数据集</li>
+<li>人类行为理解——动作识别</li>
+<li>PaSta——局部状态</li>
+</ul>
+<h1 id="文中精要"><a href="#文中精要" class="headerlink" title="文中精要"></a>文中精要</h1><p>在大规模的基准中，基于<strong>实例层次的语义（instance-level semantics）</strong>使用one-stage从像素理解人类行为存在性能瓶颈，主要有以下几个原因：</p>
+<ol>
+<li>long-tail data distribution，长尾数据分布</li>
+<li>complex visual patterns，复杂的视觉模式</li>
+</ol>
+<p>作者认为(argue that)在人类局部的语义层次上进行感知是一个非常有前景的方向，这种方式之前被忽略了。</p>
+<p><strong>作者的核心思想是：人类动作由细粒度的原子主体部分状态（PaSta）组成。</strong></p>
+<blockquote>
+<p>Our core idea is that human instance actions are composed of ﬁne-grained atomic body part states.</p>
+</blockquote>
+<p><img src="./PaStaNet/fig1.png" alt=""></p>
+<p>先识别PaSta再推理行为有什么好处呢？</p>
+<ol>
+<li><p>与简化理论(reductionism)有强烈的直接关系</p>
+<blockquote>
+<p>This lies in strong relationships with reductionism.</p>
+</blockquote>
+</li>
+<li><p>可以帮助我们选择有区别的部分，忽略不相关的部分</p>
+<blockquote>
+<p>the part-level path can help us to pick up discriminative parts and disregard irrelevant ones.</p>
+</blockquote>
+</li>
+<li><p>从人体局部编码知识是实现人类活动知识引擎的关键步骤</p>
+<blockquote>
+<p>encoding knowledge from human parts is a crucial step toward human activity knowledge engine.</p>
+</blockquote>
+</li>
+<li><p>Reusability and Transferability——可重用性和可转移性，多个行为的局部状态存在共享，比如一个PaSta是hold，那么开汽车时有hold方向盘，吃苹果时有hold苹果，两种不同的行为共享同样的PaSta。因此，我们可以用更少的PaSta来描述和区分大量的行为。对于few-shot学习，可重用性可以极大地缓解其学习困难。</p>
+<blockquote>
+<p>PaSta are basic components of actions, their relationship can be in analogy with the amino acid and protein, letter and word, etc. Hence, PaSta are reusable, e.g., 〈 hand, hold, something 〉 is shared by various actions like “hold horse” and “eat apple”. Therefore, we get the capacity to describe and differentiate plenty of activities with a much smaller set of PaSta, i.e. one-time labeling and transferability. For fewshot learning, reusability can greatly alleviate its learning difﬁculty. Thus our approach shows signiﬁcant improvements, e.g. we boost 13.9 mAP on one-shot sets of HICO</p>
+</blockquote>
+</li>
+<li><p>Interpretability——可解释性，当模型预测一个人在做什么时，我们很容易知道原因:它的身体的各个部分在做什么。</p>
+<blockquote>
+<p>we obtain not only more powerful activity representations, but also better interpretation. When the model predicts what a person is doing, we can easily know the reasons: what the body parts are doing.</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="PaStaNet数据集"><a href="#PaStaNet数据集" class="headerlink" title="PaStaNet数据集"></a>PaStaNet数据集</h2><p>该数据集目前已经标注了11.8w张图片，包括28.5w个人物，25w个交互的实体对象（比如球之类的），72.4万个行为，以及700w个人类局部状态。</p>
+<p>该数据集目前有156个行为分类，76个PaSta分类。</p>
+<p>广泛的分析证明，一般来说，PaStaNet可以覆盖大部分的局部级知识，可以很好的概括大部分情况。</p>
+<p><img src="./PaStaNet/fig6.png" alt=""></p>
+<p>下图为数据集中的行为和交互物体类别。</p>
+<p><img src="./PaStaNet/table6.png" alt=""></p>
+<p>下图为数据集中的局部状态PaSta类别。</p>
+<p><img src="./PaStaNet/table7.png" alt=""></p>
+<h3 id="PaSta的定义"><a href="#PaSta的定义" class="headerlink" title="PaSta的定义"></a>PaSta的定义</h3><p>将人体解耦成十个部分：head, two upper arms, two hands, hip, two thighs, two feet，即</p>
+<ol>
+<li>头</li>
+<li>左臂</li>
+<li>右臂</li>
+<li>左手</li>
+<li>右手</li>
+<li>臀部</li>
+<li>左腿</li>
+<li>右腿</li>
+<li>左脚</li>
+<li>右脚</li>
+</ol>
+<p>每一个PaSta表示目标局部部分的表示，比如hand可以是hold something, push something；head可以是watch something, eat something。注意，当一个人同时有多个行为动作，他的某个局部身体部位可以有多个PaSta。</p>
+<h3 id="数据收集"><a href="#数据收集" class="headerlink" title="数据收集"></a>数据收集</h3><p>两种方式：</p>
+<ol>
+<li>通过众包收集以人为中心的行为图像(3万张图片，具有粗糙的活动标签)；</li>
+<li>现有的设计良好的数据集(18.5万张)。</li>
+</ol>
+<p>其中的数据围绕丰富的语义本体论(semantic ontology)、多样性和行为的可变性构建。最终，收集了超过20万张的不同行为类别的图片。</p>
+<h3 id="行为标签"><a href="#行为标签" class="headerlink" title="行为标签"></a>行为标签</h3><p>根据人类最常见的日常活动，与人和物的互动。从11.8万张图片中选择了156种行为，包括人与物体的互动和身体动作（包含bounding boxes）。</p>
+<h3 id="身体局部的盒子"><a href="#身体局部的盒子" class="headerlink" title="身体局部的盒子"></a>身体局部的盒子</h3><blockquote>
+<p>Estimation errors are addressed manually to ensure high-quality annotation. Each part box is centered with a joint, and the box size is pre-deﬁned by scaling the distance between the joints of the neck and pelvis. A joint with conﬁdence higher than 0.7 will be seen as visible. When not all joints can be detected, we use body knowledge-based rules. That is, if the neck or pelvis is invisible, we conﬁgure the part boxes according to other visible joint groups (head, main body, arms, legs), e.g., if only the upper body is visible, we set the size of the hand box to twice the pupil distance.</p>
+</blockquote>
+<h3 id="局部状态PaSta标注"><a href="#局部状态PaSta标注" class="headerlink" title="局部状态PaSta标注"></a>局部状态PaSta标注</h3><p>通过众包方式进行标注，共收到224159条标注上传。</p>
+<p>过程如下：</p>
+<ol>
+<li>基于156种行为的动词，从WordNet选取200个PaSta动词。如果某个局部部位没有可以的状态，则描述为”no_action”；</li>
+<li>为了找到最通用的PaSta（可以作为可转移的行为知识），邀请了来自不同背景的150名注释者来标注156个行为的1w张图片；</li>
+<li>基于它们的注释，使用规范化的<strong>点对点互信息(Normalized Point-wise Mutual Information，NPMI，<em>Kenneth Ward Church and Patrick Hanks. Word association norms, mutual information, and lexicography. In Computational linguistics, 1990.</em>)</strong>来计算行为和PaSta之间的共生/共现关系，最后选择76个具有最高NPMI值的候选局部状态为PaSta集合；</li>
+<li>以之前的1w张打了标签的图片为种子，自动生成其余图片的初始PaSta标签，然后另外210名注释者仅需要去检查这些标注即可；</li>
+<li>考虑到一个人可能有多个动作，对于每个动作，分别标注其对应的10个PaSta。然后把所有动作的PaSta组合在一起；</li>
+<li>为了确保质量，每幅图像都将被标注两次，并由自动程序和主管进行检查。</li>
+</ol>
+<p><img src="./PaStaNet/fig2.png" alt=""></p>
+<p><strong>疑问：为什么ride bicycle与head look at的共现如此之低呢？</strong></p>
+<h3 id="行为解析树"><a href="#行为解析树" class="headerlink" title="行为解析树"></a>行为解析树</h3><p>为了说明PaSta和行为之间的关系，作者使用它们的统计相关性来构建一个图：行为是根节点，PaSta是子节点，边是共现。</p>
+<blockquote>
+<p>To illustrate the relationships between PaSta and activities, we use their statistical correlations to construct a graph (Fig. 2): activities are root nodes, PaSta are son nodes and edges are co-occurrence.</p>
+</blockquote>
+<p>PaStaNet可以为实例级和局部级提供丰富的行为知识，并帮助构建大型行为解析树。</p>
+<blockquote>
+<p>PaStaNet can provide abundant activity knowledge for both instance and part levels and help construct a large-scale activity parsing tree</p>
+</blockquote>
+<p><img src="./PaStaNet/fig8.png" alt=""></p>
+<p>作者将解析树表示为行为和PaSta的共现矩阵(看起来极其稀疏)。</p>
+<p><img src="./PaStaNet/fig9.png" alt=""></p>
+<h2 id="分层行为理解模型"><a href="#分层行为理解模型" class="headerlink" title="分层行为理解模型"></a>分层行为理解模型</h2><p>这一部分数学符号很多，而且似乎故意把符号设计的复杂，导致阅读理解起来有些不顺畅。</p>
+<p>对于行为的识别，有两种模型：</p>
+<ol>
+<li><p>传统模式，采用直接映射。</p>
+<script type="math/tex; mode=display">
+\mathcal{S}_{i n s t}=\mathcal{F}_{i n s t}\left(I, b_{h}, \mathcal{B}_{o}\right)</script><p>其中，$I$表示图像输入，$b_h$是人的box，$\mathcal{B}_{o}=\left\{b_{o}^{i}\right\}_{i=1}^{m}$是与人交互的物体的box，假设有$m$个物体。$\mathcal{S}_{i n s t}$代表实体级别的动作评分（评估结果）。</p>
+</li>
+<li><p>作者提出的PaStaNet模式，利用通用的局部知识，分成两步：</p>
+<ol>
+<li><p>PaSta局部状态识别和特征提取（其实是识别层之前的隐特征）</p>
+<script type="math/tex; mode=display">
+f_{P a S t a}=\mathcal{R}_{A 2 V}\left(I, \mathcal{B}_{p}, b_{o}\right) = \left\{f_{P a S t a}^{(i)}\right\}_{i=1}^{10}</script><p>其中，$\mathcal{B}_{p}=\left\{b_{p}^{(i)}\right\}_{i}^{10}$是人的局部部位的box，使用<em>Pairwise body-part attention for recognizing human-object interactions. In ECCV, 2018</em>自动生成。$\mathcal{R}_{A 2 V}(\cdot)$表示Activity2Vec模型，用于提取PaSta的特征表示，</p>
+</li>
+<li><p>PaSta-Based推理（PaSta-R），从局部状态推理行为语义</p>
+<script type="math/tex; mode=display">
+\mathcal{S}_{p a r t}=\mathcal{F}_{P a S t a-R}\left(f_{P a S t a}, f_{o}\right)</script><p>其中，$\mathcal{F}_{P a S t a-R}(\cdot)$代表PaSta-R方法，$f_{o}$是物体的特征表示，$\mathcal{S}_{p a r t}$是局部状态层面的动作评分。<em>注意，如果场景中人没有与物进行交互，比如”跳舞“这个动作，那么使用图像的ROI池化特征来表示$f_o$。如果场景中存在多个交互物体，则依次处理human-object pair$\left(f_{P a S t a}, f_{o}^{(i)}\right)$，并且声称各自独立的Activity2Vec Embedding</em>。</p>
+</li>
+</ol>
+</li>
+</ol>
+<p><img src="./PaStaNet/fig3.png" alt=""></p>
+<p>上图为PaSta的识别与特征表示部分的框架图。</p>
+<p>识别部分主要为红色线条部分，特征表示部分主要为蓝色线条部分。</p>
+<h3 id="局部状态PaSta识别"><a href="#局部状态PaSta识别" class="headerlink" title="局部状态PaSta识别"></a>局部状态PaSta识别</h3><p>这部分的输入为$I, \mathcal{B}_{p}, b_{o}$，输出为局部状态的视觉特征$f_{PaSta}^{V}$和识别结果$P_{PaSta}$。</p>
+<p>对于输入，$\mathcal{B}_{p}, b_{o}$都是使用在COCO数据集上预训练的Faster R-CNN做特征提取：</p>
+<ul>
+<li>对于物体$b_o$，$b_o\rightarrow Faster R-CNN \rightarrow f_o$，如果图片内不存在与物体进行交互，则使用图像的特征，即$I\rightarrow Faster R-CNN \rightarrow f_c \rightarrow f_o$</li>
+<li>对于人的身体的每一个部位（共10个）$b_{p}^{(i)}$，$b_{p}^{(i)} \rightarrow Faster R-CNN \rightarrow f_{p}^{(i)}$</li>
+</ul>
+<p>得到特征表示后，首先输入到一个被称为Part Relevance Predictor的结构中，去计算每一个部位的attention，这个PRP结构由全连接组成，最后激活为softmax函数，给每一个局部部位特征输出一个注意力权重：</p>
+<script type="math/tex; mode=display">
+a_{i}=\mathcal{P}_{p a}\left(f_{p}^{(i)}, f_{o}\right)</script><p>其中$\mathcal{P}_{p a}(\cdot)$即是局部注意力预测器。<strong>在这里，我感觉这个注意力权重应该指的是某个身体部位与物体的相关性，比如，手跟茶杯很相关，而脚和苹果则不太相关。</strong>然后，将注意力权重与原始局部特征表示进行加权：</p>
+<script type="math/tex; mode=display">
+f_{p}^{(i) \star}=f_{p}^{(i)} \times a_{i}</script><p>接下来进行局部状态PaSta的分类/识别，此时将$f_{p}^{(i) \star}$与$f_o$进行concat操作之后，传入max池化层，以及两层512的全连接，最终获得PaSta的分类结果$\mathcal{S}_{P a S t a}^{(i)}$。<strong>这里的$\mathcal{S}$应该是logits，而$P_{PaSta}$表示概率。</strong></p>
+<p><em>注意，这里存在一个身体部位有多种状态的可能，比如头部可以同时进行”吃”和”看”的动作，因此是一个多标签分类任务。</em></p>
+<p>识别部分的交叉熵损失函数如下：</p>
+<script type="math/tex; mode=display">
+\mathcal{L}_{P a S t a}=\sum_{i}^{10}\left(\mathcal{L}_{P a S t a}^{(i)}+\mathcal{L}_{a t t}^{(i)}\right)</script><h3 id="Activity2Vec"><a href="#Activity2Vec" class="headerlink" title="Activity2Vec"></a>Activity2Vec</h3><p>这一部分的输入为局部状态的视觉特征$f_{PaSta}^{V}$、识别结果$P_{PaSta}$和PaSta的语言特征$f_{B e r t}^{(i, k)}$，输出为PaSta的最终特征表示$f_{PaSta}$。</p>
+<blockquote>
+<p>With PaStaNet, we convert a human instance into a vector consisting of PaSta representations. Activity2Vec extracts part-level semantic representation via PaSta recognition and combines its language representation. Since PaSta encodes common knowledge of activities, Activity2Vec works as a general feature extractor for both seen and unseen activities.</p>
+</blockquote>
+<p>Activity2Vec将一个人类实例转换为一个由PaSta表示组成的向量。通过局部状态识别提取局部层次的语义表示，并且与该局部状态的语言表示相结合。</p>
+<p>在这一环节的主要任务是将局部状态PaSta的语义知识嵌入到它的特征向量表示中去，那么，如何结合呢？</p>
+<p>对于图像特征，在上一部分已经获得，提取PaSta的分类结果前一层的隐状态即可，$\color{red}{f_{\text {PaSta}}^{V(i)} \in \mathbb{R}^{512}}$。</p>
+<p>对于语言特征，作者使用<strong>BERT-Base预训练模型</strong>先将数据集中的token预转换为$\color{red}{f_{B e r t}^{(i, k)} \in \mathbb{R}^{2304}}$，并且在整个过程中保持不变。token指的是三元组&#60;part, verb, object&#62;，object来自目标检测。所有的token即$\left\{t_{p}^{(i, k)}, t_{v}^{(i, k)}, t_{o}^{(i, k)}\right\}_{k=1}^{n}$，$i$代表身体部位的数量，这里为10，$n$代表每一个部位具有的PaSta数量，其中的每个$t$都是768的向量长度。</p>
+<script type="math/tex; mode=display">
+f_{B e r t}^{(i, k)}=\mathcal{R}_{B e r t}\left(t_{p}^{(i, k)}, t_{v}^{(i, k)}, t_{o}^{(i, k)}\right)</script><script type="math/tex; mode=display">
+f_{B e r t}^{(i)} \in \mathbb{R}^{2304 * n}</script><p>将部分的BERT表示与该部分的分类结果相乘，即PaSta的语言特征表示：</p>
+<script type="math/tex; mode=display">
+f_{P a S t a}^{L(i)}=f_{B e r t}^{(i)} \times P_{P a S t a}^{(i)}, \text { where } P_{P a S t a}^{(i)}=\operatorname{Sigmoid}\left(\mathcal{S}_{P a S t a}^{(i)}\right) \in \mathbb{R}^{n}</script><script type="math/tex; mode=display">
+P_{P a S t a}=\left\{P_{P a S t a}^{(i)}\right\}_{i=1}^{10}</script><script type="math/tex; mode=display">
+f_{P a S t a}^{L(i)} \in \mathbb{R}^{2304 * n}</script><p><strong>最后</strong>，池化、resize语言特征$f_{P a S t a}^{L(i)}$后再与图像特征$f_{PaSta}^{V}$concat即获得最终的PaSta特征表示$f_{P a S t a}^{(i)} \in \mathbb{R}^{m}$。输出的$f_{\text {PaSta}}=\left\{f_{\text {PaSta}}^{(i)}\right\}_{i=1}^{10}$是局部级别的行为特征表示，可用于下游任务，像行为检测，标题生成等等。</p>
+<h3 id="PaSta-R"><a href="#PaSta-R" class="headerlink" title="PaSta-R"></a>PaSta-R</h3><p>这一部分主要是从局部状态的特征表示推断出图片中人的行为。其输入为特征表示$f_{PaSta}$，输出为动作评分$\mathcal{S}$。</p>
+<blockquote>
+<p>A Part State Based Reasoning method (PaSta-R) is further presented. We construct a Hierarchical Activity Graph consisting of human instance and part semantic representations, and infer the activities by combining both instance and part level sub-graph states.</p>
+</blockquote>
+<p>作者构造了一个由人类实例和局部语义表示组成的层次行为图（Hierarchical Activity Graph），并结合实例和局部层次子图状态来推断行为。</p>
+<p><img src="./PaStaNet/fig4.png" alt=""></p>
+<p>HAG如上图中间所示，节点为局部的状态特征或者物体的特征，边分两种，第一种是body part与object的边，表示为$e_{p o}=\left(v_{p}^{i}, v_{o}\right) \in \mathcal{V}_{p} \times \mathcal{V}_{o}$，第二种是body part与body part的边，表示为$e_{p p}^{i j}=\left(v_{p}^{i}, v_{p}^{j}\right) \in \mathcal{V}_{p} \times \mathcal{V}_{p}$。<strong><em>说实话，边究竟是如何表示的，完全没有看懂-.-</em></strong>。</p>
+<p>作者的目标是解析HAG，然后推理出图像中的行为。即</p>
+<script type="math/tex; mode=display">
+\mathcal{S}_{p a r t}=\mathcal{F}_{P a S t a-R}\left(f_{P a S t a}, f_{o}\right)</script><p>作者提出了三种结构和三种方式，如下图所示：</p>
+<p><img src="./PaStaNet/fig10.png" alt=""></p>
+<p>三种结构：</p>
+<ol>
+<li>Linear Combination，说白了就是一层全连接，激活为softmax；</li>
+<li>MLP，说白了就是两层1024单元全连接（使用非线性激活函数），最后一层激活为softmax；</li>
+<li>Graph Convolution Network，GCN提取全局图特征，然后接MLP输出分类结果。</li>
+</ol>
+<p>三种方式：</p>
+<ol>
+<li>上图(a)所示，将$f_{P a S t a}, f_{o}$直接concat然后输入后续网络；</li>
+<li>上图(b)所示，按身体部位逐步输入到LSTM网络，改造成序列模型。有两种输入方式，1乱序，2固定顺序（比如从头到脚），作者说固定顺序更好；</li>
+<li>上图(c)所示，将部位特征分层组合，例如：<ol>
+<li>在第一层将左手左上臂特征合并为左臂，左脚左大腿特征合并为左腿，……，然后传入全连接进一步提取特征；</li>
+<li>将头、胳膊等合并为上肢，臀、腿等合并为下肢，……，然后传入全连接进行进一步特征提取；</li>
+<li>上下肢合并为整体，然后传入全连接，再接后续网络。</li>
+</ol>
+</li>
+</ol>
+<p>如何得到最后的分类结果呢？作者提出两种方式：</p>
+<ol>
+<li>early fusion——前融合，将实例层次的语义特征表示$f_{inst}$与PaSta特征表示、物体特征表示结合后再做PaSta-R推理；</li>
+<li>late fusion——后融合，融合实例层次的分类结果和局部层次的分类结果，即$\mathcal{S}=\mathcal{S}_{i n s t}+\mathcal{S}_{p a r t}$。作者说，实验下来，这种方式效果更好。</li>
+</ol>
+<p>最终，整个框架的交叉熵损失函数为：</p>
+<script type="math/tex; mode=display">
+\mathcal{L}_{\text {total}}=\mathcal{L}_{\text {PaSta}}+\mathcal{L}_{\text {cls}}^{\text {PaSta}}+\mathcal{L}_{\text {cls}}^{\text {inst}}</script><h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><p>监督学习中，PaStaNet在HICO完整数据集上提升了6.4(16%)mAP，在HICO one-shot数据集上提升了13.9mAP。</p>
+<p>迁移学习中，PaStanet在V-COCO数据集上提升了3.2mAP，在基于图像的AVA数据集上提升了4.2mAP，在HICO-DET数据集上提升了3.2mAP。</p>
+<h2 id="类比实验"><a href="#类比实验" class="headerlink" title="类比实验"></a>类比实验</h2><p>从MNIST数据集中采集0-9数字（28X28X1），组成（128X128X1）的图片，每个图片包含3-5个数字。将数字类比为身体的局部部位，将行为设置为图片中最大的两个数字之和。图片中所有数字的union box代表一个人。为了模仿任务的移动特征，数字随机分布在图像中，而且给图像加入了高斯噪声。</p>
+<p>最终实验结果（准确率）：</p>
+<ul>
+<li>端到端，10.0%</li>
+<li>前融合：43.7%</li>
+<li>后融合：<strong>44.2%</strong></li>
+<li>不融合：41.4%</li>
+</ul>
+<p><img src="./PaStaNet/fig5.png" alt=""></p>
+<h2 id="Image-based-Activity-Recognition"><a href="#Image-based-Activity-Recognition" class="headerlink" title="Image-based Activity Recognition"></a>Image-based Activity Recognition</h2><p><img src="./PaStaNet/table1.png" alt=""></p>
+<h2 id="Instance-based-Activity-Detection"><a href="#Instance-based-Activity-Detection" class="headerlink" title="Instance-based Activity Detection"></a>Instance-based Activity Detection</h2><p><img src="./PaStaNet/table2.png" alt=""></p>
+<h2 id="Transfer-Learning-with-Activity2Vec"><a href="#Transfer-Learning-with-Activity2Vec" class="headerlink" title="Transfer Learning with Activity2Vec"></a>Transfer Learning with Activity2Vec</h2><p><img src="./PaStaNet/table3.png" alt=""></p>
+<p><img src="./PaStaNet/table4.png" alt=""></p>
+<h2 id="可视化结果"><a href="#可视化结果" class="headerlink" title="可视化结果"></a>可视化结果</h2><p><img src="./PaStaNet/fig14.png" alt=""></p>
+<p>图中蓝、绿、红分别指示身体部位、局部行为、交互物体。作者发现他们的模型能够检测各种行为，包括与各种对象的交互。</p>
+<h1 id="mAP"><a href="#mAP" class="headerlink" title="mAP"></a>mAP</h1><p>mAP：mean Average Precision，平均的平均精度（两个平均）。先是类内求平均精确度，再是对所有类别再求平均精确度。</p>
+<p>目标检测任务中将目标的分类结果分成四类（正即是真，负即是假）：</p>
+<ol>
+<li>TP——True Positive，正识别为正；</li>
+<li>FP——False Positive，负识别为正；</li>
+<li>TN——True Negative，负识别为负；</li>
+<li>FN——False Negative，负识别为正</li>
+</ol>
+<p>准确率Precision——<strong>识别为正</strong>的数据中，真实为正的：</p>
+<script type="math/tex; mode=display">
+P=\frac{T P}{T P+F P}=\frac{T P}{N_{\text {detection}}}</script><p>召回率Recall——<strong>原始为正</strong>的数据中，识别为正的：</p>
+<script type="math/tex; mode=display">
+R=\frac{T P}{T P+F N}=\frac{T P}{N_{g t}}</script><p>平均精度AP即是在一组召回率阈值[0, 1]中，根据召回率计算相应准确率，然后准确率取平均。比如设置11个等间隔召回率阈值[0, 0.2, …, 1]，那么AP的计算公式如下：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+A P=& \frac{1}{11} \sum_{r \in\{0,0.1, \ldots, 1.0\}} \rho_{\text {interp}}(r) \\
+& \rho_{\text {interp}}(r)=\max _{\hat{r}: \hat{r} \geqslant r}(\hat{r})
+\end{aligned}</script><p>实际上就是对于每个Recall值下的Precision，取所有比当前值大的Recall对应的Precision的最大值作为当前Recall值下的Precision。</p>
+<p>mAP是多个AP值的均值，AP衡量的是学出来的模型在每个类别上的好坏，mAP衡量的是学出的模型在所有类别上的好坏。</p>
+<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><blockquote>
+<p>In this paper, to make a step toward human activity knowledge engine, we construct PaStaNet to provide novel body part-level activity representation (PaSta). Meanwhile, a knowledge transformer Activity2Vec and a part-based reasoning method PaSta-R are proposed. PaStaNet brings in interpretability and new possibility for activity understanding. It can effectively bridge the semantic gap between pixels and activities. With PaStaNet, we signiﬁcantly boost the performance in supervised and transfer learning tasks, especially under few-shot circumstances. In the future, we plan to enrich our PaStaNet with spatio-temporal PaSta.</p>
+</blockquote>
+<h1 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h1><ol>
+<li><p><a href="https://blog.csdn.net/xiezongsheng1990/article/details/89608923?depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1&amp;utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1" rel="external nofollow" target="_blank">目标检测测评指标——mAP</a></p>
+</li>
+<li><p><a href="http://blog.sina.com.cn/s/blog_9db078090102whzw.html" rel="external nofollow" target="_blank">多标签图像分类任务的评价方法-mAP</a></p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-heart"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/PaStaNet.html">PaStaNet: Toward Human Activity Knowledge Engine</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Keavnn 的个人博客">Keavnn</a></p>
+  <p><span>发布时间:</span>2020年04月12日 - 01:04</p>
+  <p><span>最后更新:</span>2020年04月12日 - 18:04</p>
+  <p><span>原始链接:</span><a href="/PaStaNet.html" title="PaStaNet: Toward Human Activity Knowledge Engine">http://StepNeverStop.github.io/PaStaNet.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://StepNeverStop.github.io/PaStaNet.html" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="external nofollow" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-相同方式共享 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果您获得了帮助，也可以资助一下小的啦~</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏啦</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Keavnn 微信">
+        <p>微信</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Keavnn 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/dl/" rel="tag"> <i class="fa fa-tag"></i> dl</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/h-dqn.html" rel="next" title="Hierarchical Deep Reinforcement Learning: Integrating Temporal Abstraction and Intrinsic Motivation">
+                <i class="fa fa-chevron-left"></i> Hierarchical Deep Reinforcement Learning: Integrating Temporal Abstraction and Intrinsic Motivation
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/rl3000questions.html" rel="prev" title="蓝猫淘气三千问">
+                蓝猫淘气三千问 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<div class="addthis_inline_share_toolbox">
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cefbfc88c13b0e7" async="async"></script>
+</div>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTk0NS8xODQ5MQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/Kicon.jpg" alt="Keavnn">
+            
+              <p class="site-author-name" itemprop="name">Keavnn</p>
+              <p class="site-description motion-element" itemprop="description">If it is to be, it is up to me.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StepNeverStop" target="_blank" title="GitHub" rel="external nofollow">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:oooooooooooooooocoo@vip.qq.com" target="_blank" title="E-Mail" rel="external nofollow">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank" rel="external nofollow">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons">
+              </a>
+            </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://bluefisher.github.io" title="Fisher Chang" target="_blank" rel="external nofollow">Fisher Chang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文中精要"><span class="nav-number">2.</span> <span class="nav-text">文中精要</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PaStaNet数据集"><span class="nav-number">2.1.</span> <span class="nav-text">PaStaNet数据集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PaSta的定义"><span class="nav-number">2.1.1.</span> <span class="nav-text">PaSta的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据收集"><span class="nav-number">2.1.2.</span> <span class="nav-text">数据收集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#行为标签"><span class="nav-number">2.1.3.</span> <span class="nav-text">行为标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#身体局部的盒子"><span class="nav-number">2.1.4.</span> <span class="nav-text">身体局部的盒子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#局部状态PaSta标注"><span class="nav-number">2.1.5.</span> <span class="nav-text">局部状态PaSta标注</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#行为解析树"><span class="nav-number">2.1.6.</span> <span class="nav-text">行为解析树</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分层行为理解模型"><span class="nav-number">2.2.</span> <span class="nav-text">分层行为理解模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#局部状态PaSta识别"><span class="nav-number">2.2.1.</span> <span class="nav-text">局部状态PaSta识别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity2Vec"><span class="nav-number">2.2.2.</span> <span class="nav-text">Activity2Vec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PaSta-R"><span class="nav-number">2.2.3.</span> <span class="nav-text">PaSta-R</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验"><span class="nav-number">3.</span> <span class="nav-text">实验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#类比实验"><span class="nav-number">3.1.</span> <span class="nav-text">类比实验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Image-based-Activity-Recognition"><span class="nav-number">3.2.</span> <span class="nav-text">Image-based Activity Recognition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Instance-based-Activity-Detection"><span class="nav-number">3.3.</span> <span class="nav-text">Instance-based Activity Detection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Transfer-Learning-with-Activity2Vec"><span class="nav-number">3.4.</span> <span class="nav-text">Transfer Learning with Activity2Vec</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可视化结果"><span class="nav-number">3.5.</span> <span class="nav-text">可视化结果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mAP"><span class="nav-number">4.</span> <span class="nav-text">mAP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结论"><span class="nav-number">5.</span> <span class="nav-text">结论</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#引用"><span class="nav-number">6.</span> <span class="nav-text">引用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Keavnn</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">71k</span>
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- <div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共71k字</span>
+</div> -->
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
