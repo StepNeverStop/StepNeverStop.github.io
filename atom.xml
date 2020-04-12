@@ -137,11 +137,11 @@
   </entry>
   
   <entry>
-    <title>学习个RPC过程点滴记录</title>
+    <title>学习gRPC过程点滴记录</title>
     <link href="http://StepNeverStop.github.io/learn-grpc.html"/>
     <id>http://StepNeverStop.github.io/learn-grpc.html</id>
     <published>2020-04-05T03:14:26.000Z</published>
-    <updated>2020-04-05T03:20:26.261Z</updated>
+    <updated>2020-04-12T08:26:24.552Z</updated>
     
     <content type="html"><![CDATA[<p>此博客用于记录学习gRPC(python)的过程。</p><a id="more"></a><h1 id="安装-gRPC"><a href="#安装-gRPC" class="headerlink" title="安装 gRPC"></a>安装 gRPC</h1><p>参考：<a href="https://www.grpc.io/docs/quickstart/python/" rel="external nofollow" target="_blank">官网指导</a></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ python -m pip install --upgrade pip</span><br><span class="line">$ python -m pip install grpcio</span><br><span class="line">$ python -m pip install grpcio-tools</span><br></pre></td></tr></table></figure>]]></content>
     
