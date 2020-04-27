@@ -117,7 +117,7 @@ daovoice('update');
 <meta property="og:site_name" content="Keavnn&#39;Blog">
 <meta property="og:description" content="此篇博文用于记录学习RL或者实现RL方法过程中遇到疑难杂症及相应解决思路。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-04-12T10:54:30.671Z">
+<meta property="og:updated_time" content="2020-04-14T06:10:46.879Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="蓝猫淘气三千问">
 <meta name="twitter:description" content="此篇博文用于记录学习RL或者实现RL方法过程中遇到疑难杂症及相应解决思路。">
@@ -370,8 +370,8 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-04-12T18:54:30+08:00">
-                2020-04-12
+              <time title="更新于" itemprop="dateModified" datetime="2020-04-14T14:10:46+08:00">
+                2020-04-14
               </time>
             
           </span>
@@ -420,7 +420,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  152
+                  369
                 </span>
               
 
@@ -463,7 +463,16 @@ daovoice('update');
 <li>如果场景中存在多个图像输入，而且维度不一致，该如何处理呢？假设有汽车有前后两个摄像头，分辨率分别是$Vis_1=10\times10\times3$和$Vis_2=15\times5\times3$，那么该如何设计图像处理过程呢？是表示成$(CNN_1(Vis_1), CNN_2(Vis_2))$呢？还是表示成$CNN(Concat(Vis_1, Resize(Vis_2)))$呢？</li>
 <li>如果智能体的动作既包括离散的也包括连续的，该如何处理？</li>
 </ol>
-<h1 id="已解决"><a href="#已解决" class="headerlink" title="已解决"></a>已解决</h1>
+<h1 id="已解决"><a href="#已解决" class="headerlink" title="已解决"></a>已解决</h1><ol>
+<li><p>什么是Semi-Markov Decision Process(SMDP)？</p>
+<p><a href="https://zhuanlan.zhihu.com/p/47051292" rel="external nofollow" target="_blank">原链接</a>。分层强化学习里面，这里的上层策略其实是定义在一个SMDP上的，引用一下俞扬老师文章里面的一句话来解释一下。</p>
+<blockquote>
+<p>马尔可夫决策过程中，选择一个动作后，agent 会立刻根据状态转移方程$P$跳转到下一个状态，而在半马尔可夫决策过程(SMDP)中，当前状态到下一个状态的步数是个随机变量 $\tau$ ， 即在某个状态$s$下选择一个动作$a$后，经过$\tau$步才会以一个概率转移到下一个状态$s’$。 此时的状态转移概率是$s$和$\tau$的联合概率$P\left(s^{\prime}, \tau | s, a\right)$。</p>
+</blockquote>
+<p>文献：周文吉, and 俞扬. “分层强化学习综述.”<em>智能系统学报</em>12.5 (2017): 590-594.</p>
+</li>
+</ol>
+
       
     </div>
     
@@ -492,7 +501,7 @@ daovoice('update');
   <p><span>本文标题:</span><a href="/rl3000questions.html">蓝猫淘气三千问</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Keavnn 的个人博客">Keavnn</a></p>
   <p><span>发布时间:</span>2020年04月12日 - 18:04</p>
-  <p><span>最后更新:</span>2020年04月12日 - 18:04</p>
+  <p><span>最后更新:</span>2020年04月14日 - 14:04</p>
   <p><span>原始链接:</span><a href="/rl3000questions.html" title="蓝猫淘气三千问">http://StepNeverStop.github.io/rl3000questions.html</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://StepNeverStop.github.io/rl3000questions.html" aria-label="复制成功！"></i></span>
   </p>
@@ -577,6 +586,10 @@ daovoice('update');
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/options-critic.html" rel="prev" title="The Option-Critic Architecture">
+                The Option-Critic Architecture <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -668,7 +681,7 @@ daovoice('update');
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">49</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -679,7 +692,7 @@ daovoice('update');
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -690,7 +703,7 @@ daovoice('update');
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -801,7 +814,7 @@ daovoice('update');
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">71k</span>
+    <span title="Site words total count">78.3k</span>
   
 </div>
 
@@ -821,7 +834,7 @@ daovoice('update');
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共71k字</span>
+  <span class="post-count">博客全站共78.3k字</span>
 </div> -->
         
 

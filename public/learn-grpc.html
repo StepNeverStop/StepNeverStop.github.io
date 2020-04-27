@@ -117,10 +117,12 @@ daovoice('update');
 <meta property="og:site_name" content="Keavnn&#39;Blog">
 <meta property="og:description" content="此博客用于记录学习gRPC(python)的过程。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-04-12T08:26:24.552Z">
+<meta property="og:image" content="http://stepneverstop.github.io/learn-grpc/gRPC.svg">
+<meta property="og:updated_time" content="2020-04-26T03:15:16.605Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="学习gRPC过程点滴记录">
 <meta name="twitter:description" content="此博客用于记录学习gRPC(python)的过程。">
+<meta name="twitter:image" content="http://stepneverstop.github.io/learn-grpc/gRPC.svg">
 
 
 
@@ -370,8 +372,8 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-04-12T16:26:24+08:00">
-                2020-04-12
+              <time title="更新于" itemprop="dateModified" datetime="2020-04-26T11:15:16+08:00">
+                2020-04-26
               </time>
             
           </span>
@@ -420,7 +422,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  41
+                  1.2k
                 </span>
               
 
@@ -436,7 +438,7 @@ daovoice('update');
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  5
                 </span>
               
             </div>
@@ -457,10 +459,122 @@ daovoice('update');
       
 
       
-        <p>此博客用于记录学习gRPC(python)的过程。</p>
+        <p><img src="./learn-grpc/gRPC.svg" alt=""></p>
+<p>此博客用于记录学习gRPC(python)的过程。</p>
 <a id="more"></a>
-<h1 id="安装-gRPC"><a href="#安装-gRPC" class="headerlink" title="安装 gRPC"></a>安装 gRPC</h1><p>参考：<a href="https://www.grpc.io/docs/quickstart/python/" rel="external nofollow" target="_blank">官网指导</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ python -m pip install --upgrade pip</span><br><span class="line">$ python -m pip install grpcio</span><br><span class="line">$ python -m pip install grpcio-tools</span><br></pre></td></tr></table></figure>
+<h1 id="gRPC"><a href="#gRPC" class="headerlink" title="gRPC"></a>gRPC</h1><p>gRPC默认使用协议缓冲池(Protocol Buffers)进行服务器与客户端之间的交互，它是用于序列化结构化数据的成熟的谷歌开源机制。</p>
+<p>大致流程是三步：</p>
+<ul>
+<li>Define a service in a <code>.proto</code> file.</li>
+<li>Generate server and client code using the <code>protocol buffer compiler</code>.</li>
+<li>Use the Python gRPC API to write a simple client and server for your service.</li>
+</ul>
+<h1 id="安装-gRPC"><a href="#安装-gRPC" class="headerlink" title="安装 gRPC"></a>安装 gRPC</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> python -m pip install --upgrade pip</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python -m pip install grpcio</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python -m pip install grpcio-tools	<span class="comment"># 这个用来编译proto文件</span></span></span><br></pre></td></tr></table></figure>
+<h1 id="Protocal-Buffer-3"><a href="#Protocal-Buffer-3" class="headerlink" title="Protocal Buffer 3"></a>Protocal Buffer 3</h1><p>官方推荐使用<strong>proto3</strong>语法，因为它更简洁、强大，也支持更多语言。</p>
+<p>一个简单的<code>.proto</code>文件示例：</p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">syntax = <span class="string">"proto3"</span>;</span><br><span class="line"></span><br><span class="line">/* SearchRequest represents a search query, with pagination options to</span><br><span class="line"> * indicate which results to include in the response. */</span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">SearchRequest</span> </span>&#123;</span><br><span class="line">  <span class="built_in">string</span> query = <span class="number">1</span>;</span><br><span class="line">  <span class="built_in">int32</span> page_number = <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">int32</span> result_per_page = <span class="number">3</span>;</span><br><span class="line">  <span class="keyword">repeated</span> <span class="built_in">int32</span> int_list=<span class="number">4</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第一行的<code>syntax</code>指定portobuf的语法版本，必须在第一行，不过不指定，默认为<code>proto2</code></li>
+<li><code>message</code>用来定义客户端与服务器交互的数据结构，在上边例子中，<code>string query=1;</code>称为<code>field</code>，string/query/1分别为type/name/value</li>
+<li>每一个<code>field</code>有一个独特的值，用于在二进制消息格式中标识<code>field</code>。这个值的范围是[1, 2^29-1(536870911)]，其中，[19000,19999]是禁用的，是为协议缓冲区实现保留的。1-15使用1个字节编码，16-2047使用2个字节，所以常出现的<code>filed</code>应该尽量给予小的值</li>
+<li>注释是C/C++样式，使用<code>//</code>和<code>/*...*/</code></li>
+<li><code>repeated</code>字段用于传输<strong>列表数据</strong>，比如上边的<code>int_list</code>，我就可以从客户端feed [1,2,3]，或者从客户端返回[1,2,3]</li>
+</ul>
+<p>proto与python数据类型对应表：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">proto</th>
+<th style="text-align:center">Python</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">float/double</td>
+<td style="text-align:center">float</td>
+</tr>
+<tr>
+<td style="text-align:center">int32/sint32/sfixed32</td>
+<td style="text-align:center">int</td>
+</tr>
+<tr>
+<td style="text-align:center">int64/uint32/uint64/sint64/fixed32/fixed64/sfixed64</td>
+<td style="text-align:center">int/long</td>
+</tr>
+<tr>
+<td style="text-align:center">bool</td>
+<td style="text-align:center">bool</td>
+</tr>
+<tr>
+<td style="text-align:center">string</td>
+<td style="text-align:center">str/unicode</td>
+</tr>
+<tr>
+<td style="text-align:center">Bytes</td>
+<td style="text-align:center">str</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>默认值：</p>
+<ul>
+<li>strings, empty string</li>
+<li>bytes, empty bytes</li>
+<li>bools, false</li>
+<li>numeric types, 0</li>
+<li>enums, 默认值为第一个定义的枚举值，必须为0</li>
+</ul>
+<p>在<code>message</code>中使用枚举，可以这么定义：</p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">Cooking</span> </span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">enum</span> <span class="title">VegeType</span> </span>&#123;</span><br><span class="line">        CAULIFLOWER = <span class="number">0</span>;</span><br><span class="line">        CUCUMBER = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">required</span> VegeType type = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在python端可以用<strong>以下三种方式</strong>定义枚举字段：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">name_pb2.Cooking.CUCUMBER</span><br><span class="line">name_pb2.Cooking.VegeType.CUCUMBER</span><br><span class="line">name_pb2.Cooking.VegeTypeValue.Value(<span class="string">'CUCUMBER'</span>)</span><br></pre></td></tr></table></figure>
+<p>对于客户端可RPC调用服务器的方式主要有四种，可以这样写：</p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">syntax = <span class="string">"proto3"</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">service</span> <span class="title">RouteGuide</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 最简单方式，请求-&gt;响应</span></span><br><span class="line">  <span class="function"><span class="keyword">rpc</span> GetFeature(Point) <span class="keyword">returns</span> (Feature) &#123;&#125;</span></span><br><span class="line"><span class="function">	// A server-to-client streaming RPC. 服务器流式响应</span></span><br><span class="line"><span class="function">  <span class="keyword">rpc</span> ListFeatures(Rectangle) <span class="keyword">returns</span> (stream Feature) &#123;&#125;</span></span><br><span class="line"><span class="function">	// A client-to-server streaming RPC. 客户端流式请求</span></span><br><span class="line"><span class="function">  <span class="keyword">rpc</span> RecordRoute(stream Point) <span class="keyword">returns</span> (RouteSummary) &#123;&#125;</span></span><br><span class="line"><span class="function">  // A Bidirectional streaming RPC. 双向流式交互</span></span><br><span class="line"><span class="function">  <span class="keyword">rpc</span> RouteChat(stream RouteNote) <span class="keyword">returns</span> (stream RouteNote) &#123;&#125;</span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>重点在<code>stream</code>修饰符。</p>
+<p>就拿<code>rpc GetFeature(Point) returns (Feature) {}</code>来说，它生成的服务器端函数接口应该是这样的：</p>
+<p><code>def GetFeature(self, request, context):</code></p>
+<p>其中，request即为客户端发送的<code>Point</code>消息类，context提供特定于rpc的信息，如超时限制，该方法返回给客户端<code>Feature</code>类。</p>
+<h1 id="下载官方示例"><a href="#下载官方示例" class="headerlink" title="下载官方示例"></a>下载官方示例</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Clone the repository to get the example code:</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">clone</span> -b v1.28.1 https://github.com/grpc/grpc</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Navigate to the <span class="string">"hello, world"</span> Python example:</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> grpc/examples/python/helloworld</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> server</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python greeter_server.py</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> client</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python greeter_client.py</span></span><br></pre></td></tr></table></figure>
+<h1 id="生成服务器与客户端代码"><a href="#生成服务器与客户端代码" class="headerlink" title="生成服务器与客户端代码"></a>生成服务器与客户端代码</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> python -m grpc_tools.protoc -I ../../protos --python_out=. --grpc_python_out=. ../../protos/[name].proto</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>--python_out</code>：指定编译生成处理 protobuf 相关的代码的路径</li>
+<li><code>--grpc_python_out</code>：指定编译生成处理 grpc 相关的代码的路径</li>
+<li><code>-I</code>：指定proto 文件的<strong>目录</strong>，然后再写文件路径</li>
+</ul>
+<p>这条命令会生成两个文件：</p>
+<ul>
+<li><code>name_pb2.py</code>包含我们定义的请求(request)、响应(response)类。</li>
+<li><code>name_pb2_grpc.py</code>包含服务器(server)、客户端(client)类。<ul>
+<li><code>&amp;Stub</code>类被客户端调用服务端RPC</li>
+<li><code>&amp;Servicer</code>类定义实现服务端代码的接口</li>
+<li>方法<code>add_&amp;Servicer_to_server</code>，把我们定义的服务器类添加到<code>grpc.Server</code></li>
+</ul>
+</li>
+</ul>
+<h1 id="编写服务器"><a href="#编写服务器" class="headerlink" title="编写服务器"></a>编写服务器</h1><p>主要步骤：</p>
+<ul>
+<li>实现服务端接口函数。Implementing the servicer interface generated from our service definition with functions that perform the actual “work” of the service.</li>
+<li>开启服务器并监听客户端请求，产生响应。Running a gRPC server to listen for requests from clients and transmit responses.</li>
+</ul>
+<p>简而言之，就是重载<code>name_pb2_grpc.py</code>中<code>&amp;Servicer</code>类的所有RPC方法。比如:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RouteGuideServicer</span><span class="params">(route_guide_pb2_grpc.RouteGuideServicer)</span>:</span></span><br><span class="line">    <span class="string">"""Provides methods that implement functionality of route guide server."""</span></span><br></pre></td></tr></table></figure>
+<p>接下来就是开启服务器，监听客户端请求了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">serve</span><span class="params">()</span>:</span></span><br><span class="line">    server = grpc.server(futures.ThreadPoolExecutor(max_workers=<span class="number">10</span>))</span><br><span class="line">    route_guide_pb2_grpc.add_RouteGuideServicer_to_server(RouteGuideServicer(), server)</span><br><span class="line">    server.add_insecure_port(<span class="string">'[::]:50051'</span>)</span><br><span class="line">    server.start()</span><br><span class="line">    server.wait_for_termination()</span><br></pre></td></tr></table></figure>
+<h1 id="编写客户端"><a href="#编写客户端" class="headerlink" title="编写客户端"></a>编写客户端</h1><p>创建存根(stub)，从<code>name_pb2_grpc.py</code>中实例化<code>&amp;Stub</code>类。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">channel = grpc.insecure_channel(<span class="string">'localhost:50051'</span>)</span><br><span class="line">stub = route_guide_pb2_grpc.RouteGuideStub(channel)</span><br></pre></td></tr></table></figure>
+<p>或者使用<code>with</code>上下文管理器：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> grpc.insecure_channel(<span class="string">'localhost:50051'</span>) <span class="keyword">as</span> channel:</span><br><span class="line">        stub = route_guide_pb2_grpc.RouteGuideStub(channel)</span><br></pre></td></tr></table></figure>
+<p>使用存根调用服务器端的方法，可以有同步与异步两种。</p>
+<p>同步：<code>feature = stub.GetFeature(point)</code></p>
+<p>异步：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">feature_future = stub.GetFeature.future(point)</span><br><span class="line">feature = feature_future.result()</span><br></pre></td></tr></table></figure>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://www.grpc.io/docs/quickstart/python/" rel="external nofollow" target="_blank">gRPC</a></li>
+<li><a href="https://developers.google.com/protocol-buffers/docs/proto3" rel="external nofollow" target="_blank">https://developers.google.com/protocol-buffers/docs/proto3</a></li>
+<li><a href="https://stackoverflow.com/questions/34407696/how-to-access-python-enums-in-protobufs" rel="external nofollow" target="_blank">How to access python enums in protobufs</a></li>
+</ul>
 
       
     </div>
@@ -490,7 +604,7 @@ daovoice('update');
   <p><span>本文标题:</span><a href="/learn-grpc.html">学习gRPC过程点滴记录</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Keavnn 的个人博客">Keavnn</a></p>
   <p><span>发布时间:</span>2020年04月05日 - 11:04</p>
-  <p><span>最后更新:</span>2020年04月12日 - 16:04</p>
+  <p><span>最后更新:</span>2020年04月26日 - 11:04</p>
   <p><span>原始链接:</span><a href="/learn-grpc.html" title="学习gRPC过程点滴记录">http://StepNeverStop.github.io/learn-grpc.html</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://StepNeverStop.github.io/learn-grpc.html" aria-label="复制成功！"></i></span>
   </p>
@@ -670,7 +784,7 @@ daovoice('update');
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">49</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -681,7 +795,7 @@ daovoice('update');
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -692,7 +806,7 @@ daovoice('update');
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -768,7 +882,7 @@ daovoice('update');
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装-gRPC"><span class="nav-number">1.</span> <span class="nav-text">安装 gRPC</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#gRPC"><span class="nav-number">1.</span> <span class="nav-text">gRPC</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装-gRPC"><span class="nav-number">2.</span> <span class="nav-text">安装 gRPC</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Protocal-Buffer-3"><span class="nav-number">3.</span> <span class="nav-text">Protocal Buffer 3</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#下载官方示例"><span class="nav-number">4.</span> <span class="nav-text">下载官方示例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#生成服务器与客户端代码"><span class="nav-number">5.</span> <span class="nav-text">生成服务器与客户端代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编写服务器"><span class="nav-number">6.</span> <span class="nav-text">编写服务器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编写客户端"><span class="nav-number">7.</span> <span class="nav-text">编写客户端</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">8.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
@@ -803,7 +917,7 @@ daovoice('update');
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">71k</span>
+    <span title="Site words total count">78.3k</span>
   
 </div>
 
@@ -823,7 +937,7 @@ daovoice('update');
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共71k字</span>
+  <span class="post-count">博客全站共78.3k字</span>
 </div> -->
         
 
