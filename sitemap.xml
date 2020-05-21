@@ -2,9 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html</loc>
+    
+    <lastmod>2020-05-21T09:45:03.348Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8BMDP%E9%A9%AC%E5%B0%94%E7%A7%91%E5%A4%AB%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B.html</loc>
+    
+    <lastmod>2020-05-21T09:43:45.886Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/rl-code-pit.html</loc>
+    
+    <lastmod>2020-05-21T09:38:42.273Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://StepNeverStop.github.io/rl3000questions.html</loc>
+    
+    <lastmod>2020-04-27T13:29:04.620Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://StepNeverStop.github.io/FuNs.html</loc>
     
-    <lastmod>2020-04-27T04:31:31.457Z</lastmod>
+    <lastmod>2020-04-27T04:46:44.286Z</lastmod>
     
   </url>
   
@@ -47,20 +75,6 @@
     <loc>http://StepNeverStop.github.io/options-critic.html</loc>
     
     <lastmod>2020-04-14T11:06:20.171Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://StepNeverStop.github.io/rl3000questions.html</loc>
-    
-    <lastmod>2020-04-14T06:10:46.879Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html</loc>
-    
-    <lastmod>2020-04-13T07:18:14.591Z</lastmod>
     
   </url>
   
@@ -170,14 +184,14 @@
   </url>
   
   <url>
-    <loc>http://StepNeverStop.github.io/rl-classification.html</loc>
+    <loc>http://StepNeverStop.github.io/win-rightclick-create-md.html</loc>
     
     <lastmod>2019-09-03T10:27:17.253Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://StepNeverStop.github.io/win-rightclick-create-md.html</loc>
+    <loc>http://StepNeverStop.github.io/rl-classification.html</loc>
     
     <lastmod>2019-09-03T10:27:17.253Z</lastmod>
     
@@ -306,13 +320,6 @@
     <loc>http://StepNeverStop.github.io/%E4%BB%B7%E5%80%BC%E4%B8%8E%E8%B4%9D%E5%B0%94%E6%9B%BC%E6%96%B9%E7%A8%8B.html</loc>
     
     <lastmod>2019-05-13T07:09:59.423Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8BMDP%E9%A9%AC%E5%B0%94%E7%A7%91%E5%A4%AB%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B.html</loc>
-    
-    <lastmod>2019-05-12T15:12:16.237Z</lastmod>
     
   </url>
   

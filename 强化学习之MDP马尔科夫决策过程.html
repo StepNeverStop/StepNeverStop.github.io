@@ -123,7 +123,7 @@ daovoice('update');
 <meta property="og:image" content="http://stepneverstop.github.io/强化学习之MDP马尔科夫决策过程/MRP.png">
 <meta property="og:image" content="http://stepneverstop.github.io/强化学习之MDP马尔科夫决策过程/agent-env.png">
 <meta property="og:image" content="http://stepneverstop.github.io/强化学习之MDP马尔科夫决策过程/MDP.jpg">
-<meta property="og:updated_time" content="2019-05-12T15:12:16.237Z">
+<meta property="og:updated_time" content="2020-05-21T09:43:45.886Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="强化学习之MDP马尔科夫决策过程">
 <meta name="twitter:description" content="强化学习之MDP马尔科夫决策过程每每提到强化学习，最先接触的理论肯定是马尔科夫决策过程（MDP，Markov Decision Process），为什么总提到MDP呢？并不是只有我一个人有这个疑问。">
@@ -377,8 +377,8 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-12T23:12:16+08:00">
-                2019-05-12
+              <time title="更新于" itemprop="dateModified" datetime="2020-05-21T17:43:45+08:00">
+                2020-05-21
               </time>
             
           </span>
@@ -511,7 +511,7 @@ P[S_{t+1}|S_{t}]=P[S_{t+1}|S_{1},...,S_{t}]</script><p>强化学习问题中的�
 \mathcal{P}_{11} & \cdots & \mathcal{P}_{1n} \\ 
 \vdots & \ddots & \vdots \\ 
 \mathcal{P}_{n1} & \cdots & \mathcal{P}_{nn} \\
-\end{bmatrix}</script><p>其中，每行元素相加等于1，每列元素相加等于1，矩阵的总和为状态的数量n。</p>
+\end{bmatrix}</script><p>其中，每行元素相加等于1，矩阵的总和为状态的数量n。</p>
 <p>对于可数状态，$\sum_{s’=1}^{n}\mathcal{P}(s’|s)=1$</p>
 <script type="math/tex; mode=display">
 sum(\mathcal{P}) = \sum_{s'=1}^{n}\sum_{s=1}^{n}\mathcal{P}_{ss'} = n</script><p>对于不可数状态（连续状态),$\int_{s’}\mathcal{P}(s’|s)=1$</p>
@@ -606,7 +606,7 @@ sum(\mathcal{P}) = \int_{s'}\int_{s}\mathcal{P}_{ss'} = n</script><p>举一个�
 <p>接下来,我们将MRP的例子转换至MDP, 为了方便理解而又不增加示例的复杂性,不妨将”挂科”这个状态看作是一个动作,因为这个节点正巧入度为1,姑且就认为从英语到挂科的这个箭头是英语状态所能执行的动作.如图所示:</p>
 <p><img src="./强化学习之MDP马尔科夫决策过程/MDP.jpg" alt=""></p>
 <p>比较两个图可以发现区别,我把这个不确定的动作标为实心黑圆圈,这位刻苦的同学在学习完英语之后还想继续学习,但是他感觉三门科目都差不多了,于是他也很迷茫,他执行”学习”这个动作时的转移状态有三种:学语文、学数学、学英语.概率分别是:0.2、0.4,、0.4.这下就明白为什么我们要在MDP中加入动作$A$了吧,如果还不明白,请接着看下边的内容.</p>
-<p>顺便说一下,这个时候的转移矩阵已经不是简单的二维了,当然也可以用二维来表示,假设总共有$n$个状态,每个状态有$m$个动作,那么其行数为$n\times m$,即遍历所有的状态和动作,得到$n \times m$个状态-动作对$(s,a)$,其列数还是$n$.当然,也可以用一个三维tensor来表示,行和列都是$n$,第三维深度为$m$,很好理解.</p>
+<p>顺便说一下,这个时候的转移矩阵已经不是简单的二维了,当然也可以用二维来表示,假设总共有$n$个状态,每个状态有$m$个动作,那么其行数为$n\times m$,即遍历所有的状态和动作,得到$n \times m$个状态-动作对$(s,a)$,其列数还是$n$.当然,也可以用一个三维tensor来表示,行和列都是$n$,第三维深度为动作的数量m$,很好理解.</p>
 <hr>
 <p><strong>网上有写MDP在给定策略下会退化为MRP,我对此不置可否,认为此种说法不够严谨,因为即使说在某状态s下选择的动作a是确定的,并不意味着其转移结果是确定的.</strong></p>
 <hr>
@@ -680,7 +680,7 @@ R_{英语}&=\sum_{a\in A}\pi(a|英语)R_{英语}^{a}\\
   <p><span>本文标题:</span><a href="/强化学习之MDP马尔科夫决策过程.html">强化学习之MDP马尔科夫决策过程</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Keavnn 的个人博客">Keavnn</a></p>
   <p><span>发布时间:</span>2019年05月08日 - 11:05</p>
-  <p><span>最后更新:</span>2019年05月12日 - 23:05</p>
+  <p><span>最后更新:</span>2020年05月21日 - 17:05</p>
   <p><span>原始链接:</span><a href="/强化学习之MDP马尔科夫决策过程.html" title="强化学习之MDP马尔科夫决策过程">http://StepNeverStop.github.io/强化学习之MDP马尔科夫决策过程.html</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://StepNeverStop.github.io/强化学习之MDP马尔科夫决策过程.html" aria-label="复制成功！"></i></span>
   </p>
@@ -860,7 +860,7 @@ R_{英语}&=\sum_{a\in A}\pi(a|英语)R_{英语}^{a}\\
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">50</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -882,7 +882,7 @@ R_{英语}&=\sum_{a\in A}\pi(a|英语)R_{英语}^{a}\\
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -993,7 +993,7 @@ R_{英语}&=\sum_{a\in A}\pi(a|英语)R_{英语}^{a}\\
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">78.3k</span>
+    <span title="Site words total count">78.7k</span>
   
 </div>
 
@@ -1013,7 +1013,7 @@ R_{英语}&=\sum_{a\in A}\pi(a|英语)R_{英语}^{a}\\
 
 <!-- <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共78.3k字</span>
+  <span class="post-count">博客全站共78.7k字</span>
 </div> -->
         
 
