@@ -29,6 +29,8 @@ description:
 
 论文地址：[http://arxiv.org/abs/1703.01161](http://arxiv.org/abs/1703.01161)
 
+pytorch复现代码：[https://github.com/dnddnjs/feudal-montezuma](https://github.com/dnddnjs/feudal-montezuma)
+
 这篇论文引入了FeUdal Networks(FuNs)，它是一个新奇的强化学习分层决策结构，它将决策模型分为Manager和Worker：
 
 - Manager，在lower temporal resolution(低时间尺度)上做higher level决策，产生子目标。这个子目标是输入观察observation的隐状态空间上的方向向量，用于指定在$s_t$时刻之后$c$步应该朝着隐空间的什么方向移动；
@@ -99,6 +101,8 @@ A_{t}^{M}=R_{t}-V_{t}^{M}\left(x_{t}, \theta\right)
 $$
 
 其中，$d_{\cos }(\alpha, \beta)=\alpha^{T} \beta /(|\alpha||\beta|)$是余弦相似度。与传统的PG损失不同，这里没有使用$log$操作，而且使用余弦相似度。由Critic网络的输入是$x_t$我猜想到上面结构图中的percept部分是是由Critic网络的梯度优化的。
+
+注意，虽然$s_{t+c}$与$s_t$也是由Manager模块产生的，但是在优化中$s_{t+c}-s_{t}$并不传导梯度。
 
 传统的PG目标函数梯度应该是这样的：
 

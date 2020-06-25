@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://StepNeverStop.github.io/random-network-distillation.html</loc>
+    <lastmod>2020-06-23</lastmod>
+  </url>  <url>
+    <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html</loc>
+    <lastmod>2020-06-23</lastmod>
+  </url>  <url>
+    <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8BMDP%E9%A9%AC%E5%B0%94%E7%A7%91%E5%A4%AB%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B.html</loc>
+    <lastmod>2020-05-21</lastmod>
+  </url>  <url>
+    <loc>http://StepNeverStop.github.io/rl-code-pit.html</loc>
+    <lastmod>2020-05-21</lastmod>
+  </url>  <url>
+    <loc>http://StepNeverStop.github.io/rl3000questions.html</loc>
+    <lastmod>2020-04-27</lastmod>
+  </url>  <url>
     <loc>http://StepNeverStop.github.io/FuNs.html</loc>
     <lastmod>2020-04-27</lastmod>
   </url>  <url>
@@ -21,12 +36,6 @@
   </url>  <url>
     <loc>http://StepNeverStop.github.io/options-critic.html</loc>
     <lastmod>2020-04-14</lastmod>
-  </url>  <url>
-    <loc>http://StepNeverStop.github.io/rl3000questions.html</loc>
-    <lastmod>2020-04-14</lastmod>
-  </url>  <url>
-    <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html</loc>
-    <lastmod>2020-04-13</lastmod>
   </url>  <url>
     <loc>http://StepNeverStop.github.io/PaStaNet.html</loc>
     <lastmod>2020-04-12</lastmod>
@@ -70,10 +79,10 @@
     <loc>http://StepNeverStop.github.io/Prioritized-Experience-Replay.html</loc>
     <lastmod>2019-10-16</lastmod>
   </url>  <url>
-    <loc>http://StepNeverStop.github.io/rl-classification.html</loc>
+    <loc>http://StepNeverStop.github.io/win-rightclick-create-md.html</loc>
     <lastmod>2019-09-03</lastmod>
   </url>  <url>
-    <loc>http://StepNeverStop.github.io/win-rightclick-create-md.html</loc>
+    <loc>http://StepNeverStop.github.io/rl-classification.html</loc>
     <lastmod>2019-09-03</lastmod>
   </url>  <url>
     <loc>http://StepNeverStop.github.io/use-conda-env-in-jupyter.html</loc>
@@ -115,10 +124,10 @@
     <loc>http://StepNeverStop.github.io/mc-td.html</loc>
     <lastmod>2019-05-13</lastmod>
   </url>  <url>
-    <loc>http://StepNeverStop.github.io/create-sniper-docker-image.html</loc>
+    <loc>http://StepNeverStop.github.io/dynamic-programming.html</loc>
     <lastmod>2019-05-13</lastmod>
   </url>  <url>
-    <loc>http://StepNeverStop.github.io/dynamic-programming.html</loc>
+    <loc>http://StepNeverStop.github.io/create-sniper-docker-image.html</loc>
     <lastmod>2019-05-13</lastmod>
   </url>  <url>
     <loc>http://StepNeverStop.github.io/conda%E7%8E%AF%E5%A2%83%E5%92%8Cpip%E5%8C%85%E7%9A%84%E8%BD%AC%E7%A7%BB.html</loc>
@@ -129,9 +138,6 @@
   </url>  <url>
     <loc>http://StepNeverStop.github.io/%E4%BB%B7%E5%80%BC%E4%B8%8E%E8%B4%9D%E5%B0%94%E6%9B%BC%E6%96%B9%E7%A8%8B.html</loc>
     <lastmod>2019-05-13</lastmod>
-  </url>  <url>
-    <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8BMDP%E9%A9%AC%E5%B0%94%E7%A7%91%E5%A4%AB%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B.html</loc>
-    <lastmod>2019-05-12</lastmod>
   </url>  <url>
     <loc>http://StepNeverStop.github.io/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.html</loc>
     <lastmod>2019-05-12</lastmod>
